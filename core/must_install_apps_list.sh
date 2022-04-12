@@ -1,0 +1,62 @@
+#firefox
+install_internet_app_firefox=(firefox firefox-esr)
+
+#tweakmyterminal
+New_terminal_2_install_tilix=(tilix)
+New_terminal_2_install_kitty=(kitty)
+install_apps_4_better_terminal=(bash-completion bat htop command-not-found autojump micro screen thefuck exa ranger sxiv ncdu dos2unix parted lshw xclip)
+install_zsh_and_some_plugins=(zsh zsh-antigen zsh-autosuggestions zsh-syntax-highlighting)
+
+#gnome apps
+gnome_apps_=(dconf-editor eog gedit gedit-plugins gnome-tweak-tool)
+gnome_shell_extensions_=(gnome-shell-extensions gnome-shell-extension-arc-menu gnome-shell-extension-remove-dropdown-arrows gnome-shell-extension-disconnect-wifi gnome-shell-extension-dash-to-panel)
+gnome_shell_extensions_dashtodock_=(gnome-shell-extension-dashtodock)
+
+#kde apps
+install_kvantum_=(qt5-style-kvantum qt5-style-kvantum-themes)
+install_latte_dock_=(latte-dock)
+
+# nitrogen
+install_nitrogen_app=(nitrogen)
+
+#conky
+install_conky_all_app=(conky-all)
+
+#snap
+Install_snap_=(snapd snap)
+
+#Flatpak
+install_Flatpak_=(flatpak)
+Flatpak_apps_2_install=(com.discordapp.Discord com.notepadqq.Notepadqq)
+
+#pen
+install_ca_certificates_=(ca-certificates)
+
+#preWM apps
+install_preWM_apps=(psmisc unzip git xorg pulseaudio dunst libnotify-bin xwallpaper arandr gnome-keyring dbus-x11 featherpad shotwell network-manager network-manager-gnome )
+install_preWM_themes=(nitrogen picom lxpolkit lxappearance papirus-icon-theme fonts-noto-color-emoji fonts-firacode fonts-font-awesome libqt5svg5 qml-module-qtquick-controls arc-theme gtk3-nocsd numix-icon-theme paper-icon-theme dmz-cursor-theme)
+install_terminal_based_sound_app=(mpd mpc ncmpcpp)
+install_files_manager_app=(thunar thunar-archive-plugin thunar-media-tags-plugin catfish gvfs gvfs-fuse gvfs-backends file-roller)
+install_text_editer_app=(featherpad)
+install_x_lock_app=(slock)
+#preWM apps (lightdm)
+install_lightdm_pre=(curl gpg)
+install_lightdm_=(lightdm)
+install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
+
+#awesomeWM apps
+install_awesomeWM_=(awesome awesome-extra)
+install_awesomeWM_extra=(xfce4-taskmanager xfce4-power-manager xfce4-settings scrot flameshot nitrogen geany file-roller dmenu materia-gtk-theme)
+
+#polybar
+install_polybar_=(polybar)
+
+#bspwm apps
+install_bspwm_=(bspwm sxhkd rofi)
+install_bspwm_extra=(flameshot yad)
+
+#openbox apps
+install_openbox_=(openbox obconf xinit  xfce4-screenshooter xfce4-clipman xfce4-power-manager xcape xautomation yad xfce4-panel xfce4-settings libnotify-bin xfce4-notifyd pnmixer pavucontrol )
+install_openbox_extra=(rofi arandr gparted inxi s-tui dfc htop hwinfo cups synaptic )
+install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailutils mtp-tools gmtp)
+install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)

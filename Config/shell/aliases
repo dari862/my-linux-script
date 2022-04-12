@@ -1,0 +1,128 @@
+# sudo not required for some system commands
+for command in mount umount sv pacman updatedb su shutdown poweroff reboot ; do
+	alias $command="sudo $command"
+done; unset command
+
+alias ..='cd ..'
+alias cp='cp -vi'
+alias rm='rm -I'
+alias mv='mv -iv'
+alias ln='ln -sriv'
+alias xclip='xclip -selection c'
+command -v vim > /dev/null && alias vi='vim'
+alias c="clear"
+
+# # ex - archive extractor
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.tar.xz)    tar xJf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+# Disk utility aliases
+alias df='df -h'
+alias du='du -h'
+
+### Colorize commands
+alias diff='diff --color=auto'
+
+### LS & TREE
+alias ll='ls -la'
+alias la='ls -A'
+alias l='ls -F'
+command -v lsd > /dev/null && alias ls='lsd --group-dirs first' && \
+	alias tree='lsd --tree'
+command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
+	alias tree='colorls --tree'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+# `ls` after `cd`
+function cd {
+  builtin cd "$@" && ls
+}
+
+
+### CAT & LESS
+command -v bat > /dev/null && \
+	alias bat='bat --theme=ansi' && \
+	alias cat='bat --pager=never' && \
+	alias less='bat'
+# in debian the command is batcat
+command -v batcat > /dev/null && \
+	alias batcat='batcat --theme=ansi' && \
+	alias cat='batcat --pager=never' && \
+	alias less='batcat'
+
+### TOP
+command -v htop > /dev/null && alias top='htop'
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# wget
+alias wget="wget --hsts-file ~/.local/history/wget-hsts -c"
+
+# ss
+alias ports="ss -lntu"
+alias sports="sudo ss -lntu"
+
+# Apt staff
+function updatenow {
+  echo "Updating packages."
+  sudo sh -c "apt-get update && \
+    apt-get -y upgrade && \
+    apt-get -y dist-upgrade && \
+    apt-get -y autoremove && \
+    apt-get -y autoclean && \
+    update-grub"
+  echo "Packages updated."
+}
+function cleannow {
+  echo "cleaning apt"
+  sudo sh -c "apt-get -y autoremove && \
+    apt-get -y autoclean"
+  echo "apt  cleaned."
+}
+
+
+#
+alias ping4="ping -c4"
+alias getpass="openssl rand -base64 20"
+alias www="python -m SimpleHTTPServer 8000"
+alias qf="find . |grep"
+

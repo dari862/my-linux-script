@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+#sudo apt install fonts-roboto rofi i3lock xclip qt5-style-plugins materia-gtk-theme xbacklight pnmixer network-manager-gnome policykit-1-gnome
+
+#-- Autostart Applications
+#awful.spawn.with_shell("nitrogen --restore")
+#awful.spawn.with_shell("picom")
+#awful.spawn.with_shell("nm-applet --indicator")
+#awful.spawn.with_shell("pnmixer")
+#awful.spawn.with_shell("numlockx on")
+#awful.spawn.with_shell("/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)")
+#awful.spawn.with_shell("xfce4-power-manager")
+
+#run nm-applet
+#run dbus-launch update-checker
+#run light-locker
+#run pulseaudio -D
+#run compton --shadow-exclude '!focused'
+#run xcape -e 'Super_L=Super_L|Shift_L|p'
+#run /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+#run thunar --daemon
+#run xfce4-power-manager
+#run pa-applet
+#run xrdb merge ~/.Xresources
+#run xfsettingsd
+#run gnome-keyring-daemon
+#run urxvtd
+
+#################################################################
+
+
+function run {
+  if ! pgrep $1 > /dev/null ; then
+    $@&
+  fi
+}
+
+run picom --config '/home/dari/.config/picom.conf' &
+run nitrogen --restore &

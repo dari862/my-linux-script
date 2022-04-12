@@ -1,0 +1,3 @@
+alias rbash="source $BASHDOTDIR/bashrc"
+alias aptinstallnow="sudo apt install"
+complete -F _apt_install_complete aptinstallnow
