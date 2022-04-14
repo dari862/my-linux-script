@@ -1,6 +1,6 @@
 #!/bin/sh
 
-envFile=~/.config/polybar/polybar-scripts/env.sh
+envFile=~/.config/polybar/Titus/script/env.sh
 changeValue=300
 
 changeMode() {
