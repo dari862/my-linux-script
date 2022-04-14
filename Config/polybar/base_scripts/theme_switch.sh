@@ -6,7 +6,7 @@ RDIR="$HOME/.config/polybar/Rofi/$Theme_name"
 # Launch Rofi
 MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p '' \
 -theme $RDIR/styles.rasi \
-<<< " forest| grayblocks| hack| material| pwidgets| shades| shapes| Titus|")"
+<<< " forest| grayblocks| hack| material| pwidgets| shades| shapes| Titus")"
             case "$MENU" in
                                 *forest) echo "forest" > "$PDIR"/Picked_Theme && "$PDIR"/launch.sh & ;; 
                                 *grayblocks) echo "grayblocks" > "$PDIR"/Picked_Theme && "$PDIR"/launch.sh & ;; 
