@@ -6,7 +6,7 @@ RDIR="$HOME/.config/polybar/Rofi/$Theme_name"
 # Launch Rofi
 MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p '' \
 -theme $RDIR/styles.rasi \
-<<< " Default| Nord| Gruvbox| Dark| Cherry|")"
+<<< " Default| Nord| Gruvbox| Dark| Cherry")"
             case "$MENU" in
 				*Default) "$SDIR"/styles.sh --default ;;
 				*Nord) "$SDIR"/styles.sh --nord ;;
