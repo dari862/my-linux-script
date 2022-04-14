@@ -7,7 +7,23 @@ then
 	export adapter_Driver_name=""
 fi
 
+export eth_Driver_name=""
+export wlan_Driver_name=""
 
+if [ -z "$wlan_Driver_name" ]
+then
+	export normal_network_Driver_name="$eth_Driver_name"
+fi
+
+if [ -z "$eth_Driver_name" ]
+then
+	export normal_network_Driver_name="$wlan_Driver_name"
+fi
+
+if [ ! -z "$wlan_Driver_name" ] || [ ! -z "$eth_Driver_name" ]
+then
+	export normal_network_Driver_name="$wlan_Driver_name"
+fi
 
 dir="$HOME/.config/polybar/Themes"
 launch_bar() {
