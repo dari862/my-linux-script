@@ -2,9 +2,9 @@
 
 if [[ "$(cat /sys/class/dmi/id/chassis_type)" == @(8|9|10|14) ]] # check if laptop
 then 
-	export backlight_Driver_name="$(ls -1 /sys/class/backlight/)"
-	export battery_Driver_name="$(ls -1 /sys/class/power_supply/ | grep --ignore-case -e 'BAT')"
-	export adapter_Driver_name="$(ls -1 /sys/class/power_supply/ | grep --ignore-case -e 'AC')"
+	export backlight_Driver_name="$(ls -1 /sys/class/backlight/ | head -n 1)"
+	export battery_Driver_name="$(ls -1 /sys/class/power_supply/ | grep --ignore-case -e 'BAT' | head -n 1)"
+	export adapter_Driver_name="$(ls -1 /sys/class/power_supply/ | grep --ignore-case -e 'AC' | head -n 1)"
 fi
 
 export eth_Driver_name="ls -1 /sys/class/net/ | grep -v 'lo' | grep --ignore-case -e 'e' | head -n 1" #
