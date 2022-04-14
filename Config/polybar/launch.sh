@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+export backlight_Driver_name=""
+export battery_Driver_name=""
+export adapter_Driver_name=""
+
 dir="$HOME/.config/polybar/Themes"
 launch_bar() {
 	# Terminate already running bar instances
