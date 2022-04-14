@@ -351,7 +351,7 @@ $temp_folder_for_download/Tela-icon-theme/install.sh grey
 #sed -i 's/^gtk-xft-hintstyle *= *.*/gtk-xft-hintstyle="'"hintslight"'"/' "$temp_folder_for_skel_/.config/gtk-2.0/gtkrc-2.0"
 
 #sed -i 's/^gtk-theme-name *= *.*/gtk-theme-name="'"Arc"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
-#sed -i 's/^gtk-icon-theme-name *= *.*/gtk-icon-theme-name="'"Numix-Paper"'"/'	"$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
+#sed -i 's/^gtk-icon-theme-name *= *.*/gtk-icon-theme-name="'"Tela-grey"'"/'	"$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 #sed -i 's/^gtk-cursor-theme-name *= *.*/gtk-cursor-theme-name="'"DMZ-White"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 #sed -i 's/^gtk-toolbar-icon-size *= *.*/gtk-toolbar-icon-size="'"GTK_ICON_SIZE_SMALL_TOOLBAR"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 #sed -i 's/^gtk-xft-hintstyle *= *.*/gtk-xft-hintstyle="'"hintslight"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
