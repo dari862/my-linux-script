@@ -7,4 +7,7 @@ RDIR="$HOME/.config/polybar/Rofi/$Theme_name"
 MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p '' \
 -theme $RDIR/styles.rasi \
 <<< " $(echo $(ls ${PDIR}/Themes/) | sed 's/ /| /g')")"
-echo "${MENU// }" > "$PDIR"/Picked_Theme && "$PDIR"/launch.sh &
+if [ ! -z "$MENU" ]
+then
+  echo "${MENU// }" > "$PDIR"/Picked_Theme && "$PDIR"/launch.sh &
+fi
