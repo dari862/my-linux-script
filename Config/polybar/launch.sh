@@ -13,7 +13,7 @@ export normal_network_Driver_name="$wlan_Driver_name"
 
 if [ -z "$wlan_Driver_name" ]
 then
-	export normal_network_Driver_name="$eth_Driver_name"
+	normal_network_Driver_name="$eth_Driver_name"
 fi
 
 
