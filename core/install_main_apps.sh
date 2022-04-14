@@ -8,7 +8,7 @@ extract_now()
       *.bz2)       bunzip2 $1   ;;
       *.rar)       unrar x $1     ;;
       *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1 -C $2 ;;
+      *.tar)       tar xf $1 -C $2 ;;f
       *.tbz2)      tar xjf $1 -C $2 ;;
       *.tgz)       tar xzf $1 -C $2 ;;
       *.zip)       unzip $1 -d $2 ;;
@@ -475,6 +475,7 @@ apt_install_whith_error_whitout_exit "${install_openbox_fonts[@]}"
 echo_2_helper_list ""
 cd $temp_folder_for_themes_and_apps
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox
+git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download
 cd $temp_folder_for_openbox
 cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
