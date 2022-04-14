@@ -476,7 +476,7 @@ echo_2_helper_list ""
 cd $temp_folder_for_themes_and_apps
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox
 mkdir -p $temp_folder_for_download
-git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download
+git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme
 cd $temp_folder_for_openbox
 cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
