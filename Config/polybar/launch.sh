@@ -7,8 +7,8 @@ then
 	export adapter_Driver_name="$(ls -1 /sys/class/power_supply/ | grep --ignore-case -e 'AC')"
 fi
 
-export eth_Driver_name="" #
-export wlan_Driver_name="" #
+export eth_Driver_name="ls -1 /sys/class/net/ | grep -v 'lo' | grep --ignore-case -e 'e' | head -n 1" #
+export wlan_Driver_name="ls -1 /sys/class/net/ | grep -v 'lo' | grep --ignore-case -e 'w' | head -n 1" #
 
 if [ -z "$wlan_Driver_name" ]
 then
