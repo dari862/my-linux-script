@@ -1,7 +1,11 @@
 #! /bin/sh
 
 #Start polybar first
-bash ~/.config/polybar/launch.sh &
+if command -v polybar &>/dev/null; then
+    bash ~/.config/polybar/launch.sh &
+else
+    xfce4-panel &
+fi
 nitrogen --restore &
 
 # Variable Defines
