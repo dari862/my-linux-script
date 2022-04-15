@@ -49,14 +49,15 @@ install_awesomeWM_=(awesome awesome-extra)
 install_awesomeWM_extra=(xfce4-taskmanager xfce4-power-manager xfce4-settings scrot flameshot nitrogen geany file-roller dmenu materia-gtk-theme)
 
 #polybar
-install_polybar_=(polybar)
+install_polybar_=(polybar rofi)
+install_xfce4_panel=(xfce4-screenshooter xfce4-clipman xfce4-power-manager xfce4-panel xfce4-settings xfce4-notifyd)
 
 #bspwm apps
-install_bspwm_=(bspwm sxhkd rofi)
+install_bspwm_=(bspwm sxhkd)
 install_bspwm_extra=(flameshot yad)
 
 #openbox apps
-install_openbox_=(openbox obconf xinit  xfce4-screenshooter xfce4-clipman xfce4-power-manager xcape xautomation yad xfce4-panel xfce4-settings libnotify-bin xfce4-notifyd pnmixer pavucontrol )
+install_openbox_=(openbox obconf xinit  xcape xautomation yad libnotify-bin pnmixer pavucontrol )
 install_openbox_extra=(rofi arandr gparted inxi s-tui dfc htop hwinfo cups synaptic )
 install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailutils mtp-tools gmtp)
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
