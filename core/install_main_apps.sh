@@ -462,7 +462,6 @@ echo_2_helper_list ""
 show_m "install bspwm_extra app "
 echo_2_helper_list "# bspwm_extra app"
 apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_bspwm_extra[@]}"
-install_polybar_app_now_
 echo_2_helper_list ""
 }
 
@@ -515,7 +514,6 @@ cd $temp_folder_for_openbox
 cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop" 
-install_polybar_app_now_
 }
 
 
