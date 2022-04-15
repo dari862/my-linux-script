@@ -444,6 +444,7 @@ newwget $outsidemyrepo_prewm_fonts_FiraCode
 newwget $outsidemyrepo_prewm_fonts_Meslo
 extract_now FiraCode.zip fonts
 extract_now Meslo.zip fonts
+mkdir -p $temp_folder_for_preWM/fonts/
 mv $temp_folder_for_preWM/compressed_files/fonts/* $temp_folder_for_preWM/fonts/
 cd $temp_folder_for_preWM
 sudo chown -R root:root fonts
