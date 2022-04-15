@@ -28,7 +28,11 @@ fi
 
 #### START APPLICATIONS ###############################################################################
 nitrogen --restore &												# Set wallpaper
-xfce4-panel &														# Start xfce4-panel
+if command -v polybar &>/dev/null; then
+    bash ~/.config/polybar/launch.sh &		# Start polybar
+else
+    xfce4-panel &				# Start xfce4-panel
+fi												
 picom --config "$HOME/.config/picom.conf" &											# Start compositor
 (sleep 2; start_conky.sh) &											# Start Conky
 pnmixer &															# Start volume control
