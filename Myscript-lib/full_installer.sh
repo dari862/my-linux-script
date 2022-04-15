@@ -155,6 +155,10 @@ if [ "$do_you_want_to_install_openbox" == "true" ]; then
 	main_openbox_now
 fi
 
+if [ "$add_panel_2_wm_file" == "true" ]; then
+	add_panel_2_WM_now_
+fi
+
 ############################
 
 mv_Temp_skel_folder_to_etc_skel_folder_now
