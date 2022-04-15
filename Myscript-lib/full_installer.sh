@@ -41,13 +41,13 @@ if [ "$do_you_want_to_enable_preWM" == "true" ]; then
 	install_main_apps_for_preWM
 fi
 
-if [ "$do_you_want_to_enable_preWM" == "true" ]; then
-	install_xfce4_panel_app_now_
+if [ "$do_you_want_to_install_polybar_panel" == "true" ]; then
+	install_polybar_app_now_
 fi
 
-#if [ "$do_you_want_to_enable_preWM" == "true" ]; then
-	#install_polybar_app_now_
-#fi
+if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
+	install_xfce4_panel_app_now_
+fi
 
 if [ "$do_you_want_to_install_awesomeWM" == "true" ]; then
 	install_main_apps_for_awesomewm
