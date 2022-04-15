@@ -1,14 +1,13 @@
 #! /bin/sh
 
 #Start polybar first
-if command -v polybar &>/dev/null; then
-    bash ~/.config/polybar/launch.sh &		# Start polybar
-fi
-
-if ! command -v polybar &>/dev/null; then
-    xfce4-panel &				# Start xfce4-panel
-    xfce4-clipman &														# Start clipboard manager
-fi
+if [ ! -z "$(command -v polybar &>/dev/null)" ]
+then
+        bash ~/.config/polybar/launch.sh &          # Start polybar
+else
+        xfce4-panel &                           # Start xfce4-panel
+        xfce4-clipman &                                                        >
+fi 
 nitrogen --restore &
 
 # Variable Defines
