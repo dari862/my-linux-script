@@ -155,12 +155,12 @@ then
 	CHOICES=$(whiptail --separate-output --title  "Choose options" --radiolist "Chooes what to install" $(stty size) $whiptail_listheight "${CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
 	if [ "$CHOICES" == "polybar" ] 
 	then
-		do_you_want_to_install_polybar_panel="true"
+		declare -g do_you_want_to_install_polybar_panel="true"
 	elif [ "$CHOICES" == "xfce4" ]
 	then
-		do_you_want_to_install_xfce4_panel="true"
+		declare -g do_you_want_to_install_xfce4_panel="true"
 	else
-		do_you_want_to_install_polybar_panel="true"
+		declare -g do_you_want_to_install_polybar_panel="true"
 	fi
 fi
 
