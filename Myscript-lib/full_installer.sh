@@ -42,10 +42,14 @@ if [ "$do_you_want_to_enable_preWM" == "true" ]; then
 fi
 
 if [ "$do_you_want_to_install_polybar_panel" == "true" ]; then
+	mkdir -p ~/pppppppp
 	install_polybar_app_now_
+	install_xfce4_panel_app_now_
 fi
 
 if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
+	mkdir -p ~/xxxxxxxxx
+	install_polybar_app_now_
 	install_xfce4_panel_app_now_
 fi
 
