@@ -41,6 +41,14 @@ if [ "$do_you_want_to_enable_preWM" == "true" ]; then
 	install_main_apps_for_preWM
 fi
 
+if [ "$do_you_want_to_enable_preWM" == "true" ]; then
+	install_xfce4_panel_app_now_
+fi
+
+#if [ "$do_you_want_to_enable_preWM" == "true" ]; then
+	#install_polybar_app_now_
+#fi
+
 if [ "$do_you_want_to_install_awesomeWM" == "true" ]; then
 	install_main_apps_for_awesomewm
 fi
@@ -121,7 +129,6 @@ fi
 
 we_are_at_stage=$(expr $we_are_at_stage + 1)
 if [ "$do_you_want_to_configure_KDE" == "true" ]; then
-
   main_kde_now
 fi
 
