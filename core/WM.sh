@@ -356,14 +356,6 @@ $temp_folder_for_download/Tela-icon-theme/install.sh grey
 #sed -i 's/^gtk-toolbar-icon-size *= *.*/gtk-toolbar-icon-size="'"GTK_ICON_SIZE_SMALL_TOOLBAR"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 #sed -i 's/^gtk-xft-hintstyle *= *.*/gtk-xft-hintstyle="'"hintslight"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 
-###################################################################xfce4 stuff
-show_m "Install clear xfce4-notify theme and configure xfce4-panel"
-# Copy users config
-sudo mkdir -p "/usr/share/themes/clear-notify/xfce-notify-4.0/"
-sudo mv -v "$temp_folder_for_openbox/clear_xfce-notify-4.0_gtk.css" "/usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css"
-#fix xfce4-panel workspace settings error in openbox
-sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
-
 ##################################################################
 show_m "Install script poweroff_last for auto-poweroff if no users logged in 20 minutes"
 # INFO: Automatic poweroff may be useful in public or shared computers to avoid left computers ON needlessly
