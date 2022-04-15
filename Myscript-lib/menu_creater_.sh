@@ -146,6 +146,24 @@ else
 	done
 fi
 
+if [ "$do_you_want_to_install_openbox" == "true" ] || [ "$do_you_want_to_install_bspwm" == "true" ]
+then
+	declare -a CHOICES_Array_now_=(
+	"polybar" "install polybar." ON
+	"xfce4" "install xfce4-panel." OFF
+	)
+	CHOICES=$(whiptail --separate-output --title  "Choose options" --radiolist "Chooes what to install" $(stty size) $whiptail_listheight "${CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
+	if [ "$CHOICES" == "polybar" ] 
+	then
+		do_you_want_to_install_polybar_panel="true"
+	elif [ "$CHOICES" == "xfce4" ]
+	then
+		do_you_want_to_install_xfce4_panel="true"
+	else
+		do_you_want_to_install_polybar_panel="true"
+	fi
+fi
+
 if [ "$do_you_want_to_configure_GNOME" == "true" ] && [ "$gnome_desktop_environment_ver" == "GNOME_OLD" ] && [ "$do_you_want_to_switch_to_bleeding_edge_now" != "true" ] 
 then
 #	if (whiptail --title "GNOME" --yesno "Do you want to upgrade to GNOME 4 ?" $(stty size))
