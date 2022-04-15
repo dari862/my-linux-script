@@ -69,6 +69,17 @@ fi
  echo "include ./theme.conf" >> ~/.config/kitty/kitty.conf
 }
 
+install_new_terminal_terminator_now()
+{
+show_m "install terminal terminator"
+echo_2_helper_list "# new terminals"
+apt_install_whith_error_whitout_exit "${New_terminal_2_install_terminator[@]}"
+show_m "configuring terminator"
+sudo update-alternatives --set x-terminal-emulator /usr/bin/terminator
+mkdir -p ~/.config/terminator/
+newwget -P ~/.config/terminator/ https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/terminator/config
+}
+
 ##################################################################################################################################################
 # GNOME
 ##################################################################################################################################################
@@ -307,6 +318,28 @@ then
 fi
 }
 
+install_xfce4_panel_app_now_()
+{
+if [ "$is_xfce4_panel_installed" != "true" ]
+then
+	show_m "install xfce4-panel app "
+	apt_if_install_whith_error2info "${install_xfce4_panel[@]}"
+	mkdir -p $temp_folder_for_skel_config
+	cd $temp_folder_for_skel_config
+	svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4
+
+	###################################################################
+	show_m "Install clear xfce4-notify theme and configure xfce4-panel"
+	# Copy users config
+	sudo mkdir -p "/usr/share/themes/clear-notify/xfce-notify-4.0/"
+	sudo mv -v "$temp_folder_for_skel_config/clear_xfce-notify-4.0_gtk.css" "/usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css"
+	sudo chown root:root /usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css
+	#fix xfce4-panel workspace settings error in openbox
+	sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
+	declare -g is_xfce4_panel_installed="true"
+fi
+}
+
 install_firefox_app_now_()
 {
 apt_purge_with_error2info "firefox-esr"
@@ -385,7 +418,6 @@ show_m "install firefox."
 echo_2_helper_list "# internet apps"
 install_firefox_app_now_
 echo_2_helper_list ""
-
 show_m "install preWM_themeing_apps"
 echo_2_helper_list "# preWM_themeing app"
 apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_preWM_themes[@]}"
@@ -465,6 +497,8 @@ sed -i "s/$nitrogen_wp_default/$replace_nitrogen_wp_default/g" $temp_folder_for_
 show_mf "install_main_apps_for_openbox "
 show_m "install openbox apps"
 echo_2_helper_list "# openbox apps"
+install_new_terminal_terminator_now
+install_xfce4_panel_app_now_
 apt_install_whith_error_whitout_exit "${install_openbox_[@]}"
 echo_2_helper_list ""
 show_m "install openbox extra apps"
