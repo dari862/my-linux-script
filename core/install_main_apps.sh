@@ -344,6 +344,8 @@ then
 fi
 }
 
+############################################################################
+
 install_firefox_app_now_()
 {
 apt_purge_with_error2info "firefox-esr"
@@ -404,6 +406,8 @@ echo_2_helper_list "# terminal based Sound apps"
 apt_install_whith_error_whitout_exit "${install_terminal_based_sound_app[@]}"
 echo_2_helper_list ""
 }
+
+############################################################################
 
 install_main_apps_for_preWM()
 {
