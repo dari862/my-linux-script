@@ -44,13 +44,13 @@ install_lightdm_pre=(curl gpg)
 install_lightdm_=(lightdm)
 install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
 
+#panel
+install_polybar_=(polybar rofi)
+install_xfce4_panel=(xfce4-screenshooter xfce4-clipman xfce4-power-manager xfce4-panel xfce4-settings xfce4-notifyd)
+
 #awesomeWM apps
 install_awesomeWM_=(awesome awesome-extra)
 install_awesomeWM_extra=(xfce4-taskmanager xfce4-power-manager xfce4-settings scrot flameshot nitrogen geany file-roller dmenu materia-gtk-theme)
-
-#polybar
-install_polybar_=(polybar rofi)
-install_xfce4_panel=(xfce4-screenshooter xfce4-clipman xfce4-power-manager xfce4-panel xfce4-settings xfce4-notifyd)
 
 #bspwm apps
 install_bspwm_=(bspwm sxhkd)
