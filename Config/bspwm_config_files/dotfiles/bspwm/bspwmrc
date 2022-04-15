@@ -2,9 +2,12 @@
 
 #Start polybar first
 if command -v polybar &>/dev/null; then
-    bash ~/.config/polybar/launch.sh &
-else
-    xfce4-panel &
+    bash ~/.config/polybar/launch.sh &		# Start polybar
+fi
+
+if ! command -v polybar &>/dev/null; then
+    xfce4-panel &				# Start xfce4-panel
+    xfce4-clipman &														# Start clipboard manager
 fi
 nitrogen --restore &
 
