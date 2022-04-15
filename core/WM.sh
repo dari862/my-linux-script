@@ -342,7 +342,7 @@ user1000=$(cat /etc/passwd | cut -f 1,3 -d: | grep :1000$ | cut -f1 -d:)
 sudo find /usr/share/themes/Arc -type f -exec sed -i 's/#5294e2/#b3bcc6/g' {} \;   
 
 # install Tela-icon-theme
-$temp_folder_for_download/Tela-icon-theme/install.sh grey
+$temp_folder_for_download/Tela-icon-theme/install.sh grey &>> $debug_log
 
 #sed -i 's/^gtk-theme-name *= *.*/gtk-theme-name="'"Arc"'"/' "$temp_folder_for_skel_/.config/gtk-2.0/gtkrc-2.0"
 #sed -i 's/^gtk-icon-theme-name *= *.*/gtk-icon-theme-name="'"Tela-grey"'"/'	"$temp_folder_for_skel_/.config/gtk-2.0/gtkrc-2.0"
