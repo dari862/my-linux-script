@@ -4,6 +4,8 @@ install_internet_app_firefox=(firefox firefox-esr)
 #tweakmyterminal
 New_terminal_2_install_tilix=(tilix)
 New_terminal_2_install_kitty=(kitty)
+New_terminal_2_install_terminator=(terminator)
+
 install_apps_4_better_terminal=(bash-completion bat htop command-not-found autojump micro screen thefuck exa ranger sxiv ncdu dos2unix parted lshw xclip)
 install_zsh_and_some_plugins=(zsh zsh-antigen zsh-autosuggestions zsh-syntax-highlighting)
 
