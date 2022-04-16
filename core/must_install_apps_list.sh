@@ -48,7 +48,7 @@ install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
 
 #panel
 install_polybar_=(polybar rofi)
-install_xfce4_panel=(xfce4-screenshooter xfce4-clipman xfce4-power-manager xfce4-panel xfce4-settings xfce4-notifyd)
+install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-screenshooter xfce4-clipman xfce4-power-manager xfce4-notifyd)
 
 #awesomeWM apps
 install_awesomeWM_=(awesome awesome-extra)
