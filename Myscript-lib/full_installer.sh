@@ -47,7 +47,6 @@ fi
 
 if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
 	install_xfce4_panel_app_now_
-	install_polybar_app_now_
 fi
 
 if [ "$do_you_want_to_install_awesomeWM" == "true" ]; then
