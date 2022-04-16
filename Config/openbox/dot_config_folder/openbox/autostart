@@ -33,7 +33,6 @@ picom --config "$HOME/.config/picom.conf" &											# Start compositor
 (sleep 2; start_conky.sh) &											# Start Conky
 pnmixer &															# Start volume control
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	# GNOME PolicyKit authentication
-~/.config/openbox/welcome &											# Show Openbox welcome
 
 if [ ! -z "$(command -v polybar)" ]
 then
@@ -42,3 +41,5 @@ else
         xfce4-panel &                           # Start xfce4-panel
         xfce4-clipman &                                   # Start xfce4-clipman                  
 fi 
+
+~/.config/openbox/welcome &											# Show Openbox welcome
