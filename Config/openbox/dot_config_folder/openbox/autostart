@@ -34,7 +34,7 @@ then
         bash ~/.config/polybar/launch.sh &          # Start polybar
 else
         xfce4-panel &                           # Start xfce4-panel
-        xfce4-clipman &                                                        >
+        xfce4-clipman &                                   # Start xfce4-clipman                  
 fi 
 
 picom --config "$HOME/.config/picom.conf" &											# Start compositor
