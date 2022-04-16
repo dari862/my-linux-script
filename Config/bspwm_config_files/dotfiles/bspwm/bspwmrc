@@ -3,11 +3,10 @@
 #Start polybar first
 if [ ! -z "$(command -v polybar)" ]
 then
-        bash ~/.config/polybar/launch.sh &          # Start polybar
-else
-        xfce4-panel &                           # Start xfce4-panel
-        xfce4-clipman &                                                        >
+        bash ~/.config/polybar/launch.sh &          # Start polybar                                                    >
+#xfce4-panel at the bottom for panel to get effect of picom (compositer)
 fi 
+
 nitrogen --restore &
 
 # Variable Defines
