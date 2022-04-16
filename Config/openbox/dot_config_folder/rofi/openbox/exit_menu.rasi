@@ -5,7 +5,7 @@
  *******************************************************************************/
 
 * {
-	theme: "openbox-menu";
+	theme: "exit_menu";
     background:                  rgba ( 255, 255, 255, 100 % );
     foreground:                  rgba ( 102, 102, 102, 100 % );
     selected-normal-background:  rgba ( 236, 237, 238, 100 % );
