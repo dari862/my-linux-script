@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 Theme_name="$1" 
-FILE="$HOME/.config/polybar/Rofi/$Theme_name/colors.rasi"
+FILE="$HOME/.config/rofi/$Theme_name/colors.rasi"
 
 ## random accent color
 #COLORS=('#EC7875' '#EC6798' '#BE78D1' '#75A4CD' '#00C7DF' '#00B19F' '#61C766' \
@@ -10,4 +10,4 @@ FILE="$HOME/.config/polybar/Rofi/$Theme_name/colors.rasi"
 #sed -i -e "s/ac: .*/ac:   ${AC}FF;/g" $FILE
 #sed -i -e "s/se: .*/se:   ${SE}FF;/g" $FILE
 
-rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/polybar/Rofi/$Theme_name/launcher.rasi
+rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/rofi/$Theme_name/launcher.rasi
