@@ -74,6 +74,7 @@ install_new_terminal_terminator_now()
 show_m "install terminal terminator"
 echo_2_helper_list "# new terminals"
 apt_install_whith_error_whitout_exit "${New_terminal_2_install_terminator[@]}"
+echo_2_helper_list ""
 show_m "configuring terminator"
 sudo update-alternatives --set x-terminal-emulator /usr/bin/terminator
 mkdir -p ~/.config/terminator/
@@ -496,8 +497,8 @@ conky_now
 sed -i "s/$nitrogen_wp_default/$replace_nitrogen_wp_default/g" $temp_folder_for_skel_/.config/nitrogen/bg-saved.cfg
 show_mf "install_main_apps_for_openbox "
 show_m "install openbox apps"
-echo_2_helper_list "# openbox apps"
 install_new_terminal_terminator_now
+echo_2_helper_list "# openbox apps"
 apt_install_whith_error_whitout_exit "${install_openbox_[@]}"
 echo_2_helper_list ""
 show_m "install openbox extra apps"
