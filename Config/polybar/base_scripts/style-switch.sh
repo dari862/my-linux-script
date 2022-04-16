@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 Theme_name="$1" 
 SDIR="$HOME/.config/polybar/base_scripts/$Theme_name"
-RDIR="$HOME/.config/polybar/Rofi/$Theme_name"
+RDIR="$HOME/.config/rofi/$Theme_name"
 
 # Launch Rofi
 MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p '' \
