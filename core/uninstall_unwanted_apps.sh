@@ -1,6 +1,5 @@
-purge_this_now()
-{
-declare -a StringArray=(aisleriot
+declare -a to_be_purged=(
+aisleriot
 anthy
 kasumi
 aspell
@@ -46,23 +45,20 @@ tali
 uim
 xboard
 xiterm+thai
-xterm)
-apt_purge_with_error2info "${StringArray[@]}"
-}
+xterm
+)
 
-purge_this_all_except_Pop_now()
-{
-declare -a StringArray=(im-config)
-apt_purge_with_error2info "${StringArray[@]}"
-}
+declare -a to_be_purged_except_in_Pop_OS=(
+im-config
+)
 
 main_uninstall_unwanted_apps_now()
 {
 show_mf "main_uninstall_unwanted_apps_now"
 show_m "purging app"
-purge_this_now
+apt_purge_with_error2info "${to_be_purged[@]}"
 if [ "$DISTRO" != "Pop" ]
 then
-purge_this_all_except_Pop_now
+apt_purge_with_error2info "${to_be_purged_except_in_Pop_OS[@]}"
 fi
 }
