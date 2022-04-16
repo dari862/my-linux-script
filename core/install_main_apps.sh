@@ -344,6 +344,7 @@ sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
 
 install_firefox_app_now_()
 {
+show_m "installing firefox"
 apt_purge_with_error2info "firefox-esr"
 apt_if_install_whith_error2info "${install_internet_app_firefox[@]}"
 if command -v firefox >/dev/null
@@ -361,6 +362,7 @@ fi
 
 install_files_manager_app_now_()
 {
+show_m "installing file manager"
 apt_install_whith_error_whitout_exit "${install_files_manager_app[@]}"
 if command -v $install_files_manager_app >/dev/null
 then
@@ -371,6 +373,7 @@ fi
 
 install_text_editer_app_now_()
 {
+show_m "installing text editor"
 apt_install_whith_error_whitout_exit "${install_text_editer_app[@]}"
 if command -v $install_text_editer_app >/dev/null
 then
@@ -387,6 +390,7 @@ fi
 
 install_lock_screen_app_now_()
 {
+show_m "installing screenlocker"
 apt_install_whith_error_whitout_exit "${install_x_lock_app[@]}"
 if command -v $install_x_lock_app >/dev/null
 then
@@ -407,18 +411,20 @@ echo_2_helper_list ""
 
 install_main_apps_for_preWM()
 {
+show_mf "installing_PreWM_apps_now "
 if [ ! -f "/etc/X11/default-display-manager" ]
 then
-  $sudoaptinstall sddm
+	show_m "installing display manager (sddm)."
+	$sudoaptinstall sddm
 fi
-show_mf "installing_PreWM_apps_now "
+show_m "preWM_apps."
 echo_2_helper_list "# preWM_apps app"
 apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_preWM_apps[@]}"
 install_new_terminal_kitty_now
 install_files_manager_app_now_
 install_text_editer_app_now_
 install_lock_screen_app_now_
-show_m "install firefox."
+show_m "install internet apps."
 echo_2_helper_list "# internet apps"
 install_firefox_app_now_
 echo_2_helper_list ""
@@ -427,7 +433,7 @@ echo_2_helper_list "# preWM_themeing app"
 apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_preWM_themes[@]}"
 echo_2_helper_list ""
 install_terminal_based_sound_apps_now
-show_m "install preWM_themeing_apps"
+show_m "download config for preWM_themeing_apps"
 mkdir -p $temp_folder_for_preWM
 mkdir -p $temp_folder_for_preWM/compressed_files
 cd $temp_folder_for_preWM
