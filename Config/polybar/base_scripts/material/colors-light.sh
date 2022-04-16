@@ -3,7 +3,7 @@
 # Color files
 Theme_name="material"
 PFILE="$HOME/.config/polybar/Themes/$Theme_name/colors.ini"
-RFILE="$HOME/.config/polybar/Rofi/$Theme_name/colors.rasi"
+RFILE="$HOME/.config/rofi/$Theme_name/colors.rasi"
 
 # Change colors
 change_color() {
