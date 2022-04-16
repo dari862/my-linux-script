@@ -1,7 +1,7 @@
 #! /bin/sh
 
 #Start polybar first
-if [ ! -z "$(command -v polybar &>/dev/null)" ]
+if [ ! -z "$(command -v polybar)" ]
 then
         bash ~/.config/polybar/launch.sh &          # Start polybar
 else
@@ -75,5 +75,11 @@ sleep 0.50
 urxvtc &
 lxpolkit &
 picom --config "$HOME/.config/picom.conf" &
+#Start xfce4-panel if polybar is not installed
+if [ -z "$(command -v polybar)" ]
+then
+        xfce4-panel &                           # Start xfce4-panel
+        xfce4-clipman &                                                        >
+fi 
 flameshot &
 bspc desktop -f ^1
