@@ -195,14 +195,14 @@
 	            <item label="Restart" icon="/usr/share/icons/openbox-menu/restart.png">
 	                <action name="Execute">
 	                    <command>
-	                        conky-session
+	                        start_conky
 	                    </command>
 	                </action>
                </item>
 	            <item label="Stop" icon="/usr/share/icons/openbox-menu/stop.png">
 	                <action name="Execute">
 	                    <command>
-	                        conky-session stop
+	                        start_conky stop
 	                    </command>
 	                </action>
                </item>				
