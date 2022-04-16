@@ -301,7 +301,7 @@ conky_now
 install_polybar_app_now_()
 {
 show_m "install polybar app "
-apt_if_install_whith_error2info "${install_polybar_[@]}"
+apt_install_whith_error2info "${install_polybar_[@]}"
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
@@ -319,7 +319,7 @@ install_xfce4_panel_app_now_()
 {
 show_m "install xfce4-panel app "
 echo_2_helper_list "# xfce4 apps"
-apt_if_install_whith_error2info "${install_xfce4_panel[@]}"
+apt_install_whith_error2info "${install_xfce4_panel[@]}"
 echo_2_helper_list ""
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
