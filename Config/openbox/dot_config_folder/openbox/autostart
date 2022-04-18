@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ## Openbox autostart
 ## ====================
 ## When you login to Openbox this autostart script will be executed to set-up your environment 
@@ -11,6 +12,20 @@
 ##
 ## More information about this can be found at: http://openbox.org/wiki/Help:Autostart
 
+#### Kill if already running  ########################################################################
+
+app_2_kill=(xfsettingsd picom polybar mpd dunst ksuperkey xfce4-power-manager)
+for INDEX in "${app_2_kill[@]}"
+do
+  killall -9 $INDEX &> /dev/null || :
+done
+
+xfsettingsd &
+
+## polkit agent
+if [[ ! `pidof xfce-polkit` ]]; then
+	/usr/lib/xfce-polkit/xfce-polkit &
+fi
 
 #### START SETTINGS  #################################################################################
 [ -d ~/.screenlayout ] && "$(ls ~/.screenlayout/*.sh | head -1)"	# Exec first script screenlayout found
