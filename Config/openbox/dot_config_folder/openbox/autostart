@@ -17,15 +17,11 @@
 app_2_kill=(xfsettingsd picom polybar mpd dunst ksuperkey xfce4-power-manager)
 for INDEX in "${app_2_kill[@]}"
 do
-  killall -9 $INDEX &> /dev/null || :
+	if [[ ! -z "$(pidof $INDEX)" ]]; then
+		#killall -9 $INDEX
+		echo $INDEX
+	fi
 done
-
-xfsettingsd &
-
-## polkit agent
-if [[ ! `pidof xfce-polkit` ]]; then
-	/usr/lib/xfce-polkit/xfce-polkit &
-fi
 
 #### START SETTINGS  #################################################################################
 [ -d ~/.screenlayout ] && "$(ls ~/.screenlayout/*.sh | head -1)"	# Exec first script screenlayout found
@@ -42,12 +38,22 @@ if [ -f /sys/module/battery/initstate ] || [ -d /proc/acpi/battery/BAT0 ]; then
 fi
 
 #### START APPLICATIONS ###############################################################################
-nitrogen --restore &												# Set wallpaper
+# Set wallpaper
+nitrogen --restore &									
+xfsettingsd &
+# Start compositor
+exec picom --config "$HOME/.config/picom.conf" &
+# Start Conky
+(sleep 2; start_conky.sh) &											
+# Start volume control
+pnmixer &															
+# GNOME PolicyKit authentication
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	
 
-picom --config "$HOME/.config/picom.conf" &											# Start compositor
-(sleep 2; start_conky.sh) &											# Start Conky
-pnmixer &															# Start volume control
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	# GNOME PolicyKit authentication
+## polkit agent
+if [[ ! `pidof xfce-polkit` ]]; then
+	/usr/lib/xfce-polkit/xfce-polkit &
+fi
 
 if [ ! -z "$(command -v polybar)" ]
 then
@@ -57,4 +63,24 @@ else
         xfce4-clipman &                                   # Start xfce4-clipman                  
 fi 
 
+## Enable power management
+xfce4-power-manager &
+
 ~/.config/openbox/welcome &											# Show Openbox welcome
+
+
+## Notification Daemon
+exec dunst &
+
+## Start Music Player Daemon
+exec mpd &
+
+## Launch Plank
+exec plank &
+
+## Thunar Daemon
+exec x-file-manager --daemon &
+
+## Enable Super Keys For Menu
+ksuperkey -e 'Super_L=Alt_L|F1' &
+ksuperkey -e 'Super_R=Alt_L|F1' &
