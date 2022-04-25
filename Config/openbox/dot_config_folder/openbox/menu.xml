@@ -14,7 +14,7 @@
     <menu id="root-menu" label="Openbox 3">
 		<item label="Run Program" icon="&icons;/search.png">
 			<action name="Execute">
-				<command>rofi -theme ~/.config/openbox/rofi/bin/launcher</command>
+				<command>~/.config/openbox/rofi/bin/launcher</command>
 			</action>
 		</item> 
 
