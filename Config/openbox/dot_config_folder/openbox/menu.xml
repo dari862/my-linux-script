@@ -466,25 +466,25 @@
 				</item>
 				<item icon="&icons;/exit2.png" label="Logout">
 					<action name="Execute">
-						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --logout</command>
+						<command>&pipes;/ac-powermenu --logout</command>
 					</action>
 				</item>
 				<separator/>
 				<item icon="&icons;/exit.png" label="Suspend">
 					<action name="Execute">
-						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --suspent</command>
+						<command>&pipes;/ac-powermenu --suspent</command>
 					</action>
 				</item>
 				<separator/>
 				<item icon="&icons;/restart.png" label="Reboot">
 					<action name="Execute">
-						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --reboot</command>
+						<command>&pipes;/ac-powermenu --reboot</command>
 					</action>
 				</item>
 				<separator/>
 				<item icon="&icons;/exit3.png" label="Shutdown">
 					<action name="Execute">
-						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --shutdown</command>
+						<command>&pipes;/ac-powermenu --shutdown</command>
 					</action>
 				</item>
 		</menu>
