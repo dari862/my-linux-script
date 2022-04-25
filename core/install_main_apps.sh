@@ -523,11 +523,6 @@ apt_install_whith_error_whitout_exit "${install_openbox_fonts[@]}"
 echo_2_helper_list ""
 cd $temp_folder_for_themes_and_apps
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox
-if [ -d "$temp_folder_for_skel_config/rofi" ] 
-then
-	mv -v "$temp_folder_for_openbox/dot_config_folder/rofi/*" "$temp_folder_for_skel_config/rofi" 
-	rm -rdf "$temp_folder_for_openbox/dot_config_folder/rofi"
-fi
 mkdir -p $temp_folder_for_download
 git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme
 cd $temp_folder_for_openbox
