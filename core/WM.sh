@@ -299,8 +299,6 @@ chmod a+x $temp_folder_for_usr_bin_/cups-session
 chmod a+x $temp_folder_for_usr_bin_/bt-session
 # Copy welcome
 chmod a+x $temp_folder_for_usr_bin_/welcome
-# exit-power menu based on rofi
-chmod +x "$temp_folder_for_usr_bin_/obexit"
 # Copy autosnap script
 chmod +x $temp_folder_for_usr_bin_/autosnap 
 
