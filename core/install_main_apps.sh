@@ -407,19 +407,24 @@ apt_install_whith_error_whitout_exit "${install_terminal_based_sound_app[@]}"
 echo_2_helper_list ""
 }
 
+install_sddm_if_needed_now()
+{
+if [ ! -f "/etc/X11/default-display-manager" ]
+then
+	show_m "installing display manager (sddm)."
+	apt_install_whith_error2info (sddm)
+fi
+}
+
 ############################################################################
 
 install_main_apps_for_preWM()
 {
 show_mf "installing_PreWM_apps_now "
-if [ ! -f "/etc/X11/default-display-manager" ]
-then
-	show_m "installing display manager (sddm)."
-	$sudoaptinstall sddm
-fi
 show_m "preWM_apps."
 echo_2_helper_list "# preWM_apps app"
-apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_preWM_apps[@]}"
+apt_install_whith_error_whitout_exit "${install_preWM_apps[@]}"
+install_sddm_if_needed_now
 install_new_terminal_kitty_now
 install_files_manager_app_now_
 install_text_editer_app_now_
@@ -430,7 +435,7 @@ install_firefox_app_now_
 echo_2_helper_list ""
 show_m "install preWM_themeing_apps"
 echo_2_helper_list "# preWM_themeing app"
-apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_preWM_themes[@]}"
+apt_install_whith_error_whitout_exit "${install_preWM_themes[@]}"
 echo_2_helper_list ""
 install_terminal_based_sound_apps_now
 show_m "download config for preWM_themeing_apps"
@@ -466,12 +471,12 @@ svn-export https://github.com/dari862/my-linux-script/trunk/Config/bspwm_config_
 show_mf "pre_bspwm_now "
 show_m "install bspwm app "
 echo_2_helper_list "# bspwm app"
-apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_bspwm_[@]}"
+apt_install_whith_error_whitout_exit "${install_bspwm_[@]}"
 echo_2_helper_list ""
 
 show_m "install bspwm_extra app "
 echo_2_helper_list "# bspwm_extra app"
-apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_bspwm_extra[@]}"
+apt_install_whith_error_whitout_exit "${install_bspwm_extra[@]}"
 echo_2_helper_list ""
 }
 
@@ -485,12 +490,12 @@ mkdir -p $temp_folder_for_awesomewm
 show_mf "install_awesomewm_now "
 show_m "install awesomeWM app "
 echo_2_helper_list "# awesomeWM app"
-apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_awesomeWM_[@]}"
+apt_install_whith_error_whitout_exit "${install_awesomeWM_[@]}"
 echo_2_helper_list ""
 
 show_m "install awesomeWM extra app "
 echo_2_helper_list "# awesomeWM extra app"
-apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit "${install_awesomeWM_extra[@]}"
+apt_install_whith_error_whitout_exit "${install_awesomeWM_extra[@]}"
 echo_2_helper_list ""
 }
 
