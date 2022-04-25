@@ -5,19 +5,7 @@ error_log
 /tmp/tempfornow/core-dajhs7526jdfhjfkgh857fj-core/install_main_apps.sh: line 415: `     apt_install_whith_error2info (sddm)'
 /tmp/tempfornow/core-dajhs7526jdfhjfkgh857fj-core/full_installer.sh: line 29: install_main_apps_for_tweak_my_terminal: command not found
 /tmp/tempfornow/core-dajhs7526jdfhjfkgh857fj-core/full_installer.sh: line 41: install_main_apps_for_preWM: command not found
-++ connectivity is up
-++ connectivity is up
-++ connectivity is up
-++ connectivity is up
-++ connectivity is up
-++ connectivity is up
 ++ failed to svn export https://github.com/dari862/my-linux-script/trunk/Config/polybar
-++ connectivity is up
-++ connectivity is up
-++ The network is down or very slow
-++ connectivity is up
-++ connectivity is up
-++ connectivity is up
 ++ failed to svn export https://github.com/dari862/my-linux-script/trunk/Config/rofi
 /tmp/tempfornow/core-dajhs7526jdfhjfkgh857fj-core/full_installer.sh: line 61: install_main_apps_for_openbox: command not found
 cp: cannot stat '/tmp/tempfornow/Themes_and_apps/shell_config/*': No such file or directory
