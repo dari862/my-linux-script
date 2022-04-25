@@ -305,9 +305,9 @@ apt_install_whith_error2info "${install_polybar_[@]}"
 show_m "download polybar config "
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
+#svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
 show_m "download rofi config "
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
+#svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
 show_m "install fonts for polybar app "
 mkdir -p $temp_folder_for_download
 sudo mkdir -p /usr/share/fonts
