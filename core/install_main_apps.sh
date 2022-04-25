@@ -412,7 +412,7 @@ install_sddm_if_needed_now()
 if [ ! -f "/etc/X11/default-display-manager" ]
 then
 	show_m "installing display manager (sddm)."
-	apt_install_whith_error2info (sddm)
+	apt_install_whith_error2info "sddm"
 fi
 }
 
