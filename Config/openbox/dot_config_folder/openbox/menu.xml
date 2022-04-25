@@ -2,7 +2,7 @@
 <!-- Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com> -->
 <!-- Everyone is permitted to copy and distribute copies of this file under GNU-GPL3 -->
 <!DOCTYPE menu [
-  <!ENTITY icons "/usr/share/archcraft/openbox/icons">
+  <!ENTITY icons "/usr/share/icons/openbox-menu">
   <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
@@ -12,36 +12,36 @@
 
 
     <menu id="root-menu" label="Openbox 3">
-		<item label="Run Program" icon="/usr/share/icons/openbox-menu/search.png">
+		<item label="Run Program" icon="&icons;/search.png">
 			<action name="Execute">
 				<command>rofi -theme ~/.config/rofi/openbox/run_menu -show drun</command>
 			</action>
 		</item> 
 
-		<separator/> <item label="VirtualBox" icon="/usr/share/icons/openbox-menu/virtualbox.png"><action name="Execute"><command>virtualbox</command></action></item> 
+		<separator/> <item label="VirtualBox" icon="&icons;/virtualbox.png"><action name="Execute"><command>virtualbox</command></action></item> 
 		
-		<item label="Terminal" icon="/usr/share/icons/openbox-menu/terminal.png">
+		<item label="Terminal" icon="&icons;/terminal.png">
             <action name="Execute">
                 <command>
                     x-terminal-emulator
                 </command>
             </action>
         </item>
-        <item label="Web Browser" icon="/usr/share/icons/openbox-menu/web-browser.png">
+        <item label="Web Browser" icon="&icons;/web-browser.png">
             <action name="Execute">
                 <command>
                     x-www-browser
                 </command>
             </action>
         </item>
-        <item label="File Manager" icon="/usr/share/icons/openbox-menu/file-manager.png">
+        <item label="File Manager" icon="&icons;/file-manager.png">
             <action name="Execute">
                 <command>
                     x-file-manager
                 </command>
             </action>
         </item>
-        <item label="Text Editor" icon="/usr/share/icons/openbox-menu/text-editor.png">
+        <item label="Text Editor" icon="&icons;/text-editor.png">
             <action name="Execute">
                 <command>
                     x-text-editor
@@ -49,30 +49,30 @@
             </action>
         </item>
 
-        <menu id="desktop-app-menu" label="Applications" icon="/usr/share/icons/openbox-menu/applications.png" execute="obamenu" />
+        <menu id="desktop-app-menu" label="Applications" icon="&icons;/applications.png" execute="obamenu" />
 		
         <separator/>
 
 
-        <menu id="preferences" label="Preferences" icon="/usr/share/icons/openbox-menu/settings.png">
+        <menu id="preferences" label="Preferences" icon="&icons;/settings.png">
         	<separator label="GRAPHICAL PREFERENCES"/>
 
-            <menu id="obConfig" label="Desktop" icon="/usr/share/icons/openbox-menu/openbox.png">	
-	            <item label="Openbox Preferences" icon="/usr/share/icons/openbox-menu/openbox.png">
+            <menu id="obConfig" label="Desktop" icon="&icons;/openbox.png">	
+	            <item label="Openbox Preferences" icon="&icons;/openbox.png">
 	                <action name="Execute">
 	                    <command>
 	                        obconf
 	                    </command>
 	                </action>
 	            </item>	
-                <item label="Edit Openbox config file rc.xml" icon="/usr/share/icons/openbox-menu/text-editor.png">
+                <item label="Edit Openbox config file rc.xml" icon="&icons;/text-editor.png">
                     <action name="Execute">
                         <command>
                             x-text-editor ~/.config/openbox/rc.xml
                         </command>
                     </action>
                 </item>		
-                <item label="How to configure Openbox?" icon="/usr/share/icons/openbox-menu/help.png">
+                <item label="How to configure Openbox?" icon="&icons;/help.png">
                     <action name="Execute">
                         <command>
                             x-www-browser "http://openbox.org/wiki/Help:Contents" "https://wiki.archlinux.org/index.php/openbox"
@@ -80,24 +80,24 @@
                     </action>
                 </item>	                
                 <separator/>
-                <item label="Reload Openbox configuration" icon="/usr/share/icons/openbox-menu/restart2.png">
+                <item label="Reload Openbox configuration" icon="&icons;/restart2.png">
                     <action name="Reconfigure"/>
                 </item>
-                <item label="Restart Openbox" icon="/usr/share/icons/openbox-menu/restart.png">
+                <item label="Restart Openbox" icon="&icons;/restart.png">
                     <action name="Restart"/>
                 </item>
             </menu>
 
-        	<menu id="obmenu" label="Menu" icon="/usr/share/icons/openbox-menu/menu.png">
+        	<menu id="obmenu" label="Menu" icon="&icons;/menu.png">
 		<menu id="ac-ob-menu" execute="&pipes;/ac-ob-menu" label="Menu Style"/>
-                <item label="Edit menu.xml" icon="/usr/share/icons/openbox-menu/text-editor.png">
+                <item label="Edit menu.xml" icon="&icons;/text-editor.png">
                     <action name="Execute">
                         <command>
                             x-text-editor ~/.config/openbox/menu.xml
                         </command>
                     </action>
                 </item>      		
-                <item label="Hide/show icons in menu" icon="/usr/share/icons/openbox-menu/menu-icons.png">
+                <item label="Hide/show icons in menu" icon="&icons;/menu-icons.png">
                     <action name="Execute">
                         <command>
 							bash -c 'if grep -q icon_hide=\" ~/.config/openbox/menu.xml; then sed -i "s/icon_hide=\"/icon=\"/g" ~/.config/openbox/menu.xml; else sed -i "s/icon=\"/icon_hide=\"/g" ~/.config/openbox/menu.xml; fi'
@@ -105,7 +105,7 @@
                     </action>
                     <action name="Reconfigure"/>
                 </item>        
-                <item label="How to configure menu.xml?" icon="/usr/share/icons/openbox-menu/help.png">
+                <item label="How to configure menu.xml?" icon="&icons;/help.png">
                     <action name="Execute">
                         <command>
                             x-www-browser "http://openbox.org/wiki/Help:Menus" "https://wiki.archlinux.org/index.php/openbox#Menus"
@@ -113,13 +113,13 @@
                     </action>
                 </item>	                 
                 <separator/>		        		
-                <item label="Reload Menu" icon="/usr/share/icons/openbox-menu/restart.png">
+                <item label="Reload Menu" icon="&icons;/restart.png">
                     <action name="Reconfigure"/>
                 </item>
         	</menu>
 
-        	<menu id="compositor" label="Compositor" icon="/usr/share/icons/openbox-menu/compositor.png">
-	            <item label="Edit Picom Settings" icon="/usr/share/icons/openbox-menu/text-editor.png">
+        	<menu id="compositor" label="Compositor" icon="&icons;/compositor.png">
+	            <item label="Edit Picom Settings" icon="&icons;/text-editor.png">
         			<action name="Execute">
 	                    <command>
 	                        x-text-editor ~/.config/picom.conf
@@ -127,14 +127,14 @@
 	                </action>
 	            </item>
 	            <separator/>
-				<item label="Restart" icon="/usr/share/icons/openbox-menu/restart.png">
+				<item label="Restart" icon="&icons;/restart.png">
 					<action name="Execute">
 						<command>
 							bash -c 'killall picom; picom'
 						</command>
 					</action>
 				</item>						
-	            <item label="Stop" icon="/usr/share/icons/openbox-menu/stop.png">
+	            <item label="Stop" icon="&icons;/stop.png">
 	                <action name="Execute">
 	                    <command>
 	                        killall picom
@@ -143,22 +143,22 @@
                </item>		
 			</menu>			
 
-        	<menu id="xfce4panel" label="Taskbar" icon="/usr/share/icons/openbox-menu/tint2.png">
-	            <item label="GUI Xfce4-Panel Config Tool" icon="/usr/share/icons/openbox-menu/tint2.png">
+        	<menu id="xfce4panel" label="Taskbar" icon="&icons;/tint2.png">
+	            <item label="GUI Xfce4-Panel Config Tool" icon="&icons;/tint2.png">
         			<action name="Execute">
 	                    <command>
 	                        xfce4-panel -p
 	                    </command>
 	                </action>
 	            </item>
-				<item label="Open Your Xfce4-Panel Folder" icon="/usr/share/icons/openbox-menu/file-manager.png">
+				<item label="Open Your Xfce4-Panel Folder" icon="&icons;/file-manager.png">
         			<action name="Execute">
 	                    <command>
 	                        x-file-manager ~/.config/xfce4/
 	                    </command>
 	                </action>
 	            </item>
-                <item label="How to configure xfce4-panel?" icon="/usr/share/icons/openbox-menu/help.png">
+                <item label="How to configure xfce4-panel?" icon="&icons;/help.png">
                     <action name="Execute">
                         <command>
                             x-www-browser "https://docs.xfce.org/xfce/xfce4-panel/start"
@@ -166,14 +166,14 @@
                     </action>
                 </item>	 	            
 	            <separator/>
-	            <item label="Restart" icon="/usr/share/icons/openbox-menu/restart.png">
+	            <item label="Restart" icon="&icons;/restart.png">
 	                <action name="Execute">
 	                    <command>
 	                        bash -c 'xfce4-panel --quit; xfce4-panel'
 	                    </command>
 	                </action>
                </item>
-	            <item label="Stop" icon="/usr/share/icons/openbox-menu/stop.png">
+	            <item label="Stop" icon="&icons;/stop.png">
 	                <action name="Execute">
 	                    <command>
 	                        xfce4-panel --quit
@@ -182,15 +182,15 @@
                </item>				
         	</menu>
 
-        	<menu id="conky" label="Conky Panels" icon="/usr/share/icons/openbox-menu/panel.png">
-        		<item label="Open Your Conkys Folder" icon="/usr/share/icons/openbox-menu/file-manager.png">
+        	<menu id="conky" label="Conky Panels" icon="&icons;/panel.png">
+        		<item label="Open Your Conkys Folder" icon="&icons;/file-manager.png">
         			<action name="Execute">
 	                    <command>
 	                        x-file-manager ~/.config/conky/
 	                    </command>
 	                </action>
 	            </item>
-                <item label="How to configure Conky?" icon="/usr/share/icons/openbox-menu/help.png">
+                <item label="How to configure Conky?" icon="&icons;/help.png">
                     <action name="Execute">
                         <command>
                             x-www-browser "https://github.com/brndnmtthws/conky/wiki"
@@ -198,14 +198,14 @@
                     </action>
                 </item>	 	            
                <separator/>
-	            <item label="Restart" icon="/usr/share/icons/openbox-menu/restart.png">
+	            <item label="Restart" icon="&icons;/restart.png">
 	                <action name="Execute">
 	                    <command>
 	                        start_conky
 	                    </command>
 	                </action>
                </item>
-	            <item label="Stop" icon="/usr/share/icons/openbox-menu/stop.png">
+	            <item label="Stop" icon="&icons;/stop.png">
 	                <action name="Execute">
 	                    <command>
 	                        start_conky stop
@@ -214,15 +214,15 @@
                </item>				
         	</menu>	
         	
-        	<menu id="autostart" label="Autostarted programs" icon="/usr/share/icons/openbox-menu/startup.png">		
-	            <item label="Edit Openbox Autostart" icon="/usr/share/icons/openbox-menu/text-editor.png">
+        	<menu id="autostart" label="Autostarted programs" icon="&icons;/startup.png">		
+	            <item label="Edit Openbox Autostart" icon="&icons;/text-editor.png">
 	                <action name="Execute">
 	                    <command>
 	                        x-text-editor ~/.config/openbox/autostart
 	                    </command>
 	                </action>
 	            </item>
-				<item label="Show XDG autostarted programs" icon="/usr/share/icons/openbox-menu/terminal.png">
+				<item label="Show XDG autostarted programs" icon="&icons;/terminal.png">
 	                <action name="Execute">
 	                    <command>
 	                        x-terminal-emulator -m -e bash -c "if [ -f "/usr/lib/x86_64-linux-gnu/openbox-xdg-autostart" ]; then /usr/lib/x86_64-linux-gnu/openbox-xdg-autostart --list; else /usr/lib/i386-linux-gnu/openbox-xdg-autostart --list; fi; read"
@@ -231,15 +231,15 @@
 	            </item>        		
         	</menu>
 
-        	<menu id="shortcuts" label="Keyboard and mouse shortcuts" icon="/usr/share/icons/openbox-menu/shortcut.png">		   		
-	            <item label="Edit Openbox rc.xml" icon="/usr/share/icons/openbox-menu/text-editor.png">
+        	<menu id="shortcuts" label="Keyboard and mouse shortcuts" icon="&icons;/shortcut.png">		   		
+	            <item label="Edit Openbox rc.xml" icon="&icons;/text-editor.png">
 	                <action name="Execute">
 	                    <command>
 	                        x-text-editor ~/.config/openbox/rc.xml
 	                    </command>
 	                </action>
 	            </item>
-                <item label="How to configure Openbox shortcuts?" icon="/usr/share/icons/openbox-menu/help.png">
+                <item label="How to configure Openbox shortcuts?" icon="&icons;/help.png">
                     <action name="Execute">
                         <command>
                             x-www-browser "http://openbox.org/wiki/Help:Bindings"
@@ -247,38 +247,38 @@
                     </action>
                 </item>	  	  
                 <separator/>		        		
-                <item label="Reload shortcuts" icon="/usr/share/icons/openbox-menu/restart.png">
+                <item label="Reload shortcuts" icon="&icons;/restart.png">
                     <action name="Reconfigure"/>
                 </item>                          
         	</menu>
 	            
-            <item label="GTK Appearance" icon="/usr/share/icons/openbox-menu/themes.png">>
+            <item label="GTK Appearance" icon="&icons;/themes.png">>
                 <action name="Execute">
                     <command>
                         lxappearance
                     </command>
                 </action>
             </item>
-            <item label="Font Configuration" icon="/usr/share/icons/openbox-menu/fonts.png">
+            <item label="Font Configuration" icon="&icons;/fonts.png">
                 <action name="Execute">
                     <command>
                         x-text-editor ~/.config/fontconfig/fonts.conf
                     </command>
                 </action>
             </item>
-            <item label="Wallpaper" icon="/usr/share/icons/openbox-menu/wallpaper.png">
+            <item label="Wallpaper" icon="&icons;/wallpaper.png">
                 <action name="Execute">
                     <command>
                         nitrogen
                     </command>
                 </action>
             </item>
-            <item label="Notifications" icon="/usr/share/icons/openbox-menu/notification.png">
+            <item label="Notifications" icon="&icons;/notification.png">
                 <action name="Execute">
                     <command>xfce4-notifyd-config</command>
                 </action>
             </item>
-			<item label="Display" icon="/usr/share/icons/openbox-menu/display.png">
+			<item label="Display" icon="&icons;/display.png">
 				<action name="Execute">
 					<command>
 						arandr
@@ -288,63 +288,63 @@
 
         	<separator label="SYSTEM PREFERENCES"/>
 
-            <item label="Synaptic Package Manager" icon="/usr/share/icons/openbox-menu/package.png">
+            <item label="Synaptic Package Manager" icon="&icons;/package.png">
                 <action name="Execute">
                     <command>
                         synaptic-pkexec
                     </command>
                 </action>
             </item>
-			<item label="Check Pending Updates" icon="/usr/share/icons/openbox-menu/updates.png">
+			<item label="Check Pending Updates" icon="&icons;/updates.png">
 				<action name="Execute">
 					<command>
 						x-terminal-emulator -m -e bash -c "update-notification -i; read"
 					</command>
 				</action>
 			</item>	            
-            <item label="Alternatives" icon="/usr/share/icons/openbox-menu/link.png">
+            <item label="Alternatives" icon="&icons;/link.png">
                 <action name="Execute">
                     <command>
                         galternatives
                     </command>
                 </action>
             </item>
-            <item label="Power Management" icon="/usr/share/icons/openbox-menu/power.png">
+            <item label="Power Management" icon="&icons;/power.png">
                 <action name="Execute">
                     <command>
                         xfce4-power-manager-settings
                     </command>
                 </action>
             </item>
-            <item label="Bluetooth" icon="/usr/share/icons/openbox-menu/bluetooth.png"> 	<!--DEBIAN-OPENBOX-bluetooth-->
+            <item label="Bluetooth" icon="&icons;/bluetooth.png"> 	<!--DEBIAN-OPENBOX-bluetooth-->
                 <action name="Execute"> 													<!--DEBIAN-OPENBOX-bluetooth-->
                     <command> 																<!--DEBIAN-OPENBOX-bluetooth-->
                         bt-session 															<!--DEBIAN-OPENBOX-bluetooth-->
                     </command> 																<!--DEBIAN-OPENBOX-bluetooth-->
                 </action> 																	<!--DEBIAN-OPENBOX-bluetooth-->						
             </item> 																		<!--DEBIAN-OPENBOX-bluetooth-->
-			<item label="Network Configuration" icon="/usr/share/icons/openbox-menu/network.png">
+			<item label="Network Configuration" icon="&icons;/network.png">
 				<action name="Execute">
 					<command>
 						nm-connection-editor
 					</command>
 				</action>
 			</item>
-			<item label="Removable Drives and Media" icon="/usr/share/icons/openbox-menu/usb.png">
+			<item label="Removable Drives and Media" icon="&icons;/usb.png">
 				<action name="Execute">
 					<command>
 						thunar-volman-settings
 					</command>
 				</action>
 			</item>
-			<item label="GParted Partition Manager" icon="/usr/share/icons/openbox-menu/disk.png">
+			<item label="GParted Partition Manager" icon="&icons;/disk.png">
 				<action name="Execute">
 					<command>
 						gparted
 					</command>
 				</action>
 			</item>
-            <item label="Printers" icon="/usr/share/icons/openbox-menu/printer.png">
+            <item label="Printers" icon="&icons;/printer.png">
                 <action name="Execute">
                     <command>
                         cups-session
@@ -353,7 +353,7 @@
             </item>
         </menu>
 		
-        <menu id="info" label="System info" icon="/usr/share/icons/openbox-menu/stats.png">
+        <menu id="info" label="System info" icon="&icons;/stats.png">
             <separator label="SYSTEM INFO TOOLS" />
             
 			<item label="System Info Panel">
@@ -407,23 +407,23 @@
 			</item>	
         </menu>
 
-        <menu id="help" label="Help" icon="/usr/share/icons/openbox-menu/help.png">
+        <menu id="help" label="Help" icon="&icons;/help.png">
         	<separator label="HELP AND TIPS" />
-	        <item label="Debian-Openbox Script GitHub" icon="/usr/share/icons/openbox-menu/github.png">
+	        <item label="Debian-Openbox Script GitHub" icon="&icons;/github.png">
 	            <action name="Execute">
 	                <command>
 	                    x-www-browser "https://github.com/leomarcov/debian-openbox#readme"
 	                </command>
 	            </action>
 	        </item>	
-	        <item label="Welcome tips" icon="/usr/share/icons/openbox-menu/tip.png">
+	        <item label="Welcome tips" icon="&icons;/tip.png">
 	            <action name="Execute">
 	                <command>
 	                    welcome
 	                </command>
 	            </action>
 	        </item>	
-	        <item label="Shortcuts keys" icon="/usr/share/icons/openbox-menu/shortcut.png">
+	        <item label="Shortcuts keys" icon="&icons;/shortcut.png">
 	            <action name="Execute">
 	                <command>
 	                    yad --text-info --window-icon=keyboard --button="Close" --borders=20 --title="Shortcuts and mouse bindings" --width=700 --height=700 --fontname="Monospace" --filename="/usr/share/doc/openbox/help/shortcuts.txt"
@@ -433,21 +433,21 @@
 			
 	        <separator label="DEBIAN HELP" />
 
-	        <item label="Debian Documentatcion" icon="/usr/share/icons/openbox-menu/debian.png">
+	        <item label="Debian Documentatcion" icon="&icons;/debian.png">
 	            <action name="Execute">
 	                <command>
 	                    x-www-browser "https://www.debian.org/doc"
 	                </command>
 	            </action>
 	        </item>	
-	        <item label="Debian Handbook" icon="/usr/share/icons/openbox-menu/debian.png">
+	        <item label="Debian Handbook" icon="&icons;/debian.png">
 	            <action name="Execute">
 	                <command>
 	                    x-www-browser "https://www.debian-handbook.info/browse/stable"
 	                </command>
 	            </action>
 	        </item>		
-	        <item label="Debian Reference" icon="/usr/share/icons/openbox-menu/debian.png">
+	        <item label="Debian Reference" icon="&icons;/debian.png">
 	            <action name="Execute">
 	                <command>
 	                    x-www-browser "https://www.debian.org/doc/manuals/debian-reference/"
@@ -458,12 +458,35 @@
 		
         <separator/>
 
-        <item label="Exit" icon="/usr/share/icons/openbox-menu/exit.png">
-            <action name="Execute">
-                <command>
-                    obexit show
-                </command>
-            </action>
-        </item>
+		<menu icon="&icons;/sys-poweroff.png" id="Exit" label="System">
+				<item icon="&icons;/sys-lock.png" label="Lock Screen">
+					<action name="Execute">
+						<command>x-locker</command>
+					</action>
+				</item>
+				<item icon="&icons;/sys-exit.png" label="Logout">
+					<action name="Execute">
+						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --logout</command>
+					</action>
+				</item>
+				<separator/>
+				<item icon="&icons;/sys-sleep.png" label="Suspend">
+					<action name="Execute">
+						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --suspent</command>
+					</action>
+				</item>
+				<separator/>
+				<item icon="&icons;/sys-reboot.png" label="Reboot">
+					<action name="Execute">
+						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --reboot</command>
+					</action>
+				</item>
+				<separator/>
+				<item icon="&icons;/sys-poweroff-alt.png" label="Shutdown">
+					<action name="Execute">
+						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --shutdown</command>
+					</action>
+				</item>
+		</menu>
     </menu>
 </openbox_menu>
