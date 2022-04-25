@@ -458,31 +458,31 @@
 		
         <separator/>
 
-		<menu icon="&icons;/sys-poweroff.png" id="Exit" label="System">
-				<item icon="&icons;/sys-lock.png" label="Lock Screen">
+		<menu icon="&icons;/sys-poweroff.png" id="Exit" label="Exit">
+				<item icon="&icons;/exit.png" label="Lock Screen">
 					<action name="Execute">
 						<command>x-locker</command>
 					</action>
 				</item>
-				<item icon="&icons;/sys-exit.png" label="Logout">
+				<item icon="&icons;/exit2.png" label="Logout">
 					<action name="Execute">
 						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --logout</command>
 					</action>
 				</item>
 				<separator/>
-				<item icon="&icons;/sys-sleep.png" label="Suspend">
+				<item icon="&icons;/exit.png" label="Suspend">
 					<action name="Execute">
 						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --suspent</command>
 					</action>
 				</item>
 				<separator/>
-				<item icon="&icons;/sys-reboot.png" label="Reboot">
+				<item icon="&icons;/restart.png" label="Reboot">
 					<action name="Execute">
 						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --reboot</command>
 					</action>
 				</item>
 				<separator/>
-				<item icon="&icons;/sys-poweroff-alt.png" label="Shutdown">
+				<item icon="&icons;/exit3.png" label="Shutdown">
 					<action name="Execute">
 						<command>/usr/share/archcraft/openbox/pipemenus/ac-powermenu --shutdown</command>
 					</action>
