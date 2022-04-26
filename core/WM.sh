@@ -374,4 +374,77 @@ sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
 
 # Create welcome link
 sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
+
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+
+
+mkdir -p /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files
+mkdir -p /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files
+mv /tmp/openbox_tmp/openbox_archcraft/archcraft-about/* /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files
+mv /tmp/openbox_tmp/openbox_archcraft/archcraft-lxdm/* /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files
+mv /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files /tmp/openbox_tmp/openbox_archcraft/archcraft-about/files
+mv /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files /tmp/openbox_tmp/openbox_archcraft/archcraft-lxdm/files
+
+mkdir -p /tmp/openbox_now/archcraft/openbox
+mv /tmp/openbox_tmp/archcraft-openbox/files/icons /tmp/openbox_now/archcraft/openbox/
+mv /tmp/openbox_tmp/archcraft-openbox/files/menulib /tmp/openbox_now/archcraft/openbox/
+mv /tmp/openbox_tmp/archcraft-openbox/files/pipemenus /tmp/openbox_now/archcraft/openbox/
+sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' /tmp/openbox_now/archcraft/openbox/pipemenus/ac-ob-menu
+
+for change_content in ac-powermenu ac-change-fonts ac-randr
+do
+	sed -i 's|.config/openbox/rofi|.config/rofi|g' /tmp/openbox_now/archcraft/openbox/pipemenus/$change_content
+	sed -i 's|.config/openbox/rofi|.config/polybar|g' /tmp/openbox_now/archcraft/openbox/pipemenus/$change_content
+done
+
+echo "menuEnd" >> /tmp/openbox_now/archcraft/openbox/pipemenus/ac-ob-menu
+mv /tmp/openbox_now/archcraft/fonts /tmp/openbox_now/archcraft/archcraft
+mv /tmp/openbox_now/cursors/* /tmp/openbox_now/icons/
+
+sudo chown -R root:root /tmp/openbox_now/*
+
+sudo mv /tmp/openbox_now/archcraft /usr/share
+sudo mv /tmp/openbox_now/networkmanager-dmenu/networkmanager_dmenu /usr/bin
+sudo mv /tmp/openbox_now/networkmanager-dmenu/networkmanager_dmenu.desktop /usr/share/applications/
+sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
+sudo mv /tmp/openbox_now/icons/* /usr/share/icons
+sudo mkdir -p /usr/share/backgrounds
+sudo mv /tmp/openbox_now/backgrounds/* /usr/share/backgrounds
+for d in /tmp/openbox_now/themes/* ; do
+	Directory_name=${d##*/}
+	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
+done
+sudo mv /tmp/openbox_now/themes/* /usr/share/themes
+
+cp /usr/share/applications/thunar.desktop /tmp/usr_share_app/x-file-manager.desktop
+cp /usr/share/applications/firefox-esr.desktop /tmp/usr_share_app/x-www-browser.desktop
+cp /usr/share/applications/terminator.desktop /tmp/usr_share_app/x-terminal-emulator.desktop
+cp /usr/share/applications/featherpad.desktop /tmp/usr_share_app/x-text-editor.desktop
+sed -i 's/Exec=thunar/Exec=x-file-manager/g' /tmp/usr_share_app/x-file-manager.desktop
+sed -i 's/Exec=firefox-esr/Exec=x-www-browser/g' /tmp/usr_share_app/x-www-browser.desktop
+sed -i 's/Exec=terminator/Exec=x-terminal-emulator/g' /tmp/usr_share_app/x-terminal-emulator.desktop
+sed -i 's/Exec=featherpad/Exec=x-text-editor/g' /tmp/usr_share_app/x-text-editor.desktop
+cat << EOF > /tmp/usr_share_app/x-locker.desktop
+[Desktop Entry]
+Version=1.0
+Name=Lock Session
+Type=Application
+Comment=Locl Session
+Terminal=true
+Exec=x-locker
+Icon=lock
+Categories=Power;
+GenericName=Lock Session
+Keywords=exit;lock
+EOF
+sudo chown -R root:root /tmp/usr_share_app/*
+sudo mv /tmp/usr_share_app/*.desktop /usr/share/applications/
+
+
+#################### end
+
 }
