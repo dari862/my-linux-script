@@ -535,7 +535,7 @@ newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
 #################### work on this
 #################### work on this
 #################### work on this
-
+{
 sudo apt install -y xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy
 
 sudo apt install -y qt5-style-kvantum 
@@ -590,7 +590,7 @@ archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-packages.git" "ar
 
 git clone https://github.com/archcraft-os/archcraft-openbox.git /tmp/openbox_tmp/archcraft-openbox
 git clone https://github.com/firecat53/networkmanager-dmenu.git /tmp/openbox_now/networkmanager-dmenu
-
+} &>> $debug_log 
 #################### end
 }
 
