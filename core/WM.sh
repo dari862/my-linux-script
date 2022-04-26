@@ -24,6 +24,9 @@ then
    sed -i 's|vsync = true;|# vsync = true|g' ~/.config/picom.conf
 fi
 
+mv $temp_folder_for_preWM/preWM_config_files/.face $HOME/
+mv $temp_folder_for_preWM/preWM_config_files/.dmrc $HOME/
+
 ####################################
 # PreWM_themeing_now
 ####################################
@@ -301,6 +304,8 @@ chmod a+x $temp_folder_for_usr_bin_/bt-session
 chmod a+x $temp_folder_for_usr_bin_/welcome
 # Copy autosnap script
 chmod +x $temp_folder_for_usr_bin_/autosnap 
+# Copy x-locker
+chmod a+x $temp_folder_for_usr_bin_/x-locker
 
 # Copy users config	
 sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/menu.xml
