@@ -528,7 +528,70 @@ git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-the
 cd $temp_folder_for_openbox
 cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
-newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop" 
+newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
+
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+
+sudo apt install -y xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy
+
+sudo apt install -y qt5-style-kvantum 
+sudo apt install -y ffmpeg # for screen recoding
+sudo apt install -y libnm-dev # for networkmanager_dmenu
+sudo apt install -y maim # for ac-shots
+sudo apt install -y python2 #for ac-randr ac-kb ac-kb-pipemenu
+
+echo 'deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /' | sudo tee -a /etc/apt/sources.list.d/home:Head_on_a_Stick:obmenu-generator.list
+sudo wget -nv https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key -O Release.key
+sudo apt-key add - < Release.key
+sudo apt-get update
+sudo apt-get install -y obmenu-generator
+
+mkdir -p  /tmp/openbox_tmp
+archcraft_os_stuffs()
+{
+local url_archcraft_os="$1"
+local tempvar="$2"
+local openbox_tmp_folder="/tmp/openbox_tmp"
+local openbox_folder="/tmp/openbox_now"
+
+git clone $url_archcraft_os $openbox_tmp_folder/openbox_${tempvar}
+mkdir -p $openbox_folder/${tempvar}
+
+if [ "$tempvar" != "archcraft" ]
+then
+	for d in $openbox_tmp_folder/openbox_${tempvar}/* ; do
+		[ -d "$d" ] && mv -f ${d}/files/* $openbox_folder/${tempvar}
+	done
+else
+	for d in $openbox_tmp_folder/openbox_${tempvar}/* ; do
+		if [ -d "$d" ]
+		then
+			new_name=${d##*/}
+			mv -f ${d}/files $openbox_folder/${tempvar}/${new_name//archcraft-/}
+		fi
+	done
+	mv $openbox_folder/${tempvar}/pixmaps $openbox_folder/${tempvar}/icons
+fi
+}
+
+archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-themes.git" "themes"
+
+archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-wallpapers.git" "backgrounds"
+
+archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-icons.git" "icons"
+
+archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-cursors.git" "cursors"
+
+archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-packages.git" "archcraft"
+
+git clone https://github.com/archcraft-os/archcraft-openbox.git /tmp/openbox_tmp/archcraft-openbox
+git clone https://github.com/firecat53/networkmanager-dmenu.git /tmp/openbox_now/networkmanager-dmenu
+
+#################### end
 }
 
 
