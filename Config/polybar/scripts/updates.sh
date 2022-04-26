@@ -2,9 +2,22 @@
 
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+if [ "$Style" == "beach" ]
+then
+    BAR_ICON=""
+    NOTIFY_ICON=/usr/share/archcraft/icons/dunst/updates.png
+fi
 
-BAR_ICON=""
-NOTIFY_ICON=/usr/share/archcraft/icons/dunst/updates.png
+if [ "$Style" == "forest" ]
+then
+    BAR_ICON=""
+    NOTIFY_ICON=/usr/share/archcraft/icons/dunst/updates.png
+fi
+
+if [ "$Style" == "hack" ]
+then
+    NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/system-software-update.svg
+fi
 
 get_total_updates() { UPDATES=$(checkupdates 2>/dev/null | wc -l); }
 
