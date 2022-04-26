@@ -26,8 +26,10 @@ done
 
 xset r rate 250 25													# Set keyboard settings to 250ms delay and 25cps (characters per second)
 xcape -e "Super_L=Control_L|Tab" 									# Alias for: Super key (win) = Control_Left+Tab
-[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap &							# Load xmodmap keys mapping
+xcape -e 'Super_L=Alt_L|F1' &
+xcape -e 'Super_R=Alt_L|F1' &
 
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap &							# Load xmodmap keys mapping
 
 # Touchpad settings
 if [ -f /sys/module/battery/initstate ] || [ -d /proc/acpi/battery/BAT0 ]; then
@@ -78,7 +80,3 @@ exec plank &
 
 ## Thunar Daemon
 exec x-file-manager --daemon &
-
-## Enable Super Keys For Menu
-ksuperkey -e 'Super_L=Alt_L|F1' &
-ksuperkey -e 'Super_R=Alt_L|F1' &
