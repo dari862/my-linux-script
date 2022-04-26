@@ -1,0 +1,26 @@
+
+####################
+error_log
+####################
+++ falied to move all preWM_config_files files
+cp: cannot create regular file '/tmp/usr_share_app/x-file-manager.desktop': No such file or directory
+cp: cannot create regular file '/tmp/usr_share_app/x-www-browser.desktop': No such file or directory
+cp: cannot create regular file '/tmp/usr_share_app/x-terminal-emulator.desktop': No such file or directory
+cp: cannot create regular file '/tmp/usr_share_app/x-text-editor.desktop': No such file or directory
+sed: can't read /tmp/usr_share_app/x-file-manager.desktop: No such file or directory
+sed: can't read /tmp/usr_share_app/x-www-browser.desktop: No such file or directory
+sed: can't read /tmp/usr_share_app/x-terminal-emulator.desktop: No such file or directory
+sed: can't read /tmp/usr_share_app/x-text-editor.desktop: No such file or directory
+/tmp/tempfornow/core-dajhs7526jdfhjfkgh857fj-core/WM.sh: line 431: /tmp/usr_share_app/x-locker.desktop: No such file or directory
+chown: cannot access '/tmp/usr_share_app/*': No such file or directory
+mv: cannot stat '/tmp/usr_share_app/*.desktop': No such file or directory
+
+####################################
+# missing_content_from_preWM_config_files
+####################################
+
+/tmp/tempfornow/Themes_and_apps/preWM/preWM_config_files:
+.
+..
+.dmrc
+.face
