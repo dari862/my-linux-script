@@ -21,3 +21,12 @@ work on bspwm
 work on drivers
 
 https://xerolinux.xyz/
+
+# work on
+
+mpd
+
+bitmap style
+
+keybinds
+
