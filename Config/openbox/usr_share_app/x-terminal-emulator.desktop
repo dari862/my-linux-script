@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=Terminator
+Comment=Multiple terminals in one window
+TryExec=x-terminal-emulator
+Exec=x-terminal-emulator
+Icon=terminator
+Type=Application
+Categories=GNOME;GTK;Utility;TerminalEmulator;System;
+StartupNotify=true
+X-Ubuntu-Gettext-Domain=terminator
+X-Ayatana-Desktop-Shortcuts=NewWindow;
+Keywords=terminal;shell;prompt;command;commandline;
+[NewWindow Shortcut Group]
+Name=Open a New Window
+Exec=x-terminal-emulator
+TargetEnvironment=Unity
+
