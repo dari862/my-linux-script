@@ -381,7 +381,7 @@ sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
 #################### work on this
 #################### work on this
 
-
+mkdir -p /tmp/usr_share_app/
 mkdir -p /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files
 mkdir -p /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files
 mv /tmp/openbox_tmp/openbox_archcraft/archcraft-about/* /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files
