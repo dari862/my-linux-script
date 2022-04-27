@@ -10,6 +10,8 @@ configure_PreWM_now()
 show_m "install preWM_apps"
 cd $temp_folder_for_preWM
 mkdir -p ~/.config/gtk-3.0
+mv $temp_folder_for_preWM/preWM_config_files/.face $HOME/
+mv $temp_folder_for_preWM/preWM_config_files/.dmrc $HOME/
 mv $temp_folder_for_preWM/preWM_config_files/gtk-3.0/* ~/.config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM_config_files/gtk-3.0 || echo "falied to move all gtk-3.0 files"
 mv $temp_folder_for_preWM/preWM_config_files/* ~/.config &> /dev/null || echo "falied to move all preWM_config_files files"
 if [ -z "$(ls -A $temp_folder_for_preWM/preWM_config_files)" ]; then
@@ -23,9 +25,6 @@ then
    sed -i 's|# vsync = false|vsync = false;|g' ~/.config/picom.conf
    sed -i 's|vsync = true;|# vsync = true|g' ~/.config/picom.conf
 fi
-
-mv $temp_folder_for_preWM/preWM_config_files/.face $HOME/
-mv $temp_folder_for_preWM/preWM_config_files/.dmrc $HOME/
 
 ####################################
 # PreWM_themeing_now
