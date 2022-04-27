@@ -419,23 +419,6 @@ for d in /tmp/openbox_now/themes/* ; do
 done
 sudo mv /tmp/openbox_now/themes/* /usr/share/themes
 
-cat << EOF > /tmp/usr_share_app/x-locker.desktop
-[Desktop Entry]
-Version=1.0
-Name=Lock Session
-Type=Application
-Comment=Locl Session
-Terminal=true
-Exec=x-locker
-Icon=lock
-Categories=Power;
-GenericName=Lock Session
-Keywords=exit;lock
-EOF
-sudo chown -R root:root /tmp/usr_share_app/*
-sudo mv /tmp/usr_share_app/*.desktop /usr/share/applications/
-
-
 #################### end
 
 }
