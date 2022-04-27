@@ -419,14 +419,6 @@ for d in /tmp/openbox_now/themes/* ; do
 done
 sudo mv /tmp/openbox_now/themes/* /usr/share/themes
 
-cp /usr/share/applications/thunar.desktop /tmp/usr_share_app/x-file-manager.desktop
-cp /usr/share/applications/firefox-esr.desktop /tmp/usr_share_app/x-www-browser.desktop
-cp /usr/share/applications/terminator.desktop /tmp/usr_share_app/x-terminal-emulator.desktop
-cp /usr/share/applications/featherpad.desktop /tmp/usr_share_app/x-text-editor.desktop
-sed -i 's/Exec=thunar/Exec=x-file-manager/g' /tmp/usr_share_app/x-file-manager.desktop
-sed -i 's/Exec=firefox-esr/Exec=x-www-browser/g' /tmp/usr_share_app/x-www-browser.desktop
-sed -i 's/Exec=terminator/Exec=x-terminal-emulator/g' /tmp/usr_share_app/x-terminal-emulator.desktop
-sed -i 's/Exec=featherpad/Exec=x-text-editor/g' /tmp/usr_share_app/x-text-editor.desktop
 cat << EOF > /tmp/usr_share_app/x-locker.desktop
 [Desktop Entry]
 Version=1.0
