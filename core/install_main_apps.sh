@@ -563,7 +563,7 @@ archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
 git-clone "$outsidemyrepo_archcraft_os_archcraft_openbox" $temp_folder_for_download/archcraft-openbox
 git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
-apt_install_whith_error_whitout_exit "${install_openbox_extra[@]}"
+apt_install_whith_error_whitout_exit "${install_openbox_archcraft[@]}"
 add_new_source_to_apt_now mod "gpg" repolink "deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /" reponame  "obmenu_generator" keylink "https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key" keyname "obmenu-generator.gpg"
 aptupdate
 apt_install_whith_error_whitout_exit "${install_openbox_obmenu_generator[@]}"
