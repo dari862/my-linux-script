@@ -556,39 +556,18 @@ fi
 }
 
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
-
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_backgrounds" "backgrounds"
-
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
-
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
-
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
-
 git-clone "$outsidemyrepo_archcraft_os_archcraft_openbox" $temp_folder_for_download/archcraft-openbox
 git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-{
-sudo apt install -y xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy
+apt_install_whith_error_whitout_exit "${install_openbox_extra[@]}"
+add_new_source_to_apt_now mod "gpg" repolink "deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /" reponame  "obmenu_generator" keylink "https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key" keyname "obmenu-generator.gpg"
+aptupdate
+apt_install_whith_error_whitout_exit "${install_openbox_obmenu_generator[@]}"
 
-sudo apt install -y qt5-style-kvantum 
-sudo apt install -y ffmpeg # for screen recoding
-sudo apt install -y libnm-dev # for networkmanager_dmenu
-sudo apt install -y maim # for ac-shots
-sudo apt install -y python2 #for ac-randr ac-kb ac-kb-pipemenu
-
-echo 'deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /' | sudo tee -a /etc/apt/sources.list.d/home:Head_on_a_Stick:obmenu-generator.list
-sudo wget -nv https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key -O Release.key
-sudo apt-key add - < Release.key
-sudo apt-get update
-sudo apt-get install -y obmenu-generator
-} &>> $debug_log 
-#################### end
 }
 
 
