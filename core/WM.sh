@@ -365,6 +365,10 @@ show_m "Install script poweroff_last for auto-poweroff if no users logged in 20 
 sudo bash "$temp_folder_for_openbox/autopoweroff" -I 20
 
 ##################################################################
+#
+
+##################################################################
+
 show_m "openbox copy temp_folder_for_openbox files."
 sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
 sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
@@ -380,44 +384,45 @@ sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
 #################### work on this
 #################### work on this
 
-mkdir -p /tmp/usr_share_app/
-mkdir -p /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files
-mkdir -p /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files
-mv /tmp/openbox_tmp/openbox_archcraft/archcraft-about/* /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files
-mv /tmp/openbox_tmp/openbox_archcraft/archcraft-lxdm/* /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files
-mv /tmp/openbox_tmp/openbox_archcraft/archcraft_about_files /tmp/openbox_tmp/openbox_archcraft/archcraft-about/files
-mv /tmp/openbox_tmp/openbox_archcraft/archcraft_lxdm_files /tmp/openbox_tmp/openbox_archcraft/archcraft-lxdm/files
+mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_about_files
+mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
+mv $temp_folder_for_download/openbox_archcraft/archcraft-about/* $temp_folder_for_download/openbox_archcraft/archcraft_about_files
+mv $temp_folder_for_download/openbox_archcraft/archcraft-lxdm/* $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
+mv $temp_folder_for_download/openbox_archcraft/archcraft_about_files $temp_folder_for_download/openbox_archcraft/archcraft-about/files
+mv $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files $temp_folder_for_download/openbox_archcraft/archcraft-lxdm/files
 
-mkdir -p /tmp/openbox_now/archcraft/openbox
-mv /tmp/openbox_tmp/archcraft-openbox/files/icons /tmp/openbox_now/archcraft/openbox/
-mv /tmp/openbox_tmp/archcraft-openbox/files/menulib /tmp/openbox_now/archcraft/openbox/
-mv /tmp/openbox_tmp/archcraft-openbox/files/pipemenus /tmp/openbox_now/archcraft/openbox/
-sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' /tmp/openbox_now/archcraft/openbox/pipemenus/ac-ob-menu
+mkdir -p $temp_folder_for_openbox/archcraft/openbox
+mv $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
+mv $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_openbox/archcraft/openbox/
+mv $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_openbox/archcraft/openbox/
+sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 
 for change_content in ac-powermenu ac-change-fonts ac-randr
 do
-	sed -i 's|.config/openbox/rofi|.config/rofi|g' /tmp/openbox_now/archcraft/openbox/pipemenus/$change_content
-	sed -i 's|.config/openbox/rofi|.config/polybar|g' /tmp/openbox_now/archcraft/openbox/pipemenus/$change_content
+	sed -i 's|.config/openbox/rofi|.config/rofi|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
+	sed -i 's|.config/openbox/rofi|.config/polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
 done
 
-echo "menuEnd" >> /tmp/openbox_now/archcraft/openbox/pipemenus/ac-ob-menu
-mv /tmp/openbox_now/archcraft/fonts /tmp/openbox_now/archcraft/archcraft
-mv /tmp/openbox_now/cursors/* /tmp/openbox_now/icons/
+echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 
-sudo chown -R root:root /tmp/openbox_now/*
 
-sudo mv /tmp/openbox_now/archcraft /usr/share
-sudo mv /tmp/openbox_now/networkmanager-dmenu/networkmanager_dmenu /usr/bin
-sudo mv /tmp/openbox_now/networkmanager-dmenu/networkmanager_dmenu.desktop /usr/share/applications/
+mv $temp_folder_for_openbox/archcraft/fonts $temp_folder_for_openbox/archcraft/archcraft
+mv $temp_folder_for_openbox/cursors/* $temp_folder_for_openbox/icons/
+
+sudo chown -R root:root $temp_folder_for_openbox/*
+
+sudo mv $temp_folder_for_openbox/archcraft /usr/share
+sudo mv $temp_folder_for_openbox/networkmanager-dmenu/networkmanager_dmenu /usr/bin
+sudo mv $temp_folder_for_openbox/networkmanager-dmenu/networkmanager_dmenu.desktop /usr/share/applications/
 sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
-sudo mv /tmp/openbox_now/icons/* /usr/share/icons
+sudo mv $temp_folder_for_openbox/icons/* /usr/share/icons
 sudo mkdir -p /usr/share/backgrounds
-sudo mv /tmp/openbox_now/backgrounds/* /usr/share/backgrounds
-for d in /tmp/openbox_now/themes/* ; do
+sudo mv $temp_folder_for_openbox/backgrounds/* /usr/share/backgrounds
+for d in $temp_folder_for_openbox/themes/* ; do
 	Directory_name=${d##*/}
 	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
 done
-sudo mv /tmp/openbox_now/themes/* /usr/share/themes
+sudo mv $temp_folder_for_openbox/themes/* /usr/share/themes
 
 #################### end
 
