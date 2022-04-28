@@ -550,9 +550,14 @@ then
 	done
 else
 	for d in $temp_folder_for_download/openbox_${tempvar}/* ; do
-		if [ -d "$d" ]
+		if [ -d "${d}/files" ]
 		then
 			new_name=${d##*/}
+			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
+		else
+			new_name=${d##*/}
+			mkdir -p ${d}/files
+			mv -v ${d}/!(files) ${d}/files
 			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
 		fi
 	done
