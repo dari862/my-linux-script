@@ -554,7 +554,10 @@ else
 		then
 			new_name=${d##*/}
 			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
-		else
+		fi
+		
+		if [ ! -d "${d}/files" ]
+		then
 			new_name=${d##*/}
 			mkdir -p ${d}/files
 			mv -v ${d}/!(files) ${d}/files
