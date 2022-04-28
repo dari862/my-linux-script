@@ -365,24 +365,7 @@ show_m "Install script poweroff_last for auto-poweroff if no users logged in 20 
 sudo bash "$temp_folder_for_openbox/autopoweroff" -I 20
 
 ##################################################################
-#
-
-##################################################################
-
-show_m "openbox copy temp_folder_for_openbox files."
-sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
-sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
-sudo chown -R root:root $temp_folder_for_usr_bin_
-sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
-
-# Create welcome link
-sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
-
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
+# archcraft
 
 mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_about_files
 mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
@@ -404,6 +387,23 @@ do
 done
 
 echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
+
+##################################################################
+
+show_m "openbox copy temp_folder_for_openbox files."
+sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
+sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
+sudo chown -R root:root $temp_folder_for_usr_bin_
+sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
+
+# Create welcome link
+sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
+
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
 
 
 mv $temp_folder_for_openbox/archcraft/fonts $temp_folder_for_openbox/archcraft/archcraft
