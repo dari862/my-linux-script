@@ -28,5 +28,3 @@ mpd
 
 bitmap style
 
-keybinds
-
