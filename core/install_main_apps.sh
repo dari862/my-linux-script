@@ -550,7 +550,7 @@ sudo apt-key add - < Release.key
 sudo apt-get update
 sudo apt-get install -y obmenu-generator
 
-mkdir -p  /tmp/openbox_tmp
+mkdir -p  $temp_folder_for_download
 archcraft_os_stuffs()
 {
 local url_archcraft_os="$1"
