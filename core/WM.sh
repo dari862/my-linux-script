@@ -388,9 +388,8 @@ done
 
 echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 
-sudo chown -R $temp_folder_for_download/networkmanager-dmenu
-sudo mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu /usr/bin
-sudo mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop /usr/share/applications/
+mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
+mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_openbox}/usr_share_app
 
 mv $temp_folder_for_openbox/archcraft/fonts $temp_folder_for_openbox/archcraft/archcraft
 mv $temp_folder_for_openbox/cursors/* $temp_folder_for_openbox/icons/
