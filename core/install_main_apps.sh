@@ -550,31 +550,28 @@ sudo apt-key add - < Release.key
 sudo apt-get update
 sudo apt-get install -y obmenu-generator
 
-mkdir -p  $temp_folder_for_download
 archcraft_os_stuffs()
 {
 local url_archcraft_os="$1"
 local tempvar="$2"
-local openbox_tmp_folder="/tmp/openbox_tmp"
-local openbox_folder="/tmp/openbox_now"
 
-git clone $url_archcraft_os $openbox_tmp_folder/openbox_${tempvar}
-mkdir -p $openbox_folder/${tempvar}
+git-clone $url_archcraft_os $temp_folder_for_download/openbox_${tempvar}
+mkdir -p $temp_folder_for_openbox/${tempvar}
 
 if [ "$tempvar" != "archcraft" ]
 then
-	for d in $openbox_tmp_folder/openbox_${tempvar}/* ; do
-		[ -d "$d" ] && mv -f ${d}/files/* $openbox_folder/${tempvar}
+	for d in $temp_folder_for_download/openbox_${tempvar}/* ; do
+		[ -d "$d" ] && mv -f ${d}/files/* $temp_folder_for_openbox/${tempvar}
 	done
 else
-	for d in $openbox_tmp_folder/openbox_${tempvar}/* ; do
+	for d in $temp_folder_for_download/openbox_${tempvar}/* ; do
 		if [ -d "$d" ]
 		then
 			new_name=${d##*/}
-			mv -f ${d}/files $openbox_folder/${tempvar}/${new_name//archcraft-/}
+			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
 		fi
 	done
-	mv $openbox_folder/${tempvar}/pixmaps $openbox_folder/${tempvar}/icons
+	mv $temp_folder_for_openbox/${tempvar}/pixmaps $temp_folder_for_openbox/${tempvar}/icons
 fi
 }
 
@@ -588,8 +585,8 @@ archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-cursors.git" "cur
 
 archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-packages.git" "archcraft"
 
-git clone https://github.com/archcraft-os/archcraft-openbox.git /tmp/openbox_tmp/archcraft-openbox
-git clone https://github.com/firecat53/networkmanager-dmenu.git /tmp/openbox_now/networkmanager-dmenu
+git-clone https://github.com/archcraft-os/archcraft-openbox.git $temp_folder_for_download/archcraft-openbox
+git-clone https://github.com/firecat53/networkmanager-dmenu.git $temp_folder_for_download/networkmanager-dmenu
 } &>> $debug_log 
 #################### end
 }
