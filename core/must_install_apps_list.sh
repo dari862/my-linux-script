@@ -63,3 +63,9 @@ install_openbox_=(openbox obconf xinit  xcape xautomation yad libnotify-bin pnmi
 install_openbox_extra=(rofi arandr gparted inxi s-tui dfc htop hwinfo cups synaptic )
 install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailutils mtp-tools gmtp)
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
+#
+sudo apt install -y ffmpeg # for screen recoding
+sudo apt install -y libnm-dev # for networkmanager_dmenu
+sudo apt install -y maim # for ac-shots
+sudo apt install -y python2 #for ac-randr ac-kb ac-kb-pipemenu
+install_openbox_archcraft=(xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy maim python2 ffmpeg libnm-dev qt5-style-kvantum)
