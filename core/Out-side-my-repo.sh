@@ -71,5 +71,5 @@ outsidemyrepo_archcraft_os_backgrounds="https://github.com/archcraft-os/archcraf
 outsidemyrepo_archcraft_os_icons="https://github.com/archcraft-os/archcraft-icons.git"
 outsidemyrepo_archcraft_os_cursors="https://github.com/archcraft-os/archcraft-cursors.git"
 outsidemyrepo_archcraft_os_archcraft="https://github.com/archcraft-os/archcraft-packages.git"
-outsidemyrepo_archcraft_os_archcraft_openbox "https://github.com/archcraft-os/archcraft-openbox.git" 
-outsidemyrepo_archcraft_os_networkmanager_dmenu "https://github.com/firecat53/networkmanager-dmenu.git"
+outsidemyrepo_archcraft_os_archcraft_openbox="https://github.com/archcraft-os/archcraft-openbox.git" 
+outsidemyrepo_archcraft_os_networkmanager_dmenu="https://github.com/firecat53/networkmanager-dmenu.git"
