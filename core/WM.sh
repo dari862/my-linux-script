@@ -388,6 +388,13 @@ done
 
 echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 
+sudo chown -R $temp_folder_for_download/networkmanager-dmenu
+sudo mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu /usr/bin
+sudo mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop /usr/share/applications/
+
+mv $temp_folder_for_openbox/archcraft/fonts $temp_folder_for_openbox/archcraft/archcraft
+mv $temp_folder_for_openbox/cursors/* $temp_folder_for_openbox/icons/
+
 ##################################################################
 
 show_m "openbox copy temp_folder_for_openbox files."
@@ -396,34 +403,23 @@ sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
 sudo chown -R root:root $temp_folder_for_usr_bin_
 sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
 
-# Create welcome link
-sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
-
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-
-
-mv $temp_folder_for_openbox/archcraft/fonts $temp_folder_for_openbox/archcraft/archcraft
-mv $temp_folder_for_openbox/cursors/* $temp_folder_for_openbox/icons/
-
-sudo chown -R root:root $temp_folder_for_openbox/*
-
+sudo chown -R root:root $temp_folder_for_openbox/archcraft
 sudo mv $temp_folder_for_openbox/archcraft /usr/share
-sudo mv $temp_folder_for_openbox/networkmanager-dmenu/networkmanager_dmenu /usr/bin
-sudo mv $temp_folder_for_openbox/networkmanager-dmenu/networkmanager_dmenu.desktop /usr/share/applications/
 sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
+sudo chown -R root:root $temp_folder_for_openbox/icons/*
 sudo mv $temp_folder_for_openbox/icons/* /usr/share/icons
+
 sudo mkdir -p /usr/share/backgrounds
+sudo chown -R root:root $temp_folder_for_openbox/backgrounds/*
 sudo mv $temp_folder_for_openbox/backgrounds/* /usr/share/backgrounds
+
+sudo chown -R root:root $temp_folder_for_openbox/themes
 for d in $temp_folder_for_openbox/themes/* ; do
 	Directory_name=${d##*/}
 	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
 done
 sudo mv $temp_folder_for_openbox/themes/* /usr/share/themes
 
-#################### end
-
+# Create welcome link
+sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
 }
