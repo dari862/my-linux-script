@@ -405,6 +405,11 @@ show_m "install terminal based sound app "
 echo_2_helper_list "# terminal based Sound apps"
 apt_install_whith_error_whitout_exit "${install_terminal_based_sound_app[@]}"
 echo_2_helper_list ""
+mkdir -p $temp_folder_for_skel_/.config
+mkdir -p $temp_folder_for_download
+cd $temp_folder_for_download
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/terminal_based_sound_config_files
+mv -v terminal_based_sound_config_files/* $temp_folder_for_skel_/.config
 }
 
 install_sddm_if_needed_now()
