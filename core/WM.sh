@@ -371,8 +371,11 @@ mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_about_files
 mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
 mv -v $temp_folder_for_download/openbox_archcraft/archcraft-about/* $temp_folder_for_download/openbox_archcraft/archcraft_about_files
 mv -v $temp_folder_for_download/openbox_archcraft/archcraft-lxdm/* $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
-mv -v $temp_folder_for_download/openbox_archcraft/archcraft_about_files $temp_folder_for_download/openbox_archcraft/archcraft-about/files
-mv -v $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files $temp_folder_for_download/openbox_archcraft/archcraft-lxdm/files
+tree $temp_folder_for_download/openbox_archcraft >> ~/123
+echo "##########################################" >> ~/123
+mv -v $temp_folder_for_download/openbox_archcraft/archcraft_about_files $temp_folder_for_download/openbox_archcraft/archcraft-about/files  >> ~/123
+mv -v $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files $temp_folder_for_download/openbox_archcraft/archcraft-lxdm/files  >> ~/123
+tree $temp_folder_for_download/openbox_archcraft >> ~/123
 
 mkdir -p $temp_folder_for_openbox/archcraft/openbox
 mv $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
