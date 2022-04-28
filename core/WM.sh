@@ -424,5 +424,5 @@ done
 sudo mv $temp_folder_for_openbox/themes/* /usr/share/themes
 
 # Create welcome link
-sudo ln -s /usr/bin/welcome "/$temp_folder_for_skel_/.config/openbox/welcome"
+sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"
 }
