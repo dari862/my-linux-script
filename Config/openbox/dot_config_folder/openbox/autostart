@@ -46,7 +46,7 @@ exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky
 (sleep 2; start_conky.sh) &											
 # Start volume control
-pnmixer &															
+#pnmixer &															
 # GNOME PolicyKit authentication
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	
 
