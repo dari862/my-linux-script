@@ -530,26 +530,6 @@ cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
 
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-#################### work on this
-{
-sudo apt install -y xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy
-
-sudo apt install -y qt5-style-kvantum 
-sudo apt install -y ffmpeg # for screen recoding
-sudo apt install -y libnm-dev # for networkmanager_dmenu
-sudo apt install -y maim # for ac-shots
-sudo apt install -y python2 #for ac-randr ac-kb ac-kb-pipemenu
-
-echo 'deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /' | sudo tee -a /etc/apt/sources.list.d/home:Head_on_a_Stick:obmenu-generator.list
-sudo wget -nv https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key -O Release.key
-sudo apt-key add - < Release.key
-sudo apt-get update
-sudo apt-get install -y obmenu-generator
-
 archcraft_os_stuffs()
 {
 local url_archcraft_os="$1"
@@ -575,18 +555,38 @@ else
 fi
 }
 
-archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-themes.git" "themes"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
 
-archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-wallpapers.git" "backgrounds"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_backgrounds" "backgrounds"
 
-archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-icons.git" "icons"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
 
-archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-cursors.git" "cursors"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
 
-archcraft_os_stuffs "https://github.com/archcraft-os/archcraft-packages.git" "archcraft"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
 
-git-clone https://github.com/archcraft-os/archcraft-openbox.git $temp_folder_for_download/archcraft-openbox
-git-clone https://github.com/firecat53/networkmanager-dmenu.git $temp_folder_for_download/networkmanager-dmenu
+git-clone "$outsidemyrepo_archcraft_os_archcraft_openbox" $temp_folder_for_download/archcraft-openbox
+git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
+
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+#################### work on this
+{
+sudo apt install -y xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy
+
+sudo apt install -y qt5-style-kvantum 
+sudo apt install -y ffmpeg # for screen recoding
+sudo apt install -y libnm-dev # for networkmanager_dmenu
+sudo apt install -y maim # for ac-shots
+sudo apt install -y python2 #for ac-randr ac-kb ac-kb-pipemenu
+
+echo 'deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /' | sudo tee -a /etc/apt/sources.list.d/home:Head_on_a_Stick:obmenu-generator.list
+sudo wget -nv https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key -O Release.key
+sudo apt-key add - < Release.key
+sudo apt-get update
+sudo apt-get install -y obmenu-generator
 } &>> $debug_log 
 #################### end
 }
