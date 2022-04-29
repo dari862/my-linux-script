@@ -560,8 +560,7 @@ else
 		then
 			new_name=${d##*/}
 			mkdir -p ${d}/files
-			mv -v $(ls -I ${d}/files) ${d}/files
-			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
+			ls ${d} | grep -v files | sed "s|^|${d}|" | xargs mv -t ${d}/files/
 		fi
 	done
 	mv $temp_folder_for_openbox/${tempvar}/pixmaps $temp_folder_for_openbox/${tempvar}/icons
