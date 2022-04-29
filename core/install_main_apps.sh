@@ -560,7 +560,7 @@ else
 		then
 			new_name=${d##*/}
 			mkdir -p ${d}/files
-			ls ${d} | grep -v files | sed "s|^|${d}|" | xargs mv -t ${d}/files/
+			ls ${d} | grep -v files | sed "s|^|${d}/|" | xargs mv -t ${d}/files/
 		fi
 	done
 	mv $temp_folder_for_openbox/${tempvar}/pixmaps $temp_folder_for_openbox/${tempvar}/icons
