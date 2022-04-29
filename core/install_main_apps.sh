@@ -560,7 +560,7 @@ else
 		then
 			new_name=${d##*/}
 			mkdir -p ${d}/files
-			mv -v `ls -I ${d}/files` ${d}/files
+			mv -v $(ls -I ${d}/files) ${d}/files
 			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
 		fi
 	done
