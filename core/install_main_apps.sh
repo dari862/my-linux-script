@@ -310,6 +310,7 @@ show_m "download polybar config "
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
+mv $temp_folder_for_skel_config/polybar/networkmanager-dmenu $temp_folder_for_skel_config
 show_m "download rofi config "
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
 show_m "install fonts for polybar app "
