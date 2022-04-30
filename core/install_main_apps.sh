@@ -302,6 +302,10 @@ install_polybar_app_now_()
 {
 show_m "install polybar app "
 apt_install_whith_error2info "${install_polybar_[@]}"
+}
+
+download_polybar_config_now_()
+{
 show_m "download polybar config "
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
@@ -366,6 +370,10 @@ show_m "install xfce4-panel app "
 echo_2_helper_list "# xfce4 apps"
 apt_install_whith_error2info "${install_xfce4_panel[@]}"
 echo_2_helper_list ""
+}
+
+download_xfce4_panel_config_now_()
+{
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4
