@@ -155,6 +155,9 @@ if [ "$do_you_want_to_install_openbox" == "true" ]; then
 	main_openbox_now
 fi
 
+if [ "$do_you_want_to_install_polybar_panel" == "true" ]; then
+	configure_polybar_now
+fi
 ############################
 
 mv_Temp_skel_folder_to_etc_skel_folder_now
