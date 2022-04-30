@@ -410,7 +410,121 @@ mkdir -p $temp_folder_for_download
 cd $temp_folder_for_download
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/terminal_based_sound_config_files
 mv -v terminal_based_sound_config_files/* $temp_folder_for_skel_/.config
+configure_terminal_based_sound_apps_now
 }
+
+configure_terminal_based_sound_apps_now()
+{
+#mpd is the music player daemon
+#it will scan for music and server music to its clients
+#https://wiki.archlinux.org/index.php/Music_Player_Daemon
+# no double config allowed in here and in ~/.config
+sudo rm /etc/mpd.conf
+mkdir -p $temp_folder_for_skel_/.config/mpd
+
+	if [ -f /usr/share/doc/mpd/mpdconf.example ]
+	then
+		cp /usr/share/doc/mpd/mpdconf.example $temp_folder_for_skel_/.config/mpd/mpd.conf
+	fi
+
+	if [ -f /usr/share/doc/mpd/mpdconf.example.gz ]
+	then
+		gunzip -c /usr/share/doc/mpd/mpdconf.example.gz > $temp_folder_for_skel_/.config/mpd/mpd.conf 
+	fi
+#exit 1
+#music_directory"~/music"
+sed -i '0,/#music_directory/s//music_directory/' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/music/~\/Music/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#playlist_directory   "~/.mpd/playlists"
+sed -i 's/#playlist_directory/playlist_directory/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/.mpd\/playlists/~\/.config\/mpd\/playlists/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#db_file  "~/.mpd/database"
+sed -i 's/#db_file/db_file/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/.mpd\/database/~\/.config\/mpd\/database/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#log_file "~/.mpd/log"
+sed -i 's/#log_file/log_file/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/.mpd\/log/~\/.config\/mpd\/log/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#pid_file "~/.mpd/pid"
+sed -i 's/#pid_file/pid_file/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/.mpd\/pid/~\/.config\/mpd\/pid/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#state_file "~/.mpd/state"
+sed -i 's/#state_file/state_file/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/.mpd\/state/~\/.config\/mpd\/state/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#sticker_file "~/.mpd/sticker.sql"
+sed -i 's/#sticker_file/sticker_file/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/~\/.mpd\/sticker/~\/.config\/mpd\/sticker/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#bind_to_address"any"
+sed -i 's/#bind_to_address/bind_to_address/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+sed -i 's/"any"/"127.0.0.1"/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#port   "6600"
+sed -i 's/#port/port/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#auto_update  "yes"
+sed -i 's/#auto_update/auto_update/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#follow_inside_symlinks   "yes"
+sed -i 's/#follow_inside_symlinks/follow_inside_symlinks/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+# socket
+sed -i 's/~\/.mpd\/socket/~\/.config\/mpd\/socket/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+#filesystem_charset   "UTF-8"
+sed -i 's/#filesystem_charset/filesystem_charset/g' $temp_folder_for_skel_/.config/mpd/mpd.conf
+echo 'audio_output {
+  type  "pulse"
+  name  "pulseaudio"
+}
+
+audio_output {
+type   "fifo"
+name   "Visualizer"
+path   "/tmp/mpd.fifo"
+format "44100:16:2"
+}' >> $temp_folder_for_skel_/.config/mpd/mpd.conf
+mkdir $temp_folder_for_skel_/.config/mpd/playlists
+sudo killall -9 
+
+if [[ ! -z "$(pidof mpd)" ]]; then
+	killall -9 mpd
+fi
+
+sudo systemctl stop mpd.socket
+sudo systemctl stop mpd.service 
+sudo systemctl disable mpd.socket
+sudo systemctl disable mpd.service 
+##############################################################################
+# more info @ https://wiki.archlinux.org/index.php/ncmpcpp
+mkdir -p $temp_folder_for_skel_/.config/ncmpcpp
+	if [ -f /usr/share/doc/ncmpcpp/config ]
+	then
+		cp /usr/share/doc/ncmpcpp/config $temp_folder_for_skel_/.config/ncmpcpp/config
+	fi
+	if [ -f /usr/share/doc/ncmpcpp/examples/config.gz ]
+	then
+		gunzip -c /usr/share/doc/ncmpcpp/examples/config.gz > $temp_folder_for_skel_/.config/ncmpcpp/config
+	fi
+#exit 1
+#ncmpcpp_directory = $temp_folder_for_skel_/.config/ncmpcpp
+sed -i 's/#ncmpcpp_directory/ncmpcpp_directory/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+#lyrics_directory = ~/.lyrics
+sed -i 's/#lyrics_directory/lyrics_directory/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+#mpd_host = "localhost"
+sed -i 's/#mpd_host/mpd_host/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+#mpd_port = "6600"
+sed -i 's/#mpd_port/mpd_port/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+#mpd_connection_timeout = 5
+sed -i 's/#mpd_connection_timeout/mpd_connection_timeout/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+#mpd_music_dir = ~/music
+sed -i 's/#mpd_music_dir = ~\/music/mpd_music_dir = ~\/Music/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+#mpd_crossfade_time = 5
+sed -i 's/#mpd_crossfade_time/mpd_crossfade_time/g' $temp_folder_for_skel_/.config/ncmpcpp/config
+	if [ -f /usr/share/doc/ncmpcpp/config ]
+	then
+		cp /usr/share/doc/ncmpcpp/bindings $temp_folder_for_skel_/.config/ncmpcpp/bindings
+	fi
+
+	if [ -f /usr/share/doc/ncmpcpp/examples/config.gz ]
+	then
+		gunzip -c /usr/share/doc/ncmpcpp/examples/bindings.gz > $temp_folder_for_skel_/.config/ncmpcpp/bindings
+	fi
+}
+
 
 install_sddm_if_needed_now()
 {
