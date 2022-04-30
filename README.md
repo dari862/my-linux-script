@@ -24,7 +24,5 @@ https://xerolinux.xyz/
 
 # work on
 
-mpd
-
 bitmap style
 
