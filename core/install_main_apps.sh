@@ -694,14 +694,16 @@ cd $temp_folder_for_themes_and_apps
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox
 
 cd $temp_folder_for_download
-if command -v polybar &> /dev/null
-then
-	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-polybar
-fi
-
 if command -v xfce4-panel &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-xfce4
+	cp -fr openbox-xfce4/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
+fi
+
+if command -v polybar &> /dev/null
+then
+	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-polybar
+	cp -fr openbox-polybar/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
 fi
 
 git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme
