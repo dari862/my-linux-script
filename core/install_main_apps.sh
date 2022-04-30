@@ -481,7 +481,7 @@ mkdir $temp_folder_for_skel_/.config/mpd/playlists
 sudo killall -9 
 
 if [[ ! -z "$(pidof mpd)" ]]; then
-	killall -9 mpd
+	sudo killall -9 mpd
 fi
 
 sudo systemctl stop mpd.socket
