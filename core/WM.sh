@@ -367,11 +367,6 @@ sudo bash "$temp_folder_for_openbox/autopoweroff" -I 20
 ##################################################################
 # archcraft
 
-mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_about_files
-mkdir -p $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
-mv -v $temp_folder_for_download/openbox_archcraft/archcraft-about/* $temp_folder_for_download/openbox_archcraft/archcraft_about_files
-mv -v $temp_folder_for_download/openbox_archcraft/archcraft-lxdm/* $temp_folder_for_download/openbox_archcraft/archcraft_lxdm_files
-
 mkdir -p $temp_folder_for_openbox/archcraft/openbox
 mv $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
 mv $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_openbox/archcraft/openbox/
