@@ -22,6 +22,8 @@ work on drivers
 
 https://xerolinux.xyz/
 
+https://github.com/erikdubois/arcolinux-nemesis
+
 # work on
 
 bitmap style
