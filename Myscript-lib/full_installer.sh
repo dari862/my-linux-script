@@ -153,11 +153,15 @@ fi
 we_are_at_stage=$(expr $we_are_at_stage + 1)
 if [ "$do_you_want_to_install_openbox" == "true" ]; then
 	main_openbox_now
+	if [ "$do_you_want_to_install_polybar_panel" == "true" ]; then
+		configure_polybar_now
+	fi
+	
+	if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
+		configure_xfce4_panel_4_openbox
+	fi
 fi
 
-if [ "$do_you_want_to_install_polybar_panel" == "true" ]; then
-	configure_polybar_now
-fi
 ############################
 
 mv_Temp_skel_folder_to_etc_skel_folder_now
