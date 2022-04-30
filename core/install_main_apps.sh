@@ -316,6 +316,48 @@ svn-export $outsidemyrepo_fonts_polybar_themes
 sudo chown -R root:root fonts
 sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
 sudo fc-cache -vf
+
+mkdir -p $temp_folder_for_polybar
+
+archcraft_os_stuffs()
+{
+local url_archcraft_os="$1"
+local tempvar="$2"
+
+git-clone $url_archcraft_os $temp_folder_for_download/polybar_${tempvar}
+mkdir -p $temp_folder_for_polybar/${tempvar}
+
+if [ "$tempvar" != "archcraft" ]
+then
+	for d in $temp_folder_for_download/polybar_${tempvar}/* ; do
+		[ -d "$d" ] && mv -f ${d}/files/* $temp_folder_for_polybar/${tempvar}
+	done
+else
+	for d in $temp_folder_for_download/polybar_${tempvar}/* ; do
+		if [ -d "${d}/files" ]
+		then
+			new_name=${d##*/}
+			mv -f ${d}/files $temp_folder_for_polybar/${tempvar}/${new_name//archcraft-/}
+		fi
+		
+		if [ -d "${d}" ] && [ ! -d "${d}/files" ]
+		then
+			new_name=${d##*/}
+			mkdir -p ${d}/files
+			ls ${d} | grep -v files | sed "s|^|${d}/|" | xargs mv -t ${d}/files/
+		fi
+	done
+	mv $temp_folder_for_polybar/${tempvar}/pixmaps $temp_folder_for_polybar/${tempvar}/icons
+fi
+}
+
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_backgrounds" "backgrounds"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
+archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
+git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
+
 }
 
 install_xfce4_panel_app_now_()
@@ -648,45 +690,7 @@ cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
 
-archcraft_os_stuffs()
-{
-local url_archcraft_os="$1"
-local tempvar="$2"
-
-git-clone $url_archcraft_os $temp_folder_for_download/openbox_${tempvar}
-mkdir -p $temp_folder_for_openbox/${tempvar}
-
-if [ "$tempvar" != "archcraft" ]
-then
-	for d in $temp_folder_for_download/openbox_${tempvar}/* ; do
-		[ -d "$d" ] && mv -f ${d}/files/* $temp_folder_for_openbox/${tempvar}
-	done
-else
-	for d in $temp_folder_for_download/openbox_${tempvar}/* ; do
-		if [ -d "${d}/files" ]
-		then
-			new_name=${d##*/}
-			mv -f ${d}/files $temp_folder_for_openbox/${tempvar}/${new_name//archcraft-/}
-		fi
-		
-		if [ -d "${d}" ] && [ ! -d "${d}/files" ]
-		then
-			new_name=${d##*/}
-			mkdir -p ${d}/files
-			ls ${d} | grep -v files | sed "s|^|${d}/|" | xargs mv -t ${d}/files/
-		fi
-	done
-	mv $temp_folder_for_openbox/${tempvar}/pixmaps $temp_folder_for_openbox/${tempvar}/icons
-fi
-}
-
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_backgrounds" "backgrounds"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
 git-clone "$outsidemyrepo_archcraft_os_archcraft_openbox" $temp_folder_for_download/archcraft-openbox
-git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
 apt_install_whith_error_whitout_exit "${install_openbox_archcraft[@]}"
 add_new_source_to_apt_now mod "gpg" repolink "deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /" reponame  "obmenu_generator" keylink "https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key" keyname "obmenu-generator.gpg"
