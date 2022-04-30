@@ -409,6 +409,7 @@ mv $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_op
 mv $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_openbox/archcraft/openbox/
 sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb
+sed -i -e 's|.config/openbox/scripts|.config/polybar/scripts|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 
 for change_content in ac-powermenu ac-change-fonts ac-randr
 do
