@@ -684,6 +684,9 @@ echo_2_helper_list ""
 cd $temp_folder_for_themes_and_apps
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox
 mkdir -p $temp_folder_for_download
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-xfce4
+rm -rdf $temp_folder_for_themes_and_apps/openbox/dot_config_folder/*
+mv $temp_folder_for_download/openbox-xfce4/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
 git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme
 cd $temp_folder_for_openbox
 cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
