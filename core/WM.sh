@@ -62,8 +62,29 @@ configure_PreWM_now
 
 configure_polybar_now()
 {
+mkdir -p ${temp_folder_for_polybar}/usr_share_app
+mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
+mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_polybar}/usr_share_app
 
+mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
+mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
 
+sudo chown -R root:root $temp_folder_for_polybar/archcraft
+sudo mv $temp_folder_for_polybar/archcraft /usr/share
+sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
+sudo chown -R root:root $temp_folder_for_polybar/icons/*
+sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
+
+sudo mkdir -p /usr/share/backgrounds
+sudo chown -R root:root $temp_folder_for_polybar/backgrounds/*
+sudo mv $temp_folder_for_polybar/backgrounds/* /usr/share/backgrounds
+
+sudo chown -R root:root $temp_folder_for_polybar/themes
+for d in $temp_folder_for_polybar/themes/* ; do
+	Directory_name=${d##*/}
+	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
+done
+sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
 }
 
 ##################################################################################################################################################
@@ -395,12 +416,6 @@ done
 
 echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 
-mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
-mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_openbox}/usr_share_app
-
-mv $temp_folder_for_openbox/archcraft/fonts $temp_folder_for_openbox/archcraft/archcraft
-mv $temp_folder_for_openbox/cursors/* $temp_folder_for_openbox/icons/
-
 ##################################################################
 
 show_m "openbox copy temp_folder_for_openbox files."
@@ -408,23 +423,6 @@ sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
 sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
 sudo chown -R root:root $temp_folder_for_usr_bin_
 sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
-
-sudo chown -R root:root $temp_folder_for_openbox/archcraft
-sudo mv $temp_folder_for_openbox/archcraft /usr/share
-sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
-sudo chown -R root:root $temp_folder_for_openbox/icons/*
-sudo mv $temp_folder_for_openbox/icons/* /usr/share/icons
-
-sudo mkdir -p /usr/share/backgrounds
-sudo chown -R root:root $temp_folder_for_openbox/backgrounds/*
-sudo mv $temp_folder_for_openbox/backgrounds/* /usr/share/backgrounds
-
-sudo chown -R root:root $temp_folder_for_openbox/themes
-for d in $temp_folder_for_openbox/themes/* ; do
-	Directory_name=${d##*/}
-	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
-done
-sudo mv $temp_folder_for_openbox/themes/* /usr/share/themes
 
 # Create welcome link
 sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"
