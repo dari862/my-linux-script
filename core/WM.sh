@@ -62,6 +62,7 @@ configure_PreWM_now
 
 configure_polybar_now()
 {
+sudo mkdir -p /usr/share/archcraft 
 mkdir -p ${temp_folder_for_polybar}/usr_share_app
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_polybar}/usr_share_app
@@ -70,7 +71,7 @@ mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/a
 mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
 
 sudo chown -R root:root $temp_folder_for_polybar/archcraft
-sudo mv $temp_folder_for_polybar/archcraft /usr/share
+sudo mv $temp_folder_for_polybar/archcraft/* /usr/share/archcraft
 sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
 sudo chown -R root:root $temp_folder_for_polybar/icons/*
 sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
@@ -401,6 +402,7 @@ sudo bash "$temp_folder_for_openbox/autopoweroff" -I 20
 ##################################################################
 # archcraft
 
+sudo mkdir -p /usr/share/archcraft
 mkdir -p $temp_folder_for_openbox/archcraft/openbox
 mv $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
 mv $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_openbox/archcraft/openbox/
@@ -423,6 +425,9 @@ sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
 sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
 sudo chown -R root:root $temp_folder_for_usr_bin_
 sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
+
+sudo chown root:root -R $temp_folder_for_openbox/archcraft/openbox
+sudo mv $temp_folder_for_openbox/archcraft/openbox /usr/share/archcraft
 
 # Create welcome link
 sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"
