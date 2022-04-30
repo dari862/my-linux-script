@@ -478,16 +478,16 @@ path   "/tmp/mpd.fifo"
 format "44100:16:2"
 }' >> $temp_folder_for_skel_/.config/mpd/mpd.conf
 mkdir $temp_folder_for_skel_/.config/mpd/playlists
-sudo killall -9 
 
 if [[ ! -z "$(pidof mpd)" ]]; then
 	sudo killall -9 mpd
 fi
 
-sudo systemctl stop mpd.socket
-sudo systemctl stop mpd.service 
-sudo systemctl disable mpd.socket
-sudo systemctl disable mpd.service 
+sudo systemctl stop mpd.socket &>> $debug_log 
+sudo systemctl stop mpd.service &>> $debug_log 
+sudo systemctl disable mpd.socket &>> $debug_log 
+sudo systemctl disable mpd.service &>> $debug_log 
+
 ##############################################################################
 # more info @ https://wiki.archlinux.org/index.php/ncmpcpp
 mkdir -p $temp_folder_for_skel_/.config/ncmpcpp
@@ -524,7 +524,6 @@ sed -i 's/#mpd_crossfade_time/mpd_crossfade_time/g' $temp_folder_for_skel_/.conf
 		gunzip -c /usr/share/doc/ncmpcpp/examples/bindings.gz > $temp_folder_for_skel_/.config/ncmpcpp/bindings
 	fi
 }
-
 
 install_sddm_if_needed_now()
 {
