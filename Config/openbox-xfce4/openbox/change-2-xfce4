@@ -17,30 +17,6 @@ set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
-# rofi --------------------------------------
-change_rofi() {
-	sed -i -e "s/STYLE=.*/STYLE=\"$1\"/g" 						${rofi_path}/bin/music ${rofi_path}/bin/network ${rofi_path}/bin/screenshot ${rofi_path}/bin/runner
-	sed -i -e "s/STYLE=.*/STYLE=\"$1\"/g" 						${rofi_path}/bin/launcher ${rofi_path}/bin/powermenu
-	sed -i -e "s/font:.*/font:				 	\"$2\";/g" 		${rofi_path}/"$1"/font.rasi
-
-	sed -i -e "s/font:.*/font:				 	\"$2\";/g" 			${rofi_path}/dialogs/askpass.rasi ${rofi_path}/dialogs/confirm.rasi
-	sed -i -e "s/border:.*/border:					$3;/g" 			${rofi_path}/dialogs/askpass.rasi ${rofi_path}/dialogs/confirm.rasi
-	sed -i -e "s/border-radius:.*/border-radius:          $4;/g" 	${rofi_path}/dialogs/askpass.rasi ${rofi_path}/dialogs/confirm.rasi
-
-	if [[ -f "$HOME"/.config/rofi/config.rasi ]]; then
-		sed -i -e "s/icon-theme:.*/icon-theme:         \"$5\";/g" 	"$HOME"/.config/rofi/config.rasi
-	fi
-
-	cat > ${rofi_path}/dialogs/colors.rasi <<- _EOF_
-	/* Color-Scheme */
-
-	* {
-	    BG:    #212B30ff;
-	    FG:    #C4C7C5ff;
-	    BDR:   #EC407Aff;
-	}
-	_EOF_
-}
 
 # gtk theme, icons and fonts ----------------
 change_appearance() {
@@ -213,11 +189,8 @@ notify_user
 # funct WALLPAPER
 set_wallpaper 'openbox.png'
 
-# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-change_rofi 'adaptive' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
-
 # funct THEME ICON CURSOR FONT
-change_appearance 'Adapta-Nokto' 'Luv-Folders-Dark' 'Vimix' 'Noto Sans 9'
+change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 # funct THEME LAYOUT FONT SIZE (Change margin in funct)
 obconfig 'Adapta-Nokto' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
