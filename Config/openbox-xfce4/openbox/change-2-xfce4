@@ -11,6 +11,9 @@ terminal_path="$HOME/.config/alacritty"
 xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
+# configure rc.xml 
+config="$HOME/.config/openbox/rc.xml"
+namespace="http://openbox.org/3.4/rc"
 
 # wallpaper ---------------------------------
 set_wallpaper() {
@@ -85,7 +88,11 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 10 "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
 }
-
+# Change menu file & reload OB
+ob_menu() {
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$1" "$config"
+	openbox --reconfigure
+}
 # dunst -------------------------------------
 change_dunst() {
 	sed -i -e "s/width = .*/width = $1/g" 						${dunst_path}/dunstrc
@@ -194,6 +201,7 @@ change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 # funct THEME LAYOUT FONT SIZE (Change margin in funct)
 obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+ob_menu 'xfce4-menu.xml'
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
 change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
