@@ -9,7 +9,7 @@
     <menu id="root-menu" label="Openbox 3">
 		<item label="Run Program" icon="/usr/share/icons/openbox-menu/search.png">
 			<action name="Execute">
-				<command>rofi -show drun</command>
+				<command>rofi -theme ~/.config/rofi/xfce4/run_menu.rasi -show drun</command>
 			</action>
 		</item> 
 
