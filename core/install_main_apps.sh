@@ -461,6 +461,8 @@ mkdir -p $temp_folder_for_download
 cd $temp_folder_for_download
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/terminal_based_sound_config_files
 mv -v terminal_based_sound_config_files/* $temp_folder_for_skel_/.config
+#mkdir -p $temp_folder_for_skel_/Music
+mv $temp_folder_for_skel_/.config/Music $temp_folder_for_skel_/
 configure_terminal_based_sound_apps_now
 }
 
