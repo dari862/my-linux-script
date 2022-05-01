@@ -455,7 +455,7 @@
         <item label="Exit" icon="/usr/share/icons/openbox-menu/exit.png">
             <action name="Execute">
                 <command>
-                    obexit show
+                    ~/.config/rofi/xfce4/obexit show
                 </command>
             </action>
         </item>
