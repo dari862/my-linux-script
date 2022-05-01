@@ -342,7 +342,10 @@ chmod +x $temp_folder_for_usr_bin_/autosnap
 chmod a+x $temp_folder_for_usr_bin_/x-locker
 
 # Copy users config	
-sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/xfce4-menu.xml
+if [ -f "$temp_folder_for_skel_/.config/openbox/xfce4-menu.xml" ]
+then
+	sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/xfce4-menu.xml
+fi
 
 # Set as default
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session
