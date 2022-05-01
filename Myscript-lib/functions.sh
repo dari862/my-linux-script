@@ -671,7 +671,7 @@ make
 apt_purge_with_error "${StringArray[@]}"
 fi
 
-if [ "$DISTRO" != "Pop" ] || [ -z "$(command -v networkmanager_dmenu)" ]
+if [ "$DISTRO" != "Pop" ] && [ -z "$(command -v networkmanager_dmenu)" ]
 then
 declare -a StringArray=(
 libglib2.0-dev-bin
