@@ -193,7 +193,7 @@ set_wallpaper 'openbox.png'
 change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 # funct THEME LAYOUT FONT SIZE (Change margin in funct)
-obconfig 'Adapta-Nokto' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
 change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
