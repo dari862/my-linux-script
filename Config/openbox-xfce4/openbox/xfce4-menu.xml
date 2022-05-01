@@ -87,7 +87,7 @@
                 <item label="Edit menu.xml" icon="/usr/share/icons/openbox-menu/text-editor.png">
                     <action name="Execute">
                         <command>
-                            x-text-editor ~/.config/openbox/menu.xml
+                            x-text-editor ~/.config/openbox/xfce4-menu.xml
                         </command>
                     </action>
                 </item>      		
