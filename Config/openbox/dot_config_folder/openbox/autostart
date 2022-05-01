@@ -41,6 +41,8 @@ fi
 # Set wallpaper
 nitrogen --restore &									
 xfsettingsd &
+# Start compositor
+exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky
 (sleep 2; start_conky.sh) &											
 # Start volume control
@@ -56,20 +58,16 @@ fi
 if [ ! -z "$(command -v polybar)" ]
 then
         bash ~/.config/polybar/launch.sh &          # Start polybar
-	# Start compositor
-	exec picom --config "$HOME/.config/picom.conf" &
 	## Launch Plank
 	exec plank &
 else
 
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>')" ]
         then
-                sed -i "s|<file>.*.xml</file>|<file>xfce4-menu.xml</file>|g" ~/.config/openbox/rc.xml
+                ~/.config/openbox/change-2-xfce4
         fi
         xfce4-panel &                           # Start xfce4-panel
         xfce4-clipman &                                   # Start xfce4-clipman           
-	# Start compositor
-	exec picom --config "$HOME/.config/picom.conf" &
 fi 
 
 ## Enable power management
