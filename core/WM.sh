@@ -78,7 +78,7 @@ sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
 
 sudo mkdir -p /usr/share/backgrounds
 sudo chown -R root:root $temp_folder_for_polybar/backgrounds/*
-sudo mv $temp_folder_for_polybar/backgrounds/* /usr/share/backgrounds
+sudo mv $temp_folder_for_polybar/backgrounds/* $wallpapers_location_now
 
 sudo chown -R root:root $temp_folder_for_polybar/themes
 for d in $temp_folder_for_polybar/themes/* ; do
