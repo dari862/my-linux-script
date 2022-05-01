@@ -57,6 +57,10 @@ fi
 
 if [ ! -z "$(command -v polybar)" ]
 then
+        if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>')" ]
+        then
+                ~/.config/openbox/change-2-xfce4
+        fi
         bash ~/.config/polybar/launch.sh &          # Start polybar
 	## Launch Plank
 	exec plank &
