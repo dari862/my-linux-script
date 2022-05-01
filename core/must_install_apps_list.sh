@@ -47,6 +47,7 @@ install_lightdm_=(lightdm)
 install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
 
 #panel
+#libnm-dev for networkmanager_dmenu
 install_polybar_=(polybar rofi libnm-dev)
 install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-screenshooter xfce4-clipman xfce4-power-manager xfce4-notifyd)
 
@@ -64,6 +65,6 @@ install_openbox_extra=(rofi arandr gparted inxi s-tui dfc htop hwinfo cups synap
 install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailutils mtp-tools gmtp)
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
 
-# ffmpeg for screen recoding libnm-dev for networkmanager_dmenu maim for ac-shots python2 for ac-randr ac-kb ac-kb-pipemenu
+# ffmpeg for screen recoding , maim for ac-shots , python2 for ac-randr ac-kb ac-kb-pipemenu
 install_openbox_archcraft=(xmlstarlet xfce4-terminal xfce4-settings light upower qt5ct geany plank i3lock-fancy maim python2 ffmpeg qt5-style-kvantum)
 install_openbox_obmenu_generator=(obmenu-generator)
