@@ -180,7 +180,7 @@ wallpapers_location_now="/usr/share/my_wallpapers"
 gnome_wallpaper_folder="/usr/share/backgrounds"
 kde_wallpaper_folder="/usr/share/wallpapers"
 nitrogen_wp_default="nord1.png"
-replace_nitrogen_wp_default="openbox.png"
+replace_nitrogen_wp_default="default.jpg"
 
 # dotcleanup var
 is_zsh_default_shell="false"
