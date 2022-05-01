@@ -211,7 +211,7 @@ notify_user() {
 notify_user
 
 # funct WALLPAPER
-set_wallpaper 'adaptive.png'
+set_wallpaper 'openbox.png'
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
 change_rofi 'adaptive' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
