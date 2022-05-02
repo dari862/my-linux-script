@@ -166,9 +166,9 @@ if [ "$do_you_want_to_install_openbox" == "true" ]; then
 		configure_polybar_now
 	fi
 	
-	#if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
-	#	configure_xfce4_panel_4_openbox
-	#fi
+	if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
+		configure_xfce4_now
+	fi
 	main_openbox_now
 fi
 
