@@ -301,8 +301,20 @@ notify_user() {
 	dunstify -u normal --replace=699 -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : ${style%.*}"
 }
 
-## Execute Script ---------------------------
+if_wm_is_openbox_()
+{
+if [[ ! -z "$(pidof openbox" ]]; then
+	change_rofi 
+	obconfig 
+	change_dunst 
+fi
+}
+
+## Execute Script -----------------------
 notify_user
+
+# set dunst rofi and openbox if wm is openbox
+#if_wm_is_openbox_
 
 # funct WALLPAPER
 set_wallpaper 'openbox.png'
