@@ -22,14 +22,15 @@ set_wallpaper() {
 
 
 # gtk theme, icons and fonts ----------------
-change_appearance() {
-	xfconf-query -c xsettings -p /Net/ThemeName -s "$1"
-	xfconf-query -c xsettings -p /Net/IconThemeName -s "$2"
-	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "$3"
-	xfconf-query -c xsettings -p /Gtk/FontName -s "$4"
-	
+change_gtk() {
+	xfconf-query -c xfwm4 -p /general/theme -s "${1}"
+	xfconf-query -c xsettings -p /Net/ThemeName -s "${2}"
+	xfconf-query -c xsettings -p /Net/IconThemeName -s "${3}"
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "${4}"
+	xfconf-query -c xsettings -p /Gtk/FontName -s "${5}"
+
 	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
-		sed -i -e "s/Inherits=.*/Inherits=$3/g" "$HOME"/.icons/default/index.theme
+		sed -i -e "s/Inherits=.*/Inherits=$4/g" "$HOME"/.icons/default/index.theme
 	fi	
 }
 
@@ -193,7 +194,7 @@ notify_user
 set_wallpaper 'openbox.png'
 
 # funct THEME ICON CURSOR FONT
-change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
+change_appearance 'Arc' 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 # funct THEME LAYOUT FONT SIZE (Change margin in funct)
 obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
