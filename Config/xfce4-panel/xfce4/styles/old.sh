@@ -4,16 +4,11 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 ## Dirs #############################################
-openbox_path="$HOME/.config/openbox"
-polybar_path="$HOME/.config/polybar"
-rofi_path="$HOME/.config/rofi"
-terminal_path="$HOME/.config/alacritty"
-xfce_term_path="$HOME/.config/xfce4/terminal"
+terminal_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
+openbox_path="$HOME/.config/openbox"
+rofi_path="$HOME/.config/rofi"
 dunst_path="$HOME/.config/dunst"
-# configure rc.xml 
-config="$HOME/.config/openbox/rc.xml"
-namespace="http://openbox.org/3.4/rc"
 
 # wallpaper ---------------------------------
 set_wallpaper() {
@@ -91,6 +86,9 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:size' -v "$fontsize" "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:weight' -v Normal "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:slant' -v Normal "$config"
+
+	# Openbox Menu Style
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$5" "$config"
 
 	# Margins
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 0 "$config"
