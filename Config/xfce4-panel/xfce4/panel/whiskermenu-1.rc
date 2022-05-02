@@ -1,7 +1,7 @@
 favorites=xfce4-web-browser.desktop,xfce4-mail-reader.desktop,xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop
 recent=
 button-title=\ Applications
-button-icon=$HOME/.config/xfce4/archcraft-icons/xfce-menucraft.svg
+button-icon=/usr/share/pixmaps/xfce-menucraft.svg
 button-single-row=false
 show-button-title=true
 show-button-icon=true
