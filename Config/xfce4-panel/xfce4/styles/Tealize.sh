@@ -7,9 +7,7 @@ geany_path="$HOME/.config/geany"
 
 # wallpaper ---------------------------------
 set_wall() {
-	SCREEN=`xrandr --listactivemonitors | awk -F ' ' 'END {print $1}' | tr -d \:`
-	MONITOR=`xrandr --listactivemonitors | awk -F ' ' 'END {print $2}' | tr -d \*+`
-	xfconf-query --channel xfce4-desktop --property /backdrop/screen${SCREEN}/monitor${MONITOR}/workspace0/last-image --set /usr/share/backgrounds/"${1}"
+	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
 # xfce terminal ---------------------------------
