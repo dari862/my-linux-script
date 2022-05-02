@@ -72,7 +72,9 @@ else
                 ~/.config/openbox/change-2-xfce4
         fi
         xfce4-panel &                           # Start xfce4-panel
-        xfce4-clipman &                                   # Start xfce4-clipman           
+        xfce4-clipman &                                   # Start xfce4-clipman  
+	pnmixer &										# Start volume control
+	nm-applet &										# Start network manager
 fi 
 
 ## Enable power management
