@@ -298,31 +298,8 @@ conky_now
 # preWM
 ##################################################################################################################################################
 
-install_polybar_app_now_()
+archcraft_os_stuffs_now_()
 {
-show_m "install polybar app "
-apt_install_whith_error2info "${install_polybar_[@]}"
-}
-
-download_polybar_config_now_()
-{
-show_m "download polybar config "
-mkdir -p $temp_folder_for_skel_config
-cd $temp_folder_for_skel_config
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
-find $temp_folder_for_skel_config/polybar/scripts/style -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
-mv $temp_folder_for_skel_config/polybar/networkmanager-dmenu $temp_folder_for_skel_config
-show_m "download rofi config "
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
-show_m "install fonts for polybar app "
-mkdir -p $temp_folder_for_download
-sudo mkdir -p /usr/share/fonts
-cd $temp_folder_for_download
-svn-export $outsidemyrepo_fonts_polybar_themes
-sudo chown -R root:root fonts
-sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
-sudo fc-cache -vf
-
 mkdir -p $temp_folder_for_polybar
 
 archcraft_os_stuffs()
@@ -362,6 +339,35 @@ archcraft_os_stuffs "$outsidemyrepo_archcraft_os_backgrounds" "backgrounds"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
+}
+
+install_polybar_app_now_()
+{
+show_m "install polybar app "
+apt_install_whith_error2info "${install_polybar_[@]}"
+}
+
+download_polybar_config_now_()
+{
+show_m "download polybar config "
+mkdir -p $temp_folder_for_skel_config
+cd $temp_folder_for_skel_config
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
+find $temp_folder_for_skel_config/polybar/scripts/style -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
+mv $temp_folder_for_skel_config/polybar/networkmanager-dmenu $temp_folder_for_skel_config
+show_m "download rofi config "
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
+show_m "install fonts for polybar app "
+mkdir -p $temp_folder_for_download
+sudo mkdir -p /usr/share/fonts
+cd $temp_folder_for_download
+svn-export $outsidemyrepo_fonts_polybar_themes
+sudo chown -R root:root fonts
+sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
+sudo fc-cache -vf
+
+archcraft_os_stuffs_now_
+
 git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
 }
@@ -390,6 +396,7 @@ sudo mv -v "$temp_folder_for_download/clear_xfce-notify-4.0_gtk.css" "/usr/share
 sudo chown root:root /usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css
 #fix xfce4-panel workspace settings error in openbox
 sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
+archcraft_os_stuffs_now_
 }
 
 ############################################################################
