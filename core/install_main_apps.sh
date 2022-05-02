@@ -379,8 +379,7 @@ download_xfce4_panel_config_now_()
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4-2
-
+mv $temp_folder_for_skel_config/xfce4/xfce-menucraft.svg /usr/share/pixmaps
 ###################################################################
 show_m "Install clear xfce4-notify theme and configure xfce4-panel"
 # Copy users config
