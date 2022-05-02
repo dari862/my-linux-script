@@ -52,6 +52,37 @@ main_PreWM_now()
 show_mf "Pre-WM."
 configure_PreWM_now
 }
+
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+# archcraft_os
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+
+configure_archcraft_os_stuffs_now_()
+{
+sudo mkdir -p /usr/share/archcraft 
+mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
+mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
+
+sudo chown -R root:root $temp_folder_for_polybar/archcraft
+sudo mv $temp_folder_for_polybar/archcraft/* /usr/share/archcraft
+sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
+sudo chown -R root:root $temp_folder_for_polybar/icons/*
+sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
+
+sudo chown -R root:root $temp_folder_for_polybar/backgrounds/*
+sudo mv $temp_folder_for_polybar/backgrounds/* $wallpapers_location_now
+
+sudo chown -R root:root $temp_folder_for_polybar/themes
+for d in $temp_folder_for_polybar/themes/* ; do
+	Directory_name=${d##*/}
+	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
+done
+sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
+}
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##################################################################################################################################################
@@ -62,30 +93,28 @@ configure_PreWM_now
 
 configure_polybar_now()
 {
-sudo mkdir -p /usr/share/archcraft 
+
 mkdir -p ${temp_folder_for_polybar}/usr_share_app
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_polybar}/usr_share_app
 
-mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
-mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
+configure_archcraft_os_stuffs_now_
 
-sudo chown -R root:root $temp_folder_for_polybar/archcraft
-sudo mv $temp_folder_for_polybar/archcraft/* /usr/share/archcraft
-sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
-sudo chown -R root:root $temp_folder_for_polybar/icons/*
-sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
+}
 
-sudo mkdir -p /usr/share/backgrounds
-sudo chown -R root:root $temp_folder_for_polybar/backgrounds/*
-sudo mv $temp_folder_for_polybar/backgrounds/* $wallpapers_location_now
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
+# polybar
+##################################################################################################################################################
+##################################################################################################################################################
+##################################################################################################################################################
 
-sudo chown -R root:root $temp_folder_for_polybar/themes
-for d in $temp_folder_for_polybar/themes/* ; do
-	Directory_name=${d##*/}
-	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
-done
-sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
+configure_xfce4_now()
+{
+
+configure_archcraft_os_stuffs_now_
+
 }
 
 ##################################################################################################################################################
