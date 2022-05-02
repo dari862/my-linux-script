@@ -33,9 +33,3 @@ network
 powermanager
 
 xfce4 style
-
-if [[ ! -z "$(pidof openbox" ]]; then
-  change_rofi 
-  obconfig 
-  change_dunst 
-fi
