@@ -298,7 +298,7 @@ conky_now
 # preWM
 ##################################################################################################################################################
 
-archcraft_os_stuffs_now_()
+download_archcraft_os_stuffs_now_()
 {
 mkdir -p $temp_folder_for_polybar
 
@@ -366,7 +366,7 @@ sudo chown -R root:root fonts
 sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
 sudo fc-cache -vf
 
-archcraft_os_stuffs_now_
+download_archcraft_os_stuffs_now_
 
 git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
@@ -397,7 +397,7 @@ sudo mv -v "$temp_folder_for_download/clear_xfce-notify-4.0_gtk.css" "/usr/share
 sudo chown root:root /usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css
 #fix xfce4-panel workspace settings error in openbox
 sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
-archcraft_os_stuffs_now_
+download_archcraft_os_stuffs_now_
 }
 
 ############################################################################
