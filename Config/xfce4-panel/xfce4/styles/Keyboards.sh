@@ -154,8 +154,20 @@ notify_user () {
 	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
 }
 
+if_wm_is_openbox_()
+{
+if [[ ! -z "$(pidof openbox" ]]; then
+	change_rofi 
+	obconfig 
+	change_dunst 
+fi
+}
+
 ## Execute Script -----------------------
 notify_user
+
+# set dunst rofi and openbox if wm is openbox
+#if_wm_is_openbox_
 
 # Set Wallpaper
 set_wall 'keyboards.jpg'
