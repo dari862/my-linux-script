@@ -1,1 +1,10 @@
-
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Gruvbox
+Comment=Gruvbox Style for XFCE Desktop
+Exec=/bin/sh -c "$HOME/.config/xfce4/styles/Gruvbox.sh"
+Icon=gtk-theme-config
+Path=
+Terminal=false
+StartupNotify=false
