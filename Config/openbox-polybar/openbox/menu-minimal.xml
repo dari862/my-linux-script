@@ -104,22 +104,22 @@
 				</item>
 				<item label="Logout">
 					<action name="Execute">
-						<command>/&pipes;/pipemenus/ac-powermenu --logout</command>
+						<command>&pipes;/ac-powermenu --logout</command>
 					</action>
 				</item>
 				<item label="Suspend">
 					<action name="Execute">
-						<command>/&pipes;/pipemenus/ac-powermenu --suspent</command>
+						<command>&pipes;/ac-powermenu --suspent</command>
 					</action>
 				</item>
 				<item label="Reboot">
 					<action name="Execute">
-						<command>/&pipes;/pipemenus/ac-powermenu --reboot</command>
+						<command>&pipes;/ac-powermenu --reboot</command>
 					</action>
 				</item>
 				<item label="Shutdown">
 					<action name="Execute">
-						<command>/&pipes;/pipemenus/ac-powermenu --shutdown</command>
+						<command>&pipes;/ac-powermenu --shutdown</command>
 					</action>
 				</item>
 		</menu>
