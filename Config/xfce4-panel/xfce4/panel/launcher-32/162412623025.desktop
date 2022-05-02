@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=old
+Comment=old Style for XFCE Desktop
+Exec=/bin/sh -c "$HOME/.config/xfce4/styles/old.sh"
+Icon=gtk-theme-config
+Path=
+Terminal=false
+StartupNotify=false

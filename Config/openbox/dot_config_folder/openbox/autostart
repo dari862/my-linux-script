@@ -64,8 +64,7 @@ if [ ! -z "$(command -v polybar)" ]
 then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>')" ]
         then
-		xmlstarlet ed -L -N a="http://openbox.org/3.4/rc" -u '/a:openbox_config/a:menu/a:file' -v "menu.xml" "$HOME/.config/openbox/rc.xml"
-		openbox --reconfigure
+			$HOME/.config/polybar/scripts/style/old.sh
         fi
 	# Start polybar
         bash ~/.config/polybar/launch.sh &          
@@ -75,7 +74,7 @@ else
 
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>')" ]
         then
-                ~/.config/openbox/change-2-xfce4
+			$HOME/.config/xfce4/styles/old.sh
         fi
 	# Start xfce4-panel
         xfce4-panel &
