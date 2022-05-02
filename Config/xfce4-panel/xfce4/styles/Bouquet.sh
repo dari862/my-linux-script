@@ -154,9 +154,10 @@ notify_user () {
 	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
 }
 
+# run this function in openbox --------------
 if_wm_is_openbox_()
 {
-if [[ ! -z "$(pidof openbox" ]]; then
+if [[ ! -z "$(pidof openbox)" ]]; then
 	change_rofi 
 	obconfig 
 	change_dunst 
