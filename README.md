@@ -26,5 +26,8 @@ https://github.com/erikdubois/arcolinux-nemesis
 
 # work on
 
-bitmap style
+bitmap style (polybar)
 
+network
+
+powermanager
