@@ -185,25 +185,25 @@
 				<separator/>
 				<item icon="&icons;/sys-exit.png" label="Logout">
 					<action name="Execute">
-						<command>/&pipes;/ac-powermenu --logout</command>
+						<command>&pipes;/ac-powermenu --logout</command>
 					</action>
 				</item>
 				<separator/>
 				<item icon="&icons;/sys-sleep.png" label="Suspend">
 					<action name="Execute">
-						<command>/&pipes;/ac-powermenu --suspent</command>
+						<command>&pipes;/ac-powermenu --suspent</command>
 					</action>
 				</item>
 				<separator/>
 				<item icon="&icons;/sys-reboot.png" label="Reboot">
 					<action name="Execute">
-						<command>/&pipes;/ac-powermenu --reboot</command>
+						<command>&pipes;/ac-powermenu --reboot</command>
 					</action>
 				</item>
 				<separator/>
 				<item icon="&icons;/sys-poweroff-alt.png" label="Shutdown">
 					<action name="Execute">
-						<command>/&pipes;/ac-powermenu --shutdown</command>
+						<command>&pipes;/ac-powermenu --shutdown</command>
 					</action>
 				</item>
 		</menu>
