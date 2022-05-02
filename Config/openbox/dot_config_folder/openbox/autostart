@@ -22,19 +22,26 @@ do
 done
 
 #### START SETTINGS  #################################################################################
-[ -d ~/.screenlayout ] && "$(ls ~/.screenlayout/*.sh | head -1)"	# Exec first script screenlayout found
 
-xset r rate 250 25													# Set keyboard settings to 250ms delay and 25cps (characters per second)
-xcape -e "Super_L=Control_L|Tab" 									# Alias for: Super key (win) = Control_Left+Tab
+# Exec first script screenlayout found
+[ -d ~/.screenlayout ] && "$(ls ~/.screenlayout/*.sh | head -1)"	
+
+# Set keyboard settings to 250ms delay and 25cps (characters per second)
+xset r rate 250 25	
+# Alias for: Super key (win) = Control_Left+Tab
+xcape -e "Super_L=Control_L|Tab" 									
 xcape -e 'Super_L=Alt_L|F1' &
 xcape -e 'Super_R=Alt_L|F1' &
 
-[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap &							# Load xmodmap keys mapping
+# Load xmodmap keys mapping
+[ -f ~/.Xmodmap ] && xmodmap ~/.Xmodmap &							
 
 # Touchpad settings
 if [ -f /sys/module/battery/initstate ] || [ -d /proc/acpi/battery/BAT0 ]; then
-	synclient VertEdgeScroll=1 HorizEdgeScroll=1 TapButton1=1 2>/dev/null	# Configure touchpad
-	syndaemon -i .5 -K -t -R -d & 											# Disable touchpad while typing
+	# Configure touchpad
+	synclient VertEdgeScroll=1 HorizEdgeScroll=1 TapButton1=1 2>/dev/null	
+	# Disable touchpad while typing
+	syndaemon -i .5 -K -t -R -d & 											
 fi
 
 #### START APPLICATIONS ###############################################################################
@@ -44,9 +51,7 @@ xfsettingsd &
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky
-(sleep 2; start_conky.sh) &											
-# Start volume control
-#pnmixer &															
+(sleep 2; start_conky.sh) &																										
 # GNOME PolicyKit authentication
 /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	
 
@@ -62,7 +67,8 @@ then
 		xmlstarlet ed -L -N a="http://openbox.org/3.4/rc" -u '/a:openbox_config/a:menu/a:file' -v "menu.xml" "$HOME/.config/openbox/rc.xml"
 		openbox --reconfigure
         fi
-        bash ~/.config/polybar/launch.sh &          # Start polybar
+	# Start polybar
+        bash ~/.config/polybar/launch.sh &          
 	## Launch Plank
 	exec plank &
 else
@@ -71,10 +77,14 @@ else
         then
                 ~/.config/openbox/change-2-xfce4
         fi
-        xfce4-panel &                           # Start xfce4-panel
-        xfce4-clipman &                                   # Start xfce4-clipman  
-	pnmixer &										# Start volume control
-	nm-applet &										# Start network manager
+	# Start xfce4-panel
+        xfce4-panel &
+	# Start xfce4-clipman 
+        xfce4-clipman & 
+	# Start volume control
+	pnmixer &
+	# Start network manager
+	nm-applet &				
 fi 
 
 ## Enable power management
