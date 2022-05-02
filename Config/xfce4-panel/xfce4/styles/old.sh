@@ -202,68 +202,6 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
 }
 
-# dunst -------------------------------------
-change_dunst() {
-	sed -i -e "s/width = .*/width = $1/g" 						${dunst_path}/dunstrc
-	sed -i -e "s/height = .*/height = $2/g" 					${dunst_path}/dunstrc
-	sed -i -e "s/offset = .*/offset = $3/g" 					${dunst_path}/dunstrc
-	sed -i -e "s/origin = .*/origin = $4/g" 					${dunst_path}/dunstrc
-	sed -i -e "s/font = .*/font = $5/g" 						${dunst_path}/dunstrc
-	sed -i -e "s/frame_width = .*/frame_width = $6/g" 			${dunst_path}/dunstrc
-	sed -i -e "s/separator_height = .*/separator_height = 4/g" 	${dunst_path}/dunstrc
-	sed -i -e "s/line_height = .*/line_height = 4/g" 			${dunst_path}/dunstrc
-
-	sed -i '/urgency_low/Q' ${dunst_path}/dunstrc
-	cat >> ${dunst_path}/dunstrc <<- _EOF_
-		[urgency_low]
-		timeout = 2
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
-
-		[urgency_normal]
-		timeout = 5
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
-
-		[urgency_critical]
-		timeout = 0
-		background = "#212B30"
-		foreground = "#EC407A"
-		frame_color = "#EC407A"
-	_EOF_
-
-	pkill dunst && dunst &
-}
-
-# Plank -------------------------------------
-change_dock() {
-	cat > "$HOME"/.cache/plank.conf <<- _EOF_
-		[dock1]
-		alignment='center'
-		auto-pinning=true
-		current-workspace-only=false
-		dock-items=['xfce-settings-manager.dockitem', 'x-terminal-emulator.dockitem', 'x-file-manager.dockitem', 'x-www-browser.dockitem', 'x-text-editor.dockitem']
-		hide-delay=0
-		hide-mode='auto'
-		icon-size=32
-		items-alignment='center'
-		lock-items=false
-		monitor=''
-		offset=0
-		pinned-only=false
-		position='bottom'
-		pressure-reveal=false
-		show-dock-item=false
-		theme='Transparent'
-		tooltips-enabled=true
-		unhide-delay=0
-		zoom-enabled=true
-		zoom-percent=120
-	_EOF_
-}
-
 # compositor --------------------------------
 compositor() {
 	comp_file="$HOME/.config/picom.conf"
