@@ -88,11 +88,7 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 10 "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
 }
-# Change menu file & reload OB
-ob_menu() {
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$1" "$config"
-	openbox --reconfigure
-}
+
 # dunst -------------------------------------
 change_dunst() {
 	sed -i -e "s/width = .*/width = $1/g" 						${dunst_path}/dunstrc
@@ -200,8 +196,7 @@ set_wallpaper 'openbox.png'
 change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 # funct THEME LAYOUT FONT SIZE (Change margin in funct)
-obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
-ob_menu 'xfce4-menu.xml'
+obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
 change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
