@@ -4,6 +4,9 @@
 ## Dirs #############################################
 terminal_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
+openbox_path="$HOME/.config/openbox"
+rofi_path="$HOME/.config/rofi"
+dunst_path="$HOME/.config/dunst"
 
 # wallpaper ---------------------------------
 set_wall() {
