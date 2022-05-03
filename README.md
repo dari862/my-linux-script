@@ -14,11 +14,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 # to do
 
-work on awesome
-
 work on bspwm
-
-work on drivers
 
 https://xerolinux.xyz/
 
