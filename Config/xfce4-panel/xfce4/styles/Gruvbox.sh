@@ -169,7 +169,7 @@ if [[ ! -z "$(pidof openbox)" ]]; then
 	change_rofi 'spark' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Spark' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu' && openbox --reconfigure
+	obconfig 'Spark' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
 	
 	# funct GEOMETRY FONT BORDER (Change colors in funct)
 	change_dunst '280' '80' '20x20' 'top-right' 'Iosevka Custom 9' '0'
