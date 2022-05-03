@@ -243,7 +243,7 @@ if_wm_is_openbox_()
 if [[ ! -z "$(pidof openbox)" ]]; then
 
 	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-	change_rofi 'default' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
+	change_rofi 'old' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
 	obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
