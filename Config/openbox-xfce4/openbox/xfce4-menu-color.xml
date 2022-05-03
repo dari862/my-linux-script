@@ -2,6 +2,7 @@
 <!DOCTYPE menu [
   <!ENTITY icons "/usr/share/archcraft/openbox/icons">
   <!ENTITY icons2 "/usr/share/archcraft/icons/dunst">
+  <!ENTITY rofibin "~/.config/openbox/rofi/bin">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -12,7 +13,7 @@
     <menu id="root-menu" label="Openbox 3">
 		<item label="Run Program" icon="&icons2;/search.png">
 			<action name="Execute">
-				<command>rofi -theme ~/.config/rofi/xfce4/run_menu.rasi -show drun</command>
+				<command>&rofibin;/runner</command>
 			</action>
 		</item> 
 
@@ -457,9 +458,7 @@
 
         <item label="Exit" icon="&icons;/sys-poweroff-alt.png">
             <action name="Execute">
-                <command>
-                    ~/.config/rofi/xfce4/obexit show
-                </command>
+                <command>&rofibin;/powermenu</command>
             </action>
         </item>
     </menu>
