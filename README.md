@@ -31,3 +31,7 @@ bitmap style (polybar)
 network
 
 powermanager
+
+run pro (rofi)
+
+exit (rofi)
