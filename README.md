@@ -31,5 +31,3 @@ bitmap style (polybar)
 network
 
 powermanager
-
-xfce4 style
