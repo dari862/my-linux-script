@@ -164,9 +164,16 @@ notify_user () {
 if_wm_is_openbox_()
 {
 if [[ ! -z "$(pidof openbox)" ]]; then
-	change_rofi 
-	obconfig 
-	change_dunst 
+	
+	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
+	change_rofi 'forest' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+	
+	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+	obconfig 'Adapta-Nokto' 'CLM' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
+	
+	# funct GEOMETRY FONT BORDER (Change colors in funct)
+	change_dunst '280' '80' '10x40' 'top-right' 'Iosevka Custom 9' '0'
+	
 fi
 }
 
@@ -174,7 +181,7 @@ fi
 notify_user
 
 # set dunst rofi and openbox if wm is openbox
-#if_wm_is_openbox_
+if_wm_is_openbox_
 
 # Set Wallpaper
 set_wall 'forest.jpg'

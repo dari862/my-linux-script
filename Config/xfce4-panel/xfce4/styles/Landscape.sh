@@ -164,9 +164,16 @@ notify_user () {
 if_wm_is_openbox_()
 {
 if [[ ! -z "$(pidof openbox)" ]]; then
-	change_rofi 
-	obconfig 
-	change_dunst 
+	
+	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
+	change_rofi 'landscape' 'Iosevka 10' '0px' '0px' 'Qogir'
+	
+	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+	obconfig 'Arc-Lighter' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
+	
+	# funct GEOMETRY FONT BORDER (Change colors in funct)
+	change_dunst '280' '80' '10x46' 'top-right' 'JetBrains Mono 10' '6'
+	
 fi
 }
 
@@ -174,7 +181,7 @@ fi
 notify_user
 
 # set dunst rofi and openbox if wm is openbox
-#if_wm_is_openbox_
+if_wm_is_openbox_
 
 # Set Wallpaper
 set_wall 'landscape.jpg'
