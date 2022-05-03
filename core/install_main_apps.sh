@@ -353,6 +353,7 @@ show_m "download polybar config "
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
+download_rofi_config_now_
 find $temp_folder_for_skel_config/polybar/scripts/style -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 mv $temp_folder_for_skel_config/polybar/networkmanager-dmenu $temp_folder_for_skel_config
 show_m "download rofi config "
@@ -365,11 +366,20 @@ svn-export $outsidemyrepo_fonts_polybar_themes
 sudo chown -R root:root fonts
 sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
 sudo fc-cache -vf
-
 download_archcraft_os_stuffs_now_
 
 git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
+}
+
+download_rofi_config_now_()
+{
+if [ ! -f "$temp_folder_for_download/rofi_config_files_downloaded" ]
+then
+	show_m "download rofi config "
+	svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
+	touch $temp_folder_for_download/rofi_config_files_downloaded
+fi
 }
 
 install_xfce4_panel_app_now_()
@@ -385,6 +395,7 @@ download_xfce4_panel_config_now_()
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4
+download_rofi_config_now_
 find $temp_folder_for_skel_config/xfce4/styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 sudo mv $temp_folder_for_skel_config/xfce4/xfce-menucraft.svg /usr/share/pixmaps
 ###################################################################
@@ -710,6 +721,9 @@ if command -v xfce4-panel &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-xfce4
 	cp -fr openbox-xfce4/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
+	show_m "download rofi config "
+	svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
+	cp -fr rofi $temp_folder_for_themes_and_apps/openbox/dot_config_folder
 fi
 
 if command -v polybar &> /dev/null

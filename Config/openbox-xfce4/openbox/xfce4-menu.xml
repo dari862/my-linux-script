@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE menu [
   <!ENTITY icons "/usr/share/icons/openbox-menu">
-  <!ENTITY rofibin "~/.config/openbox/rofi/bin">
+  <!ENTITY rofibin "~/.config/rofi/bin">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
