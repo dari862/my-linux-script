@@ -721,9 +721,8 @@ if command -v xfce4-panel &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-xfce4
 	cp -fr openbox-xfce4/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
-	show_m "download rofi config "
-	svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
-	cp -fr rofi $temp_folder_for_themes_and_apps/openbox/dot_config_folder
+	cp -fr "$temp_folder_for_openbox"/dot_config_folder/rofi $temp_folder_for_skel_config/
+	rm -rdf "$temp_folder_for_openbox"/dot_config_folder/rofi
 fi
 
 if command -v polybar &> /dev/null
