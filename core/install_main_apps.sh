@@ -658,8 +658,6 @@ install_main_apps_for_bspwm()
 mkdir -p $temp_folder_for_bspwm
 cd $temp_folder_for_bspwm
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/bspwm_config_files/
-cp -rf $temp_folder_for_bspwm/bspwm_config_files/user_bin/* $temp_folder_for_usr_bin_
-rm -rdf $temp_folder_for_bspwm/bspwm_config_files/user_bin
 # Add base packages
 show_mf "pre_bspwm_now "
 show_m "install bspwm app "
