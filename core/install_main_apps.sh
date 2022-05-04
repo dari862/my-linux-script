@@ -395,6 +395,7 @@ download_xfce4_panel_config_now_()
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4
+mv -v $temp_folder_for_skel_config/xfce4/session-logout $temp_folder_for_usr_bin_
 download_rofi_config_now_
 find $temp_folder_for_skel_config/xfce4/styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 sudo mv $temp_folder_for_skel_config/xfce4/xfce-menucraft.svg /usr/share/pixmaps
