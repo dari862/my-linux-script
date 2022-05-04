@@ -657,7 +657,9 @@ install_main_apps_for_bspwm()
 {
 mkdir -p $temp_folder_for_bspwm
 cd $temp_folder_for_bspwm
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/bspwm_config_files/ $temp_folder_for_bspwm
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/bspwm_config_files/
+cp -rf $temp_folder_for_bspwm/bspwm_config_files/user_bin/* $temp_folder_for_usr_bin_
+rm -rdf $temp_folder_for_bspwm/bspwm_config_files/user_bin
 # Add base packages
 show_mf "pre_bspwm_now "
 show_m "install bspwm app "
@@ -733,7 +735,7 @@ fi
 
 git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme
 cd $temp_folder_for_openbox
-cp -v ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
+cp -rfv ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
 
