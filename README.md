@@ -24,6 +24,13 @@ https://github.com/erikdubois/arcolinux-nemesis
 
 bitmap style (polybar)
 
+/usr/share/archcraft/openbox/pipemenus/ac-change-style
+if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ]
+then
+
+fi
+
+
 network
 
 powermanager
