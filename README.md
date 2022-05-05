@@ -14,6 +14,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 # to do
 
+number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
+
 work on bspwm
 
 https://xerolinux.xyz/
