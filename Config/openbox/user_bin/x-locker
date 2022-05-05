@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 check_if_image_is_png()
 {
 File_type=$(file $1 | awk '{print $2}')
