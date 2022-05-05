@@ -20,6 +20,8 @@ https://xerolinux.xyz/
 
 https://github.com/erikdubois/arcolinux-nemesis
 
+https://github.com/adi1090x/polybar-themes
+
 # work on
 
 powermanager
