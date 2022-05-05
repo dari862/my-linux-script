@@ -22,6 +22,4 @@ https://github.com/erikdubois/arcolinux-nemesis
 
 # work on
 
-network
-
 powermanager
