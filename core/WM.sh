@@ -25,6 +25,8 @@ then
    sed -i 's|# vsync = false|vsync = false;|g' ~/.config/picom.conf
    sed -i 's|vsync = true;|# vsync = true|g' ~/.config/picom.conf
 fi
+show_m "Enable network interface managemnet "
+sudo sed -i 's/managed=.*/managed=true/g' /etc/NetworkManager/NetworkManager.conf
 
 ####################################
 # PreWM_themeing_now
