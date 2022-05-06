@@ -22,5 +22,5 @@ fi
 
 if [ "$1" == "lock" ]
 then
-  systemctl poweroff
+  x-lock
 fi
