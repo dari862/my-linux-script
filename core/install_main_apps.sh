@@ -464,6 +464,7 @@ install_lock_screen_app_now_()
 {
 show_m "installing screenlocker"
 apt_install_whith_error_whitout_exit "${install_x_lock_app[@]}"
+apt_install_whith_error_whitout_exit "${install_x_lock_extra[@]}"
 if command -v $install_x_lock_app >/dev/null
 then
 	sudo update-alternatives --install /usr/bin/x-locker x-locker $(command -v $install_x_lock_app) 90
