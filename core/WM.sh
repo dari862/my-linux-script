@@ -378,8 +378,8 @@ chmod a+x $temp_folder_for_usr_bin_/bt-session
 chmod a+x $temp_folder_for_usr_bin_/welcome
 # Copy autosnap script
 chmod +x $temp_folder_for_usr_bin_/autosnap 
-# Copy x-locker
-chmod a+x $temp_folder_for_usr_bin_/x-locker
+# Copy my-locker
+chmod a+x $temp_folder_for_usr_bin_/my-locker
 
 # Copy users config	
 if [ -f "$temp_folder_for_skel_/.config/openbox/xfce4-menu.xml" ]
