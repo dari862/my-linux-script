@@ -19,3 +19,8 @@ if [ "$1" == "poweroff" ]
 then
   systemctl poweroff
 fi
+
+if [ "$1" == "lock" ]
+then
+  systemctl poweroff
+fi
