@@ -48,6 +48,7 @@ hibernate_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "hibern
 poweroff_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "poweroff_time=" | cut -d '=' -f 2)
 brightness_level=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "brightness_level=" | cut -d '=' -f 2)
 lock_screen_on_idle=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "lock_screen_on_idle=" | cut -d '=' -f 2)
+
 while true; do
   idleTimeMillis=$(xprintidle)
   idleTime=$((idleTimeMillis/1000))
@@ -91,9 +92,13 @@ while true; do
   fi
   
   [ "$idle" == "false" ] && sleep $time_to_sleep
-  [ "$idle" == "true" ] && sleep 1
-  
-  if [[ $idle = true && $idleTimeMillis -lt $idleAfterMillis ]] ; then
+
+  if [[ $idle = true ]] ; then
+    while [ $idleTimeMillis -lt $idleAfterMillis ]
+    do
+    	sleep 1
+	idleTimeMillis=$(xprintidle)
+    done
     idle=false
   fi
 done
