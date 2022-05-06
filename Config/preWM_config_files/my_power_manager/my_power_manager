@@ -65,7 +65,7 @@ while true; do
 		[ "$suspend_time" -ge "$idleTime" ] && systemctl suspend
   fi
   
-  if [ "$hibernate" -gt 0 ]
+  if [ "$hibernate_time" -gt 0 ]
   then
 		[ "$hibernate" -ge "$idleTime" ] && systemctl hibernate
   fi
