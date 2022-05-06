@@ -50,7 +50,7 @@ case $chosen in
     $shutdown)
 		ans=$(rdialog &)
 		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
-			systemctl poweroff
+			my_session_manager poweroff
 		elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
 			exit
         else
@@ -60,7 +60,7 @@ case $chosen in
     $reboot)
 		ans=$(rdialog &)
 		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
-			systemctl reboot
+			my_session_manager reboot
 		elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
 			exit
         else
@@ -68,7 +68,7 @@ case $chosen in
         fi
         ;;
     $lock)
-        x-locker
+        my_session_manager lock
         ;;
     $suspend)
 		ans=$(rdialog &)
@@ -85,7 +85,7 @@ case $chosen in
     $logout)
 		ans=$(rdialog &)
 		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
-			openbox --exit
+			my_session_manager logout
 		elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
 			exit
         else
