@@ -120,10 +120,9 @@ while true; do
   [ "$idle" == "false" ] && sleep $time_to_sleep
 
   if [[ $idle = true ]] ; then
-    while [ $idleTimeMillis -lt $idleAfterMillis ]
+    while [ $idleTimeMillis -gt $idleAfterMillis ]
     do
-    	time_to_sleep=$((idleAfterMillis-idleTimeMillis))
-    	sleep $time_to_sleep
+    	sleep $min_time_is
 	idleTimeMillis=$(xprintidle)
     done
     idle=false
