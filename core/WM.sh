@@ -9,6 +9,10 @@ configure_PreWM_now()
 {
 show_m "install preWM_apps"
 cd $temp_folder_for_preWM
+sudo mv $temp_folder_for_preWM/preWM_config_files/my_session_manager $temp_folder_for_usr_bin_
+mkdir -p $HOME/.local/bin
+mv $temp_folder_for_preWM/preWM_config_files/my_power_manager $HOME/.local/bin
+mv $temp_folder_for_preWM/preWM_config_files/my_power_manager_gui $HOME/.local/bin
 mkdir -p ~/.config/gtk-3.0
 mv $temp_folder_for_preWM/preWM_config_files/.face $HOME/
 mv $temp_folder_for_preWM/preWM_config_files/.dmrc $HOME/
