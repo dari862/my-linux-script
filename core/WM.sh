@@ -71,6 +71,9 @@ configure_archcraft_os_stuffs_now_()
 sudo mkdir -p /usr/share/archcraft 
 mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
 mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
+sed -i 's/openbox --exit/my_session_manager logout/g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-powermenu
+sed -i 's/betterlockscreen --/my_session_manager /g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-powermenu
+sed -i 's/systemctl/my_session_manager/g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-powermenu
 sed -i '/menuSeparator "| Bitmap |"/i add_beginning_of_bitmap_check_here_plz' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
 sed -i '/menuSeparator "| Effects |"/i add_ending_of_bitmap_check_here_plz' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then|g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
