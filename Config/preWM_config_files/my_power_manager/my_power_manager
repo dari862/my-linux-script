@@ -57,22 +57,22 @@ while true; do
   
   if [ "$logout_time" -gt 0 ]
   then
-		[ "$logout_time" -ge "$idleTime" ] && openbox --exit
+		[ "$logout_time" -le "$idleTime" ] && openbox --exit
   fi 
   
   if [ "$suspend_time" -gt 0 ]
   then
-		[ "$suspend_time" -ge "$idleTime" ] && systemctl suspend
+		[ "$suspend_time" -le "$idleTime" ] && systemctl suspend
   fi
   
   if [ "$hibernate_time" -gt 0 ]
   then
-		[ "$hibernate" -ge "$idleTime" ] && systemctl hibernate
+		[ "$hibernate" -le "$idleTime" ] && systemctl hibernate
   fi
   
   if [ "$poweroff_time" -gt 0 ]
   then
-		[ "$poweroff_time" -ge "$idleTime" ] && systemctl poweroff
+		[ "$poweroff_time" -le "$idleTime" ] && systemctl poweroff
   fi
   time_to_sleep=$((idleAfter-idleTime))
   [ $time_to_sleep -le 0 ] && time_to_sleep=0
