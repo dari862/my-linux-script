@@ -1,1 +1,98 @@
+#!/bin/bash
 
+set_brightness_on_idle()
+{
+if [ "$only_one_display" == "true" ]
+then
+	this_is_n_activate_display=$(xrandr -q | grep " connected" | awk '{print $1;}')
+	xrandr --output $this_is_n_activate_display --brightness 0.5
+else
+	while [ "$n" -le "$max_n" ];
+	do
+		this_is_n_activate_display=$(xrandr -q | grep " connected" | awk '{print $1;}' | head -n $n | tail -l)
+		xrandr --output $this_is_n_activate_display --brightness 0.5
+		n=$(($n+1))
+	done
+fi
+}
+
+idle=false
+max_n=$(xrandr -q | grep "connected" | wc | awk '{print $1;}')
+n=1
+if [ $max_n -eq 1 ]
+then
+	only_one_display="true"
+fi
+
+if [ ! -f "my_power_manager.ini" ]
+then
+mkdir -p ~/.config/my_power_manager
+cat << EOF > ~/.config/my_power_manager/my_power_manager.ini
+idleAfter=10
+turnoff_moniter_time=0
+logout_time=0
+suspend_time=0
+hibernate_time=0
+poweroff_time=0
+brightness_level=0
+lock_screen_on_idle=true
+EOF
+fi
+idleAfter=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "idleAfter=" | cut -d '=' -f 2)
+idleAfterMillis=$((idleAfter*1000))
+turnoff_moniter_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "turnoff_moniter_time=" | cut -d '=' -f 2)
+logout_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "logout_time=" | cut -d '=' -f 2)
+suspend_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "suspend_time=" | cut -d '=' -f 2)
+hibernate_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "hibernate_time=" | cut -d '=' -f 2)
+poweroff_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "poweroff_time=" | cut -d '=' -f 2)
+brightness_level=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "brightness_level=" | cut -d '=' -f 2)
+lock_screen_on_idle=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "lock_screen_on_idle=" | cut -d '=' -f 2)
+while true; do
+  idleTimeMillis=$(xprintidle)
+  idleTime=$((idleTimeMillis/1000))
+  if [ "$turnoff_moniter_time" -gt 0 ]
+  then
+		[ "$turnoff_moniter_time" -ge "$idleTime" ] && xset dpms force off || ( xset s blank && xset s activate )
+  fi
+  
+  if [ "$logout_time" -gt 0 ]
+  then
+		[ "$logout_time" -ge "$idleTime" ] && openbox --exit
+  fi 
+  
+  if [ "$suspend_time" -gt 0 ]
+  then
+		[ "$suspend_time" -ge "$idleTime" ] && systemctl suspend
+  fi
+  
+  if [ "$hibernate" -gt 0 ]
+  then
+		[ "$hibernate" -ge "$idleTime" ] && systemctl hibernate
+  fi
+  
+  if [ "$poweroff_time" -gt 0 ]
+  then
+		[ "$poweroff_time" -ge "$idleTime" ] && systemctl poweroff
+  fi
+  time_to_sleep=$((idleAfter-idleTime))
+  [ $time_to_sleep -le 0 ] && time_to_sleep=0
+  if [[ $idle = false && $idleTimeMillis -gt $idleAfterMillis ]] ; then
+    if [ "$brightness_level" -ne 0 ]
+	then
+		set_brightness_on_idle
+	fi
+	
+	if [ "$lock_screen_on_idle" == "true" ]
+	then
+		x-locker
+	fi
+    idle=true
+  fi
+  
+  [ "$idle" == "false" ] && sleep $time_to_sleep
+  [ "$idle" == "true" ] && sleep 1
+  
+  if [[ $idle = true && $idleTimeMillis -lt $idleAfterMillis ]] ; then
+    idle=false
+  fi
+done
