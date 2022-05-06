@@ -87,7 +87,7 @@ else
 fi 
 
 ## Enable power management
-xfce4-power-manager &
+cbatticon -x ~/.locl/bin/my_power_manager/my_power_manager_gui &
 
 # Show Openbox welcome
 ~/.config/openbox/welcome &											
