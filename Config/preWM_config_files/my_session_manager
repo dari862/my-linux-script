@@ -1,1 +1,21 @@
 #!/bin/bash
+
+if [ "$1" == "logout" ]
+then
+  openbox --exit
+fi 
+  
+if [ "$1" == "suspend" ]
+then
+  systemctl suspend
+fi
+ 
+if [ "$1" == "hibernate" ]
+then
+  systemctl hibernate
+fi
+  
+if [ "$1" == "poweroff" ]
+then
+  systemctl poweroff
+fi
