@@ -434,12 +434,6 @@ $temp_folder_for_download/Tela-icon-theme/install.sh grey &>> $debug_log
 #sed -i 's/^gtk-xft-hintstyle *= *.*/gtk-xft-hintstyle="'"hintslight"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 
 ##################################################################
-show_m "Install script poweroff_last for auto-poweroff if no users logged in 20 minutes"
-# INFO: Automatic poweroff may be useful in public or shared computers to avoid left computers ON needlessly
-
-sudo bash "$temp_folder_for_openbox/autopoweroff" -I 20
-
-##################################################################
 # archcraft
 
 sudo mkdir -p /usr/share/archcraft
