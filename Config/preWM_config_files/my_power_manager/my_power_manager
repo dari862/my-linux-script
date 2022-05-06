@@ -96,7 +96,8 @@ while true; do
   if [[ $idle = true ]] ; then
     while [ $idleTimeMillis -lt $idleAfterMillis ]
     do
-    	sleep 1
+    	time_to_sleep=$((idleAfterMillis-idleTimeMillis))
+    	sleep $time_to_sleep
 	idleTimeMillis=$(xprintidle)
     done
     idle=false
