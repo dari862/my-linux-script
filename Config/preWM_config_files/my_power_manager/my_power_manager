@@ -24,7 +24,7 @@ then
 	only_one_display="true"
 fi
 
-if [ ! -f "my_power_manager.ini" ]
+if [ ! -f "$HOME/.config/my_power_manager/my_power_manager.ini" ]
 then
 mkdir -p ~/.config/my_power_manager
 cat << EOF > ~/.config/my_power_manager/my_power_manager.ini
@@ -38,6 +38,7 @@ brightness_level=0
 lock_screen_on_idle=true
 EOF
 fi
+
 idleAfter=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "idleAfter=" | cut -d '=' -f 2)
 idleAfterMillis=$((idleAfter*1000))
 turnoff_moniter_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "turnoff_moniter_time=" | cut -d '=' -f 2)
