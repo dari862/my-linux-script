@@ -16,6 +16,23 @@ else
 fi
 }
 
+min_var_is_()
+{
+  minvar=$1
+  eval minval=\$$1
+  for i in $*
+  do
+    eval var=\$$i
+    # echo $i=$var
+    if [[ $var -lt $minval ]]
+    then
+      minvar=$i
+      minval=$var
+      # echo min=$i
+    fi
+  done
+}
+
 idle=false
 max_n=$(xrandr -q | grep "connected" | wc | awk '{print $1;}')
 n=1
@@ -49,9 +66,17 @@ poweroff_time=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "powerof
 brightness_level=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "brightness_level=" | cut -d '=' -f 2)
 lock_screen_on_idle=$(grep ~/.config/my_power_manager/my_power_manager.ini -e "lock_screen_on_idle=" | cut -d '=' -f 2)
 
+min_var_is_ idleAfter turnoff_moniter_time logout_time suspend_time hibernate_time poweroff_time
+
+min_time_is=$minval
+
 while true; do
   idleTimeMillis=$(xprintidle)
   idleTime=$((idleTimeMillis/1000))
+  time_to_sleep=$((idleAfter-idleTime))
+  [ $time_to_sleep -le 0 ] && time_to_sleep=0
+  
+  
   if [ "$turnoff_moniter_time" -gt 0 ]
   then
 		[ "$turnoff_moniter_time" -ge "$idleTime" ] && xset dpms force off || ( xset s blank && xset s activate )
@@ -76,8 +101,7 @@ while true; do
   then
 		[ "$poweroff_time" -le "$idleTime" ] && systemctl poweroff
   fi
-  time_to_sleep=$((idleAfter-idleTime))
-  [ $time_to_sleep -le 0 ] && time_to_sleep=0
+
   if [[ $idle = false && $idleTimeMillis -gt $idleAfterMillis ]] ; then
     if [ "$brightness_level" -ne 0 ]
 	then
