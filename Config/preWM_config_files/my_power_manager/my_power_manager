@@ -65,12 +65,17 @@ min_var_is_ $idleAfter $turnoff_moniter_time $logout_time $suspend_time $hiberna
 
 min_time_is=$minval
 
-[ $min_time_is -lt $idleAfter ] && difference_time=$((idleAfter-min_time_is))
+if [ $min_time_is -lt $idleAfter ] 
+then
+	difference_time=$((idleAfter-min_time_is))
+else
+	difference_time=0
+fi
 
 while true; do
   idleTimeMillis=$(xprintidle)
   idleTime=$((idleTimeMillis/1000))
-  time_to_sleep=$((idleAfter+difference_time-idleTime))
+  time_to_sleep=$((idleAfter-difference_time-idleTime))
   [ $time_to_sleep -le 0 ] && time_to_sleep=0
   
   
