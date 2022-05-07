@@ -87,7 +87,7 @@ else
 fi 
 
 ## Enable power management
-cbatticon -x ~/.locl/bin/my_power_manager/my_power_manager_gui &
+~/.local/bin/my_power_manager/my_power_managers_session &
 
 # Show Openbox welcome
 ~/.config/openbox/welcome &											
