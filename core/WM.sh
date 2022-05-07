@@ -71,13 +71,6 @@ configure_archcraft_os_stuffs_now_()
 sudo mkdir -p /usr/share/archcraft 
 mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
 mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
-sed -i 's/openbox --exit/my_session_manager logout/g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-powermenu
-sed -i 's/betterlockscreen --/my_session_manager /g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-powermenu
-sed -i 's/systemctl/my_session_manager/g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-powermenu
-sed -i '/menuSeparator "| Bitmap |"/i add_beginning_of_bitmap_check_here_plz' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
-sed -i '/menuSeparator "| Effects |"/i add_ending_of_bitmap_check_here_plz' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
-sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then|g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
-sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_polybar/archcraft/openbox/pipemenus/ac-change-style
 sudo chown -R root:root $temp_folder_for_polybar/archcraft
 sudo mv $temp_folder_for_polybar/archcraft/* /usr/share/archcraft
 sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
@@ -447,6 +440,13 @@ mv $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_
 sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb
 sed -i -e 's|.config/openbox/scripts|.config/polybar/scripts/style|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i 's/openbox --exit/my_session_manager logout/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
+sed -i 's/betterlockscreen --/my_session_manager /g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
+sed -i 's/systemctl/my_session_manager/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
+sed -i '/menuSeparator "| Bitmap |"/i add_beginning_of_bitmap_check_here_plz' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i '/menuSeparator "| Effects |"/i add_ending_of_bitmap_check_here_plz' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 
 for change_content in ac-powermenu ac-change-fonts ac-randr
 do
