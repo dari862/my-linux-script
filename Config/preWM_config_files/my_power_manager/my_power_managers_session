@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 
+for prosses2kill in my_power_manager cbatticon
+do
+	if [[ ! -z "$(pidof $prosses2kill)" ]]; then
+		killall -9 $prosses2kill
+	fi
+done
+
 $HOME/.local/bin/my_power_manager/my_power_manager &
 cbatticon -x ~/.locl/bin/my_power_manager/my_power_manager_gui &
