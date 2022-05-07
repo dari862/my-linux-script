@@ -1,5 +1,7 @@
 #!/bin/bash
 
+################################################
+
 set_idletime="1 idletime"
 set_turnoff_moniter_time="2 turnoff_moniter_time"
 set_logout_time="3 logout_time"
