@@ -96,7 +96,7 @@ while true; do
   
   if [ "$hibernate_time" -gt 0 ]
   then
-		[ "$hibernate" -le "$idleTime" ] && systemctl hibernate
+		[ "$hibernate_time" -le "$idleTime" ] && systemctl hibernate
   fi
   
   if [ "$poweroff_time" -gt 0 ]
