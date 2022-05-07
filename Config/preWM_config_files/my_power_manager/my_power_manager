@@ -40,7 +40,7 @@ if [ ! -f "$HOME/.config/my_power_manager/my_power_manager.ini" ]
 then
 mkdir -p ~/.config/my_power_manager
 cat << EOF > ~/.config/my_power_manager/my_power_manager.ini
-idleAfter=10
+idleAfter=10800
 turnoff_moniter_time=0
 logout_time=0
 suspend_time=0
