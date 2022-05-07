@@ -15,7 +15,9 @@ finish="9 finish"
 cancel="10 cancel"
 
 ################################################
-RDIR=""
+rofi_dir="$HOME/.config/rofi"
+Style=""
+RDIR="$rofi_dir/$Style"
 set_lock_screen_on_idle="8 enable_lock_screen_on_idle"
 line_number=0
 
