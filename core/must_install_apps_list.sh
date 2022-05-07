@@ -35,7 +35,7 @@ Flatpak_apps_2_install=(com.discordapp.Discord com.notepadqq.Notepadqq)
 install_ca_certificates_=(ca-certificates)
 
 #preWM apps
-install_preWM_apps=(psmisc unzip git xorg pulseaudio dunst libnotify-bin xwallpaper arandr gnome-keyring dbus-x11 featherpad shotwell network-manager network-manager-gnome cbatticon)
+install_preWM_apps=(psmisc unzip git xorg pulseaudio dunst libnotify-bin xwallpaper arandr gnome-keyring dbus-x11 featherpad shotwell network-manager network-manager-gnome)
 install_preWM_themes=(nitrogen picom lxpolkit lxappearance papirus-icon-theme fonts-noto-color-emoji fonts-firacode fonts-font-awesome libqt5svg5 qml-module-qtquick-controls arc-theme gtk3-nocsd numix-icon-theme paper-icon-theme dmz-cursor-theme)
 install_terminal_based_sound_app=(mpd mpc ncmpcpp)
 install_files_manager_app=(thunar thunar-archive-plugin thunar-media-tags-plugin catfish gvfs gvfs-fuse gvfs-backends file-roller)
@@ -50,7 +50,7 @@ install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
 #panel
 #libnm-dev for networkmanager_dmenu
 install_polybar_=(polybar rofi libnm-dev)
-install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-screenshooter xfce4-clipman xfce4-notifyd xfce4-whiskermenu-plugin)
+install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-screenshooter xfce4-clipman xfce4-notifyd xfce4-whiskermenu-plugin cbatticon)
 
 #awesomeWM apps
 install_awesomeWM_=(awesome awesome-extra)
