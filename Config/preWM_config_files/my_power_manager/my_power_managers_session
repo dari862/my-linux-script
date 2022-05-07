@@ -1,1 +1,4 @@
-openbox --exit
+#!/usr/bin/env bash
+
+$HOME/.local/bin/my_power_manager/my_power_manager &
+cbatticon -x ~/.locl/bin/my_power_manager/my_power_manager_gui &
