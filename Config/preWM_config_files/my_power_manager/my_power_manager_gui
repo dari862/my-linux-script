@@ -16,7 +16,7 @@ cancel="10 cancel"
 
 ################################################
 rofi_dir="$HOME/.config/rofi"
-Style=""
+Style="$(grep $rofi_dir/bin/launcher -e "STYLE=" | cut -d '=' -f2 | tr -d '"')"
 RDIR="$rofi_dir/$Style"
 set_lock_screen_on_idle="8 enable_lock_screen_on_idle"
 line_number=0
