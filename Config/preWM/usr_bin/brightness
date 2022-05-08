@@ -3,6 +3,10 @@
 # Graphics card
 CARD=`ls /sys/class/backlight | head -n 1`
 
+if [[ -z "$CARD" ]]; then
+	exit 1
+fi
+
 # software to use
 Software_to_use_for_Brightness="light"
 
