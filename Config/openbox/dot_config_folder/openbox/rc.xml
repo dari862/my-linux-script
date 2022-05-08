@@ -562,7 +562,7 @@
     <!-- Lockscreen -->
     <keybind key="C-A-l">
       <action name="Execute">
-        <command>x-locker</command>
+        <command>my_session_manager lock</command>
       </action>
     </keybind>
     <!-- Openbox -->
