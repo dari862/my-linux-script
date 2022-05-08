@@ -71,8 +71,16 @@ configure_archcraft_os_stuffs_now_()
 sudo mkdir -p /usr/share/archcraft 
 mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
 mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
+
+rm $temp_folder_for_polybar/archcraft/scripts/bin/xflock4
+rm $temp_folder_for_polybar/archcraft/scripts/bin/neofetch
+rm $temp_folder_for_polybar/archcraft/scripts/bin/furminal
+
+mv $temp_folder_for_polybar/archcraft/scripts/bin/* $temp_folder_for_usr_bin_
+
 sudo chown -R root:root $temp_folder_for_polybar/archcraft
 sudo mv $temp_folder_for_polybar/archcraft/* /usr/share/archcraft
+
 sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
 sudo chown -R root:root $temp_folder_for_polybar/icons/*
 sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
