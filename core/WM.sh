@@ -9,18 +9,18 @@ configure_PreWM_now()
 {
 show_m "install preWM_apps"
 cd $temp_folder_for_preWM
-sudo mv $temp_folder_for_preWM/preWM_config_files/my_session_manager $temp_folder_for_usr_bin_
+sudo mv $temp_folder_for_preWM/preWM/usr_bin/my_session_manager $temp_folder_for_usr_bin_
 mkdir -p $HOME/.local/bin
-mv $temp_folder_for_preWM/preWM_config_files/my_power_manager $HOME/.local/bin
+mv $temp_folder_for_preWM/preWM/local_bin/my_power_manager $HOME/.local/bin
 mkdir -p ~/.config/gtk-3.0
-mv $temp_folder_for_preWM/preWM_config_files/.face $HOME/
-mv $temp_folder_for_preWM/preWM_config_files/.dmrc $HOME/
-mv $temp_folder_for_preWM/preWM_config_files/gtk-3.0/* ~/.config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM_config_files/gtk-3.0 || echo "falied to move all gtk-3.0 files"
-mv $temp_folder_for_preWM/preWM_config_files/* ~/.config &> /dev/null || echo "falied to move all preWM_config_files files"
-if [ -z "$(ls -A $temp_folder_for_preWM/preWM_config_files)" ]; then
-   echo "preWM_config_files copyed without any errors"
+mv $temp_folder_for_preWM/preWM/.face $HOME/
+mv $temp_folder_for_preWM/preWM/.dmrc $HOME/
+mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* ~/.config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
+mv $temp_folder_for_preWM/preWM/config/* ~/.config &> /dev/null || echo "falied to move all preWM/config files"
+if [ -z "$(ls -A $temp_folder_for_preWM/preWM/config)" ]; then
+   echo "preWM/config copyed without any errors"
 else
-   ls -aR $temp_folder_for_preWM/preWM_config_files > $missing_content_from_preWM_config_files && show_em "falied to move all preWM_config_files files"
+   ls -aR $temp_folder_for_preWM/preWM/config > $missing_content_from_preWM_config_files && show_em "falied to move all preWM/config files"
 fi
 
 if [ "$virtual_machine" == "true" ]
