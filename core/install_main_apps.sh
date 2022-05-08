@@ -634,7 +634,7 @@ show_m "download config for preWM_themeing_apps"
 mkdir -p $temp_folder_for_preWM
 mkdir -p $temp_folder_for_preWM/compressed_files
 cd $temp_folder_for_preWM
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/preWM_config_files
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/preWM
 git-clone $outsidemyrepo_prewm_Nordic_theme Nordic
 sudo chown -R root:root Nordic
 git-clone $outsidemyrepo_prewm_Layan_cursors build_Layan_Cursors
