@@ -441,12 +441,12 @@
     <!-- Brightness Control -->
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>light -A 10</command>
+        <command>brightness --inc</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>light -U 10</command>
+        <command>brightness --dec</command>
       </action>
     </keybind>
     <!-- Screenshot Keys -->
