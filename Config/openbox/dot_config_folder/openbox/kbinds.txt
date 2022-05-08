@@ -50,8 +50,8 @@
 46	XF86AudioPlay  			mpc toggle
 47	XF86AudioPrev  			mpc prev
 48	XF86AudioNext  			mpc next
-49	XF86MonBrightnessUp	light -A 10
-50	XF86MonBrightnessDown	light -U 10
+49	XF86MonBrightnessUp	brightness --inc
+50	XF86MonBrightnessDown	brightness --dec
 51	Print         				takeshot --now
 52	A-Print       				takeshot --in5
 53	S-Print       				takeshot --in10
