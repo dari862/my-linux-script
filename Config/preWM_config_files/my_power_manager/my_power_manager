@@ -112,7 +112,7 @@ while true; do
 	
 	if [ "$lock_screen_on_idle" == "true" ]
 	then
-		x-locker
+		my_session_manager lock
 	fi
     idle=true
   fi
