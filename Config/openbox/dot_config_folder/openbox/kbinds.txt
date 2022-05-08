@@ -73,7 +73,7 @@
 69	C-A-v         				x-terminal-emulator -e vim
 70	C-A-r         				x-terminal-emulator -e ranger
 71	C-A-h         				x-terminal-emulator -e htop
-72	C-A-l         				x-locker
+72	C-A-l         				my_session_manager lock
 73	C-S-Escape     			Exit
 74	C-S-BackSpace  			Restart
 75	C-S-R         				Reconfigure
