@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 # Graphics card
+CARD=`ls /sys/class/backlight | head -n 1`
+
+# software to use
 Software_to_use_for_Brightness="light"
 
 if [[ "$Software_to_use_for_Brightness" == "xbacklight" ]]; then
