@@ -75,6 +75,7 @@ mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
 rm $temp_folder_for_polybar/archcraft/scripts/bin/xflock4
 rm $temp_folder_for_polybar/archcraft/scripts/bin/neofetch
 rm $temp_folder_for_polybar/archcraft/scripts/bin/furminal
+rm $temp_folder_for_polybar/archcraft/scripts/bin/brightness
 
 mv $temp_folder_for_polybar/archcraft/scripts/bin/* $temp_folder_for_usr_bin_
 
