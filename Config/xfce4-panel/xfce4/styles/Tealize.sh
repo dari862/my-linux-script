@@ -31,9 +31,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #212B30ff;
-	    FG:    #C4C7C5ff;
-	    BDR:   #EC407Aff;
+	    BG:    #232735ff;
+	    FG:    #7C84A8ff;
+	    BDR:   #00A9A5ff;
 	}
 	_EOF_
 }
