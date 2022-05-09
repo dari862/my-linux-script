@@ -616,6 +616,10 @@ show_mf "installing_PreWM_apps_now "
 show_m "preWM_apps."
 echo_2_helper_list "# preWM_apps app"
 apt_install_whith_error_whitout_exit "${install_preWM_apps[@]}"
+if [ "$is_this_laptop_" == "true" ]
+then
+	apt_install_whith_error_whitout_exit "${install_preWM_if_laptop[@]}"
+fi
 install_sddm_if_needed_now
 install_new_terminal_kitty_now
 install_files_manager_app_now_
