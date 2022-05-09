@@ -2,9 +2,10 @@
 if [ "$is_this_laptop_" == "true" ]
 then
 declare -ag laptops_Array_now_=(
-"xbacklight" "list of apps to be installed" ON
+"light" "list of apps to be installed" ON
 "powertop" "list of apps to be installed" ON
 "tlp" "list of apps to be installed" ON
+"xbacklight" "list of apps to be installed" OFF
 )
 fi
 
