@@ -654,6 +654,14 @@ sudo chown -R root:root fonts
 install_nitrogen_now
 }
 
+install_preWM_Network_apps_now()
+{
+show_m "install Networkmanager apps "
+echo_2_helper_list "# Networkmanager app"
+apt_install_whith_error_whitout_exit "${install_preWM_Network_apps[@]}"
+echo_2_helper_list ""
+}
+
 ##################################################################################################################################################
 # bspwm
 ##################################################################################################################################################
