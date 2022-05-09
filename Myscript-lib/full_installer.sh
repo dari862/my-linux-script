@@ -123,6 +123,18 @@ show_m "upgrading your system."
 upgrade_my_system_now
 
 ############################
+# if network manager not installed
+# need to install  at end 
+# or will lose internet connectivate
+# since networkmanager disable
+# default network configue 
+############################
+
+install_preWM_Network_apps_now
+
+############################################################################################################################################
+# from here, there is no need for internet or network connective 
+############################################################################################################################################
 
 we_are_at_stage=$(expr $we_are_at_stage + 1)
 if [ "$do_you_want_to_install_Tweak_my_terminal" == "true" ]; then
