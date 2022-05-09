@@ -5,7 +5,7 @@
 
 ## Default
 rofi_dir="$HOME/.config/rofi"
-STYLE="default"
+STYLE="$($rofi_dir/style)"
 ddir="$rofi_dir/dialogs"
 
 rofi_command="rofi -theme $rofi_dir/$STYLE/powermenu.rasi"

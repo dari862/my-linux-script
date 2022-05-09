@@ -4,7 +4,7 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 rofi_dir="$HOME/.config/rofi"
-STYLE="default"
+STYLE="$($rofi_dir/style)"
 
 rofi \
 	-show run \

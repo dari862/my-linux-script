@@ -9,79 +9,25 @@ set_suspend_time="4 suspend_time"
 set_hibernate_time="5 hibernate_time"
 set_poweroff_time="6 poweroff_time"
 set_brightness_level="7 brightness_level"
+set_lock_screen_on_idle="8 enable_lock_screen_on_idle"
 enable_lock_screen_on_idle="8 enable_lock_screen_on_idle"
 disable_lock_screen_on_idle="8 disable_lock_screen_on_idle"
 finish="9 finish"
 cancel="10 cancel"
 
 ################################################
-rofi_dir="$HOME/.config/rofi"
-Style="$(grep $rofi_dir/bin/launcher -e "STYLE=" | cut -d '=' -f2 | tr -d '"')"
-RDIR="$rofi_dir/$Style"
-set_lock_screen_on_idle="8 enable_lock_screen_on_idle"
-line_number=0
 
-rofi_menu_over_write_theme="#listview {lines:10;}"
-rofi_set_over_write_theme="#listview {lines:0;}"
+power_manager_MENU=$(yad --title "My Power Manager" --form --field="idle time:" --field="turn off moniter after:" --field="logout after:" --field="suspend after:" --field="hibernate after:" --field="poweroff after:" --field="set brightness level:" --field="lock screen on idle:CB" '' '' '' '' '' '' '' 'true!false')
 
-while :
-do
-	MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -selected-row $line_number -p '' \
-	-theme $RDIR/launcher.rasi -theme-str "$rofi_menu_over_write_theme" \
-	<<< "$set_idletime|$set_turnoff_moniter_time|$set_logout_time|$set_suspend_time|$set_hibernate_time|$set_poweroff_time|$set_brightness_level|$set_lock_screen_on_idle|$finish|$cancel")"
-				case "$MENU" in
-					$set_idletime) 
-						idletime=$(rofi -dmenu -p "set_idletime" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
-						line_number=0
-					;;
-					$set_turnoff_moniter_time)
-						turnoff_moniter_time=$(rofi -dmenu -p "set_turnoff_moniter_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
-						line_number=1
-					;;
-					$set_logout_time)
-						logout_time=$(rofi -dmenu -p "set_logout_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
-						line_number=2
-					;;
-					$set_suspend_time)
-						suspend_time=$(rofi -dmenu -p "set_suspend_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
-						line_number=3
-					;;
-					$set_hibernate_time)
-						hibernate_time=$(rofi -dmenu -p "set_hibernate_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme")
-						line_number=4						
-					;;
-					$set_poweroff_time)
-						poweroff_time=$(rofi -dmenu -p "set_poweroff_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme")
-						line_number=5
-					;;
-					$set_brightness_level)
-						brightness_level=$(rofi -dmenu -p "set_brightness_level" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme")
-						line_number=6						
-					;;
-					$set_lock_screen_on_idle)
-						change_lock_screen_status="true" 
-						line_number=7
-					;;
-					$finish) break ;;
-					$cancel) exit 1 ;;
-					esac
+idletime=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $1 }')
+turnoff_moniter_time=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $2 }')
+logout_time=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $3 }')
+suspend_time=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $4 }')
+hibernate_time=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $5 }')
+poweroff_time=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $6 }')
+brightness_level=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $7 }')
+lock_screen_on_idle=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $8 }')
 					
-	if [ "$change_lock_screen_status" == "true" ] && [ "$set_lock_screen_on_idle" == "$enable_lock_screen_on_idle" ]
-	then
-		set_lock_screen_on_idle="$disable_lock_screen_on_idle"
-		lock_screen_on_idle="true"
-		change_lock_screen_status="false"
-	fi
-	
-	if [ "$change_lock_screen_status" == "true" ] && [ "$set_lock_screen_on_idle" == "$disable_lock_screen_on_idle" ]
-	then
-		set_lock_screen_on_idle="$enable_lock_screen_on_idle"
-		lock_screen_on_idle="false"
-		change_lock_screen_status="false"
-	fi
-	
-done
-
 if [ ! -z "$idletime" ]
 then
   sed -i -e "s|idleAfter=.*|idleAfter=$idletime|g" ~/.config/my_power_manager/my_power_manager.ini
@@ -115,9 +61,4 @@ fi
 if [ ! -z "$brightness_level" ]
 then
   sed -i -e "s|brightness_level=.*|brightness_level=$brightness_level|g" ~/.config/my_power_manager/my_power_manager.ini
-fi
-
-if [ ! -z "$lock_screen_on_idle" ]
-then
-  sed -i -e "s|lock_screen_on_idle=.*|lock_screen_on_idle=$lock_screen_on_idle|g" ~/.config/my_power_manager/my_power_manager.ini
 fi

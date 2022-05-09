@@ -34,7 +34,7 @@ set_values() {
 
 ## Launch Polybar with selected style
 launch_bar() {
-	STYLE="default"
+	STYLE="$(cat $DIR/style)"
 	bash "$DIR"/launch-style.sh $STYLE $DIR
 }
 
