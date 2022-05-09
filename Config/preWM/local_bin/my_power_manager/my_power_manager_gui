@@ -21,38 +21,41 @@ RDIR="$rofi_dir/$Style"
 set_lock_screen_on_idle="8 enable_lock_screen_on_idle"
 line_number=0
 
+rofi_menu_over_write_theme="#listview {lines:10;}"
+rofi_set_over_write_theme="#listview {lines:0;}"
+
 while :
 do
 	MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -selected-row $line_number -p '' \
-	-theme $RDIR/launcher.rasi \
+	-theme $RDIR/launcher.rasi -theme-str "$rofi_menu_over_write_theme" \
 	<<< "$set_idletime|$set_turnoff_moniter_time|$set_logout_time|$set_suspend_time|$set_hibernate_time|$set_poweroff_time|$set_brightness_level|$set_lock_screen_on_idle|$finish|$cancel")"
 				case "$MENU" in
 					$set_idletime) 
-						idletime=$(rofi -dmenu -p "set_idletime" -theme $RDIR/runner.rasi ) 
+						idletime=$(rofi -dmenu -p "set_idletime" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
 						line_number=0
 					;;
 					$set_turnoff_moniter_time)
-						turnoff_moniter_time=$(rofi -dmenu -p "set_turnoff_moniter_time" -theme $RDIR/runner.rasi ) 
+						turnoff_moniter_time=$(rofi -dmenu -p "set_turnoff_moniter_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
 						line_number=1
 					;;
 					$set_logout_time)
-						logout_time=$(rofi -dmenu -p "set_logout_time" -theme $RDIR/runner.rasi ) 
+						logout_time=$(rofi -dmenu -p "set_logout_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
 						line_number=2
 					;;
 					$set_suspend_time)
-						suspend_time=$(rofi -dmenu -p "set_suspend_time" -theme $RDIR/runner.rasi ) 
+						suspend_time=$(rofi -dmenu -p "set_suspend_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme") 
 						line_number=3
 					;;
 					$set_hibernate_time)
-						hibernate_time=$(rofi -dmenu -p "set_hibernate_time" -theme $RDIR/runner.rasi )
+						hibernate_time=$(rofi -dmenu -p "set_hibernate_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme")
 						line_number=4						
 					;;
 					$set_poweroff_time)
-						poweroff_time=$(rofi -dmenu -p "set_poweroff_time" -theme $RDIR/runner.rasi )
+						poweroff_time=$(rofi -dmenu -p "set_poweroff_time" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme")
 						line_number=5
 					;;
 					$set_brightness_level)
-						brightness_level=$(rofi -dmenu -p "set_brightness_level" -theme $RDIR/runner.rasi )
+						brightness_level=$(rofi -dmenu -p "set_brightness_level" -theme $RDIR/runner.rasi -theme-str "$rofi_set_over_write_theme")
 						line_number=6						
 					;;
 					$set_lock_screen_on_idle)
