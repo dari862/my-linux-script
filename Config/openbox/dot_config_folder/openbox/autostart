@@ -60,8 +60,7 @@ if [[ ! `pidof xfce-polkit` ]]; then
 	/usr/lib/xfce-polkit/xfce-polkit &
 fi
 
-if [ ! -z "$(command -v polybar)" ]
-then
+if [[ ! `pidof polybar` ]]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/polybar/scripts/style/old.sh
@@ -70,8 +69,9 @@ then
         bash ~/.config/polybar/launch.sh &          
 	## Launch Plank
 	exec plank &
-else
+fi
 
+if [[ ! `pidof xfce-panel` ]]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/xfce4/styles/old.sh
