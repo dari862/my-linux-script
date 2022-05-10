@@ -421,13 +421,8 @@
 	                </command>
 	            </action>
 	        </item>	
-	        <item label="Shortcuts keys">
-	            <action name="Execute">
-	                <command>
-	                    yad --text-info --window-icon=keyboard --button="Close" --borders=20 --title="Shortcuts and mouse bindings" --width=700 --height=700 --fontname="Monospace" --filename="/usr/share/doc/openbox/help/shortcuts.txt"
-	                </command>
-	            </action>
-	        </item>		
+
+		<menu icon="&icons;/keyboard.png" id="KeybindsPipeMenu" execute="&pipes;/ac-kb-pipemenu" label="Keybinds"/>
 			
 	        <separator label="DEBIAN HELP" />
 
