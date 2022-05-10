@@ -13,8 +13,6 @@ sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 mkdir -p $HOME/.local/bin
 mv $temp_folder_for_preWM/preWM/local_bin/my_power_manager $HOME/.local/bin
 mkdir -p ~/.config/gtk-3.0
-mv $temp_folder_for_preWM/preWM/.face $HOME/
-mv $temp_folder_for_preWM/preWM/.dmrc $HOME/
 mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* ~/.config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
 mv $temp_folder_for_preWM/preWM/config/* ~/.config &> /dev/null || echo "falied to move all preWM/config files"
 if [ -z "$(ls -A $temp_folder_for_preWM/preWM/config)" ]; then

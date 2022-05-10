@@ -298,6 +298,18 @@ conky_now
 # preWM
 ##################################################################################################################################################
 
+install_QT_stuff_now()
+{
+show_m "install QT Themes and apps "
+apt_install_whith_error2info "${install_QT_apps_[@]}"
+mkdir -p $temp_folder_for_skel_/.config
+mkdir -p $temp_folder_for_download
+cd $temp_folder_for_download
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/QT_config
+cp -fr QT_config/* $temp_folder_for_skel_/.config
+}
+
+
 download_archcraft_os_stuffs_now_()
 {
 mkdir -p $temp_folder_for_polybar
@@ -394,7 +406,7 @@ download_xfce4_panel_config_now_()
 {
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4-panel/xfce4
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4_panel/xfce4
 download_rofi_config_now_
 find $temp_folder_for_skel_config/xfce4/styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 sudo mv $temp_folder_for_skel_config/xfce4/xfce-menucraft.svg /usr/share/pixmaps
@@ -440,6 +452,17 @@ then
 	sudo update-alternatives --install /usr/bin/x-file-manager x-file-manager $(command -v $install_files_manager_app) 90
 	sudo update-alternatives --set x-file-manager $(command -v $install_files_manager_app)
 fi
+
+if command -v thunar >/dev/null
+then
+	mkdir -p $temp_folder_for_skel_/.config
+	mkdir -p $temp_folder_for_download
+	cd $temp_folder_for_download
+	svn-export https://github.com/dari862/my-linux-script/trunk/Config/Thunar_config
+	cp -fr Thunar_config/* $temp_folder_for_skel_/.config
+fi
+
+
 }
 
 install_text_editer_app_now_()

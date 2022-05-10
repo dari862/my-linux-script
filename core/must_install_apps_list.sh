@@ -35,8 +35,9 @@ Flatpak_apps_2_install=(com.discordapp.Discord com.notepadqq.Notepadqq)
 install_ca_certificates_=(ca-certificates)
 
 #preWM apps
+install_QT_apps_=(qt5ct qt5-style-kvantum libqt5svg5 qml-module-qtquick-controls)
 install_preWM_apps=(psmisc unzip git xorg pulseaudio dunst libnotify-bin arandr gnome-keyring dbus-x11 featherpad shotwell xprintidle rofi pnmixer pavucontrol)
-install_preWM_themes=(nitrogen picom lxpolkit lxappearance papirus-icon-theme fonts-noto-color-emoji fonts-firacode fonts-font-awesome libqt5svg5 qml-module-qtquick-controls arc-theme gtk3-nocsd numix-icon-theme paper-icon-theme dmz-cursor-theme)
+install_preWM_themes=(nitrogen picom lxpolkit lxappearance papirus-icon-theme fonts-noto-color-emoji fonts-firacode fonts-font-awesome arc-theme gtk3-nocsd numix-icon-theme paper-icon-theme dmz-cursor-theme)
 install_preWM_if_laptop=(light upower)
 install_preWM_Network_apps=(network-manager network-manager-gnome)
 install_terminal_based_sound_app=(mpd mpc ncmpcpp)
@@ -69,5 +70,5 @@ install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailuti
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
 
 # ffmpeg for screen recoding , maim for ac-shots , python2 for ac-randr ac-kb ac-kb-pipemenu
-install_openbox_archcraft=(xmlstarlet qt5ct geany plank maim python2 ffmpeg qt5-style-kvantum)
+install_openbox_archcraft=(xmlstarlet geany plank maim python2 ffmpeg)
 install_openbox_obmenu_generator=(obmenu-generator)
