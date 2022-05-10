@@ -155,7 +155,6 @@ case $SHELL in
 */zsh)
     [ -z "$ZSH_NAME" ] && exec $SHELL $0 "$@"
     . ${HOME}/.config/myshell/zprofile
-    emulate -R sh
     ;;
   */csh|*/tcsh)
     # [t]cshrc is always sourced automatically.
