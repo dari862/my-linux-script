@@ -2,6 +2,7 @@
 <!DOCTYPE menu [
   <!ENTITY icons "/usr/share/icons/openbox-menu">
   <!ENTITY rofibin "~/.config/rofi/bin">
+  <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -421,7 +422,7 @@
 	            </action>
 	        </item>	
 
-		<menu icon="&icons;/keyboard.png" id="KeybindsPipeMenu" execute="&pipes;/ac-kb-pipemenu" label="Keybinds"/>
+		<menu icon="&icons;/shortcut.png" id="KeybindsPipeMenu" execute="&pipes;/ac-kb-pipemenu" label="Keybinds"/>
 			
 	        <separator label="DEBIAN HELP" />
 
