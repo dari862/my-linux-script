@@ -69,9 +69,7 @@ if [[ ! `pidof polybar` ]]; then
         bash ~/.config/polybar/launch.sh &          
 	## Launch Plank
 	exec plank &
-fi
-
-if [[ ! `pidof xfce-panel` ]]; then
+else
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/xfce4/styles/old.sh
