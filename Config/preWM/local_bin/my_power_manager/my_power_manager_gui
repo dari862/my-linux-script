@@ -1,5 +1,14 @@
 #!/bin/bash
 
+my_power_manager_ini_location="$HOME/.config/my_power_manager/my_power_manager.ini"
+get_idletime="$(cat $my_power_manager_ini_location | grep idleAfter= | cut -d '=' -f2)"
+get_turnoff_moniter_time="$(cat $my_power_manager_ini_location | grep turnoff_moniter_time= | cut -d '=' -f2)"
+get_logout_time="$(cat $my_power_manager_ini_location | grep logout_time= | cut -d '=' -f2)"
+get_suspend_time="$(cat $my_power_manager_ini_location | grep suspend_time= | cut -d '=' -f2)"
+get_hibernate_time="$(cat $my_power_manager_ini_location | grep hibernate_time= | cut -d '=' -f2)"
+get_poweroff_time="$(cat $my_power_manager_ini_location | grep poweroff_time= | cut -d '=' -f2)"
+get_brightness_level="$(cat $my_power_manager_ini_location | grep brightness_level= | cut -d '=' -f2)"
+get_lock_screen_on_idle="$(cat $my_power_manager_ini_location | grep lock_screen_on_idle= | cut -d '=' -f2)"
 ################################################
 
 set_idletime="1 idletime"
@@ -17,7 +26,7 @@ cancel="10 cancel"
 
 ################################################
 
-power_manager_MENU=$(yad --title "My Power Manager" --form --field="idle time:" --field="turn off moniter after:" --field="logout after:" --field="suspend after:" --field="hibernate after:" --field="poweroff after:" --field="set brightness level:" --field="lock screen on idle:CB" '' '' '' '' '' '' '' 'true!false')
+power_manager_MENU=$(yad --title "My Power Manager" --form --field="idle time($get_idletime):NUM" --field="turn off moniter after($get_turnoff_moniter_time):NUM" --field="logout after($get_logout_time):NUM" --field="suspend after($get_suspend_time):NUM" --field="hibernate after($get_hibernate_time):NUM" --field="poweroff after($get_poweroff_time):NUM" --field="set brightness level($get_brightness_level):NUM" --field="lock screen on idle($get_lock_screen_on_idle):CB" "$get_idletime" "$get_turnoff_moniter_time" "$get_turnoff_moniter_time" "$get_logout_time" "$get_suspend_time" "$get_hibernate_time" "$get_brightness_level" 'true!false')
 
 idletime=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $1 }')
 turnoff_moniter_time=$(echo $power_manager_MENU | awk 'BEGIN {FS="|" } { print $2 }')
@@ -61,4 +70,9 @@ fi
 if [ ! -z "$brightness_level" ]
 then
   sed -i -e "s|brightness_level=.*|brightness_level=$brightness_level|g" ~/.config/my_power_manager/my_power_manager.ini
+fi
+
+if [ ! -z "$lock_screen_on_idle" ]
+then
+  sed -i -e "s|lock_screen_on_idle=.*|lock_screen_on_idle=$lock_screen_on_idle|g" ~/.config/my_power_manager/my_power_manager.ini
 fi
