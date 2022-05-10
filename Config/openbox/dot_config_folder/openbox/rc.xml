@@ -4,7 +4,7 @@
 <!-- ################################ General Settings ################################ -->
 <!DOCTYPE menu [
   <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
-  <!ENTITY rofibin "~/.config/openbox/rofi/bin">
+  <!ENTITY rofibin "~/.config/rofi/bin">
   <!ENTITY openboxconfig "~/.config/openbox">
 ]>
 <openbox_config xmlns="http://openbox.org/3.4/rc" xmlns:xi="http://www.w3.org/2001/XInclude">
