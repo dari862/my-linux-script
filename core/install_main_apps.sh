@@ -415,7 +415,7 @@ show_m "Install clear xfce4-notify theme and configure xfce4-panel"
 # Copy users config
 sudo mkdir -p "/usr/share/themes/clear-notify/xfce-notify-4.0/"
 mkdir -p $temp_folder_for_download
-newwget -P $temp_folder_for_download https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/xfce4-panel/clear_xfce-notify-4.0_gtk.css
+newwget -P $temp_folder_for_download https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/xfce4_panel/clear_xfce-notify-4.0_gtk.css
 sudo mv -v "$temp_folder_for_download/clear_xfce-notify-4.0_gtk.css" "/usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css"
 sudo chown root:root /usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css
 #fix xfce4-panel workspace settings error in openbox
