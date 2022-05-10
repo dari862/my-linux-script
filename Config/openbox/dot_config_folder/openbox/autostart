@@ -62,7 +62,7 @@ fi
 
 if [ ! -z "$(command -v polybar)" ]
 then
-        if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>')" ]
+        if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/polybar/scripts/style/old.sh
         fi
@@ -72,7 +72,7 @@ then
 	exec plank &
 else
 
-        if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>')" ]
+        if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/xfce4/styles/old.sh
         fi
