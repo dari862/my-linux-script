@@ -1,37 +1,29 @@
 #!/bin/bash
 
-if [ "$1" == "logout" ]
-then
-	if [[ "$DESKTOP_SESSION" == "Openbox" ]]; then
+case $1 in
+logout)
+	DESKTOP_SESSION_all_small_latter=$(echo "$DESKTOP_SESSION" | sed -e 's/\(.*\)/\L\1/')
+	if [[ "$DESKTOP_SESSION_all_small_latter" == "openbox" ]]; then
 		openbox --exit
-	elif [[ "$DESKTOP_SESSION" == "bspwm" ]]; then
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "bspwm" ]]; then
 		bspc quit
-	elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "i3" ]]; then
 		i3-msg exit
 	fi
-fi 
-  
-if [ "$1" == "suspend" ]
-then
-  systemctl suspend
-fi
- 
-if [ "$1" == "hibernate" ]
-then
-  systemctl hibernate
-fi
-  
-if [ "$1" == "poweroff" ]
-then
-  systemctl poweroff
-fi
-
-if [ "$1" == "lock" ]
-then
-  my-locker
-fi
-
-if [ "$1" == "reboot" ]
-then
-  systemctl reboot
-fi
+;; 
+suspend)
+	systemctl suspend
+;;
+hibernate)
+	systemctl hibernate
+;;
+poweroff)
+	systemctl poweroff
+;;
+reboot)
+	systemctl reboot
+;;
+lock)
+	my-locker
+;;
+esac
