@@ -30,3 +30,8 @@ if [ "$1" == "lock" ]
 then
   my-locker
 fi
+
+if [ "$1" == "restart" ]
+then
+  systemctl reboot
+fi
