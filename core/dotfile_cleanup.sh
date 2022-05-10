@@ -144,27 +144,54 @@ cp $temp_folder_for_skel_shell_folder/profile $temp_folder_for_skel_shell_folder
 
 ln -sr $temp_folder_for_skel_shell_folder/zshrc $temp_folder_for_skel_shell_folder/.zshrc
 
+cat << 'eof' > $temp_folder_for_skel_shell_folder/xsessionrc
+#! /bin/sh
+# Xsession - run as user
+case $SHELL in
+  */bash)
+    [ -z "$BASH" ] && exec $SHELL $0 "$@"
+	. ${HOME}/.config/myshell/profile
+    ;;
+*/zsh)
+    [ -z "$ZSH_NAME" ] && exec $SHELL $0 "$@"
+    . ${HOME}/.config/myshell/zprofile
+    emulate -R sh
+    ;;
+  */csh|*/tcsh)
+    # [t]cshrc is always sourced automatically.
+    # Note that sourcing csh.login after .cshrc is non-standard.
+    xsess_tmp=`mktemp /tmp/xsess-env-XXXXXX`
+    $SHELL -c "if (-f /etc/csh.login) source /etc/csh.login; if (-f ~/.login) so                                                                                                                                                                                 urce ~/.login; /bin/sh -c 'export -p' >! $xsess_tmp"
+    . $xsess_tmp
+    rm -f $xsess_tmp
+    ;;
+  */fish)
+    . ${HOME}/.config/myshell/profile
+    xsess_tmp=`mktemp /tmp/xsess-env-XXXXXX`
+    $SHELL --login -c "/bin/sh -c 'export -p' > $xsess_tmp"
+    . $xsess_tmp
+    rm -f $xsess_tmp
+    ;;
+  *) # Plain sh, ksh, and anything we do not know.
+    . ${HOME}/.config/myshell/profile
+    ;;
+esac
+
+eof
+
 cat << EOF > $temp_folder_for_skel_/.profile
 rm -rdf ~/.bashrc
 rm -rdf ~/.profile
 rm -rdf ~/.zshrc
 rm -rdf ~/.zprofile
-ln -sr ~/$myshell_skel_folder/profile ~/.profile
+rm -rdf ~/.xsessionrc
+ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc
 ln -sr ~/$myshell_skel_folder/bashrc ~/.bashrc
 xdg-user-dirs-update # this command will create ~/.config/user-dirs.dirs and ~/.config/user-dirs.locale
-source ~/.profile
+source ~/.xsessionrc
 EOF
 
-cat << EOF > $temp_folder_for_skel_/.zprofile
-rm -rdf ~/.bashrc
-rm -rdf ~/.profile
-rm -rdf ~/.zshrc
-rm -rdf ~/.zprofile
-ln -sr ~/$myshell_skel_folder/zprofile ~/.zprofile
-ln -sr ~/$myshell_skel_folder/$bashrcfilename ~/.bashrc
-xdg-user-dirs-update # this command will create ~/.config/user-dirs.dirs and ~/.config/user-dirs.locale
-source ~/.zprofile
-EOF
+cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
 
 show_m "skel dotfile clean-up"
 sudo cp -r /etc/skel/ /etc/skel-old/
