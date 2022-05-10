@@ -52,7 +52,7 @@ install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
 #panel
 #libnm-dev for networkmanager_dmenu
 install_polybar_=(polybar libnm-dev)
-install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-screenshooter xfce4-clipman xfce4-notifyd xfce4-whiskermenu-plugin cbatticon)
+install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-clipman xfce4-whiskermenu-plugin cbatticon)
 
 #awesomeWM apps
 install_awesomeWM_=(awesome awesome-extra)
