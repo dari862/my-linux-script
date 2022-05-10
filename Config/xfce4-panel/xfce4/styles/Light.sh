@@ -168,7 +168,7 @@ if [[ ! -z "$(pidof openbox)" ]]; then
 	change_rofi 'nordic' 'Iosevka 10' '0px' '0px' 'Numix-Apps'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Nordic' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
+	obconfig 'Nordic' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
 	
 	# funct GEOMETRY FONT BORDER (Change colors in funct)
 	change_dunst '280' '80' '10x48' 'top-right' 'Iosevka Custom 9' '0'
