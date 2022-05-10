@@ -5,7 +5,7 @@
 
 ## Default
 rofi_dir="$HOME/.config/rofi"
-STYLE="$($rofi_dir/style)"
+STYLE="$(cat $rofi_dir/style)"
 
 rofi \
 	-show drun \
