@@ -3,6 +3,7 @@
   <!ENTITY icons "/usr/share/archcraft/openbox/icons">
   <!ENTITY icons2 "/usr/share/archcraft/icons/dunst">
   <!ENTITY rofibin "~/.config/rofi/bin">
+  <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
