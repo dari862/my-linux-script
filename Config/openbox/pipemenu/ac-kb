@@ -3,6 +3,8 @@
 OpenBox_user_config="$HOME/.config/openbox"
 rc_file="$OpenBox_user_config/rc.xml"
 kbinds_file="$OpenBox_user_config/kbinds.txt"
+if [ "$1" == "" ]
+then
 echo "$(date) $rc_file keybinds " > $kbinds_file
 echo "-----------------------------------------------" >> $kbinds_file
 sed -n '/<keyboard>/,/\/keyboard/p' $rc_file | \
@@ -20,3 +22,9 @@ grep '<!ENTITY' $rc_file | while read -r line ; do
 done
 
 sed -i -e 's/&"//g' -e 's/">;//g' $kbinds_file
+fi
+
+if [ "$1" == "--gui" ]
+then
+        yad --button=Exit:1 --text-info --title='Openbox Keybinds' --filename=$kbinds_file --width=750 --height=600
+fi
