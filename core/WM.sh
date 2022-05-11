@@ -29,6 +29,9 @@ fi
 show_m "Enable network interface managemnet "
 sudo sed -i 's/managed=.*/managed=true/g' /etc/NetworkManager/NetworkManager.conf
 
+mkdir -p $temp_folder_for_skel_config/autostart
+mkdir -p ~/autostart
+
 ####################################
 # PreWM_themeing_now
 ####################################
