@@ -16,7 +16,7 @@
 
 for prosses2kill in xfsettingsd picom polybar dunst ksuperkey xfce4-power-manager
 do
-	if [[ ! -z "$(pidof $prosses2kill)" ]]; then
+	if [ "$(pidof $prosses2kill)" ]; then
 		killall -9 $prosses2kill
 	fi
 done
@@ -51,13 +51,17 @@ xfsettingsd &
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky
-(sleep 2; start_conky.sh) &																										
-# GNOME PolicyKit authentication
-/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	
+(sleep 2; start_conky.sh) &
 
-## polkit agent
-if [[ ! `pidof xfce-polkit` ]]; then
-	/usr/lib/xfce-polkit/xfce-polkit &
+if command -v gnome-keyring &> /dev/null
+then
+	# GNOME PolicyKit authentication
+	/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &	
+else
+	## polkit agent
+	if [ ! `pidof xfce-polkit` ]; then
+		/usr/lib/xfce-polkit/xfce-polkit &
+	fi
 fi
 
 if [[ ! `pidof polybar` ]]; then
@@ -87,9 +91,11 @@ fi
 ## Enable power management
 ~/.local/bin/my_power_manager/my_power_managers_session &
 
-# Show Openbox welcome
-~/.config/openbox/welcome &											
-
+if [ -f "~/.config/openbox/welcome" ]
+then
+	# Show Openbox welcome
+	~/.config/openbox/welcome &											
+fi
 ## Notification Daemon
 exec dunst &
 
