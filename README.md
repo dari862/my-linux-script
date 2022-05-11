@@ -26,7 +26,7 @@ https://github.com/adi1090x/polybar-themes
 
 
 
-sed -n '/<keyboard>/,/\/keyboard/p' rc.xml | grep -e '<keybind key=' -e '<action name="' -e '<!--' -e '<command>' -e '<menu>' | grep -v '<action name="ShowMenu">' | grep -v '<!-- #DEBIAN-OPENBOX-autosnap -->' | grep -v '<action name="Execute">' | grep -v '<action name="MaximizeVert"/>' | grep -v '<action name="MoveResizeTo">' | grep -v '<action name="MoveToEdgeWest"/>' | grep -v '<action name="Focus"/>' | grep -v '<action name="UnshadeRaise"/>' | sed 's/<keybind key="/\nkeybind_new_line/g' | sed 's/<command>/\ntab_plz/g' | sed 's/<action name="/\ntab_plz/g' | sed 's/<action name="<menu>/\ntab_plz/g' | sed 's/<!-- /\n------------------------\n/g' | sed 's/-->/\n------------------------\n/g' > 123
+
 
   
   https://www.youtube.com/watch?v=WkXyXIs-ZMI
