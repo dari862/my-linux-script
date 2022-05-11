@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+OpenBox_user_config="$HOME/.config/openbox"
+rc_file="$OpenBox_user_config/rc.xml"
+kbinds_file="$OpenBox_user_config/kbinds.txt"
+echo "$(date) $rc_file keybinds " > $kbinds_file
+echo "-----------------------------------------------" >> $kbinds_file
+sed -n '/<keyboard>/,/\/keyboard/p' $rc_file | \
+grep -e '<keybind key=' -e '<action name="' -e '<!--' -e '<command>' -e '<menu>' | \
+grep -v  -e '<action name="ShowMenu">' -e '<!-- #DEBIAN-OPENBOX-autosnap -->' -e '<action name="Execute">' -e '<action name="MaximizeVert"/>' -e '<action name="MoveResizeTo">' -e '<action name="MoveToEdgeWest"/>' -e '<action name="Focus"/>' -e '<action name="UnshadeRaise"/>' -e '<action name="focus"/>' -e '<action name="raise"/>' -e '<!-- Hide black border around windows -->' |
+sed -e 's/<keybind key="/key_new_line_plz/g' -e  's/<command>/\ntab_plz/g' -e  's/<action name="/\ntab_plz/g' -e  's/<action name="<menu>/\ntab_plz/g' -e  's/<menu>/\ntab_plz/g' | \
+sed -e 's/">/\n/g' -e  's/"\/>/\n/g' -e  's/<\/command>/\n/g' -e  's/<\/menu>/\n/g' | \
+tr -d '\n' | tr -s ' ' | \
+sed -e 's/<!-- /\n\n------------------------\n/g' -e 's/-->/\n------------------------\n/g' -e 's/key_new_line_plz/\n/g'  -e 's/tab_plz/\t\t/g' >> $kbinds_file
+
+grep '<!ENTITY' $rc_file | while read -r line ; do
+	tmp1=$(echo $line | awk '{print $2}')
+	tmp2=$(echo $line | awk '{print $3}')
+    sed -i "s|$tmp1|$tmp2|g" $kbinds_file
+done
+
+sed -i -e 's/&"//g' -e 's/">;//g' $kbinds_file
