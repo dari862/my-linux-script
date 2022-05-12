@@ -12,6 +12,10 @@ xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
 
+if [ "$(pidof polybar)" ]; then
+	is_polybar_running="true"
+fi
+
 # wallpaper ---------------------------------
 set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
@@ -264,10 +268,21 @@ compositor() {
 }
 
 # notify ------------------------------------
+if [ "$is_polybar_running" == "true" ]; then
+
 notify_user() {
 	local style=`basename $0` 
 	dunstify -u normal --replace=699 -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : ${style%.*}"
 }
+
+else
+
+notify_user() {
+	local style=`basename $0` 
+	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
+}
+
+fi
 
 ## Execute Script ---------------------------
 notify_user
@@ -275,14 +290,18 @@ notify_user
 # funct WALLPAPER
 set_wallpaper 'adaptive.png'
 
-# funct STYLE FONT
-change_polybar 'adaptive' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+if [ "$is_polybar_running" == "true" ]; then
+
+	# funct STYLE FONT
+	change_polybar 'adaptive' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+	
+	# funct STYLE (network manager applet)
+	change_nm 'adaptive'
+
+fi
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
 change_rofi 'adaptive' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
-
-# funct STYLE (network manager applet)
-change_nm 'adaptive'
 
 # funct FONT SIZE (Change colors in funct)
 change_terminal 'Iosevka Custom' '9'
@@ -296,14 +315,22 @@ change_geany 'adapta' 'Iosevka Custom 10'
 # funct THEME ICON CURSOR FONT
 change_appearance 'Adapta-Nokto' 'Luv-Folders-Dark' 'Vimix' 'Noto Sans 9'
 
-# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-obconfig 'Adapta-Nokto' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+if [ "$(pidof openbox)" ]; then
+
+	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+	obconfig 'Adapta-Nokto' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+	
+fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
 change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
 
-# Paste settings in funct (PLANK)
-change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+if [ "$is_polybar_running" == "true" ]; then
 
-# Change compositor settings
-#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
+	# Paste settings in funct (PLANK)
+	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	
+	# Change compositor settings
+	#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
+
+fi

@@ -12,6 +12,10 @@ xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
 
+if [ "$(pidof polybar)" ]; then
+	is_polybar_running="true"
+fi
+
 # wallpaper ---------------------------------
 set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
@@ -264,10 +268,21 @@ compositor() {
 }
 
 # notify ------------------------------------
+if [ "$is_polybar_running" == "true" ]; then
+
 notify_user() {
 	local style=`basename $0` 
 	dunstify -u normal --replace=699 -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : ${style%.*}"
 }
+
+else
+
+notify_user() {
+	local style=`basename $0` 
+	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
+}
+
+fi
 
 ## Execute Script ---------------------------
 notify_user
@@ -275,14 +290,18 @@ notify_user
 # funct WALLPAPER
 set_wallpaper 'bird.png'
 
-# funct STYLE FONT
-change_polybar 'kiss' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
+if [ "$is_polybar_running" == "true" ]; then
+
+	# funct STYLE FONT
+	change_polybar 'kiss' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
+	
+	# funct STYLE (network manager applet)
+	change_nm 'kiss'
+
+fi
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
 change_rofi 'kiss' 'Iosevka 10' '0px 0px 0px 0px' '0px' 'Zafiro'
-
-# funct STYLE (network manager applet)
-change_nm 'kiss'
 
 # funct FONT SIZE (Change colors in funct)
 change_terminal 'JetBrainsMono Nerd Font' '10'
@@ -296,14 +315,22 @@ change_geany 'metallic-bottle' 'JetBrains Mono 10'
 # funct THEME ICON CURSOR FONT
 change_appearance 'White' 'Zafiro-Dark' 'Qogirr' 'Iosevka 10'
 
-# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-obconfig 'White' 'LC' 'JetBrains Mono' '10' 'menu-minimal.xml' && openbox --reconfigure
+if [ "$(pidof openbox)" ]; then
+
+	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+	obconfig 'White' 'LC' 'JetBrains Mono' '10' 'menu-minimal.xml' && openbox --reconfigure
+	
+fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
 change_dunst '280' '80' '10x50' 'top-right' 'JetBrains Mono 10' '0'
 
-# Paste settings in funct (PLANK)
-change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+if [ "$is_polybar_running" == "true" ]; then
 
-# Change compositor settings
-#compositor 'glx' '0' '0 0 0 0' 'none 0'
+	# Paste settings in funct (PLANK)
+	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	
+	# Change compositor settings
+	#compositor 'glx' '0' '0 0 0 0' 'none 0'
+
+fi
