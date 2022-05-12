@@ -67,7 +67,7 @@ fi
 if [[ ! `pidof polybar` ]]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
-			$HOME/.config/polybar/scripts/style/old.sh
+			$HOME/.config/My_styles/old.sh
         fi
 	# Start polybar
         bash ~/.config/polybar/launch.sh & 
@@ -79,7 +79,7 @@ if [[ ! `pidof polybar` ]]; then
 else
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
-			$HOME/.config/xfce4/styles/old.sh
+			$HOME/.config/My_styles/old.sh
         fi
 	
 	# Start xfce4-panel

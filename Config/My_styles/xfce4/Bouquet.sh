@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 ## Dirs #############################################
@@ -9,7 +8,7 @@ rofi_path="$HOME/.config/rofi"
 dunst_path="$HOME/.config/dunst"
 
 # wallpaper ---------------------------------
-set_wall() {
+set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
@@ -30,9 +29,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #232735ff;
-	    FG:    #7C84A8ff;
-	    BDR:   #00A9A5ff;
+	    BG:    #191D27ff;
+	    FG:    #929AA9ff;
+	    BDR:   #FFC86Aff;
 	}
 	_EOF_
 }
@@ -133,10 +132,10 @@ change_dunst() {
 # xfce terminal ---------------------------------
 change_xfterm () {
 	sed -i -e "s/FontName=.*/FontName=$1/g" "$terminal_path"/terminalrc
-	sed -i -e 's/ColorForeground=.*/ColorForeground=#7C7C8484A8A8/g' 	"$terminal_path"/terminalrc
-	sed -i -e 's/ColorBackground=.*/ColorBackground=#232327273535/g' 	"$terminal_path"/terminalrc
-	sed -i -e 's/ColorCursor=.*/ColorCursor=#7C7C8484A8A8/g' 			"$terminal_path"/terminalrc
-	sed -i -e 's/ColorPalette=.*/ColorPalette=#323236363d3d;#e0e06b6b7474;#9898c3c37979;#e5e5c0c07a7a;#6262aeaeefef;#c7c77878dddd;#5555b6b6c2c2;#ababb2b2bfbf;#505054545b5b;#eaea75757e7e;#a2a2cdcd8383;#efefcaca8484;#6c6cb8b8f9f9;#d2d28282e7e7;#5f5fc0c0cccc;#b5b5bcbcc9c9/g' "$terminal_path"/terminalrc
+	sed -i -e 's/ColorForeground=.*/ColorForeground=#76767D7D8A8A/g' 	"$terminal_path"/terminalrc
+	sed -i -e 's/ColorBackground=.*/ColorBackground=#19191D1D2727/g' 	"$terminal_path"/terminalrc
+	sed -i -e 's/ColorCursor=.*/ColorCursor=#76767D7D8A8A/g' 			"$terminal_path"/terminalrc
+	sed -i -e 's/ColorPalette=.*/ColorPalette=#272729292d2d;#ecec78787575;#6161c7c76666;#fdfdd8d83535;#4242a5a5f5f5;#baba6868c8c8;#4d4dd0d0e1e1;#d8d8d8d8d8d8;#3b3b3d3d4141;#fbfb87878484;#7070d6d67575;#ffffe7e74444;#5151b4b4ffff;#c9c97979d7d7;#5c5cdfdff0f0;#fdfdf6f6e3e3/g' "$terminal_path"/terminalrc
 }
 
 # geany ---------------------------------
@@ -164,14 +163,16 @@ notify_user () {
 if_wm_is_openbox_()
 {
 if [[ ! -z "$(pidof openbox)" ]]; then
+
 	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-	change_rofi 'tealize' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+	change_rofi 'bouquet' 'Iosevka 10' '1px' '6px' 'Luna'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Juno-palenight' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
+	obconfig 'Juno-mirage' 'LDSIMC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
 	
 	# funct GEOMETRY FONT BORDER (Change colors in funct)
-	change_dunst '280' '80' '10x46' 'top-right' 'JetBrains Mono 10' '0'
+	change_dunst '280' '80' '10x46' 'bottom-right' 'JetBrains Mono 10' '0'
+	
 fi
 }
 
@@ -182,13 +183,14 @@ notify_user
 if_wm_is_openbox_
 
 # Set Wallpaper
-set_wall 'tealize.png'
+set_wallpaper 'bouquet.jpg'
 
 ## Change colors in funct (xfce4-terminal)
 change_xfterm 'JetBrainsMono Nerd Font 10'
 
 # SCHEME | FONT
-change_geany 'tealize' 'JetBrains Mono 10'
+change_geany 'bouquet' 'JetBrains Mono 10'
 
 # WM THEME | THEME | ICON | CURSOR | FONT
-change_gtk 'Juno-palenight' 'Juno-palenight' 'Luv-Folders-Dark' 'Vimix' 'Noto Sans 9'
+change_gtk 'Juno-mirage' 'Juno-mirage' 'Luna-Dark' 'Future-dark' 'Noto Sans 9'
+

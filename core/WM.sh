@@ -450,7 +450,7 @@ mv $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_op
 mv $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_openbox/archcraft/openbox/
 sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb
-sed -i -e 's|.config/openbox/scripts|.config/polybar/scripts/style|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i -e 's|.config/openbox/scripts|.config/My_styles|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's/openbox --exit/my_session_manager logout/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
 sed -i 's/betterlockscreen --/my_session_manager /g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
 sed -i 's/systemctl/my_session_manager/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
@@ -458,6 +458,10 @@ sed -i '/menuSeparator "| Bitmap |"/i add_beginning_of_bitmap_check_here_plz' $t
 sed -i '/menuSeparator "| Effects |"/i add_ending_of_bitmap_check_here_plz' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+
+mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
+mv $temp_folder_for_download/openbox/pipemenu/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/
+
 
 for change_content in ac-powermenu ac-change-fonts ac-randr
 do

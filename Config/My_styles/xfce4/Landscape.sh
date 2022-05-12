@@ -8,7 +8,7 @@ rofi_path="$HOME/.config/rofi"
 dunst_path="$HOME/.config/dunst"
 
 # wallpaper ---------------------------------
-set_wall() {
+set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
@@ -29,9 +29,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #212B30ff;
-	    FG:    #C4C7C5ff;
-	    BDR:   #EC407Aff;
+	    BG:    #FFFFFFff;
+	    FG:    #404040ff;
+	    BDR:   #5294E2ff;
 	}
 	_EOF_
 }
@@ -165,13 +165,13 @@ if_wm_is_openbox_()
 if [[ ! -z "$(pidof openbox)" ]]; then
 	
 	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-	change_rofi 'nordic' 'Iosevka 10' '0px' '0px' 'Numix-Apps'
+	change_rofi 'landscape' 'Iosevka 10' '0px' '0px' 'Qogir'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Nordic' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
+	obconfig 'Arc-Lighter' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
 	
 	# funct GEOMETRY FONT BORDER (Change colors in funct)
-	change_dunst '280' '80' '10x48' 'top-right' 'Iosevka Custom 9' '0'
+	change_dunst '280' '80' '10x46' 'top-right' 'JetBrains Mono 10' '6'
 	
 fi
 }
@@ -183,7 +183,7 @@ notify_user
 if_wm_is_openbox_
 
 # Set Wallpaper
-set_wall 'flowers.jpg'
+set_wallpaper 'landscape.jpg'
 
 ## Change colors in funct (xfce4-terminal)
 change_xfterm 'JetBrainsMono Nerd Font 10'
@@ -192,4 +192,5 @@ change_xfterm 'JetBrainsMono Nerd Font 10'
 change_geany 'beach' 'JetBrains Mono 10'
 
 # WM THEME | THEME | ICON | CURSOR | FONT
-change_gtk 'Arc-Lighter' 'Arc-Lighter' 'Arc-Circle' 'Qogirr-dark' 'Noto Sans 9'
+change_gtk 'Arc-Lighter' 'Arc-Lighter' 'Qogir' 'Qogirr-dark' 'Noto Sans 9'
+

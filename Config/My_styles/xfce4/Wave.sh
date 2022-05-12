@@ -8,7 +8,7 @@ rofi_path="$HOME/.config/rofi"
 dunst_path="$HOME/.config/dunst"
 
 # wallpaper ---------------------------------
-set_wall() {
+set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
@@ -183,7 +183,7 @@ notify_user
 if_wm_is_openbox_
 
 # Set Wallpaper
-set_wall 'wave.jpg'
+set_wallpaper 'wave.jpg'
 
 ## Change colors in funct (xfce4-terminal)
 change_xfterm 'JetBrainsMono Nerd Font 10'

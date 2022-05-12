@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
+## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+
 ## Dirs #############################################
 terminal_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
@@ -8,7 +11,7 @@ rofi_path="$HOME/.config/rofi"
 dunst_path="$HOME/.config/dunst"
 
 # wallpaper ---------------------------------
-set_wall() {
+set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
@@ -29,9 +32,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #212B30ff;
-	    FG:    #C4C7C5ff;
-	    BDR:   #EC407Aff;
+	    BG:    #FFFFFFff;
+	    FG:    #1C1C1Aff;
+	    BDR:   #0061B7ff;
 	}
 	_EOF_
 }
@@ -129,32 +132,106 @@ change_dunst() {
 	pkill dunst && dunst &
 }
 
-# xfce terminal ---------------------------------
-change_xfterm () {
-	sed -i -e "s/FontName=.*/FontName=$1/g" "$terminal_path"/terminalrc
-	sed -i -e 's/ColorForeground=.*/ColorForeground=#c4c4c7c7c5c5/g' 	"$terminal_path"/terminalrc
-	sed -i -e 's/ColorBackground=.*/ColorBackground=#22222d2d3232/g' 	"$terminal_path"/terminalrc
-	sed -i -e 's/ColorCursor=.*/ColorCursor=#c4c4c7c7c5c5/g' 			"$terminal_path"/terminalrc
-	sed -i -e 's/ColorPalette=.*/ColorPalette=#262636364040;#ecec78787575;#6161c7c76666;#fdfdd8d83535;#4242a5a5f5f5;#baba6868c8c8;#4d4dd0d0e1e1;#bfbfbabaacac;#4a4a69697d7d;#fbfb87878484;#7070d6d67575;#ffffe7e74444;#5151b4b4ffff;#c9c97979d7d7;#5c5cdfdff0f0;#fdfdf6f6e3e3/g' "$terminal_path"/terminalrc
-}
-
-# geany ---------------------------------
-change_geany() {
-	sed -i -e "s/color_scheme=.*/color_scheme=$1.conf/g" "$geany_path"/geany.conf
-	sed -i -e "s/editor_font=.*/editor_font=$2/g" "$geany_path"/geany.conf
-}
-
-# gtk theme, icons and fonts ---------------------------------
+# gtk theme, icons and fonts ----------------
 change_gtk() {
 	xfconf-query -c xfwm4 -p /general/theme -s "${1}"
 	xfconf-query -c xsettings -p /Net/ThemeName -s "${2}"
 	xfconf-query -c xsettings -p /Net/IconThemeName -s "${3}"
 	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "${4}"
 	xfconf-query -c xsettings -p /Gtk/FontName -s "${5}"
+
+	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
+		sed -i -e "s/Inherits=.*/Inherits=$4/g" "$HOME"/.icons/default/index.theme
+	fi	
 }
 
-# notify ---------------------------------
-notify_user () {
+# openbox -----------------------------------
+obconfig () {
+	namespace="http://openbox.org/3.4/rc"
+	config="$openbox_path/rc.xml"
+	theme="$1"
+	layout="$2"
+	font="$3"
+	fontsize="$4"
+
+	# Theme
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:name' -v "$theme" "$config"
+
+	# Title
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:titleLayout' -v "$layout" "$config"
+
+	# Fonts
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:name' -v "$font" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:size' -v "$fontsize" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:weight' -v Bold "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:slant' -v Normal "$config"
+
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:name' -v "$font" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:size' -v "$fontsize" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:weight' -v Normal "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:slant' -v Normal "$config"
+
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:name' -v "$font" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:size' -v "$fontsize" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:weight' -v Bold "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:slant' -v Normal "$config"
+
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:name' -v "$font" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:size' -v "$fontsize" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:weight' -v Normal "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:slant' -v Normal "$config"
+
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:name' -v "$font" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:size' -v "$fontsize" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:weight' -v Bold "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:slant' -v Normal "$config"
+
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:name' -v "$font" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:size' -v "$fontsize" "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:weight' -v Normal "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:slant' -v Normal "$config"
+
+	# Openbox Menu Style
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$5" "$config"
+
+	# Margins
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 0 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:bottom' -v 10 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 10 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
+}
+
+# compositor --------------------------------
+compositor() {
+	comp_file="$HOME/.config/picom.conf"
+
+	backend="$1"
+	cradius="$2"
+	shadow_r="$(echo $3 | cut -d' ' -f1)"
+	shadow_o="$(echo $3 | cut -d' ' -f2)"
+	shadow_x="$(echo $3 | cut -d' ' -f3)"
+	shadow_y="$(echo $3 | cut -d' ' -f4)"
+	method="$(echo $4 | cut -d' ' -f1)"
+	strength="$(echo $4 | cut -d' ' -f2)"
+
+	# Rounded Corners
+	sed -i -e "s/backend = .*/backend = \"$backend\";/g" 				${comp_file}
+	sed -i -e "s/corner-radius = .*/corner-radius = $cradius;/g" 		${comp_file}	
+
+	# Shadows
+	sed -i -e "s/shadow-radius = .*/shadow-radius = $shadow_r;/g" 		${comp_file}
+	sed -i -e "s/shadow-opacity = .*/shadow-opacity = $shadow_o;/g" 	${comp_file}
+	sed -i -e "s/shadow-offset-x = .*/shadow-offset-x = $shadow_x;/g" 	${comp_file}
+	sed -i -e "s/shadow-offset-y = .*/shadow-offset-y = $shadow_y;/g" 	${comp_file}
+
+	# Blur
+	sed -i -e "s/backend = .*/backend = \"$backend\";/g" 				${comp_file}
+	sed -i -e "s/method = .*/method = \"$method\";/g" 					${comp_file}
+	sed -i -e "s/strength = .*/strength = $strength;/g" 				${comp_file}
+}
+
+# notify ------------------------------------
+notify_user() {
 	local style=`basename $0` 
 	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
 }
@@ -163,15 +240,15 @@ notify_user () {
 if_wm_is_openbox_()
 {
 if [[ ! -z "$(pidof openbox)" ]]; then
-	
+
 	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-	change_rofi 'adaptive' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+	change_rofi 'old' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Adapta-Nokto' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
+	obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
 	
 	# funct GEOMETRY FONT BORDER (Change colors in funct)
-	change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
+	change_dunst '280' '80' '10x48' 'top-right' 'JetBrains Mono 10' '6'
 	
 fi
 }
@@ -182,14 +259,17 @@ notify_user
 # set dunst rofi and openbox if wm is openbox
 if_wm_is_openbox_
 
-# Set Wallpaper
-set_wall 'adaptive.png'
+# funct WALLPAPER
+set_wallpaper 'openbox.png'
 
-## Change colors in funct (xfce4-terminal)
-change_xfterm 'JetBrainsMono Nerd Font 10'
+# funct THEME ICON CURSOR FONT
+change_gtk 'Arc' 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
-# SCHEME | FONT
-change_geany 'adapta' 'JetBrains Mono 10'
+# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
 
-# WM THEME | THEME | ICON | CURSOR | FONT
-change_gtk 'Adapta-Nokto' 'Adapta-Nokto' 'Luv-Folders-Dark' 'Vimix' 'Noto Sans 9'
+# funct GEOMETRY FONT BORDER (Change colors in funct)
+change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
+
+# Change compositor settings
+#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'

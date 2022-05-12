@@ -8,7 +8,7 @@ rofi_path="$HOME/.config/rofi"
 dunst_path="$HOME/.config/dunst"
 
 # wallpaper ---------------------------------
-set_wall() {
+set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
@@ -29,9 +29,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #FFFFFFff;
-	    FG:    #1C1C1Aff;
-	    BDR:   #0061B7ff;
+	    BG:    #0C0E14ff;
+	    FG:    #CED1CFff;
+	    BDR:   #C574DDff;
 	}
 	_EOF_
 }
@@ -132,10 +132,10 @@ change_dunst() {
 # xfce terminal ---------------------------------
 change_xfterm () {
 	sed -i -e "s/FontName=.*/FontName=$1/g" "$terminal_path"/terminalrc
-	sed -i -e 's/ColorForeground=.*/ColorForeground=#eeeeffffffff/g' 	"$terminal_path"/terminalrc
-	sed -i -e 's/ColorBackground=.*/ColorBackground=#1e1e25254141/g' 	"$terminal_path"/terminalrc
-	sed -i -e 's/ColorCursor=.*/ColorCursor=#eeeeffffffff/g' 			"$terminal_path"/terminalrc
-	sed -i -e 's/ColorPalette=.*/ColorPalette=#1e1e25254141;#f0f071719b9b;#5a5af7f7b0b0;#ffffa5a56b6b;#5757c7c7ffff;#c7c79292eaea;#8989ddddffff;#eeeeffffffff;#353542427474;#f0f02e2e6e6e;#2c2ce5e59292;#ffff85853737;#1d1da0a0e2e2;#a7a74242eaea;#4747babae8e8;#dedee6e6e7e7/g' "$terminal_path"/terminalrc
+	sed -i -e 's/ColorForeground=.*/ColorForeground=#fdfdfdfdfdfd/g' 	"$terminal_path"/terminalrc
+	sed -i -e 's/ColorBackground=.*/ColorBackground=#1d1d1f1f2828/g' 	"$terminal_path"/terminalrc
+	sed -i -e 's/ColorCursor=.*/ColorCursor=#fdfdfdfdfdfd/g' 			"$terminal_path"/terminalrc
+	sed -i -e 's/ColorPalette=.*/ColorPalette=#28282a2a3636;#f3f37f7f9797;#5a5adedecdcd;#f2f2a2a27272;#88889797f4f4;#c5c57474dddd;#7979e6e6f3f3;#fdfdfdfdfdfd;#414144445858;#ffff49497171;#2626cdcdb8b8;#ffff80803737;#55556f6fffff;#b0b04343d1d1;#3f3fdcdceeee;#bebebebec1c1/g' "$terminal_path"/terminalrc
 }
 
 # geany ---------------------------------
@@ -163,16 +163,16 @@ notify_user () {
 if_wm_is_openbox_()
 {
 if [[ ! -z "$(pidof openbox)" ]]; then
-
+	
 	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-	change_rofi 'spark' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+	change_rofi 'keyboards' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
 	
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Spark' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
+	obconfig 'Sweet-Dark' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
 	
 	# funct GEOMETRY FONT BORDER (Change colors in funct)
-	change_dunst '280' '80' '20x20' 'top-right' 'Iosevka Custom 9' '0'
-
+	change_dunst '280' '80' '20x20' 'top-right' 'JetBrains Mono 10' '6'
+	
 fi
 }
 
@@ -183,14 +183,14 @@ notify_user
 if_wm_is_openbox_
 
 # Set Wallpaper
-set_wall 'gruvbox.jpg'
+set_wallpaper 'keyboards.jpg'
 
 ## Change colors in funct (xfce4-terminal)
 change_xfterm 'JetBrainsMono Nerd Font 10'
 
 # SCHEME | FONT
-change_geany 'spark' 'JetBrains Mono 10'
+change_geany 'keyboards' 'JetBrains Mono 10'
 
 # WM THEME | THEME | ICON | CURSOR | FONT
-change_gtk 'Spark' 'Spark' 'Luv-Folders' 'Vimix' 'Noto Sans 9'
+change_gtk 'Sweet-Dark' 'Sweet-Dark' 'Zafiro-Purple' 'Sweet' 'Noto Sans 9'
 
