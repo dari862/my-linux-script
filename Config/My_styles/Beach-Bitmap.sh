@@ -12,6 +12,10 @@ xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
 
+if [ "$(pidof polybar)" ]; then
+	is_polybar_running="true"
+fi
+
 # wallpaper ---------------------------------
 set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
@@ -40,9 +44,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #01161Bff;
-	    FG:    #00DFDFff;
-	    BDR:   #007B82ff;
+        BG:    #141c21ff;
+        FG:    #93a1a1ff;
+        BDR:   #2587ccff;
 	}
 	_EOF_
 }
@@ -62,40 +66,40 @@ change_terminal() {
 		colors:
 		  # Default colors
 		  primary:
-		    background: '0x01161b'
-		    foreground: '0x66FFFF'
+		    background: '0x141c21'
+		    foreground: '0x93a1a1'
 
 		  # Normal colors
 		  normal:
-		    black:   '0x01161b'
-		    red:     '0x007b82'
-		    green:   '0x028c94'
-		    yellow:  '0x039ca4'
-		    blue:    '0x04acb5'
-		    magenta: '0x05bbc5'
-		    cyan:    '0x06ccd7'
-		    white:   '0xa3b5b8'
+		    black:   '0x263640'
+		    red:     '0xd12f2c'
+		    green:   '0x819400'
+		    yellow:  '0xb08500'
+		    blue:    '0x2587cc'
+		    magenta: '0x696ebf'
+		    cyan:    '0x289c93'
+		    white:   '0xbfbaac'
 
 		  # Bright colors
 		  bright:
-		    black:   '0x01161b'
-		    red:     '0x007b82'
-		    green:   '0x028c94'
-		    yellow:  '0x039ca4'
-		    blue:    '0x04acb5'
-		    magenta: '0x05bbc5'
-		    cyan:    '0x06ccd7'
-		    white:   '0xa3b5b8'
+		    black:   '0x4a697d'
+		    red:     '0xfa3935'
+		    green:   '0xa4bd00'
+		    yellow:  '0xd9a400'
+		    blue:    '0x2ca2f5'
+		    magenta: '0x8086e8'
+		    cyan:    '0x33c5ba'
+		    white:   '0xfdf6e3'
 	_EOF_
 }
 
 # xfce terminal -----------------------------
 change_xfce_terminal() {
 	sed -i -e "s/FontName=.*/FontName=$1/g" 							${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorForeground=.*/ColorForeground=#0000dfdfdfdf/g' 	${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorBackground=.*/ColorBackground=#010116161b1b/g' 	${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorCursor=.*/ColorCursor=#0000dfdfdfdf/g' 			${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorPalette=.*/ColorPalette=#101010101010;#00007b7b8282;#02028c8c9494;#03039c9ca4a4;#0404acacb5b5;#0505bbbbc5c5;#0606ccccd7d7;#a3a3b5b5b8b8;#252525252525;#00007b7b8282;#02028c8c9494;#03039c9ca4a4;#0404acacb5b5;#0505bbbbc5c5;#0606ccccd7d7;#a3a3b5b5b8b8/g' ${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorForeground=.*/ColorForeground=#9393a1a1a1a1/g' 	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorBackground=.*/ColorBackground=#14141c1c2121/g' 	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorCursor=.*/ColorCursor=#9393a1a1a1a1/g' 			${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorPalette=.*/ColorPalette=#262636364040;#d1d12f2f2c2c;#818194940000;#b0b085850000;#25258787cccc;#69696e6ebfbf;#28289c9c9393;#bfbfbabaacac;#4a4a69697d7d;#fafa39393535;#a4a4bdbd0000;#d9d9a4a40000;#2c2ca2a2f5f5;#80808686e8e8;#3333c5c5baba;#fdfdf6f6e3e3/g' ${xfce_term_path}/terminalrc
 }
 
 # geany -------------------------------------
@@ -110,6 +114,10 @@ change_appearance() {
 	xfconf-query -c xsettings -p /Net/IconThemeName -s "$2"
 	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "$3"
 	xfconf-query -c xsettings -p /Gtk/FontName -s "$4"
+	
+	if [ "$(pidof xfce4-panel)" ]; then
+		xfconf-query -c xfwm4 -p /general/theme -s "${1}"
+	fi
 	
 	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
 		sed -i -e "s/Inherits=.*/Inherits=$3/g" "$HOME"/.icons/default/index.theme
@@ -166,10 +174,10 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$5" "$config"
 
 	# Margins
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 0 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 20 "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:bottom' -v 0 "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 10 "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 20 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 20 "$config"
 }
 
 # dunst -------------------------------------
@@ -187,21 +195,21 @@ change_dunst() {
 	cat >> ${dunst_path}/dunstrc <<- _EOF_
 		[urgency_low]
 		timeout = 2
-		background = "#01161B"
-		foreground = "#A3B5B8"
-		frame_color = "#007B82"
+		background = "#141c21"
+		foreground = "#93a1a1"
+		frame_color = "#141c21"
 
 		[urgency_normal]
 		timeout = 5
-		background = "#01161B"
-		foreground = "#A3B5B8"
-		frame_color = "#007B82"
+		background = "#141c21"
+		foreground = "#93a1a1"
+		frame_color = "#141c21"
 
 		[urgency_critical]
 		timeout = 0
-		background = "#01161B"
-		foreground = "#00DFDF"
-		frame_color = "#007B82"
+		background = "#141c21"
+		foreground = "#d42434"
+		frame_color = "#141c21"
 	_EOF_
 
 	pkill dunst && dunst &
@@ -221,7 +229,7 @@ change_dock() {
 		items-alignment='center'
 		lock-items=false
 		monitor=''
-		offset=0
+		offset=80
 		pinned-only=false
 		position='right'
 		pressure-reveal=false
@@ -264,46 +272,73 @@ compositor() {
 }
 
 # notify ------------------------------------
+if [ "$is_polybar_running" == "true" ]; then
+
 notify_user() {
 	local style=`basename $0` 
 	dunstify -u normal --replace=699 -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : ${style%.*}"
 }
 
+else
+
+notify_user() {
+	local style=`basename $0` 
+	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
+}
+
+fi
+
 ## Execute Script ---------------------------
 notify_user
 
 # funct WALLPAPER
-set_wallpaper 'hack.jpg'
+set_wallpaper 'beach.jpg'
 
-# funct STYLE FONT
-change_polybar 'hack' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+if [ "$is_polybar_running" == "true" ]; then
+
+	# funct STYLE FONT
+	change_polybar 'beach-bitmap' 'Terminus:size=8;3' && "$polybar_path"/launch.sh
+	
+	# funct STYLE (network manager applet)
+	change_nm 'beach-bitmap'
+
+fi
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-change_rofi 'hack' 'Iosevka 10' '1px' '0px' 'Papirus-Apps'
-
-# funct STYLE (network manager applet)
-change_nm 'hack'
+change_rofi 'beach-bitmap' 'Terminus 9' '0px' '0px' 'Numix-Apps'
 
 # funct FONT SIZE (Change colors in funct)
-change_terminal 'JetBrainsMono Nerd Font' '10'
+change_terminal 'Terminus' '9'
 
 # funct FONT (Change colors in funct)
-change_xfce_terminal 'JetBrainsMono Nerd Font 10'
+change_xfce_terminal 'Terminus 9'
 
 # funct SCHEME FONT
-change_geany 'hack' 'JetBrains Mono 10'
+change_geany 'beach' 'Terminus 9'
 
 # funct THEME ICON CURSOR FONT
-change_appearance 'Hack' 'Hack' 'LyraB' 'Noto Sans 9'
+change_appearance 'Arc' 'Arc-Circle' 'Future' 'Terminus 9'
 
-# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-obconfig 'Hack' 'LC' 'JetBrains Mono' '9' 'menu-simple.xml' && openbox --reconfigure
+if [ "$(pidof openbox)" ]; then
+
+	if [ "$is_polybar_running" == "true" ]; then
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'Arc-Bitmap' 'CLM' 'Terminus' '9' 'menu-simple.xml' && openbox --reconfigure
+	else
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'Arc-Bitmap' 'CLM' 'Terminus' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
+	fi
+fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
-change_dunst '280' '80' '10x36' 'top-right' 'Iosevka 10' '1'
+change_dunst '280' '80' '20x50' 'bottom-right' 'Terminus 9' '0'
 
-# Paste settings in funct (PLANK)
-change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+if [ "$is_polybar_running" == "true" ]; then
 
-# Change compositor settings
-#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
+	# Paste settings in funct (PLANK)
+	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	
+	# Change compositor settings
+	#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
+
+fi
