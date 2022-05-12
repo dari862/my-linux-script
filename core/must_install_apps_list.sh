@@ -69,6 +69,6 @@ install_openbox_extra=(gparted inxi s-tui dfc htop hwinfo cups synaptic )
 install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailutils mtp-tools gmtp)
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
 
-# ffmpeg for screen recoding , maim for ac-shots , python2 for ac-randr ac-kb ac-kb-pipemenu
+# ffmpeg for screen recoding , maim for ac-shots , python2 for ac-randr
 install_openbox_archcraft=(xmlstarlet geany plank maim python2 ffmpeg)
 install_openbox_obmenu_generator=(obmenu-generator)
