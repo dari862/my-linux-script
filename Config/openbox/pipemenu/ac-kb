@@ -18,7 +18,7 @@ done
 cat $kbinds_file | sed -e 's/x<keybind key="/x_key_new_line_plz/g' -e 's/<keybind key="/o_key_new_line_plz/g' -e  's/<command>/\ntab_plz/g' -e  's/<action name="/\ntab_plz/g' -e  's/<action name="<menu>/\ntab_plz/g' -e  's/<menu>/\ntab_plz/g' | \
 sed -e 's/">/\n/g' -e  's/"\/>/\n/g' -e  's/<\/command>/\n/g' -e  's/<\/menu>/\n/g' | \
 tr -d '\n' | tr -s ' ' | \
-sed -e 's/<!-- /\n\n------------------------\n/g' -e 's/-->/\n------------------------\n/g' -e 's/x_key_new_line_plz/\nx\t/g' -e 's/o_key_new_line_plz/\no\t/g' -e 's/tab_plz/\t\t/g' >> $kbinds_file
+sed -e 's/<!-- /\n\n------------------------\n/g' -e 's/-->/\n------------------------\n/g' -e 's/x_key_new_line_plz/\nx\t/g' -e 's/o_key_new_line_plz/\no\t/g' -e 's/tab_plz/\t\t/g' > $kbinds_file
 
 grep '<!ENTITY' $rc_file | while read -r a b c line ; do
     sed -i "s|$b|$c|g" $kbinds_file
