@@ -6,7 +6,7 @@ kbinds_file="$OpenBox_user_config/kbinds.txt"
 if [ "$1" == "" ]
 then
 echo "$(date) $rc_file keybinds " > $kbinds_file
-echo "-----------------------------------------------" >> $kbinds_file
+echo "\n-----------------------------------------------" >> $kbinds_file
 sed -n '/<keyboard>/,/\/keyboard/p' $rc_file | \
 grep -e '<keybind key=' -e '<action name="' -e '<!--' -e '<command>' -e '<menu>' | \
 grep -v  -e '<action name="ShowMenu">' -e '<!-- #DEBIAN-OPENBOX-autosnap -->' -e '<action name="Execute">' -e '<action name="MaximizeVert"/>' | \
