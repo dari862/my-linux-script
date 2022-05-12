@@ -369,6 +369,7 @@ svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
 if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
+	find $temp_folder_for_skel_config/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 fi
 
 download_rofi_config_now_
@@ -418,11 +419,11 @@ svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4_panel/x
 if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
+	find $temp_folder_for_skel_config/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 fi
 
 download_rofi_config_now_
 
-find $temp_folder_for_skel_config/xfce4/styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 sudo mv $temp_folder_for_skel_config/xfce4/xfce-menucraft.svg /usr/share/pixmaps
 ###################################################################
 show_m "Install clear xfce4-notify theme and configure xfce4-panel"
