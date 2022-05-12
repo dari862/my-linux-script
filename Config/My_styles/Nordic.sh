@@ -320,10 +320,15 @@ change_geany 'nordic' 'Iosevka Custom 10'
 change_appearance 'Nordic' 'Nordic-Folders' 'Sweet' 'Noto Sans 9'
 
 if [ "$(pidof openbox)" ]; then
-
-	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Nordic' 'LIMC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
-
+	
+	if [ "$is_polybar_running" == "true" ]; then
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'Nordic' 'LIMC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+	else
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'Nordic' 'LIMC' 'JetBrains Mono' '9' 'xfce4-menu-color.xml' && openbox --reconfigure
+	fi
+	
 fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)

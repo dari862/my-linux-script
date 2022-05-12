@@ -321,8 +321,13 @@ change_appearance 'White' 'Zafiro-Dark' 'Qogirr' 'Iosevka 10'
 
 if [ "$(pidof openbox)" ]; then
 
-	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'White' 'LC' 'JetBrains Mono' '10' 'menu-minimal.xml' && openbox --reconfigure
+	if [ "$is_polybar_running" == "true" ]; then
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'White' 'LC' 'JetBrains Mono' '10' 'menu-minimal.xml' && openbox --reconfigure
+	else	
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'White' 'LC' 'JetBrains Mono' '10' 'xfce4-menu.xml' && openbox --reconfigure
+	fi
 	
 fi
 

@@ -321,8 +321,13 @@ change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 if [ "$(pidof openbox)" ]; then
 	
-	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'menu.xml' && openbox --reconfigure
+	if [ "$is_polybar_running" == "true" ]; then
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'menu.xml' && openbox --reconfigure
+	else	
+		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+		obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
+	fi
 	
 fi
 
