@@ -15,10 +15,8 @@ sed -e 's/">/\n/g' -e  's/"\/>/\n/g' -e  's/<\/command>/\n/g' -e  's/<\/menu>/\n
 tr -d '\n' | tr -s ' ' | \
 sed -e 's/<!-- /\n\n------------------------\n/g' -e 's/-->/\n------------------------\n/g' -e 's/key_new_line_plz/\n/g'  -e 's/tab_plz/\t\t/g' >> $kbinds_file
 
-grep '<!ENTITY' $rc_file | while read -r line ; do
-	tmp1=$(echo $line | awk '{print $2}')
-	tmp2=$(echo $line | awk '{print $3}')
-    sed -i "s|$tmp1|$tmp2|g" $kbinds_file
+grep '<!ENTITY' $rc_file | while read -r a b c line ; do
+    sed -i "s|$b|$c|g" $kbinds_file
 done
 
 sed -i -e 's/&"//g' -e 's/">;//g' $kbinds_file
