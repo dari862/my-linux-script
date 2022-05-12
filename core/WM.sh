@@ -459,7 +459,7 @@ sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-
 sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 
 mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
-mv $temp_folder_for_download/openbox/pipemenu/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/
+mv $temp_folder_for_themes_and_apps/openbox/pipemenu/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/
 
 
 for change_content in ac-powermenu ac-change-fonts ac-randr
