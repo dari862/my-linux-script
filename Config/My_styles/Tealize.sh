@@ -4,19 +4,31 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 ## Dirs #############################################
-terminal_path="$HOME/.config/xfce4/terminal"
-geany_path="$HOME/.config/geany"
 openbox_path="$HOME/.config/openbox"
+polybar_path="$HOME/.config/polybar"
 rofi_path="$HOME/.config/rofi"
+terminal_path="$HOME/.config/alacritty"
+xfce_term_path="$HOME/.config/xfce4/terminal"
+geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
+
+if [ "$(pidof polybar)" ]; then
+	is_polybar_running="true"
+fi
 
 # wallpaper ---------------------------------
 set_wallpaper() {
 	nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$1"
 }
 
+# polybar -----------------------------------
+change_polybar() {
+	echo "$1" >	${polybar_path}/style
+	sed -i -e "s/font-0 = .*/font-0 = \"$2\"/g" 	${polybar_path}/"$1"/config.ini
+}
+
 # rofi --------------------------------------
-change_rofi() {
+change_rofi() {		
 	echo "$1" >	${rofi_path}/style
 	sed -i -e "s/font:.*/font:				 	\"$2\";/g" 		${rofi_path}/"$1"/font.rasi
 
@@ -32,116 +44,83 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #FFFFFFff;
-	    FG:    #1C1C1Aff;
-	    BDR:   #0061B7ff;
+	    BG:    #232735ff;
+	    FG:    #7C84A8ff;
+	    BDR:   #00A9A5ff;
 	}
 	_EOF_
 }
 
-
-# openbox -----------------------------------
-obconfig () {
-	namespace="http://openbox.org/3.4/rc"
-	config="$openbox_path/rc.xml"
-	theme="$1"
-	layout="$2"
-	font="$3"
-	fontsize="$4"
-
-	# Theme
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:name' -v "$theme" "$config"
-
-	# Title
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:titleLayout' -v "$layout" "$config"
-
-	# Fonts
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:name' -v "$font" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:size' -v "$fontsize" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:weight' -v Bold "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveWindow"]/a:slant' -v Normal "$config"
-
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:name' -v "$font" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:size' -v "$fontsize" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:weight' -v Normal "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveWindow"]/a:slant' -v Normal "$config"
-
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:name' -v "$font" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:size' -v "$fontsize" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:weight' -v Bold "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuHeader"]/a:slant' -v Normal "$config"
-
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:name' -v "$font" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:size' -v "$fontsize" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:weight' -v Normal "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="MenuItem"]/a:slant' -v Normal "$config"
-
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:name' -v "$font" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:size' -v "$fontsize" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:weight' -v Bold "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="ActiveOnScreenDisplay"]/a:slant' -v Normal "$config"
-
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:name' -v "$font" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:size' -v "$fontsize" "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:weight' -v Normal "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:theme/a:font[@place="InactiveOnScreenDisplay"]/a:slant' -v Normal "$config"
-
-	# Openbox Menu Style
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$5" "$config"
-
-	# Margins
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 0 "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:bottom' -v 10 "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 10 "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
+# network manager ---------------------------
+change_nm() {
+	sed -i -e "s#dmenu_command = .*#dmenu_command = rofi -dmenu -theme ${rofi_path}/$1/networkmenu.rasi#g" "$HOME"/.config/networkmanager-dmenu/config.ini
 }
 
+# terminal ----------------------------------
+change_terminal() {
+	sed -i -e "s/family: .*/family: \"$1\"/g" 		${terminal_path}/fonts.yml
+	sed -i -e "s/size: .*/size: $2/g" 				${terminal_path}/fonts.yml
 
-# dunst -------------------------------------
-change_dunst() {
-	sed -i -e "s/width = .*/width = $1/g" 						${dunst_path}/dunstrc
-	sed -i -e "s/height = .*/height = $2/g" 					${dunst_path}/dunstrc
-	sed -i -e "s/offset = .*/offset = $3/g" 					${dunst_path}/dunstrc
-	sed -i -e "s/origin = .*/origin = $4/g" 					${dunst_path}/dunstrc
-	sed -i -e "s/font = .*/font = $5/g" 						${dunst_path}/dunstrc
-	sed -i -e "s/frame_width = .*/frame_width = $6/g" 			${dunst_path}/dunstrc
-	sed -i -e "s/separator_height = .*/separator_height = 4/g" 	${dunst_path}/dunstrc
-	sed -i -e "s/line_height = .*/line_height = 4/g" 			${dunst_path}/dunstrc
+	cat > ${terminal_path}/colors.yml <<- _EOF_
+		## Colors configuration
+		colors:
+		  # Default colors
+		  primary:
+		    background: '#232735'
+		    foreground: '#7C84A8'
 
-	sed -i '/urgency_low/Q' ${dunst_path}/dunstrc
-	cat >> ${dunst_path}/dunstrc <<- _EOF_
-		[urgency_low]
-		timeout = 2
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		  # Normal colors
+		  normal:
+		    black:   '#32363D'
+		    red:     '#E06B74'
+		    green:   '#98C379'
+		    yellow:  '#E5C07A'
+		    blue:    '#62AEEF'
+		    magenta: '#C778DD'
+		    cyan:    '#55B6C2'
+		    white:   '#ABB2BF'
 
-		[urgency_normal]
-		timeout = 5
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
-
-		[urgency_critical]
-		timeout = 0
-		background = "#212B30"
-		foreground = "#EC407A"
-		frame_color = "#EC407A"
+		  # Bright colors
+		  bright:
+		    black:   '#50545B'
+		    red:     '#EA757E'
+		    green:   '#A2CD83'
+		    yellow:  '#EFCA84'
+		    blue:    '#6CB8F9'
+		    magenta: '#D282E7'
+		    cyan:    '#5FC0CC'
+		    white:   '#B5BCC9'
 	_EOF_
+}
 
-	pkill dunst && dunst &
+# xfce terminal -----------------------------
+change_xfce_terminal() {
+	sed -i -e "s/FontName=.*/FontName=$1/g" 							${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorForeground=.*/ColorForeground=#7C7C8484A8A8/g' 	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorBackground=.*/ColorBackground=#232327273535/g' 	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorCursor=.*/ColorCursor=#7C7C8484A8A8/g' 			${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorPalette=.*/ColorPalette=#323236363d3d;#e0e06b6b7474;#9898c3c37979;#e5e5c0c07a7a;#6262aeaeefef;#c7c77878dddd;#5555b6b6c2c2;#ababb2b2bfbf;#505054545b5b;#eaea75757e7e;#a2a2cdcd8383;#efefcaca8484;#6c6cb8b8f9f9;#d2d28282e7e7;#5f5fc0c0cccc;#b5b5bcbcc9c9/g' ${xfce_term_path}/terminalrc
+}
+
+# geany -------------------------------------
+change_geany() {
+	sed -i -e "s/color_scheme=.*/color_scheme=$1.conf/g" 	${geany_path}/geany.conf
+	sed -i -e "s/editor_font=.*/editor_font=$2/g" 			${geany_path}/geany.conf
 }
 
 # gtk theme, icons and fonts ----------------
-change_gtk() {
-	xfconf-query -c xfwm4 -p /general/theme -s "${1}"
-	xfconf-query -c xsettings -p /Net/ThemeName -s "${2}"
-	xfconf-query -c xsettings -p /Net/IconThemeName -s "${3}"
-	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "${4}"
-	xfconf-query -c xsettings -p /Gtk/FontName -s "${5}"
-
+change_appearance() {
+	xfconf-query -c xsettings -p /Net/ThemeName -s "$1"
+	xfconf-query -c xsettings -p /Net/IconThemeName -s "$2"
+	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "$3"
+	xfconf-query -c xsettings -p /Gtk/FontName -s "$4"
+	
+	if [ "$(pidof xfce4-panel)" ]; then
+		xfconf-query -c xfwm4 -p /general/theme -s "${1}"
+	fi
+	
 	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
-		sed -i -e "s/Inherits=.*/Inherits=$4/g" "$HOME"/.icons/default/index.theme
+		sed -i -e "s/Inherits=.*/Inherits=$3/g" "$HOME"/.icons/default/index.theme
 	fi	
 }
 
@@ -201,6 +180,68 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
 }
 
+# dunst -------------------------------------
+change_dunst() {
+	sed -i -e "s/width = .*/width = $1/g" 						${dunst_path}/dunstrc
+	sed -i -e "s/height = .*/height = $2/g" 					${dunst_path}/dunstrc
+	sed -i -e "s/offset = .*/offset = $3/g" 					${dunst_path}/dunstrc
+	sed -i -e "s/origin = .*/origin = $4/g" 					${dunst_path}/dunstrc
+	sed -i -e "s/font = .*/font = $5/g" 						${dunst_path}/dunstrc
+	sed -i -e "s/frame_width = .*/frame_width = $6/g" 			${dunst_path}/dunstrc
+	sed -i -e "s/separator_height = .*/separator_height = 4/g" 	${dunst_path}/dunstrc
+	sed -i -e "s/line_height = .*/line_height = 4/g" 			${dunst_path}/dunstrc
+
+	sed -i '/urgency_low/Q' ${dunst_path}/dunstrc
+	cat >> ${dunst_path}/dunstrc <<- _EOF_
+		[urgency_low]
+		timeout = 2
+		background = "#232735"
+		foreground = "#7C84A8"
+		frame_color = "#2D3144"
+
+		[urgency_normal]
+		timeout = 5
+		background = "#232735"
+		foreground = "#7C84A8"
+		frame_color = "#2D3144"
+
+		[urgency_critical]
+		timeout = 0
+		background = "#232735"
+		foreground = "#E06B74"
+		frame_color = "#2D3144"
+	_EOF_
+
+	pkill dunst && dunst &
+}
+
+# Plank -------------------------------------
+change_dock() {
+	cat > "$HOME"/.cache/plank.conf <<- _EOF_
+		[dock1]
+		alignment='center'
+		auto-pinning=true
+		current-workspace-only=false
+		dock-items=['xfce-settings-manager.dockitem', 'x-terminal-emulator.dockitem', 'x-file-manager.dockitem', 'x-www-browser.dockitem', 'x-text-editor.dockitem']
+		hide-delay=0
+		hide-mode='auto'
+		icon-size=32
+		items-alignment='center'
+		lock-items=false
+		monitor=''
+		offset=0
+		pinned-only=false
+		position='bottom'
+		pressure-reveal=false
+		show-dock-item=false
+		theme='Transparent'
+		tooltips-enabled=true
+		unhide-delay=0
+		zoom-enabled=true
+		zoom-percent=120
+	_EOF_
+}
+
 # compositor --------------------------------
 compositor() {
 	comp_file="$HOME/.config/picom.conf"
@@ -231,45 +272,69 @@ compositor() {
 }
 
 # notify ------------------------------------
+if [ "$is_polybar_running" == "true" ]; then
+
+notify_user() {
+	local style=`basename $0` 
+	dunstify -u normal --replace=699 -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : ${style%.*}"
+}
+
+else
+
 notify_user() {
 	local style=`basename $0` 
 	notify-send -u normal -i /usr/share/icons/Archcraft/actions/24/channelmixer.svg "Applying Style : ${style%.*}"
 }
 
-# run this function in openbox --------------
-if_wm_is_openbox_()
-{
-if [[ ! -z "$(pidof openbox)" ]]; then
-
-	# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-	change_rofi 'old' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
-	
-	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
-	
-	# funct GEOMETRY FONT BORDER (Change colors in funct)
-	change_dunst '280' '80' '10x48' 'top-right' 'JetBrains Mono 10' '6'
-	
 fi
-}
 
-## Execute Script -----------------------
+## Execute Script ---------------------------
 notify_user
 
-# set dunst rofi and openbox if wm is openbox
-if_wm_is_openbox_
-
 # funct WALLPAPER
-set_wallpaper 'openbox.png'
+set_wallpaper 'tealize.png'
+
+if [ "$is_polybar_running" == "true" ]; then
+
+	# funct STYLE FONT
+	change_polybar 'tealize' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+	
+	# funct STYLE (network manager applet)
+	change_nm 'tealize'
+
+fi
+
+# funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
+change_rofi 'tealize' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+
+# funct FONT SIZE (Change colors in funct)
+change_terminal 'JetBrainsMono Nerd Font' '10'
+
+# funct FONT (Change colors in funct)
+change_xfce_terminal 'JetBrainsMono Nerd Font 10'
+
+# funct SCHEME FONT
+change_geany 'tealize' 'JetBrains Mono 10'
 
 # funct THEME ICON CURSOR FONT
-change_gtk 'Arc' 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
+change_appearance 'Juno-palenight' 'Luv-Folders-Dark' 'Vimix' 'Noto Sans 9'
 
-# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'xfce4-menu.xml' && openbox --reconfigure
+if [ "$(pidof openbox)" ]; then
+
+	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
+	obconfig 'Juno-palenight' 'LIMC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+	
+fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
-change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
+change_dunst '280' '80' '10x46' 'top-right' 'JetBrains Mono 10' '0'
 
-# Change compositor settings
-#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
+if [ "$is_polybar_running" == "true" ]; then
+
+	# Paste settings in funct (PLANK)
+	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	
+	# Change compositor settings
+	#compositor 'glx' '6' '14 0.30 -12 -12' 'none 0'
+
+fi

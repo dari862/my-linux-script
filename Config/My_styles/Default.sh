@@ -44,9 +44,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #212B30ff;
-	    FG:    #C4C7C5ff;
-	    BDR:   #EC407Aff;
+	    BG:    #282C33ff;
+	    FG:    #D8D8D8ff;
+	    BDR:   #62AEEFff;
 	}
 	_EOF_
 }
@@ -66,40 +66,40 @@ change_terminal() {
 		colors:
 		  # Default colors
 		  primary:
-		    background: '0x222d32'
-		    foreground: '0xc4c7c5'
+		    background: '#1E2128'
+		    foreground: '#ABB2BF'
 
 		  # Normal colors
 		  normal:
-		    black:   '0x263640'
-		    red:     '0xec7875'
-		    green:   '0x61c766'
-		    yellow:  '0xfdd835'
-		    blue:    '0x42a5f5'
-		    magenta: '0xba68c8'
-		    cyan:    '0x4dd0e1'
-		    white:   '0xbfbaac'
+		    black:   '#32363D'
+		    red:     '#E06B74'
+		    green:   '#98C379'
+		    yellow:  '#E5C07A'
+		    blue:    '#62AEEF'
+		    magenta: '#C778DD'
+		    cyan:    '#55B6C2'
+		    white:   '#ABB2BF'
 
 		  # Bright colors
 		  bright:
-		    black:   '0x4a697d'
-		    red:     '0xfb8784'
-		    green:   '0x70d675'
-		    yellow:  '0xffe744'
-		    blue:    '0x51b4ff'
-		    magenta: '0xc979d7'
-		    cyan:    '0x5cdff0'
-		    white:   '0xfdf6e3'
+		    black:   '#50545B'
+		    red:     '#EA757E'
+		    green:   '#A2CD83'
+		    yellow:  '#EFCA84'
+		    blue:    '#6CB8F9'
+		    magenta: '#D282E7'
+		    cyan:    '#5FC0CC'
+		    white:   '#B5BCC9'
 	_EOF_
 }
 
 # xfce terminal -----------------------------
 change_xfce_terminal() {
 	sed -i -e "s/FontName=.*/FontName=$1/g" 							${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorForeground=.*/ColorForeground=#c4c4c7c7c5c5/g' 	${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorBackground=.*/ColorBackground=#22222d2d3232/g' 	${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorCursor=.*/ColorCursor=#c4c4c7c7c5c5/g' 			${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorPalette=.*/ColorPalette=#262636364040;#ecec78787575;#6161c7c76666;#fdfdd8d83535;#4242a5a5f5f5;#baba6868c8c8;#4d4dd0d0e1e1;#bfbfbabaacac;#4a4a69697d7d;#fbfb87878484;#7070d6d67575;#ffffe7e74444;#5151b4b4ffff;#c9c97979d7d7;#5c5cdfdff0f0;#fdfdf6f6e3e3/g' ${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorForeground=.*/ColorForeground=#ababb2b2bfbf/g' 	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorBackground=.*/ColorBackground=#1e1e21212828/g' 	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorCursor=.*/ColorCursor=#ababb2b2bfbf/g' 			${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorPalette=.*/ColorPalette=#323236363d3d;#e0e06b6b7474;#9898c3c37979;#e5e5c0c07a7a;#6262aeaeefef;#c7c77878dddd;#5555b6b6c2c2;#ababb2b2bfbf;#505054545b5b;#eaea75757e7e;#a2a2cdcd8383;#efefcaca8484;#6c6cb8b8f9f9;#d2d28282e7e7;#5f5fc0c0cccc;#b5b5bcbcc9c9/g' ${xfce_term_path}/terminalrc
 }
 
 # geany -------------------------------------
@@ -114,6 +114,10 @@ change_appearance() {
 	xfconf-query -c xsettings -p /Net/IconThemeName -s "$2"
 	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "$3"
 	xfconf-query -c xsettings -p /Gtk/FontName -s "$4"
+	
+	if [ "$(pidof xfce4-panel)" ]; then
+		xfconf-query -c xfwm4 -p /general/theme -s "${1}"
+	fi
 	
 	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
 		sed -i -e "s/Inherits=.*/Inherits=$3/g" "$HOME"/.icons/default/index.theme
@@ -191,21 +195,21 @@ change_dunst() {
 	cat >> ${dunst_path}/dunstrc <<- _EOF_
 		[urgency_low]
 		timeout = 2
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		background = "#282C33"
+		foreground = "#D8D8D8"
+		frame_color = "#30343B"
 
 		[urgency_normal]
 		timeout = 5
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		background = "#282C33"
+		foreground = "#D8D8D8"
+		frame_color = "#30343B"
 
 		[urgency_critical]
 		timeout = 0
-		background = "#212B30"
-		foreground = "#EC407A"
-		frame_color = "#EC407A"
+		background = "#282C33"
+		foreground = "#E06B74"
+		frame_color = "#30343B"
 	_EOF_
 
 	pkill dunst && dunst &
@@ -220,14 +224,14 @@ change_dock() {
 		current-workspace-only=false
 		dock-items=['xfce-settings-manager.dockitem', 'x-terminal-emulator.dockitem', 'x-file-manager.dockitem', 'x-www-browser.dockitem', 'x-text-editor.dockitem']
 		hide-delay=0
-		hide-mode='auto'
+		hide-mode='intelligent'
 		icon-size=32
 		items-alignment='center'
 		lock-items=false
 		monitor=''
-		offset=95
+		offset=0
 		pinned-only=false
-		position='right'
+		position='bottom'
 		pressure-reveal=false
 		show-dock-item=false
 		theme='Transparent'
@@ -288,45 +292,45 @@ fi
 notify_user
 
 # funct WALLPAPER
-set_wallpaper 'forest.jpg'
+set_wallpaper 'default.jpg'
 
 if [ "$is_polybar_running" == "true" ]; then
-
+	
 	# funct STYLE FONT
-	change_polybar 'forest' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+	change_polybar 'default' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
 	
 	# funct STYLE (network manager applet)
-	change_nm 'forest'
+	change_nm 'default'
 
 fi
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-change_rofi 'forest' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+change_rofi 'default' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
 
 # funct FONT SIZE (Change colors in funct)
-change_terminal 'Iosevka Custom' '9'
+change_terminal 'JetBrainsMono Nerd Font' '10'
 
 # funct FONT (Change colors in funct)
-change_xfce_terminal 'Iosevka Custom 9'
+change_xfce_terminal 'JetBrainsMono Nerd Font 10'
 
 # funct SCHEME FONT
-change_geany 'adapta' 'Iosevka Custom 10'
+change_geany 'arc' 'JetBrains Mono 10'
 
 # funct THEME ICON CURSOR FONT
-change_appearance 'Adapta-Nokto' 'Archcraft-Dark' 'Pear' 'Noto Sans 9'
+change_appearance 'Arc-Dark' 'Zafiro' 'Qogirr' 'Noto Sans 9'
 
 if [ "$(pidof openbox)" ]; then
 
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Adapta-Nokto' 'CLM' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+	obconfig 'Arc-Dark' 'DLIMC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
 	
 fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
-change_dunst '280' '80' '10x40' 'top-right' 'Iosevka Custom 9' '0'
+change_dunst '280' '80' '10x48' 'top-right' 'JetBrains Mono 10' '6'
 
 if [ "$is_polybar_running" == "true" ]; then
-
+	
 	# Paste settings in funct (PLANK)
 	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
 	

@@ -28,7 +28,7 @@ change_polybar() {
 }
 
 # rofi --------------------------------------
-change_rofi() {
+change_rofi() {		
 	echo "$1" >	${rofi_path}/style
 	sed -i -e "s/font:.*/font:				 	\"$2\";/g" 		${rofi_path}/"$1"/font.rasi
 
@@ -44,9 +44,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #212B30ff;
-	    FG:    #C4C7C5ff;
-	    BDR:   #EC407Aff;
+	    BG:    #1F252Bff;
+	    FG:    #F1FCF9ff;
+	    BDR:   #DB86BAff;
 	}
 	_EOF_
 }
@@ -66,40 +66,40 @@ change_terminal() {
 		colors:
 		  # Default colors
 		  primary:
-		    background: '0x222d32'
-		    foreground: '0xc4c7c5'
+		    background: '0x282f37'
+		    foreground: '0xf1fcf9'
 
 		  # Normal colors
 		  normal:
-		    black:   '0x263640'
-		    red:     '0xec7875'
-		    green:   '0x61c766'
-		    yellow:  '0xfdd835'
-		    blue:    '0x42a5f5'
-		    magenta: '0xba68c8'
-		    cyan:    '0x4dd0e1'
-		    white:   '0xbfbaac'
+		    black:   '0x20262c'
+		    red:     '0xdb86ba'
+		    green:   '0x74dd91'
+		    yellow:  '0xe49186'
+		    blue:    '0x75dbe1'
+		    magenta: '0xb4a1db'
+		    cyan:    '0x9ee9ea'
+		    white:   '0xf1fcf9'
 
 		  # Bright colors
 		  bright:
-		    black:   '0x4a697d'
-		    red:     '0xfb8784'
-		    green:   '0x70d675'
-		    yellow:  '0xffe744'
-		    blue:    '0x51b4ff'
-		    magenta: '0xc979d7'
-		    cyan:    '0x5cdff0'
-		    white:   '0xfdf6e3'
+		    black:   '0x465463'
+		    red:     '0xd04e9d'
+		    green:   '0x4bc66d'
+		    yellow:  '0xdb695b'
+		    blue:    '0x3dbac2'
+		    magenta: '0x825ece'
+		    cyan:    '0x62cdcd'
+		    white:   '0xe0e5e5'
 	_EOF_
 }
 
 # xfce terminal -----------------------------
 change_xfce_terminal() {
 	sed -i -e "s/FontName=.*/FontName=$1/g" 							${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorForeground=.*/ColorForeground=#c4c4c7c7c5c5/g' 	${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorBackground=.*/ColorBackground=#22222d2d3232/g' 	${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorCursor=.*/ColorCursor=#c4c4c7c7c5c5/g' 			${xfce_term_path}/terminalrc
-	sed -i -e 's/ColorPalette=.*/ColorPalette=#262636364040;#ecec78787575;#6161c7c76666;#fdfdd8d83535;#4242a5a5f5f5;#baba6868c8c8;#4d4dd0d0e1e1;#bfbfbabaacac;#4a4a69697d7d;#fbfb87878484;#7070d6d67575;#ffffe7e74444;#5151b4b4ffff;#c9c97979d7d7;#5c5cdfdff0f0;#fdfdf6f6e3e3/g' ${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorForeground=.*/ColorForeground=#f1f1fcfcf9f9/g'	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorBackground=.*/ColorBackground=#28282f2f3737/g'	${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorCursor=.*/ColorCursor=#f1f1fcfcf9f9/g' 			${xfce_term_path}/terminalrc
+	sed -i -e 's/ColorPalette=.*/ColorPalette=#202026262c2c;#dbdb8686baba;#7474dddd9191;#e4e491918686;#7575dbdbe1e1;#b4b4a1a1dbdb;#9e9ee9e9eaea;#f1f1fcfcf9f9;#464654546363;#d0d04e4e9d9d;#4b4bc6c66d6d;#dbdb69695b5b;#3d3dbabac2c2;#82825e5ecece;#6262cdcdcdcd;#e0e0e5e5e5e5/g' ${xfce_term_path}/terminalrc
 }
 
 # geany -------------------------------------
@@ -114,6 +114,10 @@ change_appearance() {
 	xfconf-query -c xsettings -p /Net/IconThemeName -s "$2"
 	xfconf-query -c xsettings -p /Gtk/CursorThemeName -s "$3"
 	xfconf-query -c xsettings -p /Gtk/FontName -s "$4"
+	
+	if [ "$(pidof xfce4-panel)" ]; then
+		xfconf-query -c xfwm4 -p /general/theme -s "${1}"
+	fi
 	
 	if [[ -f "$HOME"/.icons/default/index.theme ]]; then
 		sed -i -e "s/Inherits=.*/Inherits=$3/g" "$HOME"/.icons/default/index.theme
@@ -170,8 +174,8 @@ obconfig () {
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:menu/a:file' -v "$5" "$config"
 
 	# Margins
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 0 "$config"
-	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:bottom' -v 10 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:top' -v 10 "$config"
+	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:bottom' -v 0 "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:left' -v 10 "$config"
 	xmlstarlet ed -L -N a="$namespace" -u '/a:openbox_config/a:margins/a:right' -v 10 "$config"
 }
@@ -191,21 +195,21 @@ change_dunst() {
 	cat >> ${dunst_path}/dunstrc <<- _EOF_
 		[urgency_low]
 		timeout = 2
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		background = "#1F252B"
+		foreground = "#F1FCF9"
+		frame_color = "#1F252B"
 
 		[urgency_normal]
 		timeout = 5
-		background = "#212B30"
-		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		background = "#1F252B"
+		foreground = "#F1FCF9"
+		frame_color = "#1F252B"
 
 		[urgency_critical]
 		timeout = 0
-		background = "#212B30"
-		foreground = "#EC407A"
-		frame_color = "#EC407A"
+		background = "#1F252B"
+		foreground = "#DB86BA"
+		frame_color = "#1F252B"
 	_EOF_
 
 	pkill dunst && dunst &
@@ -225,9 +229,9 @@ change_dock() {
 		items-alignment='center'
 		lock-items=false
 		monitor=''
-		offset=0
+		offset=80
 		pinned-only=false
-		position='bottom'
+		position='right'
 		pressure-reveal=false
 		show-dock-item=false
 		theme='Transparent'
@@ -288,20 +292,20 @@ fi
 notify_user
 
 # funct WALLPAPER
-set_wallpaper 'adaptive.png'
+set_wallpaper 'manhattan.jpg'
 
 if [ "$is_polybar_running" == "true" ]; then
 
 	# funct STYLE FONT
-	change_polybar 'adaptive' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+	change_polybar 'manhattan' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
 	
 	# funct STYLE (network manager applet)
-	change_nm 'adaptive'
+	change_nm 'manhattan'
 
 fi
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-change_rofi 'adaptive' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
+change_rofi 'manhattan' 'Iosevka 10' '0px' '0px' 'Papirus-Apps'
 
 # funct FONT SIZE (Change colors in funct)
 change_terminal 'Iosevka Custom' '9'
@@ -310,27 +314,27 @@ change_terminal 'Iosevka Custom' '9'
 change_xfce_terminal 'Iosevka Custom 9'
 
 # funct SCHEME FONT
-change_geany 'adapta' 'Iosevka Custom 10'
+change_geany 'manhattan' 'Iosevka Custom 10'
 
 # funct THEME ICON CURSOR FONT
-change_appearance 'Adapta-Nokto' 'Luv-Folders-Dark' 'Vimix' 'Noto Sans 9'
+change_appearance 'Manhattan' 'Luv-Folders-Dark' 'Vimix-dark' 'Noto Sans 9'
 
 if [ "$(pidof openbox)" ]; then
 
 	# funct THEME LAYOUT FONT SIZE (Change margin in funct)
-	obconfig 'Adapta-Nokto' 'MLC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
+	obconfig 'Manhattan' 'LIMC' 'JetBrains Mono' '9' 'menu-icons.xml' && openbox --reconfigure
 	
 fi
 
 # funct GEOMETRY FONT BORDER (Change colors in funct)
-change_dunst '280' '80' '10x44' 'top-right' 'Iosevka Custom 9' '0'
+change_dunst '280' '80' '20x20' 'top-right' 'Iosevka Custom 9' '0'
 
 if [ "$is_polybar_running" == "true" ]; then
-
+	
 	# Paste settings in funct (PLANK)
 	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
 	
 	# Change compositor settings
-	#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
+	#compositor 'glx' '6' '14 0.30 -12 -12' 'none 0'
 
 fi
