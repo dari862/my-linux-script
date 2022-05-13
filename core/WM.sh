@@ -125,11 +125,13 @@ configure_archcraft_os_stuffs_now_
 
 configure_xfce4_now()
 {
-
+if [ -z "$DISPLAY" ]
+then
+	export DISPLAY=:0.0
+fi
 xfconf-query -c xfwm4 -np /general/theme -t 'string' -s Adwaita
 sed -i "s|/home/dari|$HOME|g" $temp_folder_for_skel_config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
 configure_archcraft_os_stuffs_now_
-
 }
 
 ##################################################################################################################################################
