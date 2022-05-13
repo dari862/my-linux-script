@@ -292,7 +292,7 @@ fi
 notify_user
 
 # funct WALLPAPER
-set_wallpaper 'default.jpg'
+set_wallpaper 'openbox.png'
 
 if [ "$is_polybar_running" == "true" ]; then
 
