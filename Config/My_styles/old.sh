@@ -45,8 +45,8 @@ change_rofi() {
 
 	* {
 	    BG:    #FFFFFFff;
-	    FG:    #1C1C1Aff;
-	    BDR:   #0061B7ff;
+	    FG:    #666666ff;
+	    BDR:   #666666ff;
 	}
 	_EOF_
 }
