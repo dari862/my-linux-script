@@ -463,7 +463,7 @@
 		<menu icon="&icons;/sys-poweroff.png" id="Exit" label="Exit">
 				<item icon="&icons;/exit.png" label="Lock Screen">
 					<action name="Execute">
-						<command>x-locker</command>
+						<command>my_session_manager lock</command>
 					</action>
 				</item>
 				<item icon="&icons;/exit2.png" label="Logout">
