@@ -176,7 +176,7 @@
 		<separator/>
 		<item icon="&icons;/sys-lock.png" label="Lock Screen">
 			<action name="Execute">
-				<command>x-locker</command>
+				<command>my_session_manager lock</command>
 			</action>
 		</item>
 		<separator/>
