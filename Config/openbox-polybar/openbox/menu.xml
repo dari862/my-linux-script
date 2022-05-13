@@ -4,6 +4,8 @@
 <!DOCTYPE menu [
   <!ENTITY icons "/usr/share/icons/openbox-menu">
   <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
+  <!ENTITY openboxconfig "~/.config/openbox">
+  <!ENTITY rofibin "~/.config/openbox/rofi/bin">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -14,7 +16,7 @@
     <menu id="root-menu" label="Openbox 3">
 		<item label="Run Program" icon="&icons;/search.png">
 			<action name="Execute">
-				<command>~/.config/openbox/rofi/bin/launcher</command>
+				<command>&rofibin;/launcher</command>
 			</action>
 		</item> 
 
@@ -68,7 +70,7 @@
                 <item label="Edit Openbox config file rc.xml" icon="&icons;/text-editor.png">
                     <action name="Execute">
                         <command>
-                            x-text-editor ~/.config/openbox/rc.xml
+                            x-text-editor &openboxconfig;/rc.xml
                         </command>
                     </action>
                 </item>		
@@ -93,14 +95,14 @@
                 <item label="Edit menu.xml" icon="&icons;/text-editor.png">
                     <action name="Execute">
                         <command>
-                            x-text-editor ~/.config/openbox/menu.xml
+                            x-text-editor &openboxconfig;/menu.xml
                         </command>
                     </action>
                 </item>      		
                 <item label="Hide/show icons in menu" icon="&icons;/menu-icons.png">
                     <action name="Execute">
                         <command>
-							bash -c 'if grep -q icon_hide=\" ~/.config/openbox/menu.xml; then sed -i "s/icon_hide=\"/icon=\"/g" ~/.config/openbox/menu.xml; else sed -i "s/icon=\"/icon_hide=\"/g" ~/.config/openbox/menu.xml; fi'
+							bash -c 'if grep -q icon_hide=\" &openboxconfig;/menu.xml; then sed -i "s/icon_hide=\"/icon=\"/g" &openboxconfig;/menu.xml; else sed -i "s/icon=\"/icon_hide=\"/g" &openboxconfig;/menu.xml; fi'
                         </command>
                     </action>
                     <action name="Reconfigure"/>
@@ -218,7 +220,7 @@
 	            <item label="Edit Openbox Autostart" icon="&icons;/text-editor.png">
 	                <action name="Execute">
 	                    <command>
-	                        x-text-editor ~/.config/openbox/autostart
+	                        x-text-editor &openboxconfig;/autostart
 	                    </command>
 	                </action>
 	            </item>
@@ -235,7 +237,7 @@
 	            <item label="Edit Openbox rc.xml" icon="&icons;/text-editor.png">
 	                <action name="Execute">
 	                    <command>
-	                        x-text-editor ~/.config/openbox/rc.xml
+	                        x-text-editor &openboxconfig;/rc.xml
 	                    </command>
 	                </action>
 	            </item>
