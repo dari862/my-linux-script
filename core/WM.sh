@@ -9,6 +9,7 @@ configure_PreWM_now()
 {
 show_m "install preWM_apps"
 cd $temp_folder_for_preWM
+mkdir -p $temp_folder_for_skel_/.local/bin
 sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
 mkdir -p $temp_folder_for_skel_config/gtk-3.0
