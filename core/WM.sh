@@ -10,11 +10,10 @@ configure_PreWM_now()
 show_m "install preWM_apps"
 cd $temp_folder_for_preWM
 sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
-mkdir -p $HOME/.local/bin
-mv $temp_folder_for_preWM/preWM/local_bin/* $HOME/.local/bin
-mkdir -p ~/.config/gtk-3.0
-mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* ~/.config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
-mv $temp_folder_for_preWM/preWM/config/* ~/.config &> /dev/null || echo "falied to move all preWM/config files"
+mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
+mkdir -p $temp_folder_for_skel_config/gtk-3.0
+mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* $temp_folder_for_skel_config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
+mv $temp_folder_for_preWM/preWM/config/* $temp_folder_for_skel_config &> /dev/null || echo "falied to move all preWM/config files"
 if [ -z "$(ls -A $temp_folder_for_preWM/preWM/config)" ]; then
    echo "preWM/config copyed without any errors"
 else
@@ -23,8 +22,8 @@ fi
 
 if [ "$virtual_machine" == "true" ]
 then
-   sed -i 's|# vsync = false|vsync = false;|g' ~/.config/picom.conf
-   sed -i 's|vsync = true;|# vsync = true|g' ~/.config/picom.conf
+   sed -i 's|# vsync = false|vsync = false;|g' $temp_folder_for_skel_config/picom.conf
+   sed -i 's|vsync = true;|# vsync = true|g' $temp_folder_for_skel_config/picom.conf
 fi
 show_m "Enable network interface managemnet "
 sudo sed -i 's/managed=.*/managed=true/g' /etc/NetworkManager/NetworkManager.conf
@@ -137,30 +136,32 @@ configure_awesomewm_and_dependancy_now()
 
 show_m "configure awesomeWN"
 
-mkdir -p ~/.config/awesome
-cp /etc/xdg/awesome/rc.lua ~/.config/awesome
+where_is_awesome="$HOME/.config/awesome"
 
-#sed -i 's/terminal = "x-terminal-emulator"/local terminal = "x-terminal-emulator"/g' ~/.config/awesome/rc.lua
-#sed -i 's/editor = os.getenv/local editor = os.getenv/g' ~/.config/awesome/rc.lua
-#sed -i 's/editor_cmd = /local editor_cmd = /g' ~/.config/awesome/rc.lua
+mkdir -p $where_is_awesome/awesome
+cp /etc/xdg/awesome/rc.lua $where_is_awesome
 
-sed -i '/^-- {{{ Variable definitions/a -- Var for Applications' ~/.config/awesome/rc.lua
-sed -i '/^-- Var for Applications/a filesmanagerr = "pcmanfm"' ~/.config/awesome/rc.lua
-sed -i '/^-- Var for Applications/a screenshot = "flameshot"' ~/.config/awesome/rc.lua
-sed -i '/^-- Var for Applications/a browser = "firefox"' ~/.config/awesome/rc.lua
+#sed -i 's/terminal = "x-terminal-emulator"/local terminal = "x-terminal-emulator"/g' $where_is_awesome/rc.lua
+#sed -i 's/editor = os.getenv/local editor = os.getenv/g' $where_is_awesome/rc.lua
+#sed -i 's/editor_cmd = /local editor_cmd = /g' $where_is_awesome/rc.lua
 
-sed -i 's/modkey = /modkey = /g' ~/.config/awesome/rc.lua
-sed -i 's/"Mod4"/"Mod1"/g' ~/.config/awesome/rc.lua
+sed -i '/^-- {{{ Variable definitions/a -- Var for Applications' $where_is_awesome/rc.lua
+sed -i '/^-- Var for Applications/a filesmanagerr = "pcmanfm"' $where_is_awesome/rc.lua
+sed -i '/^-- Var for Applications/a screenshot = "flameshot"' $where_is_awesome/rc.lua
+sed -i '/^-- Var for Applications/a browser = "firefox"' $where_is_awesome/rc.lua
 
-sed -i '/^-- {{{ Variable definitions/a titlebars_status_now = false' ~/.config/awesome/rc.lua
-sed -i 's/properties = { titlebars_enabled = true }/properties = { titlebars_enabled = titlebars_status_now }/g' ~/.config/awesome/rc.lua
+sed -i 's/modkey = /modkey = /g' $where_is_awesome/rc.lua
+sed -i 's/"Mod4"/"Mod1"/g' $where_is_awesome/rc.lua
 
-sed -i 's/awful.screen.focused().mypromptbox:run()/awful.util.spawn("dmenu_run")/g' ~/.config/awesome/rc.lua
+sed -i '/^-- {{{ Variable definitions/a titlebars_status_now = false' $where_is_awesome/rc.lua
+sed -i 's/properties = { titlebars_enabled = true }/properties = { titlebars_enabled = titlebars_status_now }/g' $where_is_awesome/rc.lua
+
+sed -i 's/awful.screen.focused().mypromptbox:run()/awful.util.spawn("dmenu_run")/g' $where_is_awesome/rc.lua
 
 # work on awful.layout.layouts
 # add https://github.com/Elv13/collision
 
-sed -i 's/awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }/awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }/g' ~/.config/awesome/rc.lua
+sed -i 's/awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }/awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }/g' $where_is_awesome/rc.lua
 
 cat << EOF > ffffffff.txt
     awful.key({ modkey }, "b", function () awful.spawn(browser) end,
@@ -172,14 +173,14 @@ cat << EOF > ffffffff.txt
 			  
     -- Dmenu  
 EOF
-sed -i '/-- Prompt/ r ffffffff.txt' ~/.config/awesome/rc.lua	  
-sed -i 's/-- Prompt/-- User browser/g' ~/.config/awesome/rc.lua
+sed -i '/-- Prompt/ r ffffffff.txt' $where_is_awesome/rc.lua	  
+sed -i 's/-- Prompt/-- User browser/g' $where_is_awesome/rc.lua
 rm ffffffff.txt
 
-sed -i '/^-- {{{ Variable definitions/a sloppy_focuss_enabled = false' ~/.config/awesome/rc.lua
-sed -i '/^-- Enable sloppy focus/{N;N;N;s/$/\nend/}' ~/.config/awesome/rc.lua
-sed -i '/^-- Enable sloppy focus/a then' ~/.config/awesome/rc.lua
-sed -i '/^-- Enable sloppy focus/a if sloppy_focuss_enabled' ~/.config/awesome/rc.lua
+sed -i '/^-- {{{ Variable definitions/a sloppy_focuss_enabled = false' $where_is_awesome/rc.lua
+sed -i '/^-- Enable sloppy focus/{N;N;N;s/$/\nend/}' $where_is_awesome/rc.lua
+sed -i '/^-- Enable sloppy focus/a then' $where_is_awesome/rc.lua
+sed -i '/^-- Enable sloppy focus/a if sloppy_focuss_enabled' $where_is_awesome/rc.lua
 
 }
 
@@ -194,118 +195,118 @@ local temp_var_for_Variable_location=""
 #themes
 temp_var_for_new_module_name="theme-picker"
 temp_var_for_new_module_folder_name="themes"
-mkdir -p ~/.config/awesome/$temp_var_for_new_module_folder_name
-cp /usr/share/awesome/themes/gtk/theme.lua ~/.config/awesome/themes/gtk.lua
-sed -i 's/theme.useless_gap   = dpi(3)/theme.useless_gap   = dpi(5)/g' ~/.config/awesome/themes/gtk.lua
-echo 'local beautiful = require("beautiful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-sed -n '/-- Themes define colours/p' ~/.config/awesome/rc.lua >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local my_theme = "gtk"' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-sed -n '/gears.filesystem.get_themes_dir/p' ~/.config/awesome/rc.lua >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-sed -i '/gears.filesystem.get_themes_dir/d' ~/.config/awesome/rc.lua
-sed -i 's|gears.filesystem.get_themes_dir() .. "default/theme.lua"|string.format("%s/.config/awesome/themes/%s.lua", os.getenv("HOME"), my_theme)|g' ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-sed -i '/-- Themes define colours.*/d' ~/.config/awesome/rc.lua
+mkdir -p $where_is_awesome/$temp_var_for_new_module_folder_name
+cp /usr/share/awesome/themes/gtk/theme.lua $where_is_awesome/themes/gtk.lua
+sed -i 's/theme.useless_gap   = dpi(3)/theme.useless_gap   = dpi(5)/g' $where_is_awesome/themes/gtk.lua
+echo 'local beautiful = require("beautiful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+sed -n '/-- Themes define colours/p' $where_is_awesome/rc.lua >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local my_theme = "gtk"' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+sed -n '/gears.filesystem.get_themes_dir/p' $where_is_awesome/rc.lua >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+sed -i '/gears.filesystem.get_themes_dir/d' $where_is_awesome/rc.lua
+sed -i 's|gears.filesystem.get_themes_dir() .. "default/theme.lua"|string.format("%s/.config/awesome/themes/%s.lua", os.getenv("HOME"), my_theme)|g' $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+sed -i '/-- Themes define colours.*/d' $where_is_awesome/rc.lua
 temp_var_for_theme_location="$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name"
 
 temp_var_for_new_module_folder_name="main"
-mkdir -p ~/.config/awesome/$temp_var_for_new_module_folder_name
+mkdir -p $where_is_awesome/$temp_var_for_new_module_folder_name
 #Signals
 temp_var_for_new_module_name="Signals"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local gears = require("gears")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local beautiful = require("beautiful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local wibox = require("wibox")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local gears = require("gears")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local beautiful = require("beautiful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local wibox = require("wibox")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "Signals" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
 
 #Rules
 temp_var_for_new_module_name="Rules"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local beautiful = require("beautiful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local beautiful = require("beautiful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "Rules" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
 
 #keybindings
 temp_var_for_new_module_name="keybindings"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local gears = require("gears")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local hotkeys_popup = require("awful.hotkeys_popup")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local gears = require("gears")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local hotkeys_popup = require("awful.hotkeys_popup")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "Key bindings" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
 
 #mousebindings
 temp_var_for_new_module_name="mousebindings"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local gears = require("gears")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local gears = require("gears")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "Mouse bindings" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
 
 #Wibar
 temp_var_for_new_module_name="Wibar"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local gears = require("gears")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local beautiful = require("beautiful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local wibox = require("wibox")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local gears = require("gears")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local beautiful = require("beautiful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local wibox = require("wibox")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "-- Keyboard map indicator and switcher" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" 
 
 #Menu
 temp_var_for_new_module_name="Menu"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local gears = require("gears")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local menubar = require("menubar")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local beautiful = require("beautiful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '-- Load Debian menu entries' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local debian = require("debian.menu")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local has_fdo, freedesktop = pcall(require, "freedesktop")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/Menu.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local gears = require("gears")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local menubar = require("menubar")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local beautiful = require("beautiful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Load Debian menu entries' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local debian = require("debian.menu")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local has_fdo, freedesktop = pcall(require, "freedesktop")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/Menu.lua
 echo ''
 modularize_awesomeWM_rc_file "Menu" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
-sed -i '/-- Load Debian menu entries/d' ~/.config/awesome/rc.lua
-sed -i '/local debian = require("debian.menu")/d' ~/.config/awesome/rc.lua
-sed -i '/local has_fdo, freedesktop = pcall(require, "freedesktop")/d' ~/.config/awesome/rc.lua
+sed -i '/-- Load Debian menu entries/d' $where_is_awesome/rc.lua
+sed -i '/local debian = require("debian.menu")/d' $where_is_awesome/rc.lua
+sed -i '/local has_fdo, freedesktop = pcall(require, "freedesktop")/d' $where_is_awesome/rc.lua
 
 #Variable
 temp_var_for_new_module_name="Variable"
-echo '-- Standard awesome library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local awful = require("awful")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Standard awesome library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local awful = require("awful")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "Variable definitions" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
 temp_var_for_Variable_location="$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name"
 
 #Errorhandling
 temp_var_for_new_module_name="Errorhandling"
-echo '-- Notification library' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo 'local naughty = require("naughty")' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
-echo '' >> ~/.config/awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '-- Notification library' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo 'local naughty = require("naughty")' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
+echo '' >> $where_is_awesome/$temp_var_for_new_module_folder_name/$temp_var_for_new_module_name.lua
 modularize_awesomeWM_rc_file "Error handling" "$temp_var_for_new_module_name" "$temp_var_for_new_module_folder_name" "{"
 
 #autostart
 temp_var_for_new_module_folder_name="autostart"
-mkdir -p ~/.config/awesome/$temp_var_for_new_module_folder_name
-curl -s https://raw.githubusercontent.com/dari862/my-linux-script/$temp_var_for_new_module_folder_name/Config/awesomewm/awspawn > ~/.config/awesome/$temp_var_for_new_module_folder_name/awspawn
-chmod +x ~/.config/awesome/$temp_var_for_new_module_folder_name/awspawn
-cat << EOF >> ~/.config/awesome/$temp_var_for_new_module_folder_name/autorun.lua
+mkdir -p $where_is_awesome/$temp_var_for_new_module_folder_name
+curl -s https://raw.githubusercontent.com/dari862/my-linux-script/$temp_var_for_new_module_folder_name/Config/awesomewm/awspawn > $where_is_awesome/$temp_var_for_new_module_folder_name/awspawn
+chmod +x $where_is_awesome/$temp_var_for_new_module_folder_name/awspawn
+cat << EOF >> $where_is_awesome/$temp_var_for_new_module_folder_name/autorun.lua
 local awful = require("awful")
 awful.spawn.with_shell("~/.config/awesome/$temp_var_for_new_module_folder_name/awspawn")
 awful.spawn.with_shell(screenshot)
 EOF
-echo 'require("'$temp_var_for_new_module_folder_name'/autorun")' >> ~/.config/awesome/rc.lua
+echo 'require("'$temp_var_for_new_module_folder_name'/autorun")' >> $where_is_awesome/rc.lua
 
 #extra stuff
 # add require("theme-file") below require("Variable-file")
-sed -i 's|require("'$temp_var_for_Variable_location'")|temp_var_for_Variable_location|g' ~/.config/awesome/rc.lua
-sed -i '/^temp_var_for_Variable_location/a temp_var_for_theme_location' ~/.config/awesome/rc.lua
-sed -i 's|temp_var_for_Variable_location|require("'$temp_var_for_Variable_location'")|g' ~/.config/awesome/rc.lua
-sed -i 's|temp_var_for_theme_location|require("'$temp_var_for_theme_location'")|g' ~/.config/awesome/rc.lua
+sed -i 's|require("'$temp_var_for_Variable_location'")|temp_var_for_Variable_location|g' $where_is_awesome/rc.lua
+sed -i '/^temp_var_for_Variable_location/a temp_var_for_theme_location' $where_is_awesome/rc.lua
+sed -i 's|temp_var_for_Variable_location|require("'$temp_var_for_Variable_location'")|g' $where_is_awesome/rc.lua
+sed -i 's|temp_var_for_theme_location|require("'$temp_var_for_theme_location'")|g' $where_is_awesome/rc.lua
 
-sed -i '/^[[:space:]]*$/d' $HOME/.config/awesome/rc.lua # remove empty line in rc.lua
+sed -i '/^[[:space:]]*$/d' $where_is_awesome/rc.lua # remove empty line in rc.lua
 }
 
 main_awesomeWM_now()
@@ -313,6 +314,7 @@ main_awesomeWM_now()
 show_mf "configure_awesomewm_and_dependancy_now "
 configure_awesomewm_and_dependancy_now
 modularize_awesomeWM_rc_file_now
+copy_awesome_2_skel
 }
 
 
@@ -327,7 +329,7 @@ modularize_awesomeWM_rc_file_now
 
 configuring_bspwm_now()
 {
-cp -r $temp_folder_for_bspwm/bspwm_config_files/dotfiles/* /home/$USER/.config/
+cp -r $temp_folder_for_bspwm/bspwm_config_files/dotfiles/* $temp_folder_for_skel_config
 }
 
 main_bspwm_now()
