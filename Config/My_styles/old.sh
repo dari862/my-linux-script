@@ -300,7 +300,7 @@ if [ "$is_polybar_running" == "true" ]; then
 	change_polybar 'default' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
 	
 	# funct STYLE (network manager applet)
-	change_nm 'default'
+	change_nm 'old'
 
 fi
 
