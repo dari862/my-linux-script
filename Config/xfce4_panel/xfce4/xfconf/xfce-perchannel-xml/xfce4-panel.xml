@@ -132,26 +132,10 @@
     </property>
     <property name="plugin-32" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="16241260409.desktop"/>
-        <value type="string" value="162412623010.desktop"/>
-        <value type="string" value="162412623011.desktop"/>
-        <value type="string" value="162412623012.desktop"/>
-        <value type="string" value="162412623013.desktop"/>
-        <value type="string" value="162412623014.desktop"/>
-        <value type="string" value="162412623015.desktop"/>
-        <value type="string" value="162412623016.desktop"/>
-        <value type="string" value="162412623017.desktop"/>
-        <value type="string" value="162412623018.desktop"/>
-        <value type="string" value="162412623019.desktop"/>
-        <value type="string" value="162412623020.desktop"/>
-        <value type="string" value="162412623021.desktop"/>
-        <value type="string" value="162412623022.desktop"/>
-        <value type="string" value="162412623023.desktop"/>
-        <value type="string" value="162412623024.desktop"/>
         <value type="string" value="162412623025.desktop"/>
       </property>
       <property name="disable-tooltips" type="bool" value="false"/>
-      <property name="show-label" type="bool" value="true"/>
+      <property name="show-label" type="bool" value="false"/>
       <property name="move-first" type="bool" value="true"/>
     </property>
     <property name="plugin-2" type="string" value="launcher">
