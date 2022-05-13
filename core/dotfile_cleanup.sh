@@ -188,6 +188,10 @@ ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc
 ln -sr ~/$myshell_skel_folder/bashrc ~/.bashrc
 xdg-user-dirs-update # this command will create ~/.config/user-dirs.dirs and ~/.config/user-dirs.locale
 source ~/.xsessionrc
+if [ -d "$HOME/.config/xfce4" ]
+then
+	xfconf-query -c xfwm4 -np /general/theme -t 'string' -s Adwaita
+fi
 EOF
 
 cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
