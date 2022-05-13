@@ -44,9 +44,9 @@ change_rofi() {
 	/* Color-Scheme */
 
 	* {
-	    BG:    #282C33ff;
-	    FG:    #D8D8D8ff;
-	    BDR:   #62AEEFff;
+	    BG:    #FFFFFFff;
+	    FG:    #1C1C1Aff;
+	    BDR:   #0061B7ff;
 	}
 	_EOF_
 }
@@ -195,21 +195,21 @@ change_dunst() {
 	cat >> ${dunst_path}/dunstrc <<- _EOF_
 		[urgency_low]
 		timeout = 2
-		background = "#282C33"
-		foreground = "#D8D8D8"
-		frame_color = "#30343B"
+		background = "#212B30"
+		foreground = "#C4C7C5"
+		frame_color = "#4DD0E1"
 
 		[urgency_normal]
 		timeout = 5
-		background = "#282C33"
-		foreground = "#D8D8D8"
-		frame_color = "#30343B"
+		background = "#212B30"
+		foreground = "#C4C7C5"
+		frame_color = "#4DD0E1"
 
 		[urgency_critical]
 		timeout = 0
-		background = "#282C33"
-		foreground = "#E06B74"
-		frame_color = "#30343B"
+		background = "#212B30"
+		foreground = "#EC407A"
+		frame_color = "#EC407A"
 	_EOF_
 
 	pkill dunst && dunst &
@@ -305,7 +305,7 @@ if [ "$is_polybar_running" == "true" ]; then
 fi
 
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
-change_rofi 'default' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
+change_rofi 'old' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
 
 if [ -d "$terminal_path" ]; then
 	# funct FONT SIZE (Change colors in funct)
