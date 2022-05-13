@@ -99,7 +99,7 @@
 		<menu id="Exit" label="System">
 				<item label="Lock">
 					<action name="Execute">
-						<command>x-locker</command>
+						<command>my_session_manager lock</command>
 					</action>
 				</item>
 				<item label="Logout">
