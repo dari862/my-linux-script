@@ -45,11 +45,6 @@ sudo mv $temp_folder_for_preWM/Nordic /usr/share/themes/ &> /dev/null || show_em
 # Layan Cursors
 cd $temp_folder_for_preWM/build_Layan_Cursors
 sudo ./install.sh
-
-cd
-rm_if_link "$HOME/.Xresources"
-ln -s $HOME/.config/x11/xresources .Xresources
-
 }
 
 main_PreWM_now()
