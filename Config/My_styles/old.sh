@@ -307,14 +307,20 @@ fi
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
 change_rofi 'default' 'Iosevka 10' '0px 0px 2px 0px' '8px' 'Zafiro'
 
-# funct FONT SIZE (Change colors in funct)
-change_terminal 'JetBrainsMono Nerd Font' '10'
+if [ -d "$terminal_path" ]; then
+	# funct FONT SIZE (Change colors in funct)
+	change_terminal 'JetBrainsMono Nerd Font' '10'
+fi
 
-# funct FONT (Change colors in funct)
-change_xfce_terminal 'JetBrainsMono Nerd Font 10'
+if [ -d "$xfce_term_path" ]; then
+	# funct FONT (Change colors in funct)
+	change_xfce_terminal 'JetBrainsMono Nerd Font 10'
+fi
 
-# funct SCHEME FONT
-change_geany 'arc' 'JetBrains Mono 10'
+if [ -d "$geany_path" ]; then
+	# funct SCHEME FONT
+	change_geany 'arc' 'JetBrains Mono 10'
+fi
 
 # funct THEME ICON CURSOR FONT
 change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
@@ -331,13 +337,17 @@ if [ "$(pidof openbox)" ]; then
 	
 fi
 
-# funct GEOMETRY FONT BORDER (Change colors in funct)
-change_dunst '280' '80' '10x48' 'top-right' 'JetBrains Mono 10' '6'
+if [ -d "$dunst_path" ]; then
+	# funct GEOMETRY FONT BORDER (Change colors in funct)
+	change_dunst '280' '80' '10x48' 'top-right' 'JetBrains Mono 10' '6'
+fi
 
 if [ "$is_polybar_running" == "true" ]; then
 
-	# Paste settings in funct (PLANK)
-	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	if [ "$(pidof plank)" ]; then
+		# Paste settings in funct (PLANK)
+		change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	fi
 	
 	# Change compositor settings
 	#compositor 'glx' '6' '14 0.30 -12 -12' 'none 0'

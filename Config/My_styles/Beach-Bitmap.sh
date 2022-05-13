@@ -307,14 +307,20 @@ fi
 # funct STYLE FONT BORDER BORDER-RADIUS ICON (Change colors in funct)
 change_rofi 'beach-bitmap' 'Terminus 9' '0px' '0px' 'Numix-Apps'
 
-# funct FONT SIZE (Change colors in funct)
-change_terminal 'Terminus' '9'
+if [ -d "$terminal_path" ]; then
+	# funct FONT SIZE (Change colors in funct)
+	change_terminal 'Terminus' '9'
+fi
 
-# funct FONT (Change colors in funct)
-change_xfce_terminal 'Terminus 9'
+if [ -d "$xfce_term_path" ]; then
+	# funct FONT (Change colors in funct)
+	change_xfce_terminal 'Terminus 9'
+fi
 
-# funct SCHEME FONT
-change_geany 'beach' 'Terminus 9'
+if [ -d "$geany_path" ]; then
+	# funct SCHEME FONT
+	change_geany 'beach' 'Terminus 9'
+fi
 
 # funct THEME ICON CURSOR FONT
 change_appearance 'Arc' 'Arc-Circle' 'Future' 'Terminus 9'
@@ -330,13 +336,17 @@ if [ "$(pidof openbox)" ]; then
 	fi
 fi
 
-# funct GEOMETRY FONT BORDER (Change colors in funct)
-change_dunst '280' '80' '20x50' 'bottom-right' 'Terminus 9' '0'
+if [ -d "$dunst_path" ]; then
+	# funct GEOMETRY FONT BORDER (Change colors in funct)
+	change_dunst '280' '80' '20x50' 'bottom-right' 'Terminus 9' '0'
+fi
 
 if [ "$is_polybar_running" == "true" ]; then
 
-	# Paste settings in funct (PLANK)
-	change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	if [ "$(pidof plank)" ]; then
+		# Paste settings in funct (PLANK)
+		change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+	fi
 	
 	# Change compositor settings
 	#compositor 'glx' '0' '14 0.30 -12 -12' 'none 0'
