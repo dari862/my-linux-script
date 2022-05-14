@@ -47,7 +47,6 @@ fi
 #### START APPLICATIONS ###############################################################################
 # Set wallpaper
 nitrogen --restore &									
-xfsettingsd &
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky
@@ -64,7 +63,7 @@ else
 	fi
 fi
 
-if [[ ! `pidof polybar` ]]; then
+if [[ `cat ~/.config/openbox/which_panel | grep "polybar"` ]]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
@@ -76,7 +75,9 @@ if [[ ! `pidof polybar` ]]; then
 		## Launch Plank
         	exec plank &
 	fi
-else
+fi
+
+if [[ `cat ~/.config/openbox/which_panel | grep "xfce4"` ]]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
@@ -84,7 +85,8 @@ else
 	
 	# Start xfce4-panel
         xfce4-panel &
-	 
+	xfsettingsd &
+	
 	# Start volume control
 	pnmixer &
 
