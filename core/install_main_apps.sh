@@ -374,7 +374,6 @@ fi
 
 download_rofi_config_now_
 
-find $temp_folder_for_skel_config/polybar/scripts/style -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 mv $temp_folder_for_skel_config/polybar/networkmanager-dmenu $temp_folder_for_skel_config
 show_m "download rofi config "
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
