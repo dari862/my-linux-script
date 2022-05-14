@@ -76,3 +76,7 @@ if [ ! -z "$lock_screen_on_idle" ]
 then
   sed -i -e "s|lock_screen_on_idle=.*|lock_screen_on_idle=$lock_screen_on_idle|g" ~/.config/my_power_manager/my_power_manager.ini
 fi
+
+~/.local/bin/my_power_manager/my_power_manager
+
+
