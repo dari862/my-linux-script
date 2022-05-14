@@ -63,7 +63,7 @@ else
 	fi
 fi
 
-if [[ `cat ~/.config/openbox/which_panel | grep "polybar"` ]]; then
+if [ `cat ~/.config/openbox/which_panel | grep "polybar"` ]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
@@ -77,7 +77,7 @@ if [[ `cat ~/.config/openbox/which_panel | grep "polybar"` ]]; then
 	fi
 fi
 
-if [[ `cat ~/.config/openbox/which_panel | grep "xfce4"` ]]; then
+if [ `cat ~/.config/openbox/which_panel | grep "xfce4"` ]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
