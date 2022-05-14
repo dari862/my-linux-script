@@ -772,12 +772,14 @@ if command -v xfce4-panel &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-xfce4
 	cp -fr openbox-xfce4/openbox/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/
+	echo "xfce4" > $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/which_panel
 fi
 
 if command -v polybar &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-polybar
 	cp -fr openbox-polybar/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
+	echo "polybar" > $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/which_panel
 fi
 
 git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme
