@@ -771,7 +771,7 @@ cd $temp_folder_for_download
 if command -v xfce4-panel &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-xfce4
-	cp -fr openbox-xfce4/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/
+	cp -fr openbox-xfce4/openbox/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/
 fi
 
 if command -v polybar &> /dev/null
