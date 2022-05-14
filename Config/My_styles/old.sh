@@ -197,13 +197,13 @@ change_dunst() {
 		timeout = 2
 		background = "#212B30"
 		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		frame_color = "#666666"
 
 		[urgency_normal]
 		timeout = 5
 		background = "#212B30"
 		foreground = "#C4C7C5"
-		frame_color = "#4DD0E1"
+		frame_color = "#666666"
 
 		[urgency_critical]
 		timeout = 0
