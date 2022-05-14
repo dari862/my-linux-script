@@ -8,4 +8,8 @@ do
 done
 
 $HOME/.local/bin/my_power_manager/my_power_manager &
-cbatticon -i symbolic -x "bash $HOME/.local/bin/my_power_manager/my_power_manager_gui" &
+
+if command -v cbatticon >/dev/null
+then
+	cbatticon -i symbolic -x "bash $HOME/.local/bin/my_power_manager/my_power_manager_gui" &
+fi
