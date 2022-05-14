@@ -104,7 +104,7 @@ while true; do
 		[ "$poweroff_time" -le "$idleTime" ] && systemctl poweroff
   fi
 
-  if [ $idle = false ] && [ $idleAfter -gt 0 ] && [ $idleTimeMillis -gt $idleAfterMillis ] ; then
+  if [ "$idleAfter" -gt 0 ] && [ $idle = false ] && [ $idleTimeMillis -gt $idleAfterMillis ] ; then
     if [ "$brightness_level" -ne 0 ]
 	then
 		set_brightness_on_idle
