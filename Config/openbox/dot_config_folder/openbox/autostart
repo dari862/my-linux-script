@@ -54,7 +54,7 @@ exec picom --config "$HOME/.config/picom.conf" &
 
 if command -v gnome-keyring &> /dev/null
 then
-	if [ ! `pidof gnome-keyring` ]; then
+	if [ ! `pidof polkit-gnome-authentication-agent-1` ]; then
 		# GNOME PolicyKit authentication
 		/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 	fi
