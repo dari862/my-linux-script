@@ -58,15 +58,15 @@ then
 fi
 
  show_m "configuring  kitty terminal"
- mkdir -p ~/.config/kitty/
- mkdir -p ~/.config/kitty/themes
- cp /usr/share/doc/kitty/examples/kitty.conf ~/.config/kitty/
- newwget -P ~/.config/kitty/themes/ https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/kitty-themes/nord.conf
- sed -i 's/background_opacity 1.0/#background_opacity 1.0/g' ~/.config/kitty/kitty.conf
- echo "background_opacity 0.8" > ~/.config/kitty/theme.conf
- echo "# color scheme" >> ~/.config/kitty/theme.conf
- echo "include ./themes/nord.conf" >> ~/.config/kitty/theme.conf
- echo "include ./theme.conf" >> ~/.config/kitty/kitty.conf
+ mkdir -p $temp_folder_for_skel_config/kitty/
+ mkdir -p $temp_folder_for_skel_config/kitty/themes
+ cp /usr/share/doc/kitty/examples/kitty.conf $temp_folder_for_skel_config/kitty/
+ newwget -P $temp_folder_for_skel_config/kitty/themes/ https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/kitty-themes/nord.conf
+ sed -i 's/background_opacity 1.0/#background_opacity 1.0/g' $temp_folder_for_skel_config/kitty/kitty.conf
+ echo "background_opacity 0.8" > $temp_folder_for_skel_config/kitty/theme.conf
+ echo "# color scheme" >> $temp_folder_for_skel_config/kitty/theme.conf
+ echo "include ./themes/nord.conf" >> $temp_folder_for_skel_config/kitty/theme.conf
+ echo "include ./theme.conf" >> $temp_folder_for_skel_config/kitty/kitty.conf
 }
 
 install_new_terminal_terminator_now()
@@ -77,8 +77,8 @@ apt_install_whith_error_whitout_exit "${New_terminal_2_install_terminator[@]}"
 echo_2_helper_list ""
 show_m "configuring terminator"
 sudo update-alternatives --set x-terminal-emulator /usr/bin/terminator
-mkdir -p ~/.config/terminator/
-newwget -P ~/.config/terminator/ https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/terminator/config
+mkdir -p $temp_folder_for_skel_config/terminator/
+newwget -P $temp_folder_for_skel_config/terminator/ https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/terminator/config
 }
 
 ##################################################################################################################################################
