@@ -297,7 +297,7 @@ set_wallpaper 'openbox.png'
 if [ "$is_polybar_running" == "true" ]; then
 
 	# funct STYLE FONT
-	change_polybar 'default' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
+	change_polybar 'old' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
 	
 	# funct STYLE (network manager applet)
 	change_nm 'old2'
