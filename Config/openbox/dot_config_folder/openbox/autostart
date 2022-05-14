@@ -14,7 +14,7 @@
 
 #### Kill if already running  ########################################################################
 
-for prosses2kill in xfsettingsd picom dunst ksuperkey xfce4-power-manager
+for prosses2kill in xfsettingsd picom dunst ksuperkey xfce4-power-manager nm-applet
 do
 	if [ "$(pidof $prosses2kill)" ]; then
 		killall -9 $prosses2kill
