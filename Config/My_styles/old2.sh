@@ -224,14 +224,14 @@ change_dock() {
 		current-workspace-only=false
 		dock-items=['xfce-settings-manager.dockitem', 'x-terminal-emulator.dockitem', 'x-file-manager.dockitem', 'x-www-browser.dockitem', 'x-text-editor.dockitem']
 		hide-delay=0
-		hide-mode='intelligent'
+		hide-mode='auto'
 		icon-size=32
 		items-alignment='center'
 		lock-items=false
 		monitor=''
 		offset=0
 		pinned-only=false
-		position='bottom'
+		position='left'
 		pressure-reveal=false
 		show-dock-item=false
 		theme='Transparent'
