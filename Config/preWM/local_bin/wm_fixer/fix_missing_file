@@ -16,19 +16,19 @@ case "$1" in
 			<<< "polybar|xfce4-panel")"
 			if [ ! -z "$which_panel_MENU" ]
 			then
-				echo "$which_panel_MENU" > ~/.config/openbox/which_panel
+				echo "$which_panel_MENU" > ~/.local/bin/wm_fixer/which_panel
         	else
-        		echo "$default_panel" > ~/.config/openbox/which_panel
+        		echo "$default_panel" > ~/.local/bin/wm_fixer/which_panel
 			fi
 		else
 			if command -v polybar &> /dev/null
 			then
-				echo "polybar" > ~/.config/openbox/which_panel
+				echo "polybar" > ~/.local/bin/wm_fixer/which_panel
 			fi
 			
 			if command -v xfce4-panel &> /dev/null
 			then
-				echo "xfce4" > ~/.config/openbox/which_panel
+				echo "xfce4" > ~/.local/bin/wm_fixer/which_panel
 			fi
 		fi
 	;;

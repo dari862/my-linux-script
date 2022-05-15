@@ -11,10 +11,7 @@ terminal_path="$HOME/.config/alacritty"
 xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
-
-if [ "$(pidof polybar)" ]; then
-	is_polybar_running="true"
-fi
+which_panel="$(cat ~/.local/bin/wm_fixer/which_panel)"
 
 # wallpaper ---------------------------------
 set_wallpaper() {
@@ -272,7 +269,7 @@ compositor() {
 }
 
 # notify ------------------------------------
-if [ "$is_polybar_running" == "true" ]; then
+if [ "$which_panel" == "polybar" ]; then
 
 notify_user() {
 	local style=`basename $0` 
@@ -294,7 +291,7 @@ notify_user
 # funct WALLPAPER
 set_wallpaper 'openbox.png'
 
-if [ "$is_polybar_running" == "true" ]; then
+if [ "$which_panel" == "polybar" ]; then
 
 	# funct STYLE FONT
 	change_polybar 'old' 'JetBrains Mono:size=10;3' && "$polybar_path"/launch.sh
@@ -327,7 +324,7 @@ change_appearance 'Arc' 'Numix-Paper' 'DMZ-White' 'Sans 10'
 
 if [ "$(pidof openbox)" ]; then
 	
-	if [ "$is_polybar_running" == "true" ]; then
+	if [ "$which_panel" == "polybar" ]; then
 		# funct THEME LAYOUT FONT SIZE (Change margin in funct)
 		obconfig 'GoHomeV2-leo' 'MLC' 'JetBrains Mono' '9' 'menu.xml' && openbox --reconfigure
 	else	
@@ -342,7 +339,7 @@ if [ -d "$dunst_path" ]; then
 	change_dunst '280' '80' '10x48' 'top-right' 'JetBrains Mono 10' '6'
 fi
 
-if [ "$is_polybar_running" == "true" ]; then
+if [ "$which_panel" == "polybar" ]; then
 
 	if [ "$(pidof plank)" ]; then
 		# Paste settings in funct (PLANK)

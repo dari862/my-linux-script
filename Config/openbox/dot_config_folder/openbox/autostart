@@ -14,7 +14,7 @@
 
 #### fix missing files        ########################################################################
 
-if [ ! -f  ~/.config/openbox/which_panel ]
+if [ ! -f  ~/.local/bin/wm_fixer/which_panel ]
 then
 	bash ~/.config/openbox/fix_missing_file which_panel
 fi
@@ -77,7 +77,7 @@ else
 	fi
 fi
 
-if [ `cat ~/.config/openbox/which_panel | grep "polybar"` ]; then
+if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "polybar"` ]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
@@ -91,7 +91,7 @@ if [ `cat ~/.config/openbox/which_panel | grep "polybar"` ]; then
 	fi
 fi
 
-if [ `cat ~/.config/openbox/which_panel | grep "xfce4"` ]; then
+if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "xfce4"` ]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
