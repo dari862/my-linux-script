@@ -40,9 +40,9 @@ case "$1" in
 		<<< "$list_styles")"
 		if [ ! -z "$style_MENU" ]
 		then
-        	$styles_script_dir/old.sh
-        else
-        	$styles_script_dir/old.sh
+        		$styles_script_dir/${style_MENU}.sh
+        	else
+        		$styles_script_dir/${default_style}.sh
 		fi
 	;;
 esac
