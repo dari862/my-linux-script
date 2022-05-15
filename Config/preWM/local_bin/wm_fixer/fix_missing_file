@@ -17,8 +17,8 @@ case "$1" in
 			if [ ! -z "$which_panel_MENU" ]
 			then
 				echo "$which_panel_MENU" > ~/.local/bin/wm_fixer/which_panel
-        	else
-        		echo "$default_panel" > ~/.local/bin/wm_fixer/which_panel
+        		else
+        			echo "$default_panel" > ~/.local/bin/wm_fixer/which_panel
 			fi
 		else
 			if command -v polybar &> /dev/null
