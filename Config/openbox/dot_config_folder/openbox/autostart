@@ -12,16 +12,16 @@
 ##
 ## More information about this can be found at: http://openbox.org/wiki/Help:Autostart
 
-#### Kill if already running  ########################################################################
+#### fix missing files        ########################################################################
 
 if [ ! -f  ~/.config/openbox/which_panel ]
 then
-	bash ~/.config/openbox/theme_picker.sh which_panel
+	bash ~/.config/openbox/fix_missing_file which_panel
 fi
 
 if [ ! -f  ~/.config/rofi/style ] || [ ! -f  ~/.config/polybar/style ]
 then
-	bash ~/.config/openbox/theme_picker.sh style
+	bash ~/.config/openbox/fix_missing_file style
 fi
 
 #### Kill if already running  ########################################################################
