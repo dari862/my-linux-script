@@ -12,7 +12,7 @@
 ##
 ## More information about this can be found at: http://openbox.org/wiki/Help:Autostart
 
-#### fix missing files        ########################################################################
+#### Fix missing files        ########################################################################
 
 if [ ! -f  ~/.local/bin/wm_fixer/which_panel ]
 then
