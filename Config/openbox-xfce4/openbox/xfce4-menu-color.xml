@@ -56,7 +56,7 @@
 
         <menu id="preferences" label="Preferences" icon="&icons;/settings.png">
         	<separator label="GRAPHICAL PREFERENCES"/>
-	    <menu id="StylePipeMenu" icon="&icons;/themes.png" execute="&pipes;/ac-change-style" label="Change Style"/>
+	    <menu id="StylePipeMenu" icon="&icons2;/themes.png" execute="&pipes;/ac-change-style" label="Change Style"/>
             <menu id="obConfig" label="Desktop">	
 	            <item label="Openbox Preferences">
 	                <action name="Execute">
