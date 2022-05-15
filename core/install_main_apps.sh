@@ -347,7 +347,6 @@ fi
 }
 
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_backgrounds" "backgrounds"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
