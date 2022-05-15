@@ -81,9 +81,6 @@ sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
 sudo chown -R root:root $temp_folder_for_polybar/icons/*
 sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
 
-sudo chown -R root:root $temp_folder_for_polybar/backgrounds/*
-sudo mv $temp_folder_for_polybar/backgrounds/* $wallpapers_location_now
-
 sudo chown -R root:root $temp_folder_for_polybar/themes
 for d in $temp_folder_for_polybar/themes/* ; do
 	Directory_name=${d##*/}
