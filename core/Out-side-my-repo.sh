@@ -67,7 +67,6 @@ outsidemyrepo_bashtop="https://raw.githubusercontent.com/aristocratos/bashtop/ma
 outsidemyrepo_Tela_icon_theme="https://github.com/vinceliuice/Tela-icon-theme.git"
 #archcraft_os
 outsidemyrepo_archcraft_os_themes="https://github.com/archcraft-os/archcraft-themes.git"
-outsidemyrepo_archcraft_os_backgrounds="https://github.com/archcraft-os/archcraft-wallpapers.git"
 outsidemyrepo_archcraft_os_icons="https://github.com/archcraft-os/archcraft-icons.git"
 outsidemyrepo_archcraft_os_cursors="https://github.com/archcraft-os/archcraft-cursors.git"
 outsidemyrepo_archcraft_os_archcraft="https://github.com/archcraft-os/archcraft-packages.git"
