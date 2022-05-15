@@ -14,6 +14,18 @@
 
 #### Kill if already running  ########################################################################
 
+if [ ! -f  ~/.config/openbox/which_panel ]
+then
+	bash ~/.config/openbox/theme_picker.sh which_panel
+fi
+
+if [ ! -f  ~/.config/rofi/style ] || [ ! -f  ~/.config/polybar/style ]
+then
+	bash ~/.config/openbox/theme_picker.sh style
+fi
+
+#### Kill if already running  ########################################################################
+
 for prosses2kill in xfsettingsd picom dunst ksuperkey xfce4-power-manager nm-applet
 do
 	if [ "$(pidof $prosses2kill)" ]; then
