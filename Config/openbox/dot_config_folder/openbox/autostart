@@ -16,12 +16,12 @@
 
 if [ ! -f  ~/.local/bin/wm_fixer/which_panel ]
 then
-	bash ~/.config/openbox/fix_missing_file which_panel
+	bash ~/.local/bin/wm_fixer/fix_missing_file which_panel
 fi
 
 if [ ! -f  ~/.config/rofi/style ] || [ ! -f  ~/.config/polybar/style ]
 then
-	bash ~/.config/openbox/fix_missing_file style
+	bash ~/.local/bin/wm_fixer/fix_missing_file style
 fi
 
 #### Kill if already running  ########################################################################
