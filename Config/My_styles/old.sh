@@ -347,6 +347,7 @@ if [ "$which_panel" == "polybar" ]; then
 
 	if [ "$(pidof plank)" ]; then
 		# Paste settings in funct (PLANK)
+		change_dock
 		change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
 	fi
 	
