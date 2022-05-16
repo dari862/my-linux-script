@@ -214,10 +214,10 @@ change_dunst() {
 
 # Plank -------------------------------------
 change_dock() {
-	#dconf write /net/launchpad/plank/docks/dock1/theme "'Transparent2'"
-	#dconf write /net/launchpad/plank/docks/dock1/hide-mode "'auto'"
-	#dconf write /net/launchpad/plank/docks/dock1/offset "0"
-	#dconf write /net/launchpad/plank/docks/dock1/position "'left'"
+	dconf write /net/launchpad/plank/docks/dock1/theme "'Transparent2'"
+	dconf write /net/launchpad/plank/docks/dock1/hide-mode "'auto'"
+	dconf write /net/launchpad/plank/docks/dock1/offset "0"
+	dconf write /net/launchpad/plank/docks/dock1/position "'left'"
 	cat > "$HOME"/.cache/plank.conf <<- _EOF_
 		[dock1]
 		alignment='center'
@@ -348,7 +348,7 @@ if [ "$which_panel" == "polybar" ]; then
 	if [ "$(pidof plank)" ]; then
 		# Paste settings in funct (PLANK)
 		change_dock
-		change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
+		#change_dock && cat "$HOME"/.cache/plank.conf | dconf load /net/launchpad/plank/docks/
 	fi
 	
 	# Change compositor settings
