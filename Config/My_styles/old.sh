@@ -214,6 +214,10 @@ change_dunst() {
 
 # Plank -------------------------------------
 change_dock() {
+	#dconf write /net/launchpad/plank/docks/dock1/theme "'Transparent2'"
+	#dconf write /net/launchpad/plank/docks/dock1/hide-mode "'auto'"
+	#dconf write /net/launchpad/plank/docks/dock1/offset "0"
+	#dconf write /net/launchpad/plank/docks/dock1/position "'left'"
 	cat > "$HOME"/.cache/plank.conf <<- _EOF_
 		[dock1]
 		alignment='center'
