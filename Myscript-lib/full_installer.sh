@@ -48,6 +48,7 @@ fi
 if command -v polybar &> /dev/null
 then
 	download_polybar_config_now_
+	install_plank_app_now_
 fi
 
 if [ "$do_you_want_to_install_xfce4_panel" == "true" ]; then
