@@ -53,6 +53,7 @@ install_lightdm_extra=(lightdm-gtk-greeter lightdm-webkit2-greeter)
 #panel
 #libnm-dev for networkmanager_dmenu
 install_polybar_=(polybar libnm-dev)
+install_plank_=(plank)
 install_xfce4_panel=( xfce4-panel xfce4-settings xfce4-clipman xfce4-whiskermenu-plugin cbatticon)
 
 #awesomeWM apps
@@ -70,5 +71,5 @@ install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailuti
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
 
 # ffmpeg for screen recoding , maim for ac-shots , python2 for ac-randr
-install_openbox_archcraft=(xmlstarlet geany plank maim python2 ffmpeg)
+install_openbox_archcraft=(xmlstarlet geany maim python2 ffmpeg)
 install_openbox_obmenu_generator=(obmenu-generator)
