@@ -318,7 +318,7 @@ cp /usr/share/plank/themes/Default/dock.theme $temp_folder_for_skel_/.local/shar
 sed -i 's/TopRoundness=4/TopRoundness=0/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
 sed -i 's/LineWidth=1/LineWidth=0/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
 sed -i 's/TopPadding=-11/TopPadding=-12/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
-sed -i 's/BottomPadding=2.5/TopRoundness=2/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
+sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
 }
 
 download_archcraft_os_stuffs_now_()
