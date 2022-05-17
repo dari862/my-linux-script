@@ -18,13 +18,13 @@ grep $kbinds_file -e '<!-- Description:\[execute\]' -B 1 | grep -e '<keybind key
 sed -i "s/$line/x$line/g" $kbinds_file
 done
 cat $kbinds_file | tr -d '\n' | tr -s ' ' | \
-sed -e 's/x<keybind key="/\nx\t/g' -e 's/<keybind key="/\no\t/g' -e 's/"> <!-- Description:\[run\] /\t/g' -e 's/"> <!-- Description:\[execute\] /\t/g' -e 's/NEW_LINEs_Plz/\n\n/g' -e 's/NEW_LINE_Plz/\n/g'| tee $kbinds_file
+sed -e 's/x<keybind key="/\nx\t/g' -e 's/<keybind key="/\no\t/g' -e 's/"> <!-- Description:\[run\] /\t/g' -e 's/"> <!-- Description:\[execute\] /\t/g' -e 's/NEW_LINEs_Plz/\n\n/g' -e 's/NEW_LINE_Plz/\n/g'| tee $kbinds_file >/dev/null
 
 grep '<!ENTITY' $rc_file | while read -r a b c line ; do
     sed -i "s|$b|$c|g" $kbinds_file
 done
 
-sed -i -e 's/&"//g' -e 's/">;//g' $kbinds_file
+sed -i -e 's/&"//g' -e 's/">;//g' -e 's/W-/Win+/g' -e 's/C-/Ctl+/g' -e 's/A-/Alt+/g' -e 's/S-/Shift+/g' $kbinds_file
 
 fi
 
