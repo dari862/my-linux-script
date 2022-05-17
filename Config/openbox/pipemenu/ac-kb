@@ -12,7 +12,7 @@ echo "" >> $kbinds_file
 sed -n '/<keyboard>/,/\/keyboard/p' $rc_file | \
 grep -e '<keybind key=' -e '<!-- Title: ' -e '<!-- Description:' -e '<command>' | tr -s ' ' | \
 sed -e '/^ <!-- Title: / s/$/NEW_LINE_Plz#########################################NEW_LINE_Plz/' | \
-sed -e 's/ <!-- Title: /NEW_LINEs_Plz/g' -e 's/-->//g' -e 's/<!-- Description:\[execute\] -->//g' >> $kbinds_file
+sed -e 's/ <!-- Title: /NEW_LINEs_Plz/g' -e 's/<!-- Description:\[execute\] -->//g' -e 's/-->//g' >> $kbinds_file
 
 grep $kbinds_file -e '<command>' -B 1 | grep -e '<keybind key="' | while read -r line ; do
 sed -i "s/$line/x$line/g" $kbinds_file
