@@ -3,6 +3,7 @@
 OpenBox_user_config="$HOME/.config/openbox"
 rc_file="$OpenBox_user_config/rc.xml"
 kbinds_file="$OpenBox_user_config/kbinds.txt"
+tmpfile=$(mktemp)
 if [ "$1" == "" ]
 then
 echo "$(date) $rc_file keybinds " > $kbinds_file
@@ -18,7 +19,8 @@ done
 
 echo "$(cat $kbinds_file)" | tr -d '\n' | tr -s ' ' | \
 sed -e 's/x<keybind key="/\nx\t/g' -e 's/<keybind key="/\no\t/g' -e 's/<command>/\t/g' -e 's/Tab_here_plz/\t/g' -e 's/NEW_LINEs_Plz/\n\n/g' -e 's/NEW_LINE_Plz/\n/g' \
-> ${kbinds_file}2
+> ${tmpfile}
+cat ${tmpfile} > file_name
 
 grep '<!ENTITY' $rc_file | while read -r a b c line ; do
     sed -i "s|$b|$c|g" $kbinds_file
