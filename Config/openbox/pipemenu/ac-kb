@@ -3,7 +3,7 @@
 OpenBox_user_config="$HOME/.config/openbox"
 rc_file="$OpenBox_user_config/rc.xml"
 kbinds_file="$OpenBox_user_config/kbinds.txt"
-tmpfile=$(mktemp)
+tmpfile="/tmp/tmp.5rte645.ac-kb_menu.tmpfile"
 if [ "$1" == "" ]
 then
 echo "$(date) $rc_file keybinds " > $kbinds_file
