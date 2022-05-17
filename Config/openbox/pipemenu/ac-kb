@@ -7,7 +7,7 @@ tmpfile=$(mktemp)
 if [ "$1" == "" ]
 then
 echo "$(date) $rc_file keybinds " > $kbinds_file
-echo "NEW_LINE_Plz-----------------------------------------------NEW_LINEs_Plz" >> $kbinds_file
+echo "NEW_LINE_Plz---------------------------------------------------------------------------" >> $kbinds_file
 sed -n '/<!-- ################################ Keybindings/,/<!-- ################################ Mouse Settings/p' $rc_file | \
 grep -e '<keybind key=' -e '<!-- Title: ' -e '<!-- Description:' -e '<command>' | \
 sed -e 's/^ *//g' -e '/^<!-- Title: / s/$/NEW_LINE_Plz#########################################NEW_LINE_Plz/' | \
