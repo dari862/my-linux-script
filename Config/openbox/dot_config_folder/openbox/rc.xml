@@ -446,87 +446,87 @@
     </keybind>
     <!-- Title: Media Controls-->
     <keybind key="XF86AudioRaiseVolume">
-      <!-- Description:[execute] volume --inc -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>volume --inc</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <!-- Description:[execute] volume --dec -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>volume --dec</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
-      <!-- Description:[execute] volume --toggle -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>volume --toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioStop">
-      <!-- Description:[execute] mpc stop -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>mpc stop</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPlay">
-      <!-- Description:[execute] mpc toggle -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>mpc toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPrev">
-      <!-- Description:[execute] mpc prev -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>mpc prev</command>
       </action>
     </keybind>
     <keybind key="XF86AudioNext">
-      <!-- Description:[execute] mpc next -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>mpc next</command>
       </action>
     </keybind>
     <!-- Title: Brightness Control -->
     <keybind key="XF86MonBrightnessUp">
-      <!-- Description:[execute] brightness --inc -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>brightness --inc</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
-      <!-- Description:[execute] brightness --dec -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>brightness --dec</command>
       </action>
     </keybind>
     <!-- Title: Screenshot Keys -->
     <keybind key="Print">
-      <!-- Description:[execute] takeshot --now -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>takeshot --now</command>
       </action>
     </keybind>
     <keybind key="A-Print">
-      <!-- Description:[execute] takeshot --in5 -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>takeshot --in5</command>
       </action>
     </keybind>
     <keybind key="S-Print">
-      <!-- Description:[execute] takeshot --in10 -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>takeshot --in10</command>
       </action>
     </keybind>
     <keybind key="C-Print">
-      <!-- Description:[execute] takeshot --win -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>takeshot --win</command>
       </action>
     </keybind>
     <keybind key="C-A-Print">
-      <!-- Description:[execute] takeshot --area -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>takeshot --area</command>
       </action>
@@ -534,99 +534,99 @@
     <!-- Title: Launch Applications -->
     <!-- Title: Apps -->
     <keybind key="W-Return">
-      <!-- Description:[execute] x-terminal-emulator -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="W-t">
-      <!-- Description:[execute] x-terminal-emulator -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="W-f">
-      <!-- Description:[execute] x-file-manager -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-file-manager</command>
       </action>
     </keybind>
     <keybind key="W-w">
-      <!-- Description:[execute] x-www-browser -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-www-browser</command>
       </action>
     </keybind>
     <keybind key="W-e">
-      <!-- Description:[execute] x-text-editor -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-text-editor</command>
       </action>
     </keybind>
     <!-- Title: Rofi -->
     <keybind key="A-F1">
-      <!-- Description:[execute] &rofibin;/launcher -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>&rofibin;/launcher</command>
       </action>
     </keybind>
     <keybind key="W-n">
-      <!-- Description:[execute] networkmanager_dmenu -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>networkmanager_dmenu</command>
       </action>
     </keybind>
     <keybind key="W-m">
-      <!-- Description:[execute] &rofibin;/music -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>&rofibin;/music</command>
       </action>
     </keybind>
     <keybind key="W-x">
-      <!-- Description:[execute] &rofibin;/powermenu -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>&rofibin;/powermenu</command>
       </action>
     </keybind>
     <keybind key="W-s">
-      <!-- Description:[execute] &rofibin;/screenshot -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>&rofibin;/screenshot</command>
       </action>
     </keybind>
     <keybind key="W-r">
       <action name="Execute">
-        <!-- Description:[execute] &rofibin;/runner -->
+        <!-- Description:[execute] -->
         <command>&rofibin;/runner</command>
       </action>
     </keybind>
     <keybind key="W-p">
-      <!-- Description:[execute] color-gpick -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>color-gpick</command>
       </action>
     </keybind>
     <!-- Title: CLI Apps -->
     <keybind key="C-A-t">
-      <!-- Description:[execute] x-terminal-emulator -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="C-A-v">
-      <!-- Description:[execute] x-terminal-emulator -e vim -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-terminal-emulator -e vim</command>
       </action>
     </keybind>
     <keybind key="C-A-r">
-      <!-- Description:[execute] x-terminal-emulator -e ranger -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-terminal-emulator -e ranger</command>
       </action>
     </keybind>
     <keybind key="C-A-h">
-      <!-- Description:[execute] x-terminal-emulator -e htop -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>x-terminal-emulator -e htop</command>
       </action>
@@ -634,7 +634,7 @@
     <!-- Title: Openbox -->
     <!-- Lockscreen -->
     <keybind key="C-A-l">
-      <!-- Description:[execute] my_session_manager lock -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>my_session_manager lock</command>
       </action>
@@ -652,7 +652,7 @@
       <action name="Reconfigure"/>
     </keybind>
     <keybind key="W-Escape">
-      <!-- Description:[execute] xkill -->
+      <!-- Description:[execute] -->
       <action name="Execute">
         <command>xkill</command>
       </action>
