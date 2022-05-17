@@ -24,6 +24,8 @@ grep '<!ENTITY' $rc_file | while read -r a b c line ; do
     sed -i "s|$b|$c|g" $kbinds_file
 done
 
+sed -i -e 's/&"//g' -e 's/">;//g' $kbinds_file
+
 fi
 
 if [ "$1" == "--gui" ]
