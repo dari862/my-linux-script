@@ -484,7 +484,7 @@
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
-        <command>furminal</command>
+        <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="W-f">
