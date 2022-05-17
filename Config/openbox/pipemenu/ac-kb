@@ -12,12 +12,12 @@ echo "" >> $kbinds_file
 sed -n '/<keyboard>/,/\/keyboard/p' $rc_file | \
 grep -e '<keybind key=' -e '<!-- Title: ' -e '<!-- Description:' -e '<command>' | tr -s ' ' | \
 sed -e '/^ <!-- Title: / s/$/NEW_LINE_Plz#########################################NEW_LINE_Plz/' | \
-sed -e 's/ <!-- Title: /NEW_LINEs_Plz/g' -e 's/-->//g' >> $kbinds_file
+sed -e 's/ <!-- Title: /NEW_LINEs_Plz/g' -e 's/-->//g' -e 's/<!-- Description:\[execute\] -->//g' >> $kbinds_file
 
-grep $kbinds_file -e '<!-- Description:\[execute\]' -B 1 | grep -e '<keybind key="' | while read -r line ; do
+grep $kbinds_file -e '<command>' -B 1 | grep -e '<keybind key="' | while read -r line ; do
 sed -i "s/$line/x$line/g" $kbinds_file
 done
-cat $kbinds_file | sed -e 's/"> <!-- Description:\[execute\] -->//g' -e 's/<\/command>//g' | tr -d '\n' | tr -s ' ' | \
+cat $kbinds_file | sed -e 's/<\/command>//g' | tr -d '\n' | tr -s ' ' | \
 sed -e 's/x<keybind key="/\nx\t/g' -e 's/<keybind key="/\no\t/g' -e 's/"> <!-- Description:\[run\] /\t/g' -e 's/<command>/\t/g' -e 's/NEW_LINEs_Plz/\n\n/g' -e 's/NEW_LINE_Plz/\n/g'| tee $kbinds_file >/dev/null
 
 grep '<!ENTITY' $rc_file | while read -r a b c line ; do
