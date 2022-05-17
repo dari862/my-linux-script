@@ -6,28 +6,24 @@ kbinds_file="$OpenBox_user_config/kbinds.txt"
 if [ "$1" == "" ]
 then
 echo "$(date) $rc_file keybinds " > $kbinds_file
-echo "\n-----------------------------------------------" >> $kbinds_file
-
+echo "NEW_LINE_Plz-----------------------------------------------" >> $kbinds_file
+echo "" >> $kbinds_file
+echo "" >> $kbinds_file
 sed -n '/<keyboard>/,/\/keyboard/p' $rc_file | \
-grep -e '<keybind key=' -e '<action name="' -e '<!--' -e '<command>' -e '<menu>' | \
-grep -v  -e '<action name="ShowMenu">' -e '<!-- #DEBIAN-OPENBOX-autosnap -->' -e '<action name="Execute">' -e '<action name="MaximizeVert"/>' | \
-grep -v  -e '<action name="MoveResizeTo">' -e '<action name="MoveToEdgeWest"/>' -e '<action name="Focus"/>' -e '<action name="UnshadeRaise"/>' | \
-grep -v  -e '<action name="focus"/>' -e '<action name="raise"/>' -e '<!-- Hide black border around windows -->' >> $kbinds_file
+grep -e '<keybind key=' -e '<!-- Title: ' -e '<!-- Description:' | tr -s ' ' | \
+sed -e '/^ <!-- Title: / s/$/NEW_LINE_Plz#########################################NEW_LINE_Plz/' | \
+sed -e 's/ <!-- Title: /NEW_LINEs_Plz/g' -e 's/-->//g' >> $kbinds_file
 
-grep $kbinds_file -e '<command>' -B 1 | grep -e '<keybind key="' | while read -r line ; do
+grep $kbinds_file -e '<!-- Description:\[execute\]' -B 1 | grep -e '<keybind key="' | while read -r line ; do
 sed -i "s/$line/x$line/g" $kbinds_file
 done
-
-cat $kbinds_file | sed -e 's/x<keybind key="/x_key_new_line_plz/g' -e 's/<keybind key="/o_key_new_line_plz/g' -e  's/<command>/\ntab_plz/g' -e  's/<action name="/\ntab_plz/g' -e  's/<action name="<menu>/\ntab_plz/g' -e  's/<menu>/\ntab_plz/g' | \
-sed -e 's/">/\n/g' -e  's/"\/>/\n/g' -e  's/<\/command>/\n/g' -e  's/<\/menu>/\n/g' | \
-tr -d '\n' | tr -s ' ' | \
-sed -e 's/<!-- /\n\n------------------------\n/g' -e 's/-->/\n------------------------\n/g' -e 's/x_key_new_line_plz/\nx\t/g' -e 's/o_key_new_line_plz/\no\t/g' -e 's/tab_plz/\t\t/g' | tee $kbinds_file
+cat $kbinds_file | tr -d '\n' | tr -s ' ' | \
+sed -e 's/x<keybind key="/\nx\t/g' -e 's/<keybind key="/\no\t/g' -e 's/"> <!-- Description:\[run\] /\t/g' -e 's/"> <!-- Description:\[execute\] /\t/g' -e 's/NEW_LINEs_Plz/\n\n/g' -e 's/NEW_LINE_Plz/\n/g'| tee $kbinds_file
 
 grep '<!ENTITY' $rc_file | while read -r a b c line ; do
     sed -i "s|$b|$c|g" $kbinds_file
 done
 
-sed -i -e 's/&"//g' -e 's/">;//g' $kbinds_file
 fi
 
 if [ "$1" == "--gui" ]
