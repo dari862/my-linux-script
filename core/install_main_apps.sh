@@ -472,7 +472,7 @@ install_files_manager_app_now_()
 {
 show_m "installing file manager"
 apt_install_whith_error_whitout_exit "${install_files_manager_app[@]}"
-files_manager_name="${install_files_manager_app[1]}"
+files_manager_name="${install_files_manager_app[0]}"
 if command -v $files_manager_name >/dev/null
 then
 	sudo update-alternatives --install /usr/bin/x-file-manager x-file-manager $(command -v $files_manager_name) 90
