@@ -143,38 +143,38 @@
     </keybind>
     <!-- Title: Move application to specific desktop -->
     <keybind key="S-W-1">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] SendToDesktop -->
       <action name="SendToDesktop">
         <desktop>1</desktop>
       </action>
     </keybind>
     <keybind key="S-W-2">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] SendToDesktop -->
       <action name="SendToDesktop">
         <desktop>2</desktop>
       </action>
     </keybind>
     <keybind key="S-W-3">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] SendToDesktop -->
       <action name="SendToDesktop">
         <desktop>3</desktop>
       </action>
     </keybind>
     <keybind key="S-W-4">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] SendToDesktop -->
       <action name="SendToDesktop">
         <desktop>4</desktop>
       </action>
     </keybind>
     <keybind key="S-W-5">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] SendToDesktop -->
       <action name="SendToDesktop">
         <desktop>5</desktop>
       </action>
     </keybind>
     <!-- Title: Switch b/w Applications -->
     <keybind key="A-Tab">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] NextWindow -->
       <action name="NextWindow">
         <allDesktops>no</allDesktops>
         <raise>yes</raise>
@@ -187,7 +187,7 @@
       </action>
     </keybind>
     <keybind key="W-Tab">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] NextWindow -->
       <action name="NextWindow">
         <allDesktops>yes</allDesktops>
         <!-- Hide black border around windows -->
@@ -200,7 +200,7 @@
     </keybind>
     <!-- Title: Window Tiling: Snap feature -->
     <keybind key="W-Left">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] MoveToEdgeWest -->
       <action name="UnmaximizeFull"/>
       <action name="MaximizeVert"/>
       <action name="MoveResizeTo">
@@ -209,7 +209,7 @@
       <action name="MoveToEdgeWest"/>
     </keybind>
     <keybind key="W-Right">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] MoveToEdgeEast -->
       <action name="UnmaximizeFull"/>
       <action name="MaximizeVert"/>
       <action name="MoveResizeTo">
@@ -222,7 +222,7 @@
       <action name="MaximizeFull"/>
     </keybind>
     <keybind key="W-Down">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] MoveToCenter -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <width>60%</width>
@@ -232,7 +232,7 @@
     </keybind>
     <!-- Top right-->
     <keybind key="W-k">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Top right -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>-5</x>
@@ -241,7 +241,7 @@
     </keybind>
     <!-- Top left-->
     <keybind key="W-h">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Top left -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>5</x>
@@ -250,7 +250,7 @@
     </keybind>
     <!-- Bottom left-->
     <keybind key="W-j">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Bottom left -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>5</x>
@@ -259,7 +259,7 @@
     </keybind>
     <!-- Bottom right-->
     <keybind key="W-l">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Bottom right -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>-5</x>
@@ -267,7 +267,7 @@
       </action>
     </keybind>
     <keybind key="A-z">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Full Left -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>15</x>
@@ -277,7 +277,7 @@
       </action>
     </keybind>
     <keybind key="A-x">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Full Bottom -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>34%</x>
@@ -287,7 +287,7 @@
       </action>
     </keybind>
     <keybind key="A-c">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Full Right -->
       <action name="Unmaximize"/>
       <action name="MoveResizeTo">
         <x>-17</x>
@@ -298,7 +298,7 @@
     </keybind>
     <!-- Windows Tiling -->
     <keybind key="W-KP_1">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>0</x>
@@ -308,7 +308,7 @@
       </action>
     </keybind>
     <keybind key="W-KP_2">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>0</x>
@@ -318,7 +318,7 @@
       </action>
     </keybind>
     <keybind key="W-KP_3">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>-0</x>
@@ -328,7 +328,7 @@
       </action>
     </keybind>
     <keybind key="W-KP_4">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>0</x>
@@ -338,11 +338,11 @@
       </action>
     </keybind>
     <keybind key="W-KP_5">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="MaximizeFull"/>
     </keybind>
     <keybind key="W-KP_6">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>-0</x>
@@ -352,7 +352,7 @@
       </action>
     </keybind>
     <keybind key="W-KP_7">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>0</x>
@@ -362,7 +362,7 @@
       </action>
     </keybind>
     <keybind key="W-KP_8">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>0</x>
@@ -372,7 +372,7 @@
       </action>
     </keybind>
     <keybind key="W-KP_9">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Windows Tiling -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
         <x>-0</x>
@@ -383,28 +383,28 @@
     </keybind>
     <!-- Move -->
     <keybind key="W-A-Up">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Move up -->
       <action name="MoveRelative">
         <x>0</x>
         <y>-20</y>
       </action>
     </keybind>
     <keybind key="W-A-Down">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Move down -->
       <action name="MoveRelative">
         <x>0</x>
         <y>20</y>
       </action>
     </keybind>
     <keybind key="W-A-Left">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Move left -->
       <action name="MoveRelative">
         <x>-20</x>
         <y>0</y>
       </action>
     </keybind>
     <keybind key="W-A-Right">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Move right -->
       <action name="MoveRelative">
         <x>20</x>
         <y>0</y>
@@ -412,221 +412,221 @@
     </keybind>
     <!-- Resize -->
     <keybind key="C-A-Right">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Resize right -->
       <action name="ResizeRelative">
         <right>20</right>
       </action>
     </keybind>
     <keybind key="C-A-Left">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Resize left -->
       <action name="ResizeRelative">
         <right>-20</right>
       </action>
     </keybind>
     <keybind key="C-A-Down">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Resize down -->
       <action name="ResizeRelative">
         <bottom>20</bottom>
       </action>
     </keybind>
     <keybind key="C-A-Up">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Resize up -->
       <action name="ResizeRelative">
         <bottom>-20</bottom>
       </action>
     </keybind>
     <!-- Send Application to next/prev desktop -->
     <keybind key="W-S-Left">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Send Application to prev desktop -->
       <action name="SendToDesktopLeft"/>
     </keybind>
     <keybind key="W-S-Right">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Send Application to next desktop -->
       <action name="SendToDesktopRight"/>
     </keybind>
     <!-- Title: Media Controls-->
     <keybind key="XF86AudioRaiseVolume">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] volume --inc -->
       <action name="Execute">
         <command>volume --inc</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] volume --dec -->
       <action name="Execute">
         <command>volume --dec</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] volume --toggle -->
       <action name="Execute">
         <command>volume --toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioStop">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] mpc stop -->
       <action name="Execute">
         <command>mpc stop</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPlay">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] mpc toggle -->
       <action name="Execute">
         <command>mpc toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioPrev">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] mpc prev -->
       <action name="Execute">
         <command>mpc prev</command>
       </action>
     </keybind>
     <keybind key="XF86AudioNext">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] mpc next -->
       <action name="Execute">
         <command>mpc next</command>
       </action>
     </keybind>
     <!-- Title: Brightness Control -->
     <keybind key="XF86MonBrightnessUp">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] brightness --inc -->
       <action name="Execute">
         <command>brightness --inc</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] brightness --dec -->
       <action name="Execute">
         <command>brightness --dec</command>
       </action>
     </keybind>
     <!-- Title: Screenshot Keys -->
     <keybind key="Print">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] takeshot --now -->
       <action name="Execute">
         <command>takeshot --now</command>
       </action>
     </keybind>
     <keybind key="A-Print">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] takeshot --in5 -->
       <action name="Execute">
         <command>takeshot --in5</command>
       </action>
     </keybind>
     <keybind key="S-Print">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] takeshot --in10 -->
       <action name="Execute">
         <command>takeshot --in10</command>
       </action>
     </keybind>
     <keybind key="C-Print">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] takeshot --win -->
       <action name="Execute">
         <command>takeshot --win</command>
       </action>
     </keybind>
     <keybind key="C-A-Print">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] takeshot --area -->
       <action name="Execute">
         <command>takeshot --area</command>
       </action>
     </keybind>
-    <!-- Title: ################################ Launch Applications ################################ -->
+    <!-- Title: Launch Applications -->
     <!-- Title: Apps -->
     <keybind key="W-Return">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-terminal-emulator -->
       <action name="Execute">
         <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="W-t">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-terminal-emulator -->
       <action name="Execute">
         <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="W-f">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-file-manager -->
       <action name="Execute">
         <command>x-file-manager</command>
       </action>
     </keybind>
     <keybind key="W-w">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-www-browser -->
       <action name="Execute">
         <command>x-www-browser</command>
       </action>
     </keybind>
     <keybind key="W-e">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-text-editor -->
       <action name="Execute">
         <command>x-text-editor</command>
       </action>
     </keybind>
     <!-- Title: Rofi -->
     <keybind key="A-F1">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] &rofibin;/launcher -->
       <action name="Execute">
         <command>&rofibin;/launcher</command>
       </action>
     </keybind>
     <keybind key="W-n">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] networkmanager_dmenu -->
       <action name="Execute">
         <command>networkmanager_dmenu</command>
       </action>
     </keybind>
     <keybind key="W-m">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] &rofibin;/music -->
       <action name="Execute">
         <command>&rofibin;/music</command>
       </action>
     </keybind>
     <keybind key="W-x">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] &rofibin;/powermenu -->
       <action name="Execute">
         <command>&rofibin;/powermenu</command>
       </action>
     </keybind>
     <keybind key="W-s">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] &rofibin;/screenshot -->
       <action name="Execute">
         <command>&rofibin;/screenshot</command>
       </action>
     </keybind>
     <keybind key="W-r">
       <action name="Execute">
-        <!-- Description:[execute] GoToDesktop -->
+        <!-- Description:[execute] &rofibin;/runner -->
         <command>&rofibin;/runner</command>
       </action>
     </keybind>
     <keybind key="W-p">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] color-gpick -->
       <action name="Execute">
         <command>color-gpick</command>
       </action>
     </keybind>
     <!-- Title: CLI Apps -->
     <keybind key="C-A-t">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-terminal-emulator -->
       <action name="Execute">
         <command>x-terminal-emulator</command>
       </action>
     </keybind>
     <keybind key="C-A-v">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-terminal-emulator -e vim -->
       <action name="Execute">
         <command>x-terminal-emulator -e vim</command>
       </action>
     </keybind>
     <keybind key="C-A-r">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-terminal-emulator -e ranger -->
       <action name="Execute">
         <command>x-terminal-emulator -e ranger</command>
       </action>
     </keybind>
     <keybind key="C-A-h">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] x-terminal-emulator -e htop -->
       <action name="Execute">
         <command>x-terminal-emulator -e htop</command>
       </action>
@@ -634,77 +634,77 @@
     <!-- Title: Openbox -->
     <!-- Lockscreen -->
     <keybind key="C-A-l">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] my_session_manager lock -->
       <action name="Execute">
         <command>my_session_manager lock</command>
       </action>
     </keybind>
     <keybind key="C-S-Escape">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Exit -->
       <action name="Exit"/>
     </keybind>
     <keybind key="C-S-BackSpace">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Restart -->
       <action name="Restart"/>
     </keybind>
     <keybind key="C-S-R">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Reconfigure -->
       <action name="Reconfigure"/>
     </keybind>
     <keybind key="W-Escape">
-      <!-- Description:[execute] GoToDesktop -->
+      <!-- Description:[execute] xkill -->
       <action name="Execute">
         <command>xkill</command>
       </action>
     </keybind>
     <keybind key="W-c">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Close -->
       <action name="Close"/>
     </keybind>
     <keybind key="W-q">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Close -->
       <action name="Close"/>
     </keybind>
     <keybind key="A-F5">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Iconify -->
       <action name="Iconify"/>
     </keybind>
     <keybind key="A-F6">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] ToggleMaximize -->
       <action name="ToggleMaximize"/>
     </keybind>
     <keybind key="A-F7">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] ToggleDecorations -->
       <action name="ToggleDecorations"/>
     </keybind>
     <keybind key="W-d">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] ToggleShowDesktop -->
       <action name="ToggleShowDesktop"/>
     </keybind>
     <!-- Title: Activate Move/Resize -->
     <keybind key="A-r">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Activate Resize -->
       <action name="Resize"/>
     </keybind>
     <keybind key="A-m">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] Activate Move -->
       <action name="Move"/>
     </keybind>
     <!-- Title: Launch Openbox Menu -->
     <keybind key="W-space">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] root-menu -->
       <action name="ShowMenu">
         <menu>root-menu</menu>
       </action>
     </keybind>
     <keybind key="C-A-space">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] app-menu -->
       <action name="ShowMenu">
         <menu>app-menu</menu>
       </action>
     </keybind>
     <keybind key="A-space">
-      <!-- Description:[run] GoToDesktop -->
+      <!-- Description:[run] client-menu -->
       <action name="ShowMenu">
         <menu>client-menu</menu>
       </action>
