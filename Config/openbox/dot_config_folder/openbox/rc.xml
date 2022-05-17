@@ -110,7 +110,7 @@
   <!-- ################################ Keybindings ################################ -->
   <keyboard>
     <chainQuitKey/>
-    <!-- Change Workspace/Desktop -->
+    <!-- Title: Change Workspace/Desktop -->
     <keybind key="W-1">
       <action name="GoToDesktop">
         <to>1</to>
@@ -136,7 +136,7 @@
         <to>5</to>
       </action>
     </keybind>
-    <!-- Move application to specific desktop -->
+    <!-- Title: Move application to specific desktop -->
     <keybind key="S-W-1">
       <action name="SendToDesktop">
         <desktop>1</desktop>
@@ -162,7 +162,7 @@
         <desktop>5</desktop>
       </action>
     </keybind>
-    <!-- Switch b/w Applications -->
+    <!-- Title: Switch b/w Applications -->
     <keybind key="A-Tab">
       <action name="NextWindow">
         <allDesktops>no</allDesktops>
@@ -186,7 +186,7 @@
         </finalactions>
       </action>
     </keybind>
-    <!-- Window Tiling: Snap feature -->
+    <!-- Title: Window Tiling: Snap feature -->
     <keybind key="W-Left">
       <action name="UnmaximizeFull"/>
       <action name="MaximizeVert"/>
@@ -402,7 +402,7 @@
     <keybind key="W-S-Right">
       <action name="SendToDesktopRight"/>
     </keybind>
-    <!-- Media Controls-->
+    <!-- Title: Media Controls-->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
         <command>volume --inc</command>
@@ -438,7 +438,7 @@
         <command>mpc next</command>
       </action>
     </keybind>
-    <!-- Brightness Control -->
+    <!-- Title: Brightness Control -->
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
         <command>brightness --inc</command>
@@ -449,7 +449,7 @@
         <command>brightness --dec</command>
       </action>
     </keybind>
-    <!-- Screenshot Keys -->
+    <!-- Title: Screenshot Keys -->
     <keybind key="Print">
       <action name="Execute">
         <command>takeshot --now</command>
@@ -475,8 +475,8 @@
         <command>takeshot --area</command>
       </action>
     </keybind>
-    <!-- ################################ Launch Applications ################################ -->
-    <!-- Apps -->
+    <!-- Title: ################################ Launch Applications ################################ -->
+    <!-- Title: Apps -->
     <keybind key="W-Return">
       <action name="Execute">
         <command>x-terminal-emulator</command>
@@ -502,7 +502,7 @@
         <command>x-text-editor</command>
       </action>
     </keybind>
-    <!-- Rofi -->
+    <!-- Title: Rofi -->
     <keybind key="A-F1">
       <action name="Execute">
         <command>&rofibin;/launcher</command>
@@ -538,7 +538,7 @@
         <command>color-gpick</command>
       </action>
     </keybind>
-    <!-- CLI Apps -->
+    <!-- Title: CLI Apps -->
     <keybind key="C-A-t">
       <action name="Execute">
         <command>x-terminal-emulator</command>
@@ -559,13 +559,13 @@
         <command>x-terminal-emulator -e htop</command>
       </action>
     </keybind>
+    <!-- Title: Openbox -->
     <!-- Lockscreen -->
     <keybind key="C-A-l">
       <action name="Execute">
         <command>my_session_manager lock</command>
       </action>
     </keybind>
-    <!-- Openbox -->
     <keybind key="C-S-Escape">
       <action name="Exit"/>
     </keybind>
@@ -598,14 +598,14 @@
     <keybind key="W-d">
       <action name="ToggleShowDesktop"/>
     </keybind>
-    <!-- Activate Move/Resize -->
+    <!-- Title: Activate Move/Resize -->
     <keybind key="A-r">
       <action name="Resize"/>
     </keybind>
     <keybind key="A-m">
       <action name="Move"/>
     </keybind>
-    <!-- Launch Openbox Menu -->
+    <!-- Title: Launch Openbox Menu -->
     <keybind key="W-space">
       <action name="ShowMenu">
         <menu>root-menu</menu>
