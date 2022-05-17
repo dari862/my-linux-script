@@ -315,10 +315,11 @@ show_m "install plank app "
 apt_install_whith_error2info "${install_plank_[@]}"
 mkdir -p $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
 cp /usr/share/plank/themes/Default/dock.theme $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
-sed -i 's/TopRoundness=4/TopRoundness=0/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
-sed -i 's/LineWidth=1/LineWidth=0/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
-sed -i 's/TopPadding=-11/TopPadding=-12/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
-sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2
+
+sed -i 's/TopRoundness=4/TopRoundness=0/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2/dock.theme
+sed -i 's/LineWidth=1/LineWidth=0/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2/dock.theme
+sed -i 's/TopPadding=-11/TopPadding=-12/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2/dock.theme
+sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2/dock.theme
 }
 
 download_archcraft_os_stuffs_now_()
