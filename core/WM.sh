@@ -96,6 +96,16 @@ sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
 ##################################################################################################################################################
 ##################################################################################################################################################
 
+Configure_QT_stuff_now()
+{
+show_m "Configure QT Themes and apps "
+cd $temp_folder_for_download
+mv $temp_folder_for_download/QT_config/add_this_2_menu.xml $temp_folder_for_download/QT_config/
+find $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_stuff -->/ r add_this_2_menu.xml' -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
+
+cp -fr QT_config/* $temp_folder_for_skel_/.config
+}
+
 configure_polybar_now()
 {
 
