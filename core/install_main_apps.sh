@@ -306,6 +306,9 @@ mkdir -p $temp_folder_for_skel_/.config
 mkdir -p $temp_folder_for_download
 cd $temp_folder_for_download
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/QT_config
+mv $temp_folder_for_download/QT_config/add_this_2_menu.xml $temp_folder_for_download/QT_config/
+find $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i sed -i '/<!-- dddd -->/ r add_this_2_menu.xml' {} \;
+
 cp -fr QT_config/* $temp_folder_for_skel_/.config
 }
 
