@@ -100,7 +100,7 @@ Configure_QT_stuff_now()
 {
 show_m "Configure QT Themes and apps "
 cd $temp_folder_for_download
-mv $temp_folder_for_download/QT_config/add_this_2_menu.xml $temp_folder_for_download/QT_config/
+mv $temp_folder_for_download/QT_config/add_this_2_menu*.xml $temp_folder_for_download/
 find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_stuff -->/ r add_this_2_menu.xml' -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
 
 cp -fr QT_config/* $temp_folder_for_skel_/.config
