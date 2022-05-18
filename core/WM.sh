@@ -386,23 +386,6 @@ fi
 # Set as default
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session
 
-##################################################################show_m "Install script autosnap for half-maximize windows with mouse middle click in titlebar" 
-# INFO: Openbox lacks autosnap windows function (auto half-maximize)
-# INFO: Autosnap script allow half-maximice active window to current quadrant or half screen, accroding mouse location
-# INFO: The script is configured to be called when mouse middle is clicked in titlebar
-
-
-comment_mark="#DEBIAN-OPENBOX-autosnap"
-
-# Delete all previous lines added
-sed -i "/${comment_mark}/Id" "$temp_folder_for_skel_/.config/openbox/rc.xml"
-# Add keybinds por each autosnap command
-rc="$(sed '/<keyboard>/q' "$temp_folder_for_skel_/.config/openbox/rc.xml"; cat "$temp_folder_for_openbox/autosnap/keybinds_rc.xml"; sed -n -e '/<keyboard>/,$p' "$temp_folder_for_skel_/.config/openbox/rc.xml" | tail +2 )"
-echo "$rc" > "$temp_folder_for_skel_/.config/openbox/rc.xml"
-# Add context titlebar
-rc="$(sed '/<context name="Titlebar">/q' "$temp_folder_for_skel_/.config/openbox/rc.xml"; cat "$temp_folder_for_openbox/autosnap/titlebar_rc.xml"; sed -n -e '/<context name="Titlebar">/,$p' "$temp_folder_for_skel_/.config/openbox/rc.xml" | tail +2)"
-echo "$rc" > "$temp_folder_for_skel_/.config/openbox/rc.xml"
-
 ##################################################################show_m "add user 1000 to lpadmin group to manage CUPS printer system"
 # INFO: CUPS is a printer system for config printers and printer queue
 # INFO: Can be managed in http://localhost:631 and admin users must be in lpadmin group
