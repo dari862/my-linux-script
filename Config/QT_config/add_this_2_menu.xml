@@ -1,1 +1,10 @@
-
+			<item label="QT5 Settings">
+				<action name="Execute">
+					<command>qt5ct</command>
+				</action>
+			</item>
+			<item label="Kvantum Manager">
+				<action name="Execute">
+					<command>kvantummanager</command>
+				</action>
+			</item>
