@@ -433,7 +433,9 @@ sed -i '/menuSeparator "| Bitmap |"/i add_beginning_of_bitmap_check_here_plz' $t
 sed -i '/menuSeparator "| Effects |"/i add_ending_of_bitmap_check_here_plz' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i 's|openbox/polybar|polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr
 
+mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr_old
 mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
 mv $temp_folder_for_themes_and_apps/openbox/pipemenu/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/
 
