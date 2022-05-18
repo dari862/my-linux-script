@@ -437,7 +437,7 @@ sed -i 's|openbox/polybar|polybar|g' $temp_folder_for_openbox/archcraft/openbox/
 
 mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr_old
 mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
-mv $temp_folder_for_themes_and_apps/openbox/pipemenu/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/
+mv $temp_folder_for_themes_and_apps/openbox/pipemenu/* $temp_folder_for_openbox/archcraft/openbox/pipemenus/
 
 
 for change_content in ac-powermenu ac-change-fonts ac-randr
