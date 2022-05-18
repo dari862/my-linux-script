@@ -426,7 +426,7 @@
 	            </action>
 	        </item>	
 		
-	        <menu icon="&icons;/keyboard.png" id="KeybindsPipeMenu" execute="&pipes;/ac-kb-pipemenu" label="Keybinds"/>	
+	        <menu icon="&icons;/shortcut.png" id="KeybindsPipeMenu" execute="&pipes;/ac-kb-pipemenu" label="Keybinds"/>	
 			
 	        <separator label="DEBIAN HELP" />
 
