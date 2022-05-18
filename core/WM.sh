@@ -101,7 +101,7 @@ Configure_QT_stuff_now()
 show_m "Configure QT Themes and apps "
 cd $temp_folder_for_download
 mv $temp_folder_for_download/QT_config/add_this_2_menu.xml $temp_folder_for_download/QT_config/
-find $temp_folder_for_themes_and_apps/openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_stuff -->/ r add_this_2_menu.xml' -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
+find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_stuff -->/ r add_this_2_menu.xml' -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
 
 cp -fr QT_config/* $temp_folder_for_skel_/.config
 }
@@ -114,7 +114,6 @@ mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_fol
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_polybar}/usr_share_app
 
 configure_archcraft_os_stuffs_now_
-
 }
 
 ##################################################################################################################################################
@@ -357,9 +356,17 @@ configuring_bspwm_now
 
 main_openbox_now()
 {
-cd $temp_folder_for_openbox
 show_mf "install and configure openbox"
 show_m "install and configure openbox."
+
+if command -v "${install_QT_apps_[0]}" >/dev/null
+then
+	Configure_QT_stuff_now
+else
+	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
+fi
+
+cd $temp_folder_for_openbox
 
 if command -v conky &>/dev/null; then
 	echo openbox > $temp_folder_for_skel_config/conky/conky_theme.conky
