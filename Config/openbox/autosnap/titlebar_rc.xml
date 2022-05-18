@@ -1,6 +1,0 @@
-      <mousebind button="Middle" action="Click">
-		<action name="Focus"/>
-        <action name="Execute">
-          <command>autosnap</command>
-        </action>
-      </mousebind>
