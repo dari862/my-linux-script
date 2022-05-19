@@ -197,7 +197,7 @@ def get_xml():
 
 
             # Grab all the available modes (I'm ignoring refresh rates for now)
-            for z in xrandr_lines[xrandr_lines.index(i) + 1:]:
+            for z in xrandr_lines[xrandr_lines.index(x) + 1:]:
                 j = z.decode()
                 if not j.startswith(' '):
                     break
