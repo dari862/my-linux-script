@@ -124,7 +124,7 @@
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
-					<command>xfce4-power-manager-settings</command>
+					<command>bash -c "$HOME/.local/bin/my_power_manager/my_power_manager_gui"</command>
 				</action>
 			</item>
 			<item label="Audio Settings">
