@@ -117,7 +117,7 @@
 			</item>
 			<item label="Appearance Settings">
 				<action name="Execute">
-					<command>xfce4-appearance-settings</command>
+					<command>lxappearance</command>
 				</action>
 			</item>
 <!-- replace_this_with_QT_Normal -->
