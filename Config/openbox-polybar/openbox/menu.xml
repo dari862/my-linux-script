@@ -146,17 +146,10 @@
 			</menu>			
 
         	<menu id="xfce4panel" label="Taskbar" icon="&icons;/tint2.png">
-	            <item label="GUI Xfce4-Panel Config Tool" icon="&icons;/tint2.png">
-        			<action name="Execute">
+		<item label="Open Your polybar Folder" icon="&icons;/file-manager.png">
+        		<action name="Execute">
 	                    <command>
-	                        xfce4-panel -p
-	                    </command>
-	                </action>
-	            </item>
-				<item label="Open Your Xfce4-Panel Folder" icon="&icons;/file-manager.png">
-        			<action name="Execute">
-	                    <command>
-	                        x-file-manager ~/.config/xfce4/
+	                        x-file-manager ~/.config/polybar/
 	                    </command>
 	                </action>
 	            </item>
@@ -171,14 +164,14 @@
 	            <item label="Restart" icon="&icons;/restart.png">
 	                <action name="Execute">
 	                    <command>
-	                        bash -c 'xfce4-panel --quit; xfce4-panel'
+	                        bash -c '~/.config/polybar/launch.sh'
 	                    </command>
 	                </action>
                </item>
 	            <item label="Stop" icon="&icons;/stop.png">
 	                <action name="Execute">
 	                    <command>
-	                        xfce4-panel --quit
+	                        bash -c 'killall -9 polybar'
 	                    </command>
 	                </action>
                </item>				
