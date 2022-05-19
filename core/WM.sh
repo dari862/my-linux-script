@@ -367,6 +367,16 @@ else
 	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
 fi
 
+if command -v xfce4-appearance-settings >/dev/null
+then
+	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/lxappearance/xfce4-appearance-settings/g' {} \;
+fi
+
+if ! command -v xfce4-settings-manager >/dev/null
+then
+	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/xfce4-settings-manager/obconf/g' {} \;
+fi
+
 cd $temp_folder_for_openbox
 
 if command -v conky &>/dev/null; then
