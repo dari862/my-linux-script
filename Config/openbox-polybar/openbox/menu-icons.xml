@@ -147,7 +147,7 @@
 			</item>
 			<item label="Settings Manager">
 				<action name="Execute">
-					<command>xfce4-settings-manager</command>
+					<command>bash -c "$HOME/.local/bin/my_power_manager/my_power_manager_gui"</command>
 				</action>
 			</item>
 		</menu>
