@@ -24,9 +24,3 @@ https://github.com/erikdubois/arcolinux-nemesis
 
 https://github.com/adi1090x/polybar-themes
 
-
-
-
-
-  
-  https://www.youtube.com/watch?v=WkXyXIs-ZMI
