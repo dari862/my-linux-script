@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
@@ -46,7 +46,7 @@ VERSION = '0.2'
 
 ## Modified for Archcraft by Aditya Shakya <adi1090x@gmail.com>
 
-import ConfigParser
+import configparser
 import os
 import subprocess
 import sys
@@ -85,7 +85,7 @@ def mk_exe_node(output, name, command):
 
 def get_rc_menu():
     """Read the user's rc file and return XML for menu entries."""
-    config = ConfigParser.ConfigParser()
+    config = configparser.ConfigParser()
     config.read(os.path.join(HOME, RCFILE))
 
     menus = []
@@ -159,7 +159,8 @@ def get_xml():
     # The following string processing is far more verbose than necessary but if
     # the xrandr output ever changes (or I simply got it wrong to begin with)
     # this should make it easier to fix.
-    for i in xrandr_lines:
+    for x in xrandr_lines:
+        i = x.decode()
         if ' current' in i:
             # Screen 0: minimum 320 x 200, current 1700 x 1440, maximum 2048 x 2048
             text = [j for j in i.split(',') if ' current' in j][0]
@@ -196,7 +197,8 @@ def get_xml():
 
 
             # Grab all the available modes (I'm ignoring refresh rates for now)
-            for j in xrandr_lines[xrandr_lines.index(i) + 1:]:
+            for z in xrandr_lines[xrandr_lines.index(x) + 1:]:
+                j = z.decode()
                 if not j.startswith(' '):
                     break
 
@@ -245,4 +247,4 @@ def get_xml():
 
 if __name__ == '__main__':
     ob_menu = get_xml()
-    sys.stdout.write(etree.tostring(ob_menu) + '\n')
+    etree.dump(ob_menu)
