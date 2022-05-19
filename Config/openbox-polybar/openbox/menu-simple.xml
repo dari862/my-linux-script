@@ -120,7 +120,7 @@
 					<command>xfce4-appearance-settings</command>
 				</action>
 			</item>
-<!-- replace_this_with_QT_stuff -->
+<!-- replace_this_with_QT_Normal -->
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
