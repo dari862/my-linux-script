@@ -1140,45 +1140,6 @@ sudo chown root:root $foldertempfornow/PoiretOne-Regular.ttf
 sudo mv $foldertempfornow/PoiretOne-Regular.ttf /usr/local/share/fonts/sample
 }
 
-show_grub_menu_now()
-{
-declare -a Grub_CHOICES_Array_now_=(
-"Protectgrub" "do you want to Protect grub menu." ON
-"Skipgrub" "do you want to skip grub menu." ON
-)
-CHOICES=$(whiptail --separate-output --checklist "Choose options" $(stty size) $whiptail_listheight "${Grub_CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
-
-if [ -z "$CHOICES" ]; then
-	echo "No option was selected (user hit Cancel or unselected all options)"
-else
-	for CHOICE in $CHOICES; do
-		case "$CHOICE" in
-			"Protectgrub")
-				do_you_want_to_Protect_grub="true"
-			;;
-			"Skipgrub")
-				do_you_want_to_skip_grub="true"
-			;;
-			*)
-				echo "Unsupported item $CHOICE!" >&2
-				exit 1
-			;;
-		esac
-	done
-fi
-
-if [ "$do_you_want_to_Protect_grub" == "true" ]
-then
-	new_GRUB_password___pbkdf2_pass=$(temp_password_creater__)
-fi
-
-if [ "$new_GRUB_password___pbkdf2_pass" == "" ]
-then
-	do_you_want_to_Protect_grub="false"
-fi
-
-}
-
 ############################################################################################################################################
 # Grub
 ############################################################################################################################################
