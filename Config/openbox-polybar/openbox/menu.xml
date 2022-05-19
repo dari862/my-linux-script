@@ -153,10 +153,10 @@
 	                    </command>
 	                </action>
 	            </item>
-                <item label="How to configure xfce4-panel?" icon="&icons;/help.png">
+                <item label="How to configure Polybar?" icon="&icons;/help.png">
                     <action name="Execute">
                         <command>
-                            x-www-browser "https://docs.xfce.org/xfce/xfce4-panel/start"
+                            x-www-browser "https://wiki.archlinux.org/title/Polybar"
                         </command>
                     </action>
                 </item>	 	            
