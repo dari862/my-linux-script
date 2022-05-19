@@ -71,16 +71,7 @@
 					<execute>&rofibin;/apps_as_root 'lxappearance'</execute>
 				</action>
 			</item>
-			<item label="QT5 Settings">
-				<action name="Execute">
-					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>
-				</action>
-			</item>
-			<item label="kvantum Manager">
-				<action name="Execute">
-					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>
-				</action>
-			</item>
+<!-- replace_this_with_QT_Root -->
 		</menu>
 		<separator/>
 		<menu icon="&icons;/shots.png" id="ac-shots" execute="&pipes;/ac-shots" label="Screenshot"/>
@@ -142,7 +133,7 @@
 					<command>xfce4-appearance-settings</command>
 				</action>
 			</item>
-<!-- replace_this_with_QT_stuff -->
+<!-- replace_this_with_QT_Normal -->
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
