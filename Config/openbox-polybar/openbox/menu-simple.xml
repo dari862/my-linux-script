@@ -64,16 +64,7 @@
 					<execute>&rofibin;/apps_as_root 'lxappearance'</execute>
 				</action>
 			</item>
-			<item label="QT5 Settings">
-				<action name="Execute">
-					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>
-				</action>
-			</item>
-			<item label="kvantum Manager">
-				<action name="Execute">
-					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>
-				</action>
-			</item>
+<!-- replace_this_with_QT_Root -->
 		</menu>
 		<menu id="ac-shots" execute="&pipes;/ac-shots" label="Screenshot"/>
 		<menu id="ac-record" execute="&pipes;/ac-record" label="Screen Recorder"/>
