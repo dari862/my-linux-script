@@ -146,22 +146,9 @@ else
 	done
 fi
 
-if [ "$do_you_want_to_install_openbox" == "true" ] || [ "$do_you_want_to_install_bspwm" == "true" ]
+if [ "$do_you_want_to_reconfigure_grub_" == "true" ] || [ "$do_you_want_to_install_openbox" == "true" ] || [ "$do_you_want_to_install_bspwm" == "true" ]
 then
-	declare -a CHOICES_Array_now_=(
-	"polybar" "install polybar." ON
-	"xfce4" "install xfce4-panel." OFF
-	)
-	CHOICES=$(whiptail --separate-output --title  "Choose options" --radiolist "Chooes what to install" $(stty size) $whiptail_listheight "${CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
-	if [ "$CHOICES" == "polybar" ] 
-	then
-		declare -g do_you_want_to_install_polybar_panel="true"
-	elif [ "$CHOICES" == "xfce4" ]
-	then
-		declare -g do_you_want_to_install_xfce4_panel="true"
-	else
-		declare -g do_you_want_to_install_polybar_panel="true"
-	fi
+	show_sub_menu_now
 fi
 
 if [ "$do_you_want_to_configure_GNOME" == "true" ] && [ "$gnome_desktop_environment_ver" == "GNOME_OLD" ] && [ "$do_you_want_to_switch_to_bleeding_edge_now" != "true" ] 
@@ -171,12 +158,6 @@ then
 #		do_you_want_to_upgrade_gnome_to_gnome_4_="true"
 #	fi
 echo "test"
-fi
-
-if [ "$do_you_want_to_reconfigure_grub_" == "true" ]
-then
-	source_this_url "$Sourcing_grub_dot_sh"
-	show_grub_menu_now
 fi
 
 if [ "$do_you_want_to_enable_preWM" == "true" ]
@@ -205,6 +186,75 @@ Sourcing_Out_side_my_repo_dot_sh="$var_for_Sourcing_Out_side_my_repo_dot_sh"
 Sourcing_gpu_dot_sh="$var_for_Sourcing_gpu_dot_sh"
 Sourcing_install_main_apps_dot_sh="$var_for_Sourcing_install_main_apps_dot_sh"
 }
+
+
+###########################################################################################################################################################################
+###########################################################################################################################################################################
+# submenu
+###########################################################################################################################################################################
+###########################################################################################################################################################################
+
+show_sub_menu_now()
+{
+
+if [ "$do_you_want_to_install_openbox" == "true" ] || [ "$do_you_want_to_install_bspwm" == "true" ]
+then
+	declare -a Panel_CHOICES_Array_now_=(
+	"polybar" "install polybar." ON
+	"xfce4" "install xfce4-panel." OFF
+	)
+fi
+
+if [ "$do_you_want_to_install_openbox" == "true" ]
+then
+	declare -a Grub_CHOICES_Array_now_=(
+	"Protectgrub" "do you want to Protect grub menu." ON
+	"Skipgrub" "do you want to skip grub menu." ON
+	)
+fi
+declare -a SUBMenu_CHOICES_Array_now_=(
+"${Panel_CHOICES_Array_now_[@]}" "${Grub_CHOICES_Array_now_[@]}"
+)
+
+CHOICES=$(whiptail --separate-output --checklist "Choose options" $(stty size) $whiptail_listheight "${SUBMenu_CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
+
+if [ -z "$CHOICES" ]; then
+	echo "No option was selected (user hit Cancel or unselected all options)"
+else
+	for CHOICE in $CHOICES; do
+		case "$CHOICE" in
+			"xfce4")
+				do_you_want_to_install_xfce4_panel="true"
+			;;
+			"polybar")
+				do_you_want_to_install_polybar_panel="true"
+			;;
+			"Protectgrub")
+				do_you_want_to_Protect_grub="true"
+			;;
+			"Skipgrub")
+				do_you_want_to_skip_grub="true"
+			;;
+			*)
+				echo "Unsupported item $CHOICE!" >&2
+				exit 1
+			;;
+		esac
+	done
+fi
+
+if [ "$do_you_want_to_Protect_grub" == "true" ]
+then
+	new_GRUB_password___pbkdf2_pass=$(temp_password_creater__)
+fi
+
+if [ "$new_GRUB_password___pbkdf2_pass" == "" ]
+then
+	do_you_want_to_Protect_grub="false"
+fi
+
+}
+
 
 ###########################################################################################################################################################################
 ###########################################################################################################################################################################
