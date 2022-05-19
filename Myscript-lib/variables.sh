@@ -209,7 +209,7 @@ fi
 
 #submenu
 do_you_want_to_install_xfce4_panel=""
-declare -g do_you_want_to_install_polybar_panel=""
+do_you_want_to_install_polybar_panel=""
 do_you_want_to_Protect_grub=""
 do_you_want_to_skip_grub=""
 
