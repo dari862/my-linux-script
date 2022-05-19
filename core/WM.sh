@@ -101,8 +101,11 @@ Configure_QT_stuff_now()
 show_m "Configure QT Themes and apps "
 cd $temp_folder_for_download
 mv $temp_folder_for_download/QT_config/add_this_2_menu*.xml $temp_folder_for_download/
-find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_Normal -->/ r add_this_2_menu_Normal.xml' -e 's/<!-- replace_this_with_QT_Normal -->//g' {} \;
-find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_Root -->/ r add_this_2_menu_Root.xml' -e 's/<!-- replace_this_with_QT_Root -->//g' {} \;
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+then
+	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_Normal -->/ r add_this_2_menu_Normal.xml' -e 's/<!-- replace_this_with_QT_Normal -->//g' {} \;
+	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_Root -->/ r add_this_2_menu_Root.xml' -e 's/<!-- replace_this_with_QT_Root -->//g' {} \;
+fi
 
 cp -fr QT_config/* $temp_folder_for_skel_/.config
 }
@@ -364,17 +367,26 @@ if command -v "${install_QT_apps_[0]}" >/dev/null
 then
 	Configure_QT_stuff_now
 else
-	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
+	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+	then
+		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
+	fi
 fi
 
 if command -v xfce4-appearance-settings >/dev/null
 then
-	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/lxappearance/xfce4-appearance-settings/g' {} \;
+	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+	then
+		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/lxappearance/xfce4-appearance-settings/g' {} \;
+	fi
 fi
 
 if ! command -v xfce4-settings-manager >/dev/null
 then
-	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/xfce4-settings-manager/obconf/g' {} \;
+	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+	then
+		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/xfce4-settings-manager/obconf/g' {} \;
+	fi
 fi
 
 cd $temp_folder_for_openbox
