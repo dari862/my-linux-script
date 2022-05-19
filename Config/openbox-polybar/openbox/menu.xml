@@ -307,7 +307,7 @@
             <item label="Power Management" icon="&icons;/power.png">
                 <action name="Execute">
                     <command>
-                        xfce4-power-manager-settings
+                        bash -c "$HOME/.local/bin/my_power_manager/my_power_manager_gui"
                     </command>
                 </action>
             </item>
