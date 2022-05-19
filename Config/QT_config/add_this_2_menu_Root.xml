@@ -1,1 +1,10 @@
-
+			<item label="QT5 Settings">
+				<action name="Execute">
+					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>
+				</action>
+			</item>
+			<item label="kvantum Manager">
+				<action name="Execute">
+					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>
+				</action>
+			</item>
