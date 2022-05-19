@@ -205,7 +205,7 @@ then
 	)
 fi
 
-if [ "$do_you_want_to_install_openbox" == "true" ]
+if [ "$do_you_want_to_reconfigure_grub_" == "true" ]
 then
 	declare -a Grub_CHOICES_Array_now_=(
 	"Protectgrub" "do you want to Protect grub menu." ON
