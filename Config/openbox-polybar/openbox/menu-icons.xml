@@ -71,7 +71,16 @@
 					<execute>&rofibin;/apps_as_root 'lxappearance'</execute>
 				</action>
 			</item>
-<!-- replace_this_with_QT_Root -->
+			<item label="QT5 Settings">							<!--QT_ROOT_Menu-->
+				<action name="Execute">							<!--QT_ROOT_Menu-->
+					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>		<!--QT_ROOT_Menu-->
+				</action>								<!--QT_ROOT_Menu-->
+			</item>										<!--QT_ROOT_Menu-->
+			<item label="kvantum Manager">							<!--QT_ROOT_Menu-->
+				<action name="Execute">							<!--QT_ROOT_Menu-->
+					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>	<!--QT_ROOT_Menu-->
+				</action>								<!--QT_ROOT_Menu-->
+			</item>										<!--QT_ROOT_Menu-->
 		</menu>
 		<separator/>
 		<menu icon="&icons;/shots.png" id="ac-shots" execute="&pipes;/ac-shots" label="Screenshot"/>
@@ -133,7 +142,16 @@
 					<command>lxappearance</command>
 				</action>
 			</item>
-<!-- replace_this_with_QT_Normal -->
+			<item label="QT5 Settings">				<!--QT_Normal_Menu-->
+				<action name="Execute">				<!--QT_Normal_Menu-->
+					<command>qt5ct</command>		<!--QT_Normal_Menu-->
+				</action>					<!--QT_Normal_Menu-->
+			</item>							<!--QT_Normal_Menu-->
+			<item label="Kvantum Manager">				<!--QT_Normal_Menu-->
+				<action name="Execute">				<!--QT_Normal_Menu-->
+					<command>kvantummanager</command>	<!--QT_Normal_Menu-->	
+				</action>					<!--QT_Normal_Menu-->
+			</item>							<!--QT_Normal_Menu-->
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
