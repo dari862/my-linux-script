@@ -1,10 +1,10 @@
-			<item label="QT5 Settings">
-				<action name="Execute">
-					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>
-				</action>
-			</item>
-			<item label="kvantum Manager">
-				<action name="Execute">
-					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>
-				</action>
-			</item>
+			<item label="QT5 Settings">							<!--QT_ROOT_Menu-->
+				<action name="Execute">							<!--QT_ROOT_Menu-->
+					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>		<!--QT_ROOT_Menu-->
+				</action>								<!--QT_ROOT_Menu-->
+			</item>										<!--QT_ROOT_Menu-->
+			<item label="kvantum Manager">							<!--QT_ROOT_Menu-->
+				<action name="Execute">							<!--QT_ROOT_Menu-->
+					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>	<!--QT_ROOT_Menu-->
+				</action>								<!--QT_ROOT_Menu-->
+			</item>										<!--QT_ROOT_Menu-->
