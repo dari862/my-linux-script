@@ -19,7 +19,12 @@ then
 	bash ~/.local/bin/wm_fixer/fix_missing_file which_panel
 fi
 
-if [ ! -f  ~/.config/rofi/style ] || [ ! -f  ~/.config/polybar/style ]
+if [ ! -f  ~/.config/rofi/style ] 
+then
+	bash ~/.local/bin/wm_fixer/fix_missing_file style
+fi
+
+if [ ! -f  ~/.config/polybar/style ] && ( command -v polybar )
 then
 	bash ~/.local/bin/wm_fixer/fix_missing_file style
 fi
