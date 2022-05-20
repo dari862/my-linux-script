@@ -24,7 +24,7 @@ then
 	bash ~/.local/bin/wm_fixer/fix_missing_file style
 fi
 
-if [ ! -f  ~/.config/polybar/style ] && ( command -v polybar )
+if [ ! -f  ~/.config/polybar/style ] && ( command -v polybar > /dev/null )
 then
 	bash ~/.local/bin/wm_fixer/fix_missing_file style
 fi
