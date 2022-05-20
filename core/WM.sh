@@ -417,15 +417,13 @@ chmod +x $temp_folder_for_usr_bin_/autosnap
 # Copy my-locker
 chmod a+x $temp_folder_for_usr_bin_/my-locker
 # update-notification
-sudo mv $temp_folder_for_usr_bin_/update-notification.sh /usr/bin
-sudo chown root:root /usr/bin/update-notification.sh
-sudo chmod +x /usr/bin/update-notification.sh
-cron_when="daily"
-echo "Creating symblink in /etc/cron.daily" 
-rm "/etc/cron.daily/$(basename $install_file)" &> /dev/null
-ln -s "$install_file" "/etc/cron.$cron_when"
-touch "$updates_file"
-chmod a+w "$updates_file"
+sudo mv $temp_folder_for_usr_bin_/update-notification /usr/bin
+sudo chown root:root /usr/bin/update-notification
+sudo chmod +x /usr/bin/update-notification
+rm "/etc/cron.daily/update-notification" &> /dev/null
+ln -s "/usr/bin/update-notification" "/etc/cron.daily"
+touch "/var/cache/update-notification"
+chmod a+w "/var/cache/update-notification"
 
 # Copy users config	
 if [ -f "$temp_folder_for_skel_/.config/openbox/xfce4-menu.xml" ]
