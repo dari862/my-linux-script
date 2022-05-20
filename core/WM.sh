@@ -101,11 +101,6 @@ Configure_QT_stuff_now()
 show_m "Configure QT Themes and apps "
 cd $temp_folder_for_download
 mv $temp_folder_for_download/QT_config/add_this_2_menu*.xml $temp_folder_for_download/
-if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
-then
-	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_Normal -->/ r add_this_2_menu_Normal.xml' -e 's/<!-- replace_this_with_QT_Normal -->//g' {} \;
-	find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/<!-- replace_this_with_QT_Root -->/ r add_this_2_menu_Root.xml' -e 's/<!-- replace_this_with_QT_Root -->//g' {} \;
-fi
 
 cp -fr QT_config/* $temp_folder_for_skel_/.config
 }
@@ -420,10 +415,27 @@ chmod a+x $temp_folder_for_usr_bin_/my-locker
 mv $temp_folder_for_usr_bin_/update-notification $temp_folder_for_download
 sudo "$temp_folder_for_download/update-notification" -I 
 
-# Copy users config	
-if [ -f "$temp_folder_for_skel_/.config/openbox/xfce4-menu.xml" ]
+# Copy users config
+if [ -f "$temp_folder_for_openbox/dot_config_folder/openbox/menu.xml" ] 
 then
-	sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/xfce4-menu.xml
+	sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/menu.xml
+fi
+
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml -type f 2> /dev/null)" ] 
+then
+	for i in $temp_folder_for_skel_/.config/openbox/xfce4-*.xml
+	do
+		sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/${i}
+	done
+fi
+
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+then
+	for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
+	do
+		sed -i '/QT_ROOT_Menu/Id' $temp_folder_for_skel_/.config/openbox/${I}
+		sed -i '/QT_Normal_Menu/Id' $temp_folder_for_skel_/.config/openbox/${I}
+	done
 fi
 
 # Set as default
