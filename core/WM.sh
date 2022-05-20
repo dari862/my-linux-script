@@ -361,11 +361,6 @@ show_m "install and configure openbox."
 if command -v "${install_QT_apps_[0]}" >/dev/null
 then
 	Configure_QT_stuff_now
-else
-	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
-	then
-		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/<!-- replace_this_with_QT_stuff -->//g' {} \;
-	fi
 fi
 
 if command -v xfce4-appearance-settings >/dev/null
@@ -382,6 +377,29 @@ then
 	then
 		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/xfce4-settings-manager/obconf/g' {} \;
 	fi
+fi
+
+
+if [ -f "$temp_folder_for_openbox/dot_config_folder/openbox/menu.xml" ] 
+then
+	sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/menu.xml
+fi
+
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml -type f 2> /dev/null)" ] 
+then
+	for i in $temp_folder_for_skel_/.config/openbox/xfce4-*.xml
+	do
+		sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/${i}
+	done
+fi
+
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+then
+	for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
+	do
+		sed -i '/QT_ROOT_Menu/Id' $temp_folder_for_skel_/.config/openbox/${I}
+		sed -i '/QT_Normal_Menu/Id' $temp_folder_for_skel_/.config/openbox/${I}
+	done
 fi
 
 cd $temp_folder_for_openbox
@@ -414,29 +432,6 @@ chmod a+x $temp_folder_for_usr_bin_/my-locker
 # update-notification
 mv $temp_folder_for_usr_bin_/update-notification $temp_folder_for_download
 sudo "$temp_folder_for_download/update-notification" -I 
-
-# Copy users config
-if [ -f "$temp_folder_for_openbox/dot_config_folder/openbox/menu.xml" ] 
-then
-	sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/menu.xml
-fi
-
-if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml -type f 2> /dev/null)" ] 
-then
-	for i in $temp_folder_for_skel_/.config/openbox/xfce4-*.xml
-	do
-		sudo dmesg | grep -qi bluetooth || sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_skel_/.config/openbox/${i}
-	done
-fi
-
-if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
-then
-	for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
-	do
-		sed -i '/QT_ROOT_Menu/Id' $temp_folder_for_skel_/.config/openbox/${I}
-		sed -i '/QT_Normal_Menu/Id' $temp_folder_for_skel_/.config/openbox/${I}
-	done
-fi
 
 # Set as default
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session
