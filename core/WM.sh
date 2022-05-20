@@ -417,13 +417,8 @@ chmod +x $temp_folder_for_usr_bin_/autosnap
 # Copy my-locker
 chmod a+x $temp_folder_for_usr_bin_/my-locker
 # update-notification
-sudo mv $temp_folder_for_usr_bin_/update-notification /usr/bin
-sudo chown root:root /usr/bin/update-notification
-sudo chmod +x /usr/bin/update-notification
-rm "/etc/cron.daily/update-notification" &> /dev/null
-sudo ln -s "/usr/bin/update-notification" "/etc/cron.daily"
-sudo touch "/var/cache/update-notification"
-sudo chmod a+w "/var/cache/update-notification"
+mv $temp_folder_for_usr_bin_/update-notification $temp_folder_for_download
+sudo "$temp_folder_for_download/update-notification" -I 
 
 # Copy users config	
 if [ -f "$temp_folder_for_skel_/.config/openbox/xfce4-menu.xml" ]
