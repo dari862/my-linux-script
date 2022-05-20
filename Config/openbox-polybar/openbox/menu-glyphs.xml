@@ -129,7 +129,16 @@
 					<command>lxappearance</command>
 				</action>
 			</item>
-<!-- replace_this_with_QT_Normal -->
+			<item label="QT5 Settings">				<!--QT_Normal_Menu-->
+				<action name="Execute">				<!--QT_Normal_Menu-->
+					<command>qt5ct</command>		<!--QT_Normal_Menu-->
+				</action>					<!--QT_Normal_Menu-->
+			</item>							<!--QT_Normal_Menu-->
+			<item label="Kvantum Manager">				<!--QT_Normal_Menu-->
+				<action name="Execute">				<!--QT_Normal_Menu-->
+					<command>kvantummanager</command>	<!--QT_Normal_Menu-->	
+				</action>					<!--QT_Normal_Menu-->
+			</item>							<!--QT_Normal_Menu-->
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
