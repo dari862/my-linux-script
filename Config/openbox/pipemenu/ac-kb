@@ -3,7 +3,7 @@
 OpenBox_user_config="$HOME/.config/openbox"
 rc_file="$OpenBox_user_config/rc.xml"
 kbinds_file="$OpenBox_user_config/kbinds.txt"
-if [ "$1" == "" ]
+if [ "$1" == "" ] || [ ! -f "$OpenBox_user_config/kbinds.txt" ]
 then
     echo "$(date) $rc_file keybinds " > $kbinds_file
     echo "NEW_LINE_Plz---------------------------------------------------------------------------" >> $kbinds_file
