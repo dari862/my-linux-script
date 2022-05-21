@@ -167,7 +167,7 @@ echo "$1" >> $helper_list
 check_for_internet_now_plz()
 {
 case "$(curl -s --max-time 2 -I https://www.google.com | head -n 1 | sed 's/^[^ ]*  *\([0-9]\).*/\1/; 1q')" in
-	[23]) show_em "connectivity is up";;
+	[23]) show_im "connectivity is up";;
 	5) show_em "The web proxy won't let us through";;
 	*) show_em "The network is down or very slow";;
 esac
