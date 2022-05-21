@@ -63,6 +63,9 @@ configure_PreWM_now
 
 configure_archcraft_os_stuffs_now_()
 {
+
+if [ $archcraft_configured_alrdy == "true" ]; then return 1; fi
+
 sudo mkdir -p /usr/share/archcraft 
 mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
 mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
@@ -87,6 +90,9 @@ for d in $temp_folder_for_polybar/themes/* ; do
 	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
 done
 sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
+
+declare -g archcraft_configured_alrdy="true"
+
 }
 ##################################################################################################################################################
 ##################################################################################################################################################
