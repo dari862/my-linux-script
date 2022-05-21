@@ -109,6 +109,11 @@ we_are_at_stage=$(expr $we_are_at_stage + 1)
 # from common.sh
 if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]; then
 	system_configration_now
+	if [ "$do_you_want_to_edit_home_permissions" == "true" ]
+	then
+	Config_users_home_directorie_permissions_to_750_now
+	fi
+	
 	if [ "$do_you_want_to_download_extra_wallpaper" == "true" ]
 	then
 		wallpaper_download_Now "extra"
@@ -194,7 +199,7 @@ mv_Temp_skel_folder_to_etc_skel_folder_now
 
 ############################
 # from common.sh
-if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]; then
+if [ "$Disable_unnecessary_services" == "true" ]; then
 	Disable_some_unnecessary_services_now
 fi
 ############################
