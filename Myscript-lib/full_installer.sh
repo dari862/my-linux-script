@@ -99,8 +99,12 @@ fi
 ############################
 
 we_are_at_stage=$(expr $we_are_at_stage + 1)
-if [ "$do_you_want_to_reconfigure_grub_" == "true" ]; then
-  main_Grub_now
+if [ "$do_you_want_to_Protect_grub" == "true" ]; then
+  Protect_grub_menu_now
+fi
+
+if [ "$do_you_want_to_skip_grub" == "true" ]; then
+  skip_grub_menu_now
 fi
 
 ############################
