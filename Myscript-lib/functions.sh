@@ -572,7 +572,6 @@ then
 add_aliases_2_helper_list_now
 fi
 cat $helper_list > ~/installed_apps.txt
-sudo reboot
 }
 
 
