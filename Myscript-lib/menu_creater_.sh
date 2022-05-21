@@ -220,14 +220,14 @@ fi
 
 if [ "$do_you_want_to_cleanup_after_install" == "true" ]
 then
-	declare -a Grub_CHOICES_Array_now_=(
+	declare -a cleanup_CHOICES_Array_now_=(
 	"reboot" "do you want to reboot." ON
 	)
 fi
 
 if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]
 then
-	declare -a Grub_CHOICES_Array_now_=(
+	declare -a common_CHOICES_Array_now_=(
 	"home_permissions" "Config users home directories permissions to 750 (for current and future users)." ON
 	"Disable_unnecessary_services" "Disable_some_unnecessary_services." ON
 	)
@@ -235,13 +235,13 @@ fi
 
 if [ "$do_you_want_to_install_Tweak_my_terminal" == "true" ]
 then
-	declare -a Grub_CHOICES_Array_now_=(
+	declare -a Tweak_my_terminal_CHOICES_Array_now_=(
 	"zsh_default" "do you want to make zsh default shell." ON
 	)
 fi
 
 declare -a SUBMenu_CHOICES_Array_now_=(
-"${Panel_CHOICES_Array_now_[@]}" "${Grub_CHOICES_Array_now_[@]}" "${do_you_want_to_install_Tweak_my_terminal[@]}" "${do_you_want_to_enable_install_common_stuff[@]}" "${do_you_want_to_cleanup_after_install[@]}"
+"${Panel_CHOICES_Array_now_[@]}" "${Grub_CHOICES_Array_now_[@]}" "${Tweak_my_terminal_CHOICES_Array_now_[@]}" "${common_CHOICES_Array_now_[@]}" "${cleanup_CHOICES_Array_now_[@]}"
 )
 
 CHOICES=$(whiptail --separate-output --checklist "Choose options" $(stty size) $whiptail_listheight "${SUBMenu_CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
