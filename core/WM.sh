@@ -364,8 +364,12 @@ show_m "install and configure openbox."
 if command -v "${install_QT_apps_[0]}" >/dev/null
 then
 	Configure_QT_stuff_now
+	for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
+	do
+		sed -i 's/<!--QT_ROOT_Menu-->//g' ${I}
+		sed -i 's/<!--QT_Normal_Menu-->//g' ${I}
+	done
 else
-
 	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
 	then
 		for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
