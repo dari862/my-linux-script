@@ -195,7 +195,7 @@ mv_Temp_skel_folder_to_etc_skel_folder_now
 ############################
 # from common.sh
 if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]; then
-Disable_some_unnecessary_services_now
+	Disable_some_unnecessary_services_now
 fi
 ############################
 
@@ -206,4 +206,10 @@ fi
 
 we_are_at_stage=$(expr $we_are_at_stage + 1)
 Done_installing_Massage_now
+
+if [ "$do_you_want_to_reboot" == "true" ]; then
+	sudo reboot
+fi
+
+
 }
