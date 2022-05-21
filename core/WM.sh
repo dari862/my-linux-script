@@ -11,7 +11,7 @@ show_m "install preWM_apps"
 cd $temp_folder_for_preWM
 mkdir -p $temp_folder_for_skel_/.local/bin
 sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
-mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.lofcal/bin
+mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
 mkdir -p $temp_folder_for_skel_config/gtk-3.0
 mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* $temp_folder_for_skel_config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
 mv $temp_folder_for_preWM/preWM/config/* $temp_folder_for_skel_config &> /dev/null || echo "falied to move all preWM/config files"
