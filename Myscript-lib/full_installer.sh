@@ -97,6 +97,7 @@ if [ "$do_you_want_to_install_pen" == "true" ]; then
 fi
 
 ############################
+# Grub stuff from install_main_apps.sh
 
 we_are_at_stage=$(expr $we_are_at_stage + 1)
 if [ "$do_you_want_to_Protect_grub" == "true" ]; then
