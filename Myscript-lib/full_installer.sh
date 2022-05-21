@@ -140,8 +140,11 @@ install_preWM_Network_apps_now
 we_are_at_stage=$(expr $we_are_at_stage + 1)
 if [ "$do_you_want_to_install_Tweak_my_terminal" == "true" ]; then
 	configure_shell_now
-	we_are_at_stage=$(expr $we_are_at_stage + 1)
-	make_zsh_default_shell
+	if [ "$do_you_want_to_make_zsh_default_shell" == "true" ]
+	then
+		we_are_at_stage=$(expr $we_are_at_stage + 1)
+		make_zsh_default_shell
+	fi
 fi
 
 ############################
