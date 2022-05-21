@@ -53,7 +53,10 @@ then
 show_m "making some folders "
 mkdir -p $HOME/.config/autostart/
 fi
+}
 
+Config_users_home_directorie_permissions_to_750_now()
+{
 show_m "Config users home directories permissions to 750 (for current and future users)"
 # INFO: By default home directories permissions are 755 and grant read permissions to everyone
 # Config adduser for create users with $HOME permisions 0750
