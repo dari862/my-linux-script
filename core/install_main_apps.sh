@@ -323,6 +323,8 @@ sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/sha
 
 download_archcraft_os_stuffs_now_()
 {
+if [ $archcraft_installed_alrdy == "true" ]; then return 1; fi
+
 mkdir -p $temp_folder_for_polybar
 
 archcraft_os_stuffs()
@@ -361,6 +363,8 @@ archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
 archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
+
+declare -g archcraft_installed_alrdy="true"
 }
 
 install_polybar_app_now_()
