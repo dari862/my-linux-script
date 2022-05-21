@@ -71,10 +71,12 @@ else
 				which_distro_are_we_configuring="configuring $DISTRO."
 			;;
 			"CLEANUP")
+				do_you_want_2_show_sub_menu_now="true"
 				do_you_want_to_cleanup_after_install="true"
 				do_we_need_to_cleanup_after_install="clean up time."
 			;;
 			"COMMON")
+				do_you_want_2_show_sub_menu_now="true"
 				Sourcing_common_dot_sh="$var_for_Sourcing_common_dot_sh"
 				do_you_want_to_enable_install_common_stuff="true"
 				do_we_need_to_enable_install_common_stuff="install and configure common stuff."
@@ -85,10 +87,10 @@ else
 				do_we_need_to_uninstall_unwanted_apps="uninstall unwanted apps."
 			;;
 			"Tweakmyterminal")
+				do_you_want_2_show_sub_menu_now="true"
 				Sourcing_tweakMyTerminal_dot_sh="$var_for_Sourcing_tweakMyTerminal_dot_sh"
 				do_you_want_to_install_Tweak_my_terminal="true"
 				do_we_need_to_install_Tweak_my_terminal="pimp my terminal now."
-				do_we_need_to_make_zsh_default_shell="make zsh default shell."
 				do_we_need_to_configure_zsh_and_bash="configure zsh and bash."
 			;;
 			"GNOME")
@@ -110,11 +112,13 @@ else
 				do_we_need_to_install_awesomeWM="install and configure awesomeWM"
 			;;
 			"bspwm")
+				do_you_want_2_show_sub_menu_now="true"
 				do_you_want_to_enable_preWM="true"
 				do_you_want_to_install_bspwm="true"
 				do_we_need_to_install_bspwm="install and configure bspwm"
 			;;
 			"openbox")
+				do_you_want_2_show_sub_menu_now="true"
 				do_you_want_to_enable_preWM="true"
 				do_you_want_to_install_openbox="true"
 				do_we_need_to_install_openbox="install and configure openbox"
@@ -128,6 +132,7 @@ else
 				Sourcing_install_essential_and_optional_apps_dot_sh="$var_for_Sourcing_install_essential_and_optional_apps_dot_sh"
 			;;
 			"grub")
+				do_you_want_2_show_sub_menu_now="true"
 				do_you_want_to_reconfigure_grub_="true"
 				do_we_need_to_install_grub_="reconfigure grub."
 			;;
@@ -146,7 +151,7 @@ else
 	done
 fi
 
-if [ "$do_you_want_to_reconfigure_grub_" == "true" ] || [ "$do_you_want_to_install_openbox" == "true" ] || [ "$do_you_want_to_install_bspwm" == "true" ]
+if [ "$do_you_want_2_show_sub_menu_now" == "true" ]
 then
 	show_sub_menu_now
 fi
@@ -212,8 +217,31 @@ then
 	"Skipgrub" "do you want to skip grub menu." ON
 	)
 fi
+
+if [ "$do_you_want_to_cleanup_after_install" == "true" ]
+then
+	declare -a Grub_CHOICES_Array_now_=(
+	"reboot" "do you want to reboot." ON
+	)
+fi
+
+if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]
+then
+	declare -a Grub_CHOICES_Array_now_=(
+	"Protectgrub" "do you want to Protect grub menu." ON
+	"Skipgrub" "do you want to skip grub menu." ON
+	)
+fi
+
+if [ "$do_you_want_to_install_Tweak_my_terminal" == "true" ]
+then
+	declare -a Grub_CHOICES_Array_now_=(
+	"zsh_default" "do you want to make zsh default shell." ON
+	)
+fi
+
 declare -a SUBMenu_CHOICES_Array_now_=(
-"${Panel_CHOICES_Array_now_[@]}" "${Grub_CHOICES_Array_now_[@]}"
+"${Panel_CHOICES_Array_now_[@]}" "${Grub_CHOICES_Array_now_[@]}" "${do_you_want_to_install_Tweak_my_terminal[@]}" "${do_you_want_to_enable_install_common_stuff[@]}" "${do_you_want_to_cleanup_after_install[@]}"
 )
 
 CHOICES=$(whiptail --separate-output --checklist "Choose options" $(stty size) $whiptail_listheight "${SUBMenu_CHOICES_Array_now_[@]}" 3>&1 1>&2 2>&3)
@@ -235,6 +263,12 @@ else
 			"Skipgrub")
 				do_you_want_to_skip_grub="true"
 			;;
+			"zsh_default")
+				do_you_want_to_make_zsh_default_shell="true"
+			;;
+			"reboot")
+				do_you_want_to_reboot="true"
+			;;
 			*)
 				echo "Unsupported item $CHOICE!" >&2
 				exit 1
@@ -251,6 +285,12 @@ fi
 if [ "$new_GRUB_password___pbkdf2_pass" == "" ]
 then
 	do_you_want_to_Protect_grub="false"
+fi
+
+if [ "$do_you_want_to_make_zsh_default_shell" == "true" ]
+then
+	
+	do_we_need_to_make_zsh_default_shell="make zsh default shell."
 fi
 
 }
