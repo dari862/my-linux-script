@@ -1144,44 +1144,46 @@ sudo mv $foldertempfornow/PoiretOne-Regular.ttf /usr/local/share/fonts/sample
 # Grub
 ############################################################################################################################################
 
-main_Grub_now()
+Protect_grub_menu_now()
 {
-show_mf "main_Grub_now"
-if [ "$do_you_want_to_Protect_grub" == "true" ]
-then
-  # ACTION: Config GRUB with password protection for prevent users edit entries
-  # INFO: By default everyone can edit GRUB entries during boot time and login with root privileges
-  # DEFAULT: n
+show_mf "Config GRUB with password protection for prevent users edit entries"
+show_m "Config GRUB with password protection for prevent users edit entries"
 
-  # Config variables
-  comment_mark="#DEBIAN-OPENBOX"
+# ACTION: Config GRUB with password protection for prevent users edit entries
+# INFO: By default everyone can edit GRUB entries during boot time and login with root privileges
+# DEFAULT: n
 
-  # Config admin user and password
-  echo -e "\e[1mSetting GRUB config...\e[0m"
-  pbkdf2_pass="$(echo -e "$new_GRUB_password___pbkdf2_pass\n$new_GRUB_password___pbkdf2_pass"| grub-mkpasswd-pbkdf2  | grep "grub.pbkdf2.*" -o)"
-  sudo sed -i "/${comment_mark}/Id" /etc/grub.d/40_custom
-  echo 'set superusers="admin"    '"$comment_mark"'
-  password_pbkdf2 admin '"$pbkdf2_pass   $comment_mark" | sudo tee -a /etc/grub.d/40_custom 
+# Config variables
+comment_mark="#DEBIAN-OPENBOX"
 
-  # Config others users for select entry
-  for f in /etc/grub.d/*; do 
-    sudo sed -i 's/--unrestricted//g' "$f"
-    sudo sed -i 's/\bmenuentry\b/menuentry --unrestricted /g' "$f" 
-  done
+# Config admin user and password
+echo -e "\e[1mSetting GRUB config...\e[0m"
+pbkdf2_pass="$(echo -e "$new_GRUB_password___pbkdf2_pass\n$new_GRUB_password___pbkdf2_pass"| grub-mkpasswd-pbkdf2  | grep "grub.pbkdf2.*" -o)"
+sudo sed -i "/${comment_mark}/Id" /etc/grub.d/40_custom
+echo 'set superusers="admin"    '"$comment_mark"'
+password_pbkdf2 admin '"$pbkdf2_pass   $comment_mark" | sudo tee -a /etc/grub.d/40_custom 
 
-  echo -e "\e[1mUpdating GRUB...\e[0m"
-  update_grub_now
-fi
+# Config others users for select entry
+for f in /etc/grub.d/*; do 
+	sudo sed -i 's/--unrestricted//g' "$f"
+	sudo sed -i 's/\bmenuentry\b/menuentry --unrestricted /g' "$f" 
+done
 
+echo -e "\e[1mUpdating GRUB...\e[0m"
+update_grub_now
+}
 #############################################################################
 
-if [ "$do_you_want_to_skip_grub" == "true" ]
-then
-  # ACTION: Config GRUB for skip menu (timeout=0)
-  # INFO: If you are using only one OS in the computer you con skip GRUB menu for faster boot and avoid users can edit entries
-  # DEFAULT: n
+skip_grub_menu_now()
+{
+show_mf "Config GRUB for skip menu (timeout=0)"
+show_m "Config GRUB for skip menu (timeout=0)"
 
-  # Config variables
+# ACTION: Config GRUB for skip menu (timeout=0)
+# INFO: If you are using only one OS in the computer you con skip GRUB menu for faster boot and avoid users can edit entries
+# DEFAULT: n
+
+# Config variables
 
 cat << 'EOF' > $foldertempfornow/grub.conf
 GRUB_DEFAULT=0
@@ -1190,18 +1192,16 @@ GRUB_HIDDEN_TIMEOUT=0
 GRUB_BACKGROUND=""
 EOF
 
-  # Delete existing lines
-  echo -e "\e[1mSetting GRUB config...\e[0m"
-  for i in $(cat "$foldertempfornow/grub.conf"  | cut -f1 -d=);do
-    sudo sed -i "/\b$i=/Id" /etc/default/grub
-  done
+# Delete existing lines
+echo -e "\e[1mSetting GRUB config...\e[0m"
+for i in $(cat "$foldertempfornow/grub.conf"  | cut -f1 -d=);do
+	sudo sed -i "/\b$i=/Id" /etc/default/grub
+done
 
-  # Add lines
-  cat "$foldertempfornow/grub.conf" | sudo tee -a /etc/default/grub
+# Add lines
+cat "$foldertempfornow/grub.conf" | sudo tee -a /etc/default/grub
 
-  # Update grub
-  echo -e "\e[1mUpdating GRUB...\e[0m"
-  update_grub_now
-
-fi
+# Update grub
+echo -e "\e[1mUpdating GRUB...\e[0m"
+update_grub_now
 }
