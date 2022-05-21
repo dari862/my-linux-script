@@ -228,8 +228,8 @@ fi
 if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]
 then
 	declare -a Grub_CHOICES_Array_now_=(
-	"Protectgrub" "do you want to Protect grub menu." ON
-	"Skipgrub" "do you want to skip grub menu." ON
+	"home_permissions" "Config users home directories permissions to 750 (for current and future users)." ON
+	"Disable_unnecessary_services" "Disable_some_unnecessary_services." ON
 	)
 fi
 
@@ -268,6 +268,12 @@ else
 			;;
 			"reboot")
 				do_you_want_to_reboot="true"
+			;;
+			"home_permissions")
+				do_you_want_to_edit_home_permissions="true"
+			;;
+			"Disable_unnecessary_services")
+				do_you_want_to_Disable_unnecessary_services="true"
 			;;
 			*)
 				echo "Unsupported item $CHOICE!" >&2
