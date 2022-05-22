@@ -324,8 +324,8 @@ sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/sha
 download_archcraft_os_stuffs_now_()
 {
 if [ "$archcraft_installed_alrdy" == "true" ]
-then 
-	return 1
+then
+	return 0
 fi
 
 mkdir -p $temp_folder_for_polybar
