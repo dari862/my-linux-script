@@ -449,7 +449,8 @@ chmod +x $temp_folder_for_usr_bin_/autosnap
 chmod a+x $temp_folder_for_usr_bin_/my-locker
 # update-notification
 mv $temp_folder_for_usr_bin_/update-notification $temp_folder_for_download
-sudo "$temp_folder_for_download/update-notification" -I 
+chmod +x $temp_folder_for_download/update-notification 
+sudo bash "$temp_folder_for_download/update-notification" -I 
 
 # Set as default
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session
