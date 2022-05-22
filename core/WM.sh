@@ -64,7 +64,7 @@ configure_PreWM_now
 configure_archcraft_os_stuffs_now_()
 {
 
-if [ "$archcraft_installed_alrdy" == "true" ]
+if [ "$archcraft_configured_alrdy" == "true" ]
 then
 	return 0
 fi
