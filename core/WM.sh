@@ -367,7 +367,7 @@ show_m "install and configure openbox."
 if command -v "${install_QT_apps_[0]}" >/dev/null
 then
 	Configure_QT_stuff_now
-	for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
+	for I in $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml
 	do
 		sed -i 's/<!--QT_ROOT_Menu-->//g' ${I}
 		sed -i 's/<!--QT_Normal_Menu-->//g' ${I}
@@ -375,7 +375,7 @@ then
 else
 	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
 	then
-		for I in $temp_folder_for_skel_/.config/openbox/menu-*.xml
+		for I in $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml
 		do
 			sed -i '/QT_ROOT_Menu/Id' ${I}
 			sed -i '/QT_Normal_Menu/Id' ${I}
@@ -413,7 +413,7 @@ if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml -typ
 then
 	if [ ! "$(sudo dmesg | grep -qi bluetooth)" ]
 	then
-		for i in $temp_folder_for_skel_/.config/openbox/xfce4-*.xml
+		for i in $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml
 		do
 			sed -i '/DEBIAN-OPENBOX-bluetooth/Id' ${i}
 		done
