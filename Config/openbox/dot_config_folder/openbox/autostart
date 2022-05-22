@@ -22,9 +22,7 @@ fi
 if [ ! -f  ~/.config/rofi/style ] 
 then
 	bash ~/.local/bin/wm_fixer/fix_missing_file style
-fi
-
-if [ ! -f  ~/.config/polybar/style ] && ( command -v polybar > /dev/null )
+elif [ ! -f  ~/.config/polybar/style ] && [ "$( command -v polybar )" ]
 then
 	bash ~/.local/bin/wm_fixer/fix_missing_file style
 fi
