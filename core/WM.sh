@@ -65,8 +65,8 @@ configure_archcraft_os_stuffs_now_()
 {
 
 if [ "$archcraft_installed_alrdy" == "true" ]
-then 
-	return 1
+then
+	return 0
 fi
 
 sudo mkdir -p /usr/share/archcraft 
