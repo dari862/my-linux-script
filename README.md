@@ -22,5 +22,5 @@ https://xerolinux.xyz/
 
 https://github.com/erikdubois/arcolinux-nemesis
 
-https://github.com/adi1090x/polybar-themes
+https://github.com/dari862/my_polybar
 
