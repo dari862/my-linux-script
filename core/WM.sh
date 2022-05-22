@@ -64,7 +64,10 @@ configure_PreWM_now
 configure_archcraft_os_stuffs_now_()
 {
 
-if [ $archcraft_configured_alrdy == "true" ]; then return 1; fi
+if [ "$archcraft_installed_alrdy" == "true" ]
+then 
+	return 1
+fi
 
 sudo mkdir -p /usr/share/archcraft 
 mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
