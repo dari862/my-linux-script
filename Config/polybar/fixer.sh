@@ -33,7 +33,6 @@ adapter = ACAD
 battery = BAT1
 graphics_card = amdgpu_bl0
 network_interface = ens32
-
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 EOF
 }
