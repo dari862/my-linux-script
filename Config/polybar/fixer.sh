@@ -65,14 +65,17 @@ set_values() {
 
 # Fix backlight and network modules
 fix_modules() {
+	
+	Fdir="$i"
+	
 	if [[ -z "$CARD" ]]; then
-		sed -i -e 's/backlight/bna/g' "$DIR"/config.ini
+		sed -i -e 's/backlight/bna/g' "$Fdir"/config.ini
 	elif [[ "$CARD" != *"intel_"* ]]; then
-		sed -i -e 's/backlight/brightness/g' "$DIR"/config.ini
+		sed -i -e 's/backlight/brightness/g' "$Fdir"/config.ini
 	fi
 
 	if [[ "$INTERFACE" == e* ]]; then
-		sed -i -e 's/network/ethernet/g' "$DIR"/config.ini
+		sed -i -e 's/network/ethernet/g' "$Fdir"/config.ini
 	fi
 }
 
