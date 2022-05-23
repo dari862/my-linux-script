@@ -12,7 +12,6 @@ cd $temp_folder_for_preWM
 
 # update-notification
 mv $temp_folder_for_preWM/preWM/usr_bin/update-notification $temp_folder_for_download
-chmod +x $temp_folder_for_download/update-notification 
 sudo bash "$temp_folder_for_download/update-notification" -I
 
 mkdir -p $temp_folder_for_skel_/.local/bin
