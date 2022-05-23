@@ -9,6 +9,12 @@ configure_PreWM_now()
 {
 show_m "install preWM_apps"
 cd $temp_folder_for_preWM
+
+# update-notification
+mv $temp_folder_for_preWM/preWM/usr_bin/update-notification $temp_folder_for_download
+chmod +x $temp_folder_for_download/update-notification 
+sudo bash "$temp_folder_for_download/update-notification" -I
+
 mkdir -p $temp_folder_for_skel_/.local/bin
 sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
@@ -447,10 +453,6 @@ chmod a+x $temp_folder_for_usr_bin_/welcome
 chmod +x $temp_folder_for_usr_bin_/autosnap 
 # Copy my-locker
 chmod a+x $temp_folder_for_usr_bin_/my-locker
-# update-notification
-mv $temp_folder_for_usr_bin_/update-notification $temp_folder_for_download
-chmod +x $temp_folder_for_download/update-notification 
-sudo bash "$temp_folder_for_download/update-notification" -I 
 
 # Set as default
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session
