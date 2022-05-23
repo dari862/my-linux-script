@@ -28,7 +28,6 @@ cat << 'EOF' > $SFILE
 ;; battery = ${system.battery}
 ;; adapter = ACAD
 ;; interface = ${system.network_interface}
-
 [system]
 adapter = ACAD
 battery = BAT1
