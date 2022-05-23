@@ -382,6 +382,9 @@ show_m "download polybar config "
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
+svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar_rofi_extra
+mv -v $temp_folder_for_skel_config/polybar_rofi_extra/* $temp_folder_for_skel_config/
+rm -rdf $temp_folder_for_skel_config/polybar_rofi_extra
 
 if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
 then
@@ -793,7 +796,9 @@ fi
 if command -v polybar &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-polybar
-	cp -fr openbox-polybar/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
+	cp -fr $temp_folder_for_download/openbox-polybar/pipemenu $temp_folder_for_download
+	rm -rdf $temp_folder_for_download/openbox-polybar/pipemenu
+	cp -fr $temp_folder_for_download/openbox-polybar/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
 fi
 
 git-clone $outsidemyrepo_Tela_icon_theme $temp_folder_for_download/Tela-icon-theme

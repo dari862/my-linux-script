@@ -490,9 +490,10 @@ $temp_folder_for_download/Tela-icon-theme/install.sh grey &>> $debug_log
 
 sudo mkdir -p /usr/share/archcraft
 mkdir -p $temp_folder_for_openbox/archcraft/openbox
-mv $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
-mv $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_openbox/archcraft/openbox/
-mv $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_openbox/archcraft/openbox/
+mv -v $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
+mv -v $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_openbox/archcraft/openbox/
+mv -v $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_openbox/archcraft/openbox/
+mv -v $temp_folder_for_download/pipemenus/* $temp_folder_for_openbox/archcraft/openbox/pipemenus
 sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb
 sed -i -e 's|.config/openbox/scripts|.config/My_styles|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
