@@ -4,9 +4,9 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 Style="$1"
-DIR="${2}/$1"
+Pdir="${2}"
+style_dir="$Pdir/$style"
 
-# Launch the bar
 # Terminate already running bar instances
 killall -q polybar
 
@@ -14,10 +14,14 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch the bar
-if [ "$Style" == "hack" ]
-then
-	polybar -q top -c "$DIR"/config.ini &
-	polybar -q bottom -c "$DIR"/config.ini &
+if [[ "$style" == "hack" || "$style" == "cuts" ]]; then
+	polybar -q top -c "${style_dir}/config.ini" &
+	polybar -q bottom -c "${style_dir}/config.ini" &
+elif [[ "$style" == "panels" ]]; then
+	panel="$(cat ${dir}/scripts/panels/panel )"
+	polybar -q main -c "${style_dir}/$panel.ini" &
+elif [[ "$style" == "pwidgets" ]]; then
+	bash "${style_dir}"/launch.sh --main
 else
-	polybar -q main -c "$DIR"/config.ini &
+	polybar -q main -c "${style_dir}/config.ini" &	
 fi
