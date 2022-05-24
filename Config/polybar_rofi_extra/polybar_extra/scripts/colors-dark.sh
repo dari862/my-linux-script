@@ -2,7 +2,7 @@
 
 # Color files
 dir="$HOME/.config/polybar_extra"
-style="$(grep $dir/style -e '^s' | tr -d '"' | cut -d '=' -f2 )"
+style="$(cat $dir/style)"
 PFILE="$HOME/.config/polybar_extra/$style/colors.ini"
 RFILE="$HOME/.config/rofi_extra/$style/colors.rasi"
 
