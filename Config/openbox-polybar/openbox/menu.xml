@@ -59,7 +59,7 @@
         <menu id="preferences" label="Preferences" icon="&icons;/settings.png">
         	<separator label="GRAPHICAL PREFERENCES"/>
 	    <menu id="StylePipeMenu" icon="&icons;/themes.png" execute="&pipes;/ac-change-style" label="Change Style"/>
-	    <menu id="StylePipeMenu" icon="&icons;/themes.png" execute="&pipes;/ac-change-polybar-style" label="Polybar extra style"/>
+	    <menu id="PolybarStylePipeMenu" icon="&icons;/themes.png" execute="&pipes;/ac-change-polybar-style" label="Polybar extra style"/>
             <menu id="obConfig" label="Desktop" icon="&icons;/openbox.png">	
 	            <item label="Openbox Preferences" icon="&icons;/openbox.png">
 	                <action name="Execute">
