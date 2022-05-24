@@ -17,8 +17,8 @@ if ! . "$MENUS_LIBDIR/archcraft.cfg" 2> /dev/null; then
 fi
 
 # Styles
-styles=(`ls -pd --hide={scripts,"*-Bitmap"} $Pdir/*`)
-bitmap=(`cd $Pdir && ls *-Bitmap.sh`)
+styles=(`find $Pdir -maxdepth 1 -type d -not -name scripts -not -name "*-Bitmap"`)
+bitmap=(`cd $Pdir && ls *-Bitmap`)
 
 # Generate menu
 gen_menu () {
@@ -28,13 +28,15 @@ gen_menu () {
 	menuStart
 	menuSeparator "| Simple |"
 	for style in "${styles[@]}"; do
-		menuItem "${count}. ${style%.*}" "bash $Pscript $style"
+		tmp_style=${style##*/}
+		menuItem "${count}. ${tmp_style}" "bash $Pscript $tmp_style"
 		count=$(($count+1))
 	done
 if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then
 	menuSeparator "| Bitmap |"
 	for bmap in "${bitmap[@]}"; do
-		menuItem "${bcount}. ${bmap%-*}" "bash $Pscript $bmap"
+		tmp_bmap=${bmap##*/}
+		menuItem "${bcount}. ${tmp_bmap}" "bash $Pscript $tmp_bmap"
 		bcount=$(($bcount+1))
 	done
 fi
