@@ -5,17 +5,25 @@
 
 ## Files and Directories
 Rdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-Extra_Polybar_dir="$HOME/.config/polybar_extra"
+R_style="$(cat $Rdir/style)"
 
 ## Launch Polybar with selected style
 launch_bar() {
-	STYLE="$(cat $Rdir/style)"
-	bash "$Rdir"/launch-style.sh $STYLE $Rdir
+	bash "$Rdir"/launch-style.sh $R_style $Rdir
 }
 
 # Execute functions
 if [[ ! -f "$SFILE" ]]; then
 	bash "$Rdir"/fixer.sh
-	bash "$Extra_Polybar_dir"/fixer.sh
 fi
-launch_bar
+
+if [[ "$R_style" != "extra" ]]; then
+	launch_bar
+else
+	Extra_Polybar_dir="$HOME/.config/polybar_extra"
+	# Execute functions
+	if [[ ! -f "$SFILE" ]]; then
+		bash "$Extra_Polybar_dir"/fixer.sh
+	fi
+	bash "$Rdir"/polybar_extra.sh
+fi
