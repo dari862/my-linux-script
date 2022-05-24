@@ -21,6 +21,3 @@ work on bspwm
 https://xerolinux.xyz/
 
 https://github.com/erikdubois/arcolinux-nemesis
-
-https://github.com/dari862/my_polybar
-
