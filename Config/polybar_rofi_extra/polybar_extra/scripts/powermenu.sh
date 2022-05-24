@@ -6,7 +6,7 @@
 ## Twitter : @adi1090x
 
 dir="$HOME/.config/polybar_extra"
-style="$(grep $dir/style -e '^s' | tr -d '"' | cut -d '=' -f2 )"
+style="$(cat $dir/style)"
 
 dir="~/.config/rofi_extra/$style"
 uptime=$(uptime -p | sed -e 's/up //g')
