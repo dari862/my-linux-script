@@ -4,20 +4,20 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 ## Files and Directories
-Rdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-R_style="$(cat $Rdir/style)"
+Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+P_style="$(cat $Pdir/style)"
 
 ## Launch Polybar with selected style
 launch_bar() {
-	bash "$Rdir"/launch-style.sh $R_style $Rdir
+	bash "$Pdir"/launch-style.sh $P_style $Pdir
 }
 
 # Execute functions
 if [[ ! -f "$SFILE" ]]; then
-	bash "$Rdir"/fixer.sh
+	bash "$Pdir"/fixer.sh
 fi
 
-if [[ "$R_style" != "extra" ]]; then
+if [[ "$P_style" != "extra" ]]; then
 	launch_bar
 else
 	Extra_Polybar_dir="$HOME/.config/polybar_extra"
@@ -25,5 +25,5 @@ else
 	if [[ ! -f "$SFILE" ]]; then
 		bash "$Extra_Polybar_dir"/fixer.sh
 	fi
-	bash "$Rdir"/polybar_extra.sh
+	bash "$Pdir"/polybar_extra.sh
 fi
