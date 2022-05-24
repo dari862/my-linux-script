@@ -6,7 +6,8 @@
 ## Openbox Pipemenu to change openbox styles
 
 # Dir
-dir="$HOME/.config/My_styles"
+Pdir="$HOME/.config/polybar_extra"
+Pscript="$Pdir/polybar_extra.sh"
 
 # Variables and functions
 MENUS_LIBDIR='/usr/share/archcraft/openbox/menulib'
@@ -16,8 +17,8 @@ if ! . "$MENUS_LIBDIR/archcraft.cfg" 2> /dev/null; then
 fi
 
 # Styles
-styles=(`ls -p --hide={Default.sh,"*-Bitmap.sh"} $dir`)
-bitmap=(`cd $dir && ls *-Bitmap.sh`)
+styles=(`ls -pd --hide={scripts,"*-Bitmap"} $Pdir/*`)
+bitmap=(`cd $Pdir && ls *-Bitmap.sh`)
 
 # Generate menu
 gen_menu () {
@@ -27,13 +28,13 @@ gen_menu () {
 	menuStart
 	menuSeparator "| Simple |"
 	for style in "${styles[@]}"; do
-		menuItem "${count}. ${style%.*}" "bash $dir/$style"
+		menuItem "${count}. ${style%.*}" "bash $Pscript $style"
 		count=$(($count+1))
 	done
 if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then
 	menuSeparator "| Bitmap |"
 	for bmap in "${bitmap[@]}"; do
-		menuItem "${bcount}. ${bmap%-*}" "bash $dir/$bmap"
+		menuItem "${bcount}. ${bmap%-*}" "bash $Pscript $bmap"
 		bcount=$(($bcount+1))
 	done
 fi
