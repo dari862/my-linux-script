@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dir="$HOME/.config/polybar_extra"
-style="$(grep $dir/style -e '^s' | tr -d '"' | cut -d '=' -f2 )"
+style="$(cat $dir/style)"
 SDIR="$HOME/.config/polybar_extra/scripts"
 RDIR="$HOME/.config/rofi_extra"
 
