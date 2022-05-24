@@ -116,7 +116,7 @@
 			<menu id="XrandrPipeMenu" execute="&pipes;/ac-randr" label="Display / Monitor"/>
 			<separator/>
 			<menu id="StylePipeMenu" execute="&pipes;/ac-change-style" label="Change Style"/>
-			<menu id="StylePipeMenu" execute="&pipes;/ac-change-polybar-style" label="Polybar extra Style"/>
+			<menu id="PolybarStylePipeMenu" execute="&pipes;/ac-change-polybar-style" label="Polybar extra Style"/>
 			<menu id="FontPipeMenu" execute="&pipes;/ac-change-fonts" label="Change Font"/>
 			<menu id="SchemePipeMenu" execute="&pipes;/ac-change-scheme" label="Terminal Color Scheme"/>
 			<separator/>
