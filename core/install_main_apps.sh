@@ -379,10 +379,12 @@ apt_install_whith_error2info "${install_polybar_[@]}"
 download_polybar_config_now_()
 {
 show_m "download polybar config "
+mkdir -p $temp_folder_for_download
 mkdir -p $temp_folder_for_skel_config
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar_rofi_extra
+mv -v $temp_folder_for_skel_config/polybar_rofi_extra/pipemenu $temp_folder_for_download/
 mv -v $temp_folder_for_skel_config/polybar_rofi_extra/* $temp_folder_for_skel_config/
 rm -rdf $temp_folder_for_skel_config/polybar_rofi_extra
 
