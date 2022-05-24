@@ -34,6 +34,8 @@ adapter = ACAD
 battery = BAT1
 graphics_card = amdgpu_bl0
 network_interface = ens32
+AC_only_prefix = "  "
+AC_only_content = " AC only "
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 EOF
