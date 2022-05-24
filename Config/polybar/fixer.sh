@@ -66,13 +66,13 @@ set_values() {
 # Fix backlight and network modules
 fix_modules() {
 	if [[ -z "$CARD" ]]; then
-		find $DIR -mindepth 1 -type d -not -name 'scripts' -not -name 'panels' -not -name 'pwidgets' -exec sed -i -e 's/ backlight / bna /g' {}/config.ini \;
+		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ backlight / bna /g' {}/config.ini \;
 	elif [[ "$CARD" != *"intel_"* ]]; then
-		find $DIR -mindepth 1 -type d -not -name 'scripts' -not -name 'panels' -not -name 'pwidgets' -exec sed -i -e 's/ backlight / brightness /g' {}/config.ini \;
+		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ backlight / brightness /g' {}/config.ini \;
 	fi
 
 	if [[ "$INTERFACE" == e* ]]; then
-		find $DIR -mindepth 1 -type d -not -name 'scripts' -not -name 'panels' -not -name 'pwidgets' -exec sed -i -e 's/ network / ethernet /g' {}/config.ini \;
+		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ network / ethernet /g' {}/config.ini \;
 	fi
 }
 
