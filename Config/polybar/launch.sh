@@ -6,6 +6,7 @@
 ## Files and Directories
 Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 P_style="$(cat $Pdir/style)"
+SFILE="$Pdir/system.ini"
 
 ## Launch Polybar with selected style
 launch_bar() {
