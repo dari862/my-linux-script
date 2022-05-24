@@ -75,7 +75,7 @@ fix_modules() {
 		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ network / ethernet /g' {}/config.ini \;
 	fi
 	
-	if [[ "$INTERFACE" == e* ]]; then
+	if [[ "$(cat /sys/class/dmi/id/chassis_type)" != @(8|9|10|14) ]]; then
 		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ battery / AC_only /g' {}/config.ini \;
 	fi
 }
