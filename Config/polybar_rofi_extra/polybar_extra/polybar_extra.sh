@@ -10,8 +10,8 @@ then
 	echo "$1" > "${Pdir}/style"
 fi
 
-Style="$(cat ${Rdir}/{style})"
-style_dir="${Pdir}/${style}"
+Style="$(cat ${Pdir}/style)"
+style_dir="${Pdir}/${Style}"
 
 # Launch the bar
 launch_bar() {
