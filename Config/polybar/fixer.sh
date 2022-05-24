@@ -74,6 +74,10 @@ fix_modules() {
 	if [[ "$INTERFACE" == e* ]]; then
 		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ network / ethernet /g' {}/config.ini \;
 	fi
+	
+	if [[ "$INTERFACE" == e* ]]; then
+		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ battery / AC_only /g' {}/config.ini \;
+	fi
 }
 
 create_system_file_ini
