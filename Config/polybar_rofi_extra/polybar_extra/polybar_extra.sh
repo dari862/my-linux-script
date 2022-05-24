@@ -22,13 +22,13 @@ launch_bar() {
 	while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 	# Launch the bar
-	if [[ "$style" == "hack" || "$style" == "cuts" ]]; then
+	if [[ "$Style" == "hack" || "$Style" == "cuts" ]]; then
 		polybar -q top -c "${style_dir}/config.ini" &
 		polybar -q bottom -c "${style_dir}/config.ini" &
-	elif [[ "$style" == "panels" ]]; then
+	elif [[ "$Style" == "panels" ]]; then
 		panel="$(cat ${Pdir}/scripts/panels/panel )"
 		polybar -q main -c "${style_dir}/${panel.ini}" &
-	elif [[ "$style" == "pwidgets" ]]; then
+	elif [[ "$Style" == "pwidgets" ]]; then
 		bash "${style_dir}"/launch.sh --main
 	else
 		polybar -q main -c "${style_dir}/config.ini" &	
