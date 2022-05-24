@@ -22,4 +22,11 @@ fix_modules() {
 		find $DIR/panels -type f -exec sed -i -e 's/ network / ethernet /g' {} \;
 		find $DIR/pwidgets -type f -exec sed -i -e 's/ network / ethernet /g' {} \;
 	fi
+	
+	if [[ "$(cat /sys/class/dmi/id/chassis_type)" != @(8|9|10|14) ]]; then
+		find $DIR -mindepth 1 -type d -not -name 'scripts' -not -name 'panels' -not -name 'pwidgets' -exec sed -i -e 's/ battery / AC_only /g' {}/config.ini \;
+		find $DIR/panels -type f -exec sed -i -e 's/ battery / AC_only /g' {} \;
+		find $DIR/pwidgets -type f -exec sed -i -e 's/ battery / AC_only /g' {} \;
+	fi
+	
 }
