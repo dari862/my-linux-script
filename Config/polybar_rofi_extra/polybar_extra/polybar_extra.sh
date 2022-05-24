@@ -4,13 +4,13 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-Style="$(cat $Rdir/style)"
 
-if [ ! -z "$1" ]
+if [ "$1" ]
 then
 	echo "$1" > "${Pdir}/style"
 fi
 
+Style="$(cat $Rdir/style)"
 style_dir="$Pdir/$style"
 
 # Launch the bar
