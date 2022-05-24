@@ -26,7 +26,7 @@ launch_bar() {
 		polybar -q top -c "${style_dir}/config.ini" &
 		polybar -q bottom -c "${style_dir}/config.ini" &
 	elif [[ "$style" == "panels" ]]; then
-		panel="$(cat ${dir}/scripts/panels/panel )"
+		panel="$(cat ${Pdir}/scripts/panels/panel )"
 		polybar -q main -c "${style_dir}/${panel.ini}" &
 	elif [[ "$style" == "pwidgets" ]]; then
 		bash "${style_dir}"/launch.sh --main
