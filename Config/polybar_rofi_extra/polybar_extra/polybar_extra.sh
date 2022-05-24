@@ -3,25 +3,15 @@
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
-Style="$1"
-Pdir="${2}"
+Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+Style="$(cat $Rdir/style)"
+
+if [ ! -z "$1" ]
+then
+	echo "$1" > "${Pdir}/style"
+fi
+
 style_dir="$Pdir/$style"
-CARD="$(light -L | grep 'backlight' | head -n1 | cut -d'/' -f3)"
-INTERFACE="$(ip link | awk '/state UP/ {print $2}' | tr -d :)"
-RFILE="$style_dir/.module"
-
-# Fix backlight and network modules
-fix_modules() {
-	if [[ -z "$CARD" ]]; then
-		sed -i -e 's/backlight/bna/g' "$style_dir"/config.ini
-	elif [[ "$CARD" != *"intel_"* ]]; then
-		sed -i -e 's/backlight/brightness/g' "$style_dir"/config.ini
-	fi
-
-	if [[ "$INTERFACE" == e* ]]; then
-		sed -i -e 's/network/ethernet/g' "$style_dir"/config.ini
-	fi
-}
 
 # Launch the bar
 launch_bar() {
@@ -45,9 +35,4 @@ launch_bar() {
 	fi
 }
 
-# Execute functions
-if [[ ! -f "$RFILE" ]]; then
-	#fix_modules
-	touch "$RFILE"
-fi	
 launch_bar
