@@ -9,7 +9,15 @@ done
 
 $HOME/.local/bin/my_power_manager/my_power_manager &
 
-if [ "$(command -v cbatticon)" ] && [ "$(cat ~/.local/bin/wm_fixer/which_panel)" != "polybar" ]
+if [ "$(command -v cbatticon)" ]
 then
-	cbatticon -i symbolic -x "bash $HOME/.local/bin/my_power_manager/my_power_manager_gui" &
+	if [ "$(cat ~/.local/bin/wm_fixer/which_panel)" != "polybar" ]
+	then 
+		cbatticon -i symbolic -x "bash $HOME/.local/bin/my_power_manager/my_power_manager_gui" &
+	else
+		if [ "$(cat ~/.local/polybar_extra/style)" == "panels" ]
+		then
+			cbatticon -i symbolic -x "bash $HOME/.local/bin/my_power_manager/my_power_manager_gui" &
+		fi
+	fi
 fi
