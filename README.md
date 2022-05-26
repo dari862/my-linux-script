@@ -42,8 +42,6 @@ error: Disabling module "backlight" (reason: Not supported for "HDMI-1")
 
 # new polybar
 
-add tray
-
 # forest grayblocks  
 
 error: module/backlight: Could not get data (err: XCB_NAME (15))
