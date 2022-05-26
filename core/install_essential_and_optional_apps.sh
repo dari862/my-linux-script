@@ -98,7 +98,7 @@ then
 	sudo update-alternatives --set x-www-browser $(command -v $temp_command)
 fi
 
-if [ "is_komorebi_installed" == "true"]
+if [ "$is_komorebi_installed" == "true"]
 then
 
 	show_m "create komorebi bash aliases"
