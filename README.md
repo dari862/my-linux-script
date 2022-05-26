@@ -44,10 +44,6 @@ error: Disabling module "backlight" (reason: Not supported for "HDMI-1")
 
 add tray
 
-# cut docky hacks
-
-error: Disabling module "temperature" (reason: The file '/sys/devices/pci0000:00/0000:00:01.3/0000:01:00.0/hwmon/hwmon0/temp1_input' does not exist)
-
 # forest grayblocks  
 
 error: module/backlight: Could not get data (err: XCB_NAME (15))
