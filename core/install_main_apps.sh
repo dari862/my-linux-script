@@ -712,6 +712,7 @@ sudo chown -R root:root fonts
 install_nitrogen_now
 }
 
+# full_installer.sh
 install_preWM_Network_apps_now()
 {
 show_m "install Networkmanager apps "
