@@ -28,6 +28,7 @@ cat << 'EOF' > $SFILE
 ;; battery = ${system.battery}
 ;; adapter = ACAD
 ;; interface = ${system.network_interface}
+;; temperature = ${system.temperature}
 
 [system]
 adapter = ACAD
@@ -36,6 +37,7 @@ graphics_card = amdgpu_bl0
 network_interface = ens32
 AC_only_prefix = "  "
 AC_only_content = " AC only "
+temperature = temperature_path
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 EOF
