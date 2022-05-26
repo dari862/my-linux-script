@@ -57,6 +57,10 @@ get_values() {
 	fi
 	
 	INTERFACE=$(ip link | awk '/state UP/ {print $2}' | tr -d :)
+	
+	#varibale TemperaturePath are set at the end
+	(for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done) | grep "coretemp" | grep "temp1" | awk '{print $5}' | read TemperaturePath
+	
 }
 
 ## Write values to `system.ini` file
@@ -72,6 +76,10 @@ set_values() {
 	fi
 	if [[ "$INTERFACE" ]]; then
 		sed -i -e "s/network_interface = .*/network_interface = $INTERFACE/g" 	${SFILE}
+	fi
+	
+	if [[ "$TemperaturePath" ]]; then
+		sed -i -e "s/temperature = .*/temperature = $TemperaturePath/g" 	${SFILE}
 	fi
 }
 
