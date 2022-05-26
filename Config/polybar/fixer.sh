@@ -2,6 +2,13 @@
 
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+
+Laptop_Name="$(cat /sys/class/dmi/id/product_version)"
+
+if [[ "$Laptop_Name" ]]; then
+	Laptop_Thinkpad_X1="$(echo ${Laptop_Name,,} | grep 'thinkpad')"
+fi
+
 ## Files and Directories
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 SFILE="$DIR/system.ini"
@@ -87,7 +94,7 @@ set_values() {
 fix_modules() {
 	if [[ -z "$CARD" ]]; then
 		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ backlight / bna /g' {}/config.ini \;
-	elif [[ "$CARD" != *"intel_"* ]]; then
+	elif [[ "$CARD" != *"intel_"* ]] || [[ "$Laptop_Thinkpad_X1" ]] ; then
 		find $DIR -mindepth 1 -type d -not -name 'scripts' -exec sed -i -e 's/ backlight / brightness /g' {}/config.ini \;
 	fi
 
