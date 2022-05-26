@@ -24,6 +24,8 @@ https://github.com/erikdubois/arcolinux-nemesis
 
 # to fix 
 
+error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
+
 # old polybar
 
 # eleven kiss 
@@ -31,8 +33,6 @@ https://github.com/erikdubois/arcolinux-nemesis
 error: module/backlight: Could not get data (err: XCB_NAME (15))
 
 error: Disabling module "backlight" (reason: Not supported for "eDP-1")
-
-error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
 
 # hack forest
 
