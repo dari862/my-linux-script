@@ -26,5 +26,5 @@ else
 	if [[ ! -f "$SFILE" ]]; then
 		bash "$Extra_Polybar_dir"/fixer.sh
 	fi
-	bash "$Pdir"/polybar_extra.sh
+	bash "$Extra_Polybar_dir"/polybar_extra.sh
 fi
