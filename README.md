@@ -24,6 +24,8 @@ https://github.com/erikdubois/arcolinux-nemesis
 
 # to fix 
 
+fix brighness script
+
 error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
 
 error: module/backlight: Could not get data (err: XCB_NAME (15))
