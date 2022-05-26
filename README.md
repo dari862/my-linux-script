@@ -32,19 +32,4 @@ error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
 
 error: module/backlight: Could not get data (err: XCB_NAME (15))
 
-error: Disabling module "backlight" (reason: Not supported for "eDP-1")
-
-# hack forest
-
-error: module/backlight: Could not get data (err: XCB_NAME (15))
-
-error: Disabling module "backlight" (reason: Not supported for "HDMI-1")
-
-# new polybar
-
-# forest grayblocks  
-
-error: module/backlight: Could not get data (err: XCB_NAME (15))
-
-error: Disabling module "backlight" (reason: Not supported for "HDMI-1")
 
