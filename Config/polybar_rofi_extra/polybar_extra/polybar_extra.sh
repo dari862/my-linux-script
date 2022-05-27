@@ -5,7 +5,7 @@
 
 PEdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-if [ ! -f "${PEdir}/style" ]
+if [ ! $(cat "${PEdir}/style") ]
 then
 	echo "material" > "${PEdir}/style"
 fi
