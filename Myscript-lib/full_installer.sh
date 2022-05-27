@@ -219,7 +219,8 @@ Done_installing_Massage_now
 
 if [ "$do_you_want_to_reboot" == "true" ]; then
 	sudo reboot
+else
+	exit 0
 fi
-
 
 }
