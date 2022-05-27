@@ -3,17 +3,20 @@
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
-Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PEdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+if [ ! -f "${PEdir}/style" ]
+then
+	echo "material" > "${PEdir}/style"
+fi
 
 if [ "$1" ]
 then
-	echo "$1" > "${Pdir}/style"
-else
-	echo "material" > "${Pdir}/style"
+	echo "$1" > "${PEdir}/style"
 fi
 
-Style="$(cat ${Pdir}/style)"
-style_dir="${Pdir}/${Style}"
+Style="$(cat ${PEdir}/style)"
+style_dir="${PEdir}/${Style}"
 
 # Launch the bar
 launch_bar() {
@@ -28,7 +31,7 @@ launch_bar() {
 		polybar -q top -c "${style_dir}/config.ini" &
 		polybar -q bottom -c "${style_dir}/config.ini" &
 	elif [[ "$Style" == "panels" ]]; then
-		panel="$(cat ${Pdir}/scripts/panels/panel )"
+		panel="$(cat ${PEdir}/scripts/panels/panel )"
 		polybar -q main -c "${style_dir}/${panel}.ini" &
 	elif [[ "$Style" == "pwidgets" ]]; then
 		bash "${style_dir}"/launch.sh --main
