@@ -5,6 +5,11 @@
 
 ## Files and Directories
 Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+if [[ ! -f "$Pdir/style" ]]; then
+	echo "old" > $Pdir/style
+fi
+
 P_style="$(cat $Pdir/style)"
 SFILE="$Pdir/system.ini"
 
