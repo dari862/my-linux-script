@@ -8,6 +8,8 @@ Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 if [ "$1" ]
 then
 	echo "$1" > "${Pdir}/style"
+else
+	echo "material" > "${Pdir}/style"
 fi
 
 Style="$(cat ${Pdir}/style)"
