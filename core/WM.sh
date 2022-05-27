@@ -405,23 +405,11 @@ then
 	fi
 fi
 
-
-if [ -f "$temp_folder_for_openbox/dot_config_folder/openbox/menu.xml" ] 
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "menu-*.xml" -o -name "xfce4-*.xml" -o -name "menu.xml" \) > /dev/null)" ] 
 then
 	if [ ! "$(sudo dmesg | grep -qi bluetooth)" ]
 	then
-		sed -i '/DEBIAN-OPENBOX-bluetooth/Id' $temp_folder_for_openbox/dot_config_folder/openbox/menu.xml
-	fi
-fi
-
-if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml -type f 2> /dev/null)" ] 
-then
-	if [ ! "$(sudo dmesg | grep -qi bluetooth)" ]
-	then
-		for i in $temp_folder_for_openbox/dot_config_folder/openbox/xfce4-*.xml
-		do
-			sed -i '/DEBIAN-OPENBOX-bluetooth/Id' ${i}
-		done
+		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i '/DEBIAN-OPENBOX-bluetooth/Id' {} \;
 	fi
 fi
 
