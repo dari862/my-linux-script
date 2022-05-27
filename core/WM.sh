@@ -506,11 +506,6 @@ sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-
 sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's|openbox/polybar|polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr
 
-mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr_old
-mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
-mv $temp_folder_for_themes_and_apps/openbox/pipemenu/* $temp_folder_for_openbox/archcraft/openbox/pipemenus/
-
-
 for change_content in ac-powermenu ac-change-fonts ac-randr
 do
 	sed -i 's|.config/openbox/rofi|.config/rofi|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
@@ -518,6 +513,10 @@ do
 done
 
 echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
+
+mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr_old
+mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
+mv $temp_folder_for_themes_and_apps/openbox/pipemenu/* $temp_folder_for_openbox/archcraft/openbox/pipemenus/
 
 ##################################################################
 
