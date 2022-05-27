@@ -3,6 +3,7 @@
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
+Pdir="$HOME/.config/polybar"
 PEdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 if [ ! $(cat "${PEdir}/style") ]
@@ -30,8 +31,8 @@ launch_bar() {
 	if [[ "$Style" == "hack" || "$Style" == "cuts" ]]; then
 		polybar -q top -c "${style_dir}/config.ini" &
 		polybar -q bottom -c "${style_dir}/config.ini" &
-	elif [[ "$Style" == "panels" ]]; then
-		panel="$(cat ${PEdir}/scripts/panels/panel )"
+	elif [[ "$Style" == "panels-"* ]]; then
+		panel="${Style#"panels-"}"
 		polybar -q main -c "${style_dir}/${panel}.ini" &
 	elif [[ "$Style" == "pwidgets" ]]; then
 		bash "${style_dir}"/launch.sh --main
