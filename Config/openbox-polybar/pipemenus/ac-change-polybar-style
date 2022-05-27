@@ -8,6 +8,8 @@
 # Dir
 Pdir="$HOME/.config/polybar_extra"
 Pscript="$Pdir/polybar_extra.sh"
+PEdir="$HOME/.config/polybar_extra"
+PEscript="$PEdir/polybar_extra.sh"
 
 # Variables and functions
 MENUS_LIBDIR='/usr/share/archcraft/openbox/menulib'
@@ -17,8 +19,9 @@ if ! . "$MENUS_LIBDIR/archcraft.cfg" 2> /dev/null; then
 fi
 
 # Styles
-styles=(`find $Pdir/* -maxdepth 1 -type d -not -name scripts -not -name "*-Bitmap"`)
-bitmap=(`cd $Pdir && ls *-Bitmap`)
+styles=(`find $PEdir/* -maxdepth 1 -type d -not -name scripts -not -name "*-Bitmap" -not -name panels`)
+bitmap=(`cd $PEdir && ls *-Bitmap`)
+panels=(`find $PEdir/panels/* -maxdepth 1 -type f`)
 
 # Generate menu
 gen_menu () {
@@ -29,17 +32,23 @@ gen_menu () {
 	menuSeparator "| Simple |"
 	for style in "${styles[@]}"; do
 		tmp_style=${style##*/}
-		menuItem "${count}. ${tmp_style}" "bash $Pscript $tmp_style"
+		menuItem "${count}. ${tmp_style}" "bash $PEscript $tmp_style"
 		count=$(($count+1))
 	done
-if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then
-	menuSeparator "| Bitmap |"
-	for bmap in "${bitmap[@]}"; do
-		tmp_bmap=${bmap##*/}
-		menuItem "${bcount}. ${tmp_bmap}" "bash $Pscript $tmp_bmap"
-		bcount=$(($bcount+1))
+	if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then
+		menuSeparator "| Bitmap |"
+		for bmap in "${bitmap[@]}"; do
+			tmp_bmap=${bmap##*/}
+			menuItem "${bcount}. ${tmp_bmap}" "bash $PEscript $tmp_bmap"
+			bcount=$(($bcount+1))
+		done
+	fi
+	menuSeparator "| Panels |"
+	for panel in "${panels[@]}"; do
+		tmp_panel=${panel##*/}
+		menuItem "${count}. ${tmp_panel}" "bash $PEscript $tmp_style"
+		count=$(($count+1))
 	done
-fi
 	menuEnd
 }
 
