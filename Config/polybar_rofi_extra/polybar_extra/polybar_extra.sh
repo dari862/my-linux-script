@@ -31,9 +31,8 @@ launch_bar() {
 	if [[ "$Style" == "hack" || "$Style" == "cuts" ]]; then
 		polybar -q top -c "${style_dir}/config.ini" &
 		polybar -q bottom -c "${style_dir}/config.ini" &
-	elif [[ "$Style" == "panels-"* ]]; then
-		panel="${Style#"panels-"}"
-		polybar -q main -c "${PEdir}/panels/${panel}.ini" &
+	elif [[ "$Style" == "panels/"* ]]; then
+		polybar -q main -c "${PEdir}/${Style}.ini" &
 	elif [[ "$Style" == "pwidgets" ]]; then
 		bash "${style_dir}"/launch.sh --main
 	else
