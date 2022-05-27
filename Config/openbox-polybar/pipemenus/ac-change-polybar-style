@@ -46,7 +46,7 @@ gen_menu () {
 	menuSeparator "| Panels |"
 	for panel in "${panels[@]}"; do
 		tmp_panel=${panel##*/}
-		menuItem "${count}. ${tmp_panel}" "bash $PEscript $tmp_style"
+		menuItem "${count}. ${tmp_panel}" "bash $PEscript panels-${tmp_style}"
 		count=$(($count+1))
 	done
 	menuEnd
