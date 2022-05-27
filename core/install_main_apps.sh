@@ -798,8 +798,8 @@ fi
 if command -v polybar &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-polybar
-	cp -fr $temp_folder_for_download/openbox-polybar/pipemenu $temp_folder_for_download
-	rm -rdf $temp_folder_for_download/openbox-polybar/pipemenu
+	cp -fr $temp_folder_for_download/openbox-polybar/pipemenus $temp_folder_for_download
+	rm -rdf $temp_folder_for_download/openbox-polybar/pipemenus
 	cp -fr $temp_folder_for_download/openbox-polybar/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
 fi
 
