@@ -47,7 +47,7 @@ gen_menu () {
 	for panel in "${panels[@]}"; do
 		tmp_panel_ini=${panel%".ini"}
 		tmp_panel=${tmp_panel_ini##*/}
-		menuItem "${count}. ${tmp_panel}" "bash $PEscript panels-${tmp_panel}"
+		menuItem "${count}. ${tmp_panel}" "bash $PEscript panels/${tmp_panel}"
 		count=$(($count+1))
 	done
 	menuEnd
