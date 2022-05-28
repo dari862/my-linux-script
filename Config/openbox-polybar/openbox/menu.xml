@@ -20,8 +20,10 @@
 			</action>
 		</item> 
 
-		<separator/> <item label="VirtualBox" icon="&icons;/virtualbox.png"><action name="Execute"><command>virtualbox</command></action></item> 
-		
+		<separator/>
+	    <!--Virtual_Desktop_Software
+	    <item label="VirtualBox" icon="&icons;/virtualbox.png"><action name="Execute"><command>virtualbox</command></action></item>  
+	    Virtual_Desktop_Software -->
 		<item label="Terminal" icon="&icons;/terminal.png">
             <action name="Execute">
                 <command>
@@ -312,7 +314,7 @@
                     </command>
                 </action>
             </item>
-		<!--DEBIAN-OPENBOX-bluetooth
+		<!--Bluetooth_session_script_
             <item label="Bluetooth" icon="&icons;/bluetooth.png"> 	
                 <action name="Execute"> 													
                     <command> 																
@@ -320,7 +322,7 @@
                     </command> 																
                 </action> 																							
             </item> 				
-		DEBIAN-OPENBOX-bluetooth-->
+		Bluetooth_session_script_-->
 			<item label="Network Configuration" icon="&icons;/network.png">
 				<action name="Execute">
 					<command>
