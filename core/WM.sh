@@ -366,30 +366,16 @@ configuring_bspwm_now
 
 modify_openbox_menu_now()
 {
-if command -v "${install_QT_apps_[0]}" >/dev/null
-then
-	Configure_QT_stuff_now
-	for I in $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml
-	do
-		sed -i 's/<!--QT_ROOT_Menu-->//g' ${I}
-		sed -i 's/<!--QT_Normal_Menu-->//g' ${I}
-	done
-else
-	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
-	then
-		for I in $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml
-		do
-			sed -i '/QT_ROOT_Menu/Id' ${I}
-			sed -i '/QT_Normal_Menu/Id' ${I}
-		done
-	fi
-
-fi
 if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
 then
+	if command -v "${install_QT_apps_[0]}" >/dev/null
+	then
+		Configure_QT_stuff_now
+		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e '/QT_ROOT_Menu/Id' -e '/QT_Normal_Menu/Id'  {} \;
+	fi
+	
 	if command -v xfce4-appearance-settings >/dev/null
 	then
-
 		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/lxappearance/xfce4-appearance-settings/g' {} \;
 	fi
 
@@ -399,7 +385,7 @@ then
 	fi	
 fi
 
-if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "menu-*.xml" -o -name "xfce4-*.xml" -o -name "menu.xml" \) > /dev/null)" ] 
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "xfce4-*.xml" -o -name "menu.xml" \) 2> /dev/null)" ] 
 then
 	if [ "$(sudo dmesg | grep -qi bluetooth)" ]
 	then
