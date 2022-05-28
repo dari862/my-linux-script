@@ -385,21 +385,18 @@ else
 	fi
 
 fi
-
-if command -v xfce4-appearance-settings >/dev/null
+if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
 then
-	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+	if command -v xfce4-appearance-settings >/dev/null
 	then
+
 		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/lxappearance/xfce4-appearance-settings/g' {} \;
 	fi
-fi
 
-if ! command -v xfce4-settings-manager >/dev/null
-then
-	if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f 2> /dev/null)" ]
+	if ! command -v xfce4-settings-manager >/dev/null
 	then
 		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i -e 's/xfce4-settings-manager/obconf/g' {} \;
-	fi
+	fi	
 fi
 
 if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "menu-*.xml" -o -name "xfce4-*.xml" -o -name "menu.xml" \) > /dev/null)" ] 
