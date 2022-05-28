@@ -64,16 +64,18 @@
 					<execute>&rofibin;/apps_as_root 'lxappearance'</execute>
 				</action>
 			</item>
-			<item label="QT5 Settings">							<!--QT_ROOT_Menu-->
-				<action name="Execute">							<!--QT_ROOT_Menu-->
-					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>		<!--QT_ROOT_Menu-->
-				</action>								<!--QT_ROOT_Menu-->
-			</item>										<!--QT_ROOT_Menu-->
-			<item label="kvantum Manager">							<!--QT_ROOT_Menu-->
-				<action name="Execute">							<!--QT_ROOT_Menu-->
-					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>	<!--QT_ROOT_Menu-->
-				</action>								<!--QT_ROOT_Menu-->
-			</item>										<!--QT_ROOT_Menu-->
+			<!--QT_ROOT_Menu
+			<item label="QT5 Settings">							
+				<action name="Execute">							
+					<execute>&rofibin;/apps_as_root 'qt5ct'</execute>		
+				</action>								
+			</item>										
+			<item label="kvantum Manager">							
+				<action name="Execute">							
+					<execute>&rofibin;/apps_as_root 'kvantummanager'</execute>	
+				</action>								
+			</item>										
+			QT_ROOT_Menu-->
 		</menu>
 		<menu id="ac-shots" execute="&pipes;/ac-shots" label="Screenshot"/>
 		<menu id="ac-record" execute="&pipes;/ac-record" label="Screen Recorder"/>
@@ -130,16 +132,18 @@
 					<command>lxappearance</command>
 				</action>
 			</item>
-			<item label="QT5 Settings">				<!--QT_Normal_Menu-->
-				<action name="Execute">				<!--QT_Normal_Menu-->
-					<command>qt5ct</command>		<!--QT_Normal_Menu-->
-				</action>					<!--QT_Normal_Menu-->
-			</item>							<!--QT_Normal_Menu-->
-			<item label="Kvantum Manager">				<!--QT_Normal_Menu-->
-				<action name="Execute">				<!--QT_Normal_Menu-->
-					<command>kvantummanager</command>	<!--QT_Normal_Menu-->	
-				</action>					<!--QT_Normal_Menu-->
-			</item>							<!--QT_Normal_Menu-->
+			<!--QT_Normal_Menu
+			<item label="QT5 Settings">				
+				<action name="Execute">				
+					<command>qt5ct</command>		
+				</action>					
+			</item>							
+			<item label="Kvantum Manager">				
+				<action name="Execute">				
+					<command>kvantummanager</command>		
+				</action>					
+			</item>							
+			QT_Normal_Menu-->
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
