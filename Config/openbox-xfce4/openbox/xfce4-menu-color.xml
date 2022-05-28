@@ -315,13 +315,15 @@
                     </command>
                 </action>
             </item>
-            <item label="Bluetooth"> 	<!--DEBIAN-OPENBOX-bluetooth-->
-                <action name="Execute"> 													<!--DEBIAN-OPENBOX-bluetooth-->
-                    <command> 																<!--DEBIAN-OPENBOX-bluetooth-->
-                        bt-session 															<!--DEBIAN-OPENBOX-bluetooth-->
-                    </command> 																<!--DEBIAN-OPENBOX-bluetooth-->
-                </action> 																	<!--DEBIAN-OPENBOX-bluetooth-->						
-            </item> 																		<!--DEBIAN-OPENBOX-bluetooth-->
+		<!--DEBIAN-OPENBOX-bluetooth
+            <item label="Bluetooth"> 	
+                <action name="Execute"> 													
+                    <command> 																
+                        bt-session 															
+                    </command> 																
+                </action> 																							
+            </item>
+		   DEBIAN-OPENBOX-bluetooth-->
 			<item label="Network Configuration">
 				<action name="Execute">
 					<command>
