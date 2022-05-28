@@ -364,11 +364,8 @@ configuring_bspwm_now
 ##################################################################################################################################################
 ##################################################################################################################################################
 
-main_openbox_now()
+modify_openbox_menu_now()
 {
-show_mf "install and configure openbox"
-show_m "install and configure openbox."
-
 if command -v "${install_QT_apps_[0]}" >/dev/null
 then
 	Configure_QT_stuff_now
@@ -412,6 +409,15 @@ then
 		find $temp_folder_for_openbox/dot_config_folder/openbox/menu-*.xml -type f -exec sed -i '/DEBIAN-OPENBOX-bluetooth/Id' {} \;
 	fi
 fi
+
+}
+
+main_openbox_now()
+{
+show_mf "install and configure openbox"
+show_m "install and configure openbox."
+
+modify_openbox_menu_now
 
 cd $temp_folder_for_openbox
 
