@@ -389,7 +389,12 @@ if [ "$(find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -na
 then
 	if [ "$(sudo dmesg | grep -qi bluetooth)" ]
 	then
-		find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "xfce4-*.xml" -o -name "menu.xml" \) -exec sed -i '/DEBIAN-OPENBOX-bluetooth/Id' {} \;
+		find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "xfce4-*.xml" -o -name "menu.xml" \) -exec sed -i '/Bluetooth_session_script_/Id' {} \;
+	fi
+	
+	if command -v virtualbox >/dev/null
+	then
+		find $temp_folder_for_openbox/dot_config_folder/openbox/* -type f \( -name "xfce4-*.xml" -o -name "menu.xml" \) -exec sed -i '/Virtual_Desktop_Software/Id' {} \;
 	fi
 fi
 
