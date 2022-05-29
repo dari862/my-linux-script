@@ -160,7 +160,7 @@
 			<separator/>
 			<item label="Power Settings">
 				<action name="Execute">
-					<command>xfce4-power-manager-settings</command>
+					<command>bash -c "$HOME/.local/bin/my_power_manager/my_power_manager_gui"</command>
 				</action>
 			</item>
 			<item label="Audio Settings">
@@ -170,7 +170,7 @@
 			</item>
 			<item label="Settings Manager">
 				<action name="Execute">
-					<command>bash -c "$HOME/.local/bin/my_power_manager/my_power_manager_gui"</command>
+					<command>xfce4-settings-manager</command>
 				</action>
 			</item>
 		</menu>
