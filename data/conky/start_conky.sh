@@ -16,8 +16,10 @@ conky_theme_now=$(cat $HOME/.conky/conky_theme.conky)
 # DESCRIPTION: stop all conky process
 #===================================================================================
 function stop() {
-	killall conky
-	killall -9 conky
+	if [ "$(pidof conky)" ]; then
+		killall conky
+		killall -9 conky
+	fi
 }
 
 
