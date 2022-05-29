@@ -134,7 +134,7 @@ if [ ! "$(pidof x-file-manager)" ]; then
 	exec x-file-manager --daemon &
 fi
 
-if [ ! "$(pidof x-file-manager)" ]; then
-	## Thunar Daemon
+if [ ! "$(pidof xclip)" ]; then
+	## clipboard manager
 	exec xclip &
 fi
