@@ -1091,10 +1091,10 @@ mkdir -p $temp_folder_for_skel_config && cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/data/conky/
 
 # Copy users config
-mv -v "$temp_folder_for_skel_config/conky/start_conky.sh" $temp_folder_for_usr_bin_
-chmod a+x $temp_folder_for_usr_bin_"/start_conky.sh"
+mv -v "$temp_folder_for_skel_config/conky/conky-session" $temp_folder_for_usr_bin_
+chmod a+x $temp_folder_for_usr_bin_"/conky-session"
 
-sed -i "s|/.conky/|"$conky_Stuff_folder_now/"|g" $temp_folder_for_usr_bin_/start_conky.sh
+sed -i "s|/.conky/|"$conky_Stuff_folder_now/"|g" $temp_folder_for_usr_bin_/conky-session
 
 StringArray=(nordcore vision)
 for INDEX in ${!StringArray[*]}; do
@@ -1121,26 +1121,26 @@ done
 if [ -d "$temp_folder_for_shell_config" ]
 then
 cat <<EOF >> $temp_folder_for_skel_tweakterminalfolder/conky-aliases
-alias nowconky-start="~/$conky_Stuff_folder_now/conky/start_conky.sh &"
-alias nowconky-removeautostart="rm ~/.config/autostart/start_conky.sh.desktop" 
-alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/start_conky.sh.desktop ~/.config/autostart/"
+alias nowconky-start="conky-session&"
+alias nowconky-removeautostart="rm ~/.config/autostart/conky-session.desktop" 
+alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/conky-session.desktop ~/.config/autostart/"
 EOF
 echo 'source $zshdotfiles/conky-aliases' >> $temp_folder_for_skel_tweakterminalfolder/$zshrcfilename
 echo 'source $BASHDOTDIR/conky-aliases' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
 elif [ -d "$temp_folder_for_skel_shell_folder" ] || [ -d "/etc/skel/$myshell_skel_folder" ]
 then 
 cat <<EOF >> $temp_folder_for_skel_shell_folder/conky-aliases
-alias nowconky-start="~/$conky_Stuff_folder_now/conky/start_conky.sh &"
-alias nowconky-removeautostart="rm ~/.config/autostart/start_conky.sh.desktop" 
-alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/start_conky.sh.desktop ~/.config/autostart/"
+alias nowconky-start="conky-session &"
+alias nowconky-removeautostart="rm ~/.config/autostart/conky-session.desktop" 
+alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/conky-session.desktop ~/.config/autostart/"
 EOF
 echo 'source $zshdotfiles/conky-aliases' >> $temp_folder_for_skel_shell_folder/$zshrcfilename
 echo 'source $BASHDOTDIR/conky-aliases' >> $temp_folder_for_skel_shell_folder/$bashrcfilename
 else
 cat <<EOF >> $temp_folder_for_skel_/.bash_aliases
-alias nowconky-start="~/$conky_Stuff_folder_now/conky/start_conky.sh &"
-alias nowconky-removeautostart="rm ~/.config/autostart/start_conky.sh.desktop"
-alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/start_conky.sh.desktop ~/.config/autostart/"
+alias nowconky-start="conky-session &"
+alias nowconky-removeautostart="rm ~/.config/autostart/conky-session.desktop"
+alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/conky-session.desktop ~/.config/autostart/"
 EOF
 fi
 
