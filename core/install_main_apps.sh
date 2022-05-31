@@ -396,8 +396,7 @@ fi
 download_rofi_config_now_
 
 mv $temp_folder_for_skel_config/polybar/networkmanager-dmenu $temp_folder_for_skel_config
-show_m "download rofi config "
-svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
+
 show_m "install fonts for polybar app "
 mkdir -p $temp_folder_for_download
 sudo mkdir -p /usr/share/fonts
@@ -414,6 +413,7 @@ git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_do
 
 download_rofi_config_now_()
 {
+show_m "download rofi config "
 if [ ! -f "$temp_folder_for_download/rofi_config_files_downloaded" ]
 then
 	show_m "download rofi config "
