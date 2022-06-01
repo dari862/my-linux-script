@@ -33,9 +33,12 @@ https://xerolinux.xyz/
 https://github.com/erikdubois/arcolinux-nemesis
 
 </details>
-  
-# to fix 
+
+<details>
+<summary><h1>to fix</h1></summary>
 
 fix brighness script
 
 error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
+
+</details>
