@@ -20,16 +20,20 @@ bash <(wget -q -O - https://raw.githubusercontent.com/dari862/my-linux-script/ma
 bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/debugging.sh)
 ```
 
-# to do
-**`Bar`**
-! number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
 
-! work on bspwm
+<details>
+<summary><b>to do</b></summary>
 
-! https://xerolinux.xyz/
+number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
 
-! https://github.com/erikdubois/arcolinux-nemesis
+work on bspwm
 
+https://xerolinux.xyz/
+
+https://github.com/erikdubois/arcolinux-nemesis
+
+</details>
+  
 # to fix 
 
 fix brighness script
