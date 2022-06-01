@@ -22,7 +22,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 
 <details>
-<summary><b>to do</b></summary>
+<summary><h1>to do</h1></summary>
 
 number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
 
