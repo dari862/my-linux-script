@@ -138,3 +138,8 @@ function cleannow {
 function cd {
   builtin cd "$@" && ls
 }
+
+# one off calculator
+calc() {
+	echo "scale=3;$@" | bc -l
+}
