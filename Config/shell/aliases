@@ -27,16 +27,22 @@ alias diff='diff --color=auto'
 alias ip="ip --color=auto"
 
 ### LS & TREE
-alias ll='ls -la'
-alias la='ls -A'
-alias l='ls -F'
-command -v lsd > /dev/null && alias ls='lsd --group-dirs first' && \
-	alias tree='lsd --tree'
-command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
-	alias tree='colorls --tree'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+if ! command -v exa > /dev/null; then
+	alias ll='ls -la'
+	alias la='ls -A'
+	alias l='ls -F'
+	command -v lsd > /dev/null && alias ls='lsd --group-dirs first' && \
+		alias tree='lsd --tree'
+	command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
+		alias tree='colorls --tree'
+	alias ll='ls -alF'
+	alias la='ls -A'
+	alias l='ls -CF'
+else
+	alias l="exa -la"
+	alias ls="exa"
+	alias li="exa --icons"
+fi
 
 ### CAT & LESS
 command -v bat > /dev/null && \
