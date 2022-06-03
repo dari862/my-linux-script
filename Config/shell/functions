@@ -126,6 +126,7 @@ function updatenow {
     update-grub"
   echo "Packages updated."
 }
+
 function cleannow {
   echo "cleaning apt"
   sudo sh -c "apt-get -y autoremove && \
@@ -133,3 +134,7 @@ function cleannow {
   echo "apt  cleaned."
 }
 
+# `ls` after `cd`
+function cd {
+  builtin cd "$@" && ls
+}
