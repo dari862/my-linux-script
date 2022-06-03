@@ -3,7 +3,13 @@ for command in mount umount sv pacman updatedb su shutdown poweroff reboot ; do
 	alias $command="sudo $command"
 done; unset command
 
+##### cd
 alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....="cd ../../../.."
+
+# other suff
 alias cp='cp -vi'
 alias rm='rm -I'
 alias mv='mv -iv'
@@ -18,6 +24,7 @@ alias du='du -h'
 
 ### Colorize commands
 alias diff='diff --color=auto'
+alias ip="ip --color=auto"
 
 ### LS & TREE
 alias ll='ls -la'
@@ -76,4 +83,8 @@ alias ping4="ping -c4"
 alias getpass="openssl rand -base64 20"
 alias www="python -m SimpleHTTPServer 8000"
 alias qf="find . |grep"
+
+# misc stuff
+alias weather="curl 'wttr.in/?T'"
+alias cht='f(){ curl -s "cheat.sh/$(echo -n "$*"|jq -sRr @uri)";};f'
 
