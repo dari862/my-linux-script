@@ -24,8 +24,11 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 <details>
 <summary><h1>to do</h1></summary>
   number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
+  
   work on bspwm
+  
   https://xerolinux.xyz/
+  
   https://github.com/erikdubois/arcolinux-nemesis
 </details>
 
