@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
+## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
+
+rofi_dir="$HOME/.config/rofi"
+STYLE="$(cat $rofi_dir/style)"
+
+rofi -no-lazy-grab -show window -theme "$rofi_dir"/"$STYLE"/runner.rasi
+
+
+rofi \
+	-show run \
+	-modi run \
+	-scroll-method 0 \
+	-terminal x-terminal-emulator \
+	-theme "/runner.rasi

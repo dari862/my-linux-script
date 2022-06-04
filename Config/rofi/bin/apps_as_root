@@ -5,8 +5,47 @@
 
 rofi_dir="$HOME/.config/rofi"
 
-## rofi sudo askpass helper
-export SUDO_ASKPASS="$rofi_dir"/bin/askpass
-
-## execute the application
-sudo -A $1
+if []
+then
+	## rofi sudo askpass helper
+	export SUDO_ASKPASS="$rofi_dir"/bin/askpass
+	
+	## execute the application
+	sudo -A $1
+else
+	DIR="$HOME/.config/bspwm"
+	STYLE="$(cat $rofi_dir/style)"
+	rofi_command="rofi -theme $rofi_dir/$STYLE/runner.rasi"
+	# Apps
+	terminal=" Terminal"
+	files=" Thunar"
+	editor=" Geany"
+	clifm=" Ranger"
+	lpad=" Leafpad"
+	vim=" Vim"
+	# Variable passed to rofi
+	options="$terminal\n$files\n$editor\n$clifm\n$vim"
+	
+	# Functions
+	chosen="$(echo -e "$options" | $rofi_command -p "Run apps as root" -dmenu -selected-row 0)"
+	case $chosen in
+    	$terminal)
+        	apps_as_root 'bspterm'
+        	;;
+    	$files)
+        	apps_as_root 'dbus-run-session x-file-manager'
+        	;;
+    	$editor)
+        	apps_as_root 'geany'
+        	;;
+    	$clifm)
+        	apps_as_root 'bspterm -e ranger'
+        	;;
+    	$lpad)
+        	apps_as_root 'x-text-editor'
+        	;;
+    	$vim)
+        	apps_as_root 'bspterm -e vim'
+        	;;
+	esac
+fi
