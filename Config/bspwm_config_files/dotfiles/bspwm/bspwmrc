@@ -181,7 +181,7 @@ nitrogen --restore &
 ~/.local/bin/my_power_manager/my_power_managers_session &
 
 ## Notification Daemon
-exec dunst -config ~/.config/bspwm/dunstrc &
+exec dunst -config ~/.config/dunst/dunstrc &
 
 if [ ! "$(pidof mpd)" ]; then	
 	## Start Music Player Daemon
