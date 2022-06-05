@@ -9,7 +9,7 @@ then
 	bash ~/.local/bin/fix_missing_file which_panel
 fi
 
-if [ ! "$(cat ~/.config/rofi/style 2>/dev/null)" ] || [ ! "$( command -v polybar > /dev/null && cat ~/.config/polybar/style 2>/dev/null )" ]
+if [ ! "$(cat ~/.config/WM_common_config/Rofi_style 2>/dev/null)" ] || [ ! "$( command -v polybar > /dev/null && cat ~/.config/WM_common_config/Polybar_style 2>/dev/null )" ]
 then
 	bash ~/.local/bin/fix_missing_file style
 fi
