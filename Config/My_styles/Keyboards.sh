@@ -12,7 +12,7 @@ terminal_path="$HOME/.config/alacritty"
 xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
-which_panel="$(cat $HOME/.config/WM_common_config/which_panel)"
+which_panel="$(cat $WM_common_config/which_panel)"
 
 # wallpaper ---------------------------------
 set_wallpaper() {
