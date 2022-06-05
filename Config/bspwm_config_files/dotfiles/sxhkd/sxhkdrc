@@ -27,11 +27,11 @@ super + n
 
 # Rofi Themes Menu
 ctrl + alt + t
-	sh ~/.config/rofi/bin/themes
+	sh ~/.local/bin/change-style
 
 # Rofi Menus/Applets
 super + {w,m,x,r,s}
-	sh ~/.config/rofi/bin/{windows,mpd,powermenu,asroot,screenshot}
+	sh ~/.config/rofi/bin/{windows,music,powermenu,apps_as_root,screenshot}
 
 ##---------- Applications ----------##
 

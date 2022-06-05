@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-Pdir="$HOME/.config/polybar_extra"
-style="$(cat $Pdir/style)"
+WM_common_config="$HOME/.config/WM_common_config"
+style="$(cat ${WM_common_config}/Polybar_Extra_style)"
 Rdir="$HOME/.config/rofi_extra/$style"
 
 
@@ -26,10 +26,6 @@ then
 	#sed -i -e "s/ac: .*/ac:   ${AC}FF;/g" $FILE
 	#sed -i -e "s/se: .*/se:   ${SE}FF;/g" $FILE
 	:
-elif [ "$style" == "panels" ]
-then
-	theme="$(cat $Pdir/scripts/panels/panel)"
-	Rdir="$Rdir/$theme"
 fi
 
 rofi -no-config -no-lazy-grab -show drun -modi drun -theme $Rdir/launcher.rasi

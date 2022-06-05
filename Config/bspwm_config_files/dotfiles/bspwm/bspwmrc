@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
-
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 #### Fix missing files        ########################################################################
 
-if [ ! -f  ~/.local/bin/wm_fixer/which_panel ]
+if [ ! -f  ~/.config/WM_common_config/which_panel ]
 then
-	bash ~/.local/bin/wm_fixer/fix_missing_file which_panel
+	bash ~/.local/bin/fix_missing_file which_panel
 fi
 
 if [ ! "$(cat ~/.config/rofi/style 2>/dev/null)" ] || [ ! "$( command -v polybar > /dev/null && cat ~/.config/polybar/style 2>/dev/null )" ]
 then
-	bash ~/.local/bin/wm_fixer/fix_missing_file style
+	bash ~/.local/bin/fix_missing_file style
 fi
 
 #### Kill if already running  ########################################################################
@@ -150,6 +149,9 @@ bspc rule -a stalonetray state=floating manage=off
 
 
 #### Autostart ###############################################################################
+# Restore wallpaper
+sleep 0.50
+nitrogen --restore &
 
 # Lauch xsettingsd daemon
 xsettingsd &
@@ -174,11 +176,8 @@ sxhkd &
 sleep 0.50
 urxvtc &
 
-# Restore wallpaper
-nitrogen --restore &
-
 ## Enable power management
-~/.local/bin/my_power_manager/my_power_managers_session &
+~/.local/bin/my_power_managers_session &
 
 ## Notification Daemon
 exec dunst -config ~/.config/dunst/dunstrc &
@@ -198,7 +197,7 @@ if [ ! "$(pidof diodon)" ]; then
 	exec diodon &
 fi
 
-if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "polybar"` ]; then
+if [ `cat ~/.config/WM_common_config/which_panel | grep "polybar"` ]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
@@ -207,7 +206,7 @@ if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "polybar"` ]; then
         bash ~/.config/polybar/launch.sh & 
 fi
 
-if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "xfce4"` ]; then
+if [ `cat ~/.config/WM_common_config/which_panel | grep "xfce4"` ]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh

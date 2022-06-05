@@ -5,8 +5,9 @@
 ## Github  : @adi1090x
 ## Twitter : @adi1090x
 
+WM_common_config="$HOME/.config/WM_common_config"
+STYLE="$(cat ${WM_common_config}/Rofi_style)"
 rofi_dir="$HOME/.config/rofi"
-STYLE="$(cat $rofi_dir/style)"
 
 dir="$rofi_dir/$STYLE"
 rofi_command="rofi -theme $dir/network.rasi"

@@ -3,20 +3,20 @@
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
-Pdir="$HOME/.config/polybar"
+WM_common_config="$HOME/.config/WM_common_config"
 PEdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
-if [ ! $(cat "${PEdir}/style") ]
-then
-	echo "material" > "${PEdir}/style"
-fi
 
 if [ "$1" ]
 then
-	echo "$1" > "${PEdir}/style"
+	echo "$1" > "${WM_common_config}/Polybar_Extra_style"
 fi
 
-Style="$(cat ${PEdir}/style)"
+if [ ! $(cat "${WM_common_config}/Polybar_Extra_style") ]
+then
+	echo "material" > "${WM_common_config}/Polybar_Extra_style"
+fi
+
+Style="$(cat ${WM_common_config}/Polybar_Extra_style)"
 style_dir="${PEdir}/${Style}"
 
 # Launch the bar

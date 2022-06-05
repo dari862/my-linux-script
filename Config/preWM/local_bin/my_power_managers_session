@@ -11,7 +11,7 @@ $HOME/.local/bin/my_power_manager/my_power_manager &
 
 if [ "$(command -v cbatticon)" ]
 then
-	if [ "$(cat ~/.local/bin/wm_fixer/which_panel)" != "polybar" ]
+	if [ "$(cat ~/.config/WM_common_config/which_panel)" != "polybar" ]
 	then 
 		cbatticon -i symbolic -x "bash $HOME/.local/bin/my_power_manager/my_power_manager_gui" &
 	else

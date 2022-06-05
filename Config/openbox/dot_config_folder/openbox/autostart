@@ -14,14 +14,14 @@
 
 #### Fix missing files        ########################################################################
 
-if [ ! -f  ~/.local/bin/wm_fixer/which_panel ]
+if [ ! -f  ~/.config/WM_common_config/which_panel ]
 then
-	bash ~/.local/bin/wm_fixer/fix_missing_file which_panel
+	bash ~/.local/bin/fix_missing_file which_panel
 fi
 
 if [ ! "$(cat ~/.config/rofi/style 2>/dev/null)" ] || [ ! "$( command -v polybar > /dev/null && cat ~/.config/polybar/style 2>/dev/null )" ]
 then
-	bash ~/.local/bin/wm_fixer/fix_missing_file style
+	bash ~/.local/bin/fix_missing_file style
 fi
 
 #### Kill if already running  ########################################################################
@@ -58,6 +58,7 @@ fi
 
 #### START APPLICATIONS ###############################################################################
 # Set wallpaper
+sleep 0.5
 nitrogen --restore &									
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
@@ -77,7 +78,7 @@ else
 	fi
 fi
 
-if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "polybar"` ]; then
+if [ `cat ~/.config/WM_common_config/which_panel | grep "polybar"` ]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
@@ -91,14 +92,14 @@ if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "polybar"` ]; then
 	fi
 fi
 
-if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "xfce4"` ]; then
+if [ `cat ~/.config/WM_common_config/which_panel | grep "xfce4"` ]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
 			$HOME/.config/My_styles/old.sh
         fi
 	
 	# Start xfce4-panel
-        xfce4-panel &
+    xfce4-panel &
 	xfsettingsd &
 	
 	# Start volume control
@@ -114,7 +115,7 @@ if [ `cat ~/.local/bin/wm_fixer/which_panel | grep "xfce4"` ]; then
 fi 
 
 ## Enable power management
-~/.local/bin/my_power_manager/my_power_managers_session &
+~/.local/bin/my_power_managers_session &
 
 if [ -f "~/.config/openbox/welcome" ]
 then

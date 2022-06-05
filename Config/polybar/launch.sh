@@ -5,12 +5,14 @@
 
 ## Files and Directories
 Pdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+WM_common_config="$HOME/.config/WM_common_config"
 
-if [[ ! -f "$Pdir/style" ]]; then
-	echo "old" > $Pdir/style
+
+if [[ ! -f "${WM_common_config}/Polybar_style" ]]; then
+	echo "old" > ${WM_common_config}/Polybar_style
 fi
 
-P_style="$(cat $Pdir/style)"
+P_style="$(cat ${WM_common_config}/Polybar_style)"
 SFILE="$Pdir/system.ini"
 
 ## Launch Polybar with selected style

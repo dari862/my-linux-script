@@ -5,13 +5,14 @@
 
 ## Dirs #############################################
 openbox_path="$HOME/.config/openbox"
+WM_common_config="$HOME/.config/WM_common_config"
 polybar_path="$HOME/.config/polybar"
 rofi_path="$HOME/.config/rofi"
 terminal_path="$HOME/.config/alacritty"
 xfce_term_path="$HOME/.config/xfce4/terminal"
 geany_path="$HOME/.config/geany"
 dunst_path="$HOME/.config/dunst"
-which_panel="$(cat ~/.local/bin/wm_fixer/which_panel)"
+which_panel="$(cat $HOME/.config/WM_common_config/which_panel)"
 
 # wallpaper ---------------------------------
 set_wallpaper() {
@@ -20,7 +21,7 @@ set_wallpaper() {
 
 # polybar -----------------------------------
 change_polybar() {
-	echo "$1" >	${polybar_path}/style
+	echo "$1" >	${WM_common_config}/Polybar_style
 	sed -i -e "s/font-0 = .*/font-0 = \"$2\"/g" 	${polybar_path}/"$1"/config.ini
 
 	sed -i -e 's/BG = .*/BG = #A6000000/g' 	${polybar_path}/"$1"/colors.ini
@@ -30,7 +31,7 @@ change_polybar() {
 
 # rofi --------------------------------------
 change_rofi() {		
-	echo "$1" >	${rofi_path}/style
+	echo "$1" >	${WM_common_config}/Rofi_style
 	sed -i -e "s/font:.*/font:				 	\"$2\";/g" 		${rofi_path}/"$1"/font.rasi
 
 	sed -i -e "s/font:.*/font:				 	\"$2\";/g" 			${rofi_path}/dialogs/askpass.rasi ${rofi_path}/dialogs/confirm.rasi

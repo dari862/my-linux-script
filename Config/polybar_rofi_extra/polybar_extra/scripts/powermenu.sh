@@ -5,18 +5,10 @@
 ## Github  : @adi1090x
 ## Twitter : @adi1090x
 
-dir="$HOME/.config/polybar_extra"
-style="$(cat $dir/style)"
-
+WM_common_config="$HOME/.config/WM_common_config"
+style="$(cat ${WM_common_config}/Polybar_Extra_style)"
 dir="~/.config/rofi_extra/$style"
 uptime=$(uptime -p | sed -e 's/up //g')
-
-if [ "$style" == "panels" ]
-then
-	theme="$(cat $HOME/.config/polybar_extra/scripts/panels/panel)"
-	dir="$dir/$theme"
-fi
-
 
 rofi_command="rofi -theme $dir/powermenu.rasi"
 

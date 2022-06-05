@@ -5,7 +5,7 @@
 
 rofi_dir="$HOME/.config/rofi"
 
-if []
+if [ "$1" ]
 then
 	## rofi sudo askpass helper
 	export SUDO_ASKPASS="$rofi_dir"/bin/askpass
