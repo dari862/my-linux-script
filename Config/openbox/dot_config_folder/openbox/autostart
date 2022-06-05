@@ -63,7 +63,7 @@ nitrogen --restore &
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky
-(sleep 2; start_conky.sh) &
+(sleep 2; conky-session) &
 
 if command -v gnome-keyring &> /dev/null
 then
