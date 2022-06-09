@@ -13,6 +13,18 @@ logout)
 		qtile cmd-obj -o cmd -f shutdown
 	fi
 ;; 
+reload)
+	DESKTOP_SESSION_all_small_latter=$(echo "$DESKTOP_SESSION" | sed -e 's/\(.*\)/\L\1/')
+	if [[ "$DESKTOP_SESSION_all_small_latter" == "openbox" ]]; then
+		openbox --reconfigure
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "bspwm" ]]; then
+		bspc --restart
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "i3" ]]; then
+		i3-msg exit
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "qtile" ]]; then	
+		qtile cmd-obj -o cmd -f shutdown
+	fi
+;; 
 suspend)
 	systemctl suspend
 ;;
