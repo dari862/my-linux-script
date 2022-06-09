@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# change keyboard layout
+# works on any init system
+# requirements: dmenu, xorg-setxkbmap
+
+opt="${1-h}"
+
+HELP_List=(
+"1 set_kb_layout"
+"2 notify-send"
+"3 edit script"
+"4 echo kb_layout")
+
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+source "$SCRIPT_DIR/config/config.ini"
+
+if command -v setxkbmap >/dev/null
+then
+	kb="$(setxkbmap -query | grep -oP 'layout:\s*\K\w+')"
+	[ -z "$kb" ] && kb="us"
+else
+	exit 1
+fi
+
+set_kb_layout()
+{
+	kb_choice="$(awk '/! layout/{flag=1; next} /! variant/{flag=0} flag {print $2, "- " $1}' /usr/share/X11/xkb/rules/base.lst | ${rofi_command} -p "" )"
+	kb="$(echo "$kb_choice" | awk '{print $3}')"
+	if [ ! -z "$kb" ]
+	then
+		setxkbmap "$kb"
+		pkill -RTMIN+30 "${STATUSBAR:-dwmblocks}"
+	fi
+}
+
+help()
+{
+	Chosen_OPT="$(printf '%s\n' "${HELP_List[@]}" | ${rofi_command} -p '')"
+	opt="$(echo $Chosen_OPT | awk '{ print $1 }')"
+	main
+}
+
+main()
+{
+case $opt in
+	1) set_kb_layout ;;
+	2) notify-send "⌨  Keyboard/language module" "$(printf "%s" "\- Current layout: $kb")";;
+	3) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	4) echo "$kb" ;;
+	*) help ;;
+esac
+}
+
+main $opt

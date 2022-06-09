@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Simple script to generate a script file in my scripts directory
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+source "$SCRIPT_DIR/config/config.ini"
+
+scripts_folder_="$HOME/.local/bin/temp_script"
+
+printf "File Name: "
+
+# Set a name for the script
+while [ -z "$ans" ];
+do
+  read -r ans
+
+  if [ -z "$ans" ]; then
+    printf "File Name: "
+  fi
+done
+
+file=$scripts_folder_/$ans
+if [ ! -d "$scripts_folder_" ]; then
+	mkdir -p $scripts_folder_
+fi
+
+if [ -e "$scripts_folder_/$ans" ]; then
+	$EDITOR "$file"
+else
+	echo "#!/bin/sh" >> "$file"
+	chmod +x "$file"
+	$EDITOR "$file"
+fi
