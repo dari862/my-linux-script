@@ -11,6 +11,8 @@ logout)
 		i3-msg exit
 	elif [[ "$DESKTOP_SESSION_all_small_latter" == "qtile" ]]; then	
 		qtile cmd-obj -o cmd -f shutdown
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "awesome" ]]; then	
+		awesome --replace
 	fi
 ;; 
 reload)
@@ -23,6 +25,8 @@ reload)
 		i3-msg restart
 	elif [[ "$DESKTOP_SESSION_all_small_latter" == "qtile" ]]; then	
 		qtile cmd-obj -o cmd -f restart
+	elif [[ "$DESKTOP_SESSION_all_small_latter" == "awesome" ]]; then	
+		awesome --replace
 	fi
 ;; 
 suspend)
