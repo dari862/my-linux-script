@@ -64,6 +64,9 @@ main() {
   		local url=${translate_languages_url["${translate_service}"]}
   		curl -Ss "$url" | sed -e 's/","name":"/ /g' -e 's/"},{"code":"/\n/g' -e 's/\[{"code":"//g' -e 's/}]//g' -e 's/{"languages"://g' -e 's/"}//g' > $lang_map
   	fi
+  else
+  	local url=${translate_languages_url["${translate_service}"]}
+  	curl -Ss "$url" | sed -e 's/","name":"/ /g' -e 's/"},{"code":"/\n/g' -e 's/\[{"code":"//g' -e 's/}]//g' -e 's/{"languages"://g' -e 's/"}//g' > $lang_map
   fi  
  
   if [[ ! -v translate_mode ]]; then
