@@ -19,7 +19,7 @@ super + t
 
 # Rofi App Launcher
 alt + F1
-	sh ~/.config/rofi/bin/launcher
+	sh ~/.local/bin/rofi/launcher
 
 # Rofi Network Menu
 super + n
@@ -31,7 +31,7 @@ ctrl + alt + t
 
 # Rofi Menus/Applets
 super + {w,m,x,r,s}
-	sh ~/.config/rofi/bin/{windows,music,powermenu,apps_as_root,screenshot}
+	sh ~/.local/bin/rofi/{windows,music,powermenu,apps_as_root,screenshot}
 
 ##---------- Applications ----------##
 

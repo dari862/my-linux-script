@@ -16,7 +16,7 @@
 	<icon>go-parent-folder</icon>
 	<name>Open as root</name>
 	<unique-id>1622790717174452-1</unique-id>
-	<command>~/.config/rofi/bin/apps_as_root &apos;dbus-run-session x-text-editor&apos;</command>
+	<command>~/.local/bin/rofi/apps_as_root &apos;dbus-run-session x-text-editor&apos;</command>
 	<description>Open directory as root</description>
 	<patterns>*</patterns>
 	<directories/>
@@ -25,7 +25,7 @@
 	<icon>document-edit-sign</icon>
 	<name>Edit as root</name>
 	<unique-id>1622790919788057-2</unique-id>
-	<command>~/.config/rofi/bin/apps_as_root &apos;x-text-editor %f&apos;</command>
+	<command>~/.local/bin/rofi/apps_as_root &apos;x-text-editor %f&apos;</command>
 	<description>Edit file as root</description>
 	<patterns>*</patterns>
 	<text-files/>

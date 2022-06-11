@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 rofi_dir="$HOME/.config/rofi"
-polybar_dir="$HOME/.config/polybar/scripts/style"
+polybar_dir="$HOME/.local/bin/polybar/style"
 STYLE="$(cat $rofi_dir/style)"
 styles_script_dir="$HOME/.config/My_styles"
 list_styles="$(ls -p $styles_script_dir | sed "s/.sh/|/g" | tr -d "\n" | sed 's/.$//')"

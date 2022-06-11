@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
+source "$SCRIPT_DIR/config/config.ini"
+opt_="${1-}"
+
+VERSION=1.2
+BASH_BINARY="$(command -v bash)"
+TERMV_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/termv"
+TERMV_AUTO_UPDATE=${TERMV_AUTO_UPDATE:-true}
+TERMV_FULL_SCREEN=${TERMV_FULL_SCREEN:-false}
+TERMV_API_URL="https://iptv-org.github.io/iptv/channels.json"
+Channels_List_DB="${TERMV_CACHE_DIR:?}/Channels_List.txt"
+declare -x TERMV_SWALLOW=${TERMV_SWALLOW:-false}
+declare -x TERMV_MPV_FLAGS="${TERMV_DEFAULT_MPV_FLAGS:---no-resume-playback}"
+
+mkdir -p "${TERMV_CACHE_DIR:?}"
+
+has() {
+    case "$(command -v "$1" 2>/dev/null)" in
+        alias*|"") return 1
+    esac
+}
+
+_phi() {
+    >&2 printf '    %s\n' "$1"
+}
+
+_pht() {
+    >&2 printf '%s\n' "$@"
+}
+
+# print error message & exit
+_pemx() {
+    >&2 printf '\033[31;1merror :\033[m %s\n' "$1"
+    exit 1
+}
+
+version() {
+    _pht "$(basename "$0") $VERSION"
+}
+
+usage() {
+    _pht "Usage:   $(basename "$0") [OPTIONS] query"
+    _pht
+    _pht "Options:"
+    _pht "  General Options:"
+    _phi "-h, --help                Print this help text and exit."
+    _phi "-v, --version             Print program version and exit."
+    _phi "-u, --update              Update channel list to latest version."
+    _pht
+    _pht "  Player Options:"
+    _phi "-f, --full-screen         Open mpv in fullscreen."
+    _phi "-s, --swallow             Swallow terminal during playback (X11 only) based on devour; https://github.com/salman-abedin/devour.sh"
+    _pht
+    _pht "  Environment variables:  "
+    _phi "TERMV_AUTO_UPDATE         Auto update channel list to latest version. (default: true)"
+    _phi "TERMV_SWALLOW             Alwayse swallow terminal during playback. (default: false)"
+    _phi "TERMV_FULL_SCREEN         Alwayse open mpv in fullscreen. (default: false)"
+    _phi "TERMV_DEFAULT_MPV_FLAGS   Default arguments which are passed to mpv. (default: --no-resume-playback)"
+    _pht
+    _pht "  Improve me on GitHub:"
+    _phi "https://github.com/Roshan-R/termv"
+}
+
+Create_Channels_List_DB()
+{
+echo "Creating DB"
+#first part
+sed -e '0,/\[{"name":"/s///' -e 's/}},{"name":"/\n/g' ${TERMV_CACHE_DIR:?}/data.json | sed -e 's/,"categories":\[]/,"categories":\[{"name":"null","slug":"null"}]/g' -e 's/,"countries":\[]/,"countries":\[{"name":"null","code":"null"}]/g' -e 's/,"languages":\[]/,"languages":\[{"name":"null","code":"null"}]/g' -e '/^/s/code":"/\t/' -e '/^/s/,"languages":/\t,"languages":/' | awk -F "\t" '{ print $1, $3 }' | sed -e 's/","logo":/####/g' -e 's/,"url":"/####/g' -e 's/","categories":\[{"name":"/####/g' -e 's/","slug":"/####/g' -e 's/"}],"countries":\[{"name":"/####/g' -e 's/"," ,"languages":\[{"name":"/####/g' -e 's/","code":"/####/g' | sed -e 's/####/\t####/g' | awk -F "\t" '{ print $1, $4, $7, $6, $3 }' | sed -e 's/ ####/ \t /g' -e 's/null/N\/A/g' -e 's/token=N\/A/token=null/g' | column -t -s $'\t' > $Channels_List_DB
+}
+
+update_channelsfile() {
+    etagPath="${TERMV_CACHE_DIR:?}/etag"
+    printf '%s' "Downloading ${TERMV_API_URL:?}... "
+    [ -f "${etagPath:?}" ] && oldetag=$(<"${etagPath}") || oldetag="null"
+
+    curl -s "${TERMV_API_URL}" --etag-compare "${etagPath:?}" --etag-save "${etagPath:?}" -o "${TERMV_CACHE_DIR:?}/data.json_new" \
+    -H "accept-encoding:gzip" --compressed && downloaded=1 || downloaded=0
+
+    newetag=$(<"${etagPath}")
+
+    if [ ${downloaded} -eq 1 ] && [ "${newetag}" = "${oldetag}" ]; then
+        touch "${TERMV_CACHE_DIR:?}/data.json" ;
+        printf '\033[33;1m %s \033[0m\n' "Your version is already up to date." ;
+    elif [ ${downloaded} -eq 1 ]; then
+        mv -f "${TERMV_CACHE_DIR:?}/data.json_new" "${TERMV_CACHE_DIR:?}/data.json"
+        printf '\033[32;1m %s \033[0m\n' "Done!" ;
+    elif [ ${downloaded} -eq 0 ]; then
+        rm -f "${etagPath:?}" "${TERMV_CACHE_DIR:?}/data.json_new"
+        echo "${oldetag}" > "${etagPath}"
+        printf '\033[31;1m %s \033[0m\n' "Uh oh, failed!"
+        exit 1
+    fi
+    Create_Channels_List_DB
+}
+
+# check if necessary programs are installed
+check_4_dependencies_if_installed mpv curl rofi
+
+while [ "$opt_" ]; do
+    case "$opt_" in
+        "-h"|"--help")
+            usage ; exit 0 ;;
+        "-v"|"--version")
+            version ; exit 0 ;;
+        "-u"|"--update")
+            update_channelsfile ; exit ;;
+
+        "-f"|"--full-screen")
+            TERMV_FULL_SCREEN=true   ; shift ;;
+        "-s"|"--swallow")
+            TERMV_SWALLOW=true       ; shift ;;
+
+        "--")
+            shift ; break ;;
+        -*)
+            _pemx "$1 in not a supported option" ;;
+        *)
+            break ;;
+    esac
+done
+
+[ "${TERMV_SWALLOW}" = true ] && check_4_dependencies_if_installed xdo
+
+[ "${TERMV_FULL_SCREEN}" = true ] && TERMV_MPV_FLAGS="${TERMV_MPV_FLAGS} --fs"
+
+[ "${TERMV_AUTO_UPDATE}" = true ] && { [ ! "$(stat -c %y "${TERMV_CACHE_DIR:?}/data.json" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] && update_channelsfile ; }
+
+[ ! -f "${Channels_List_DB}" ] && Create_Channels_List_DB
+
+CHANNELS_LIST="$(cat $Channels_List_DB)"
+
+_play() {
+    printf '%s\n' "Fetching channel, please wait..."
+    if [ "${TERMV_SWALLOW}" = true ]; then
+        WID=$(xdo id)
+        xdo hide
+        # shellcheck disable=SC2086
+        mpv "${*##* }" ${TERMV_MPV_FLAGS} --force-media-title="${*%%  *}" --force-window=immediate
+        xdo show "$WID" && xdo activate "$WID"
+    else
+        # shellcheck disable=SC2086
+        mpv "${*##* }" ${TERMV_MPV_FLAGS} --force-media-title="${*%%  *}"
+    fi
+}
+
+main()
+{
+	Picked_Chanel_=$(printf '%s\n' "${CHANNELS_LIST}" | ${rofi_command} -p "  🎬 📺 Rofi Video Streams  📺 🎬  " | rev | awk '{print $1}' | rev)
+	[ -z "$Picked_Chanel_" ] && exit 0
+	_play $Picked_Chanel_
+	main
+}
+main
