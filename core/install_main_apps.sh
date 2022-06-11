@@ -377,7 +377,7 @@ get_My_styles_scripts_now_()
 		mkdir -p $temp_folder_for_skel_/.local/bin
 		cd $temp_folder_for_skel_/.local/bin
 		svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
-		find $$temp_folder_for_skel_/.local/bin/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
+		find $temp_folder_for_skel_/.local/bin/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 	fi
 }
 
