@@ -370,6 +370,17 @@ archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
 declare -g archcraft_installed_alrdy="true"
 }
 
+get_My_styles_scripts_now_()
+{
+	if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
+	then
+		mkdir -p $temp_folder_for_skel_/.local/bin
+		cd $temp_folder_for_skel_/.local/bin
+		svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
+		find $$temp_folder_for_skel_/.local/bin/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
+	fi
+}
+
 install_polybar_app_now_()
 {
 show_m "install polybar app "
@@ -381,17 +392,14 @@ download_polybar_config_now_()
 show_m "download polybar config "
 mkdir -p $temp_folder_for_download
 mkdir -p $temp_folder_for_skel_config
+
+get_My_styles_scripts_now_
+
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar_rofi_extra
 mv -v $temp_folder_for_skel_config/polybar_rofi_extra/* $temp_folder_for_skel_config/
 rm -rdf $temp_folder_for_skel_config/polybar_rofi_extra
-
-if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
-then
-	svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
-	find $temp_folder_for_skel_config/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
-fi
 
 download_rofi_config_now_
 
@@ -433,14 +441,11 @@ echo_2_helper_list ""
 download_xfce4_panel_config_now_()
 {
 mkdir -p $temp_folder_for_skel_config
+
+get_My_styles_scripts_now_
+
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4_panel/xfce4
-
-if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
-then
-	svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
-	find $temp_folder_for_skel_config/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
-fi
 
 download_rofi_config_now_
 
