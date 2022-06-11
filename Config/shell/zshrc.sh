@@ -92,8 +92,11 @@ esac
 source $zshdotfiles/zthemes/$ZSH_THEME.zsh-theme
 
 # ------------------------------- ZSH PLUGINS ---------------------------------
-# ZSH Autosuggestions and ZSH Syntax Highlighting
-source $zshdotfiles/zplugins/zsh-autosuggestions_and_zsh-syntax-highlighting.zsh
+# ZSH Syntax Highlighting
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# ZSH Autosuggestions
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # command-not-found
 source $zshdotfiles/zplugins/command-not-found.plugin.zsh
