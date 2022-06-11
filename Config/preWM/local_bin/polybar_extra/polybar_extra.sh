@@ -4,10 +4,11 @@
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
 WM_common_config="$HOME/.config/WM_common_config"
-PEdir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PEdir="$HOME/.config/polybar_extra"
 
 if [ "$1" ]
 then
+	echo "extra" > "${WM_common_config}/Polybar_style"
 	echo "$1" > "${WM_common_config}/Polybar_Extra_style"
 fi
 

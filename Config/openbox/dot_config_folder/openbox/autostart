@@ -81,10 +81,10 @@ fi
 if [ `cat ~/.config/WM_common_config/which_panel | grep "polybar"` ]; then
         if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
-			$HOME/.config/My_styles/old.sh
+			$HOME/.local/bin/My_styles/old.sh
         fi
 	# Start polybar
-        bash ~/.config/polybar/launch.sh & 
+        bash ~/.local/bin/polybar/launch.sh & 
 	
 	if [ ! "$(pidof plank)" ]; then
 		## Launch Plank
@@ -95,7 +95,7 @@ fi
 if [ `cat ~/.config/WM_common_config/which_panel | grep "xfce4"` ]; then
         if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
         then
-			$HOME/.config/My_styles/old.sh
+			$HOME/.local/bin/My_styles/old.sh
         fi
 	
 	# Start xfce4-panel

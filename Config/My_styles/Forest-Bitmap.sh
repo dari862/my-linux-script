@@ -299,7 +299,7 @@ set_wallpaper 'forest.jpg'
 if [ "$which_panel" == "polybar" ]; then
 
 	# funct STYLE FONT
-	change_polybar 'forest-bitmap' 'Terminus:Medium:size=9;2' && "$polybar_path"/launch.sh
+	change_polybar 'forest-bitmap' 'Terminus:Medium:size=9;2' && ~/.local/bin/polybar/launch.sh
 	
 	# funct STYLE (network manager applet)
 	change_nm 'forest-bitmap'

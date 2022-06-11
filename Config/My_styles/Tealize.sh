@@ -299,7 +299,7 @@ set_wallpaper 'tealize.png'
 if [ "$which_panel" == "polybar" ]; then
 
 	# funct STYLE FONT
-	change_polybar 'tealize' 'Iosevka Nerd Font:size=10;3' && "$polybar_path"/launch.sh
+	change_polybar 'tealize' 'Iosevka Nerd Font:size=10;3' && ~/.local/bin/polybar/launch.sh
 	
 	# funct STYLE (network manager applet)
 	change_nm 'tealize'

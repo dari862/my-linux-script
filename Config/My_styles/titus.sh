@@ -299,7 +299,7 @@ set_wallpaper 'titus.jpg'
 if [ "$which_panel" == "polybar" ]; then
 
 	# funct STYLE FONT
-	change_polybar 'titus' 'Fira Code:style=Regular:size=15;4' && "$polybar_path"/launch.sh
+	change_polybar 'titus' 'Fira Code:style=Regular:size=15;4' && ~/.local/bin/polybar/launch.sh
 	
 	# funct STYLE (network manager applet)
 	change_nm 'titus'

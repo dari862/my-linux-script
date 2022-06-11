@@ -168,7 +168,7 @@
 	            <item label="Restart" icon="&icons;/restart.png">
 	                <action name="Execute">
 	                    <command>
-	                        bash -c '~/.config/polybar/launch.sh'
+	                        bash -c '~/.local/bin/polybar/launch.sh'
 	                    </command>
 	                </action>
                </item>

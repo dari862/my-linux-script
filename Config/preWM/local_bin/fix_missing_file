@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 rofi_dir="$HOME/.config/rofi"
-styles_script_dir="$HOME/.config/My_styles"
+styles_script_dir="$HOME/.local/bin/My_styles"
 default_panel="polybar"
 default_style="old"
 WM_common_config="$HOME/.config/WM_common_config"

@@ -17,6 +17,12 @@ sudo bash "$temp_folder_for_download/update-notification" -I
 mkdir -p $temp_folder_for_skel_/.local/bin
 sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
+
+if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
+then
+	mv $temp_folder_for_skel_config/My_styles $temp_folder_for_skel_/.local/bin
+fi
+
 mkdir -p $temp_folder_for_skel_config/gtk-3.0
 mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* $temp_folder_for_skel_config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
 mv $temp_folder_for_preWM/preWM/config/* $temp_folder_for_skel_config &> /dev/null || echo "falied to move all preWM/config files"
@@ -478,7 +484,7 @@ mv -v $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_f
 mv -v $temp_folder_for_download/pipemenus/* $temp_folder_for_openbox/archcraft/openbox/pipemenus
 sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
 sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb
-sed -i -e 's|.config/openbox/scripts|.config/My_styles|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
+sed -i -e 's|.config/openbox/scripts|.local/bin/My_styles|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
 sed -i 's/openbox --exit/my_session_manager logout/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
 sed -i 's/betterlockscreen --/my_session_manager /g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
 sed -i 's/systemctl/my_session_manager/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu

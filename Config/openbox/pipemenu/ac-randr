@@ -66,7 +66,7 @@ def mk_exe_node(output, name, command):
     """
     CMD = 'xrandr --output %s ' % output
     CMD_1 = 'nitrogen --restore'
-    CMD_2 = '~/.config/polybar/launch.sh'
+    CMD_2 = '~/.local/bin/polybar/launch.sh'
 
 	# Apply Mode
     item = etree.Element('item', label=name)

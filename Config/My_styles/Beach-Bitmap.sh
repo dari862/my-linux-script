@@ -299,7 +299,7 @@ set_wallpaper 'beach.jpg'
 if [ "$which_panel" == "polybar" ]; then
 
 	# funct STYLE FONT
-	change_polybar 'beach-bitmap' 'Terminus:size=8;3' && "$polybar_path"/launch.sh
+	change_polybar 'beach-bitmap' 'Terminus:size=8;3' && ~/.local/bin/polybar/launch.sh
 	
 	# funct STYLE (network manager applet)
 	change_nm 'beach-bitmap'

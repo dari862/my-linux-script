@@ -118,7 +118,7 @@ then
 		nitrogen --save --set-zoom-fill /usr/share/backgrounds/"$bg"
 		
 		# Restarting polybar
-		$HOME/.config/polybar_extra/launch.sh
+		$HOME/.local/bin/polybar_extra/launch.sh
 	}
 fi
 
