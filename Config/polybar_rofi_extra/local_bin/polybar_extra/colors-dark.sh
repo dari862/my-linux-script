@@ -2,65 +2,133 @@
 
 # Color files
 dir="$HOME/.config/polybar_extra"
-style="$(cat $dir/style)"
+WM_common_config="$HOME/.config/WM_common_config"
+style="$(cat ${WM_common_config}/Polybar_Extra_style)"
 PFILE="$HOME/.config/polybar_extra/$style/colors.ini"
 RFILE="$HOME/.config/rofi_extra/$style/colors.rasi"
 
 # Change colors
+
 if [ "$style" == "colorblocks" ] || [ "$style" == "shapes" ] || [ "$style" == "shades" ]
 then
 	change_color() {
+	# polybar
+	if [ "$style" == "colorblocks" ]
+	then
+		sed -i -e 's/background = #.*/background = #141C21/g' $PFILE
+		sed -i -e "s/foreground = #.*/foreground = $FG/g" $PFILE
+	else
+		sed -i -e 's/background = #.*/background = #1F1F1F/g' $PFILE
+		sed -i -e 's/foreground = #.*/foreground = #FFFFFF/g' $PFILE
+	fi
+	if [ "$style" == "colorblocks" ]
+	then
+	sed -i -e 's/foreground-alt = #.*/foreground-alt = #FFFFFF/g' $PFILE
+	else
+		sed -i -e 's/foreground-alt = #.*/foreground-alt = #FFFFFF/g' $PFILE
+	fi
+	sed -i -e "s/shade1 = #.*/shade1 = $SH1/g" $PFILE
+	sed -i -e "s/shade2 = #.*/shade2 = $SH2/g" $PFILE
+	sed -i -e "s/shade3 = #.*/shade3 = $SH3/g" $PFILE
+	sed -i -e "s/shade4 = #.*/shade4 = $SH4/g" $PFILE
+	sed -i -e "s/shade5 = #.*/shade5 = $SH5/g" $PFILE
+	sed -i -e "s/shade6 = #.*/shade6 = $SH6/g" $PFILE
+	sed -i -e "s/shade7 = #.*/shade7 = $SH7/g" $PFILE
+	sed -i -e "s/shade8 = #.*/shade8 = $SH8/g" $PFILE
+	
+	
+	if [ "$style" == "colorblocks" ]
+	then
+		rofi_bg="#141C21FF"
+	else
+		rofi_bg="#1F1F1FFF"
+	fi
+	# rofi
+	cat > $RFILE <<- EOF
+	/* colors */
+
+	* {
+	  al:    #00000000;
+	  bg:    ${rofi_bg};
+	  bg1:   ${SH8}FF;
+	  bg2:   ${SH7}FF;
+	  bg3:   ${SH6}FF;
+	  bg4:   ${SH5}FF;
+	  fg:    #FFFFFFFF;
+	}
+	EOF
+	
+	polybar-msg cmd restart
+	}
+elif [ "$style" == "docky" ] || [ "$style" == "material" ]
+then
+	change_color() {
+	# polybar
+	sed -i -e 's/background = #.*/background = #1F1F1F/g' $PFILE
+	sed -i -e 's/foreground = #.*/foreground = #FFFFFF/g' $PFILE
+	sed -i -e 's/foreground-alt = #.*/foreground-alt = #8F8F8F/g' $PFILE
+	sed -i -e "s/module-fg = #.*/module-fg = $MF/g" $PFILE
+	sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
+	sed -i -e 's/secondary = #.*/secondary = #E53935/g' $PFILE
+	sed -i -e 's/alternate = #.*/alternate = #7cb342/g' $PFILE
+	
+	# rofi
+	cat > $RFILE <<- EOF
+	/* colors */
+
+	* {
+	  al:   #00000000;
+	  bg:   #1F1F1FFF;
+	  bga:  ${AC}33;
+	  bar:  ${MF}FF;
+	  fg:   #FFFFFFFF;
+	  ac:   ${AC}FF;
+	}
+	EOF
+	
+	polybar-msg cmd restart
+	}
+elif [ "$style" == "cuts" ]
+then
+	BG="0a0a0a"
+	FG="f5f5f5"
+
+	# Change colors
+	change_color() {
 		# polybar
-		sed -i -e 's/background = #.*/background = #FFFFFF/g' $PFILE
-		if [ "$style" == "colorblocks" ] 
-		then
-			sed -i -e "s/foreground = #.*/foreground = $FG/g" $PFILE
-			sed -i -e 's/foreground-alt = #.*/foreground-alt = #141C21/g' $PFILE
-		elif [ "$style" == "shapes" ] 
-		then
-			sed -i -e 's/foreground = #.*/foreground = #FFFFFF/g' $PFILE
-			sed -i -e 's/foreground-alt = #.*/foreground-alt = #1F1F1F/g' $PFILE
-		elif [ "$style" == "shades" ] 
-		then
-			sed -i -e 's/foreground = #.*/foreground = #FFFFFF/g' $PFILE
-			sed -i -e 's/foreground-alt = #.*/foreground-alt = #656565/g' $PFILE
-		fi		
-		sed -i -e "s/shade1 = #.*/shade1 = $SH1/g" $PFILE
-		sed -i -e "s/shade2 = #.*/shade2 = $SH2/g" $PFILE
-		sed -i -e "s/shade3 = #.*/shade3 = $SH3/g" $PFILE
-		sed -i -e "s/shade4 = #.*/shade4 = $SH4/g" $PFILE
-		sed -i -e "s/shade5 = #.*/shade5 = $SH5/g" $PFILE
-		sed -i -e "s/shade6 = #.*/shade6 = $SH6/g" $PFILE
-		sed -i -e "s/shade7 = #.*/shade7 = $SH7/g" $PFILE
-		sed -i -e "s/shade8 = #.*/shade8 = $SH8/g" $PFILE
+		sed -i -e "s/background = #.*/background = #${BG}/g" $PFILE
+		sed -i -e "s/background-alt = #.*/background-alt = #8C${BG}/g" $PFILE
+		sed -i -e "s/foreground = #.*/foreground = #${FG}/g" $PFILE
+		sed -i -e "s/foreground-alt = #.*/foreground-alt = #33${FG}/g" $PFILE
+		sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
 		
 		# rofi
 		cat > $RFILE <<- EOF
 		/* colors */
 
 		* {
-		  al:    #00000000;
-		  bg:    #FFFFFFFF;
-		  bg1:   ${SH5}FF;
-		  bg2:   ${SH4}FF;
-		  bg3:   ${SH3}FF;
-		  fg:    #141C21FF;
+		  al:   #00000000;
+		  bg:   #${BG}BF;
+		  bga:  #${BG}FF;
+		  fg:   #${FG}FF;
+		  ac:   ${AC}FF;
+		  se:   ${AC}1A;
 		}
 		EOF
 		
 		polybar-msg cmd restart
 	}
-elif [ "$style" == "docky" ]
+elif [ "$style" == "grayblocks" ] 
 then
 	change_color() {
 	# polybar
-	sed -i -e 's/background = #.*/background = #FFFFFF/g' $PFILE
-	sed -i -e 's/foreground = #.*/foreground = #2E2E2E/g' $PFILE
-	sed -i -e 's/foreground-alt = #.*/foreground-alt = #656565/g' $PFILE
-	sed -i -e "s/module-fg = #.*/module-fg = $MF/g" $PFILE
+	sed -i -e 's/background = #.*/background = #272727/g' $PFILE
+	sed -i -e 's/background-alt = #.*/background-alt = #383838/g' $PFILE
+	sed -i -e 's/foreground = #.*/foreground = #CACACA/g' $PFILE
+	sed -i -e 's/foreground-alt = #.*/foreground-alt = #CACACA/g' $PFILE
 	sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
-	sed -i -e 's/secondary = #.*/secondary = #E53935/g' $PFILE
-	sed -i -e 's/alternate = #.*/alternate = #7cb342/g' $PFILE
+	sed -i -e 's/red = #.*/red = #EF5350/g' $PFILE
+	sed -i -e 's/yellow = #.*/yellow = #FFEE58/g' $PFILE
 	
 	# rofi
 	cat > $RFILE <<- EOF
@@ -68,66 +136,10 @@ then
 
 	* {
 	  al:   #00000000;
-	  bg:   #FFFFFFFF;
-	  bga:  ${AC}33;
-	  bar:  ${MF}FF;
-	  fg:   #2E2E2EFF;
-	  ac:   ${AC}FF;
-	}
-	EOF
-	
-	polybar-msg cmd restart
-	}
-elif [ "$style" == "material" ]
-then
-	change_color() {
-	# polybar
-	sed -i -e 's/background = #.*/background = #FFFFFF/g' $PFILE
-	sed -i -e 's/foreground = #.*/foreground = #2E2E2E/g' $PFILE
-	sed -i -e 's/foreground-alt = #.*/foreground-alt = #656565/g' $PFILE
-	sed -i -e "s/module-fg = #.*/module-fg = $MF/g" $PFILE
-	sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
-	sed -i -e 's/secondary = #.*/secondary = #E53935/g' $PFILE
-	sed -i -e 's/alternate = #.*/alternate = #7cb342/g' $PFILE
-	
-	# rofi
-	cat > $RFILE <<- EOF
-	/* colors */
-
-	* {
-	  al:   #00000000;
-	  bg:   #FFFFFFFF;
-	  bga:  ${AC}33;
-	  bar:  ${MF}FF;
-	  fg:   #2E2E2EFF;
-	  ac:   ${AC}FF;
-	}
-	EOF
-	
-	polybar-msg cmd restart
-	}
-elif [ "$style" == "grayblocks" ]
-then
-	change_color() {
-	# polybar
-	sed -i -e 's/background = #.*/background = #FFFFFF/g' $PFILE
-	sed -i -e 's/background-alt = #.*/background-alt = #E7E7E7/g' $PFILE
-	sed -i -e 's/foreground = #.*/foreground = #0a0a0a/g' $PFILE
-	sed -i -e 's/foreground-alt = #.*/foreground-alt = #0a0a0a/g' $PFILE
-	sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
-	sed -i -e 's/red = #.*/red = #B71C1C/g' $PFILE
-	sed -i -e 's/yellow = #.*/yellow = #F57F17/g' $PFILE
-	
-	# rofi
-	cat > $RFILE <<- EOF
-	/* colors */
-
-	* {
-	  al:   #00000000;
-	  bg:   #FFFFFFFF;
-	  bga:  #E7E7E7FF;
-	  fga:  #0a0a0aFF;
-	  fg:   #0a0a0aFF;
+	  bg:   #272727FF;
+	  bga:  #383838FF;
+	  fga:  #CACACAFF;
+	  fg:   #CACACAFF;
 	  ac:   ${AC}FF;
 	}
 	EOF
@@ -138,8 +150,8 @@ elif [ "$style" == "hack" ]
 then
 	change_color() {
 	# polybar
-	sed -i -e 's/background = #.*/background = #FFFFFF/g' $PFILE
-	sed -i -e 's/foreground = #.*/foreground = #1F1F1F/g' $PFILE
+	sed -i -e 's/background = #.*/background = #141C21/g' $PFILE
+	sed -i -e 's/foreground = #.*/foreground = #FFFFFF/g' $PFILE
 	sed -i -e "s/primary = #.*/primary = $AC/g" $PFILE
 	
 	# rofi
@@ -148,10 +160,10 @@ then
 
 	* {
 	  al:    #00000000;
-	  bg:    #FFFFFFFF;
+	  bg:    #141C21FF;
 	  ac:    ${AC}FF;
 	  se:    ${AC}26;
-	  fg:    #1F1F1FFF;
+	  fg:    #FFFFFFFF;
 	}
 	EOF
 	
@@ -162,19 +174,23 @@ else
 fi
 
 
+
+
+
+
+
+
+
+
 if  [[ $1 = "--amber" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#ffb300"
 	FG="#141C21"
 	SH1="#FF6F00"	SH2="#FF8F00"	SH3="#FFA000"	SH4="#FFB300"
 	SH5="#FFC107"	SH6="#FFCA28"	SH7="#FFD54F"	SH8="#FFE082"
 	change_color
-elif  [[ $1 = "--blue" ]] || [ "$style" == "docky" ]; then
+elif  [[ $1 = "--blue" ]]; then
 	MF="#FFFFFF"
-	AC="#1e88e5"
-	change_color
-elif  [[ $1 = "--blue" ]] || [ "$style" != "docky" ]; then
-	MF="#2E2E2E"
 	AC="#1e88e5"
 	FG="#F5F5F5"
 	SH1="#0D47A1"	SH2="#1565C0"	SH3="#1976D2"	SH4="#1E88E5"
@@ -195,7 +211,7 @@ elif  [[ $1 = "--brown" ]]; then
 	SH5="#795548"	SH6="#8D6E63"	SH7="#A1887F"	SH8="#BCAAA4"
 	change_color
 elif  [[ $1 = "--cyan" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#00acc1"
 	FG="#141C21"
 	SH1="#006064"	SH2="#00838F"	SH3="#0097A7"	SH4="#00ACC1"
@@ -237,28 +253,28 @@ elif  [[ $1 = "--indigo" ]]; then
 	SH5="#3F51B5"	SH6="#5C6BC0"	SH7="#7986CB"	SH8="#9FA8DA"
 	change_color
 elif  [[ $1 = "--light-blue" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#039be5"
 	FG="#141C21"
 	SH1="#01579B"	SH2="#0277BD"	SH3="#0288D1"	SH4="#039BE5"
 	SH5="#03A9F4"	SH6="#29B6F6"	SH7="#4FC3F7"	SH8="#81D4FA"
 	change_color
 elif  [[ $1 = "--light-green" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#7cb342"
 	FG="#141C21"
 	SH1="#33691E"	SH2="#558B2F"	SH3="#689F38"	SH4="#7CB342"
 	SH5="#8BC34A"	SH6="#9CCC65"	SH7="#AED581"	SH8="#C5E1A5"
 	change_color
 elif  [[ $1 = "--lime" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#c0ca33"
 	FG="#141C21"
 	SH1="#827717"	SH2="#9E9D24"	SH3="#AFB42B"	SH4="#C0CA33"
 	SH5="#CDDC39"	SH6="#D4E157"	SH7="#DCE775"	SH8="#E6EE9C"
 	change_color
 elif  [[ $1 = "--orange" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#fb8c00"
 	FG="#141C21"
 	SH1="#E65100"	SH2="#EF6C00"	SH3="#F57C00"	SH4="#FB8C00"
@@ -293,7 +309,7 @@ elif  [[ $1 = "--teal" ]]; then
 	SH5="#009688"	SH6="#26A69A"	SH7="#4DB6AC"	SH8="#80CBC4"
 	change_color
 elif  [[ $1 = "--yellow" ]]; then
-	MF="#2E2E2E"
+	MF="#1F1F1F"
 	AC="#fdd835"
 	FG="#141C21"
 	SH1="#F57F17"	SH2="#F9A825"	SH3="#FBC02D"	SH4="#FDD835"
@@ -309,4 +325,3 @@ else
 	--red	--teal		--yellow
 	_EOF_
 fi
-

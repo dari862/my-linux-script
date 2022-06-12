@@ -3,18 +3,15 @@
 ## Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com>
 ## Everyone is permitted to copy and distribute copies of this file under GNU-GPL3
 
-rofi_dir="$HOME/.config/rofi"
+SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 
 if [ "$1" ]
 then
-	## rofi sudo askpass helper
-	export SUDO_ASKPASS="$rofi_dir"/bin/askpass
-	
-	## execute the application
-	sudo -A $1
+	app_2_run_as_root="$1"
 else
-	DIR="$HOME/.config/bspwm"
-	STYLE="$(cat $rofi_dir/style)"
+	WM_common_config="$HOME/.config/WM_common_config"
+	STYLE="$(cat ${WM_common_config}/Rofi_style)"
+	rofi_dir="$HOME/.config/rofi"
 	rofi_command="rofi -theme $rofi_dir/$STYLE/runner.rasi"
 	# Apps
 	terminal=" Terminal"
@@ -30,22 +27,28 @@ else
 	chosen="$(echo -e "$options" | $rofi_command -p "Run apps as root" -dmenu -selected-row 0)"
 	case $chosen in
     	$terminal)
-        	apps_as_root 'bspterm'
+        	app_2_run_as_root='bspterm'
         	;;
     	$files)
-        	apps_as_root 'dbus-run-session x-file-manager'
+        	app_2_run_as_root='dbus-run-session x-file-manager'
         	;;
     	$editor)
-        	apps_as_root 'geany'
+        	app_2_run_as_root='geany'
         	;;
     	$clifm)
-        	apps_as_root 'bspterm -e ranger'
+        	app_2_run_as_root='bspterm -e ranger'
         	;;
     	$lpad)
-        	apps_as_root 'x-text-editor'
+        	app_2_run_as_root='x-text-editor'
         	;;
     	$vim)
-        	apps_as_root 'bspterm -e vim'
+        	app_2_run_as_root='bspterm -e vim'
         	;;
 	esac
 fi
+
+## rofi sudo askpass helper
+export SUDO_ASKPASS="$SCRIPT_DIR"/askpass
+	
+## execute the application
+sudo -A "$app_2_run_as_root"

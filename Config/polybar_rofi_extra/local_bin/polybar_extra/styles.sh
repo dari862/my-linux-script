@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Color files
 dir="$HOME/.config/polybar_extra"
-style="$(cat $dir/style)"
+WM_common_config="$HOME/.config/WM_common_config"
+style="$(cat ${WM_common_config}/Polybar_Extra_style)"
 PFILE="$HOME/.config/polybar_extra/$style/colors.ini"
 RFILE="$HOME/.config/rofi_extra/$style/colors.rasi"
 

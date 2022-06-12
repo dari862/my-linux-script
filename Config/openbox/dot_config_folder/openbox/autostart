@@ -59,7 +59,8 @@ fi
 #### START APPLICATIONS ###############################################################################
 # Set wallpaper
 sleep 0.5
-nitrogen --restore &									
+~/local/bin/setbg &									
+
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
 # Start Conky

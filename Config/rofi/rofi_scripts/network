@@ -9,8 +9,8 @@ WM_common_config="$HOME/.config/WM_common_config"
 STYLE="$(cat ${WM_common_config}/Rofi_style)"
 rofi_dir="$HOME/.config/rofi"
 
-dir="$rofi_dir/$STYLE"
-rofi_command="rofi -theme $dir/network.rasi"
+style_dir="$rofi_dir/$STYLE"
+rofi_command="rofi -theme $style_dir/network.rasi"
 
 ## Get info
 IFACE="$(nmcli | grep -i interface | awk '/interface/ {print $2}')"

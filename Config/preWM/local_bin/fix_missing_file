@@ -5,6 +5,7 @@ styles_script_dir="$HOME/.local/bin/My_styles"
 default_panel="polybar"
 default_style="old"
 WM_common_config="$HOME/.config/WM_common_config"
+ls_bin="/usr/bin/ls"
 
 mkdir -p "$WM_common_config"
 
@@ -35,7 +36,7 @@ case "$1" in
 		fi
 	;;
 	style)
-		list_styles="$(ls -p $styles_script_dir | sed "s/.sh/|/g" | tr -d "\n" | sed 's/.$//')"
+		list_styles="$($ls_bin -p $styles_script_dir | sed "s/.sh/|/g" | tr -d "\n" | sed 's/.$//')"
 		# Launch Rofi
 		style_MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p '' -no-click-to-exit \
 		-theme "$rofi_dir"/old/launcher.rasi \

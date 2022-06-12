@@ -492,7 +492,7 @@ sed -i 's|openbox/polybar|polybar|g' $temp_folder_for_openbox/archcraft/openbox/
 for change_content in ac-powermenu ac-change-fonts ac-randr
 do
 	sed -i 's|.config/openbox/rofi|.config/rofi|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
-	sed -i 's|.config/openbox/rofi|.config/polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
+	sed -i 's|.config/openbox/polybar|.config/polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
 done
 
 echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu

@@ -1,15 +1,30 @@
 #!/usr/bin/env bash
 
-rofi_dir="$HOME/.config/rofi"
-polybar_dir="$HOME/.local/bin/polybar/style"
-STYLE="$(cat $rofi_dir/style)"
-styles_script_dir="$HOME/.local/bin/My_styles"
-list_styles="$(ls -p $styles_script_dir | sed "s/.sh/|/g" | tr -d "\n" | sed 's/.$//')"
+WM_common_config="$HOME/.config/WM_common_config"
+ls_bin="/usr/bin/ls"
+if [ "$(cat ${WM_common_config}/Polybar_style)" == "extra" ]
+then
+	STYLE="$(cat ${WM_common_config}/Rofi_extra_style)"
+	rofi_dir="$HOME/.config/rofi_extra"
+	styles_script_dir="$HOME/.config/rofi_extra"
+else
+	STYLE="$(cat ${WM_common_config}/Rofi_style)"
+	rofi_dir="$HOME/.config/rofi"
+	styles_script_dir="$HOME/.local/bin/My_styles"
+fi
+
+list_styles="$($ls_bin -p $styles_script_dir | sed "s/.sh//g")"
 # Launch Rofi
-MENU="$(rofi -no-config -no-lazy-grab -sep "|" -dmenu -i -p '' \
+MENU="$(rofi -no-config -no-lazy-grab -dmenu -i -p '' \
 -theme "$rofi_dir"/"$STYLE"/launcher.rasi \
 <<< "$list_styles")"
+
 if [ ! -z "$MENU" ]
 then
-        $styles_script_dir/"$MENU".sh
+	if [ "$PSTYLE" == "extra" ]
+	then
+		$HOME/.local/bin/polybar_extra/polybar_extra.sh "${MENU}"
+	else
+		${styles_script_dir}/${MENU}.sh
+	fi
 fi

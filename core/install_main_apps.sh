@@ -392,12 +392,16 @@ download_polybar_config_now_()
 show_m "download polybar config "
 mkdir -p $temp_folder_for_download
 mkdir -p $temp_folder_for_skel_config
+mkdir -p $temp_folder_for_skel_/.local/bin
 
 get_My_styles_scripts_now_
 
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar_rofi_extra
+
+mv -v $temp_folder_for_skel_config/polybar/polybar_scripts $temp_folder_for_skel_/.local/bin/polybar
+mv -v $temp_folder_for_skel_config/polybar_rofi_extra/local_bin/* $temp_folder_for_skel_/.local/bin
 mv -v $temp_folder_for_skel_config/polybar_rofi_extra/* $temp_folder_for_skel_config/
 rm -rdf $temp_folder_for_skel_config/polybar_rofi_extra
 
@@ -427,6 +431,7 @@ then
 	show_m "download rofi config "
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
 	touch $temp_folder_for_download/rofi_config_files_downloaded
+	mv -v $temp_folder_for_skel_config/rofi/rofi_scripts $temp_folder_for_skel_/.local/bin/rofi
 fi
 }
 

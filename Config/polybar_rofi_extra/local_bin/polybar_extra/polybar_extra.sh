@@ -10,6 +10,7 @@ if [ "$1" ]
 then
 	echo "extra" > "${WM_common_config}/Polybar_style"
 	echo "$1" > "${WM_common_config}/Polybar_Extra_style"
+	echo "$1" > "${WM_common_config}/Rofi_extra_style"
 fi
 
 if [ ! $(cat "${WM_common_config}/Polybar_Extra_style") ]

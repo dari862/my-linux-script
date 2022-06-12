@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+ls_bin="/usr/bin/ls"
 opt="${1-h}"
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
 source "$SCRIPT_DIR/config/config.ini"
@@ -103,8 +104,8 @@ scripts_hub()
 	# Description: a hub that you can execute all the other scripts from
 	# Dependencies: dmenu, executable dmscripts, all the dependancies from dmscripts
 	
-	_script_dir="$PWD"
-	list_scripts="$(ls -p $_script_dir -I hub | grep -v /)"
+	_script_dir="$HOME/.local/bin"
+	list_scripts="$($ls_bin -p $_script_dir -I hub | grep -v /)"
 	# Launch Rofi
 	MENU="$(${rofi_command} -p '' <<< "$list_scripts")"
 	if [ ! -z "$MENU" ]

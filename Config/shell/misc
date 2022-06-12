@@ -5,5 +5,3 @@ export EDITOR=$VISUAL
 # enable terminal linewrap
 setterm -linewrap on 2> /dev/null
 
-# colorize ls
-[ -x /usr/bin/dircolors ] && eval "$(dircolors -b)"

@@ -9,7 +9,7 @@ check_for_SUDO()
 if ! command -v sudo >/dev/null
 then
 	# Check root
-	[ "$(id -u)" -ne 0 ] && { echo "sudo not installed, so you must run script as root" 1>&2; exit 1; }
+	[ "$(id -u)" -ne 0 ] && { echo "sudo not installed, so you must run script as root" 1>&2; }
 	echo "Install sudo and add user 1000 to sudo group"
 	# INFO: SUDO allow users exec commands with root privileges without login as root
 	[ "$(find /var/cache/apt/pkgcache.bin -mtime 0 2>/dev/null)" ] || apt update

@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 dir="$HOME/.config/polybar_extra"
-style="$(cat $dir/style)"
+WM_common_config="$HOME/.config/WM_common_config"
+style="$(cat ${WM_common_config}/Polybar_Extra_style)"
 SDIR="$HOME/.local/bin/polybar_extra"
 RDIR="$HOME/.config/rofi_extra"
 

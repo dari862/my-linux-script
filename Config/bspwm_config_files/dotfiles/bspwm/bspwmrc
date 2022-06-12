@@ -151,7 +151,7 @@ bspc rule -a stalonetray state=floating manage=off
 #### Autostart ###############################################################################
 # Restore wallpaper
 sleep 0.50
-nitrogen --restore &
+~/local/bin/setbg &
 
 # Lauch xsettingsd daemon
 xsettingsd &
