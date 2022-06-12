@@ -1,7 +1,4 @@
 # ----------------------------------- MISC -----------------------------------
-export VISUAL=nano
-export EDITOR=$VISUAL
-
 # enable terminal linewrap
 setterm -linewrap on 2> /dev/null
 
