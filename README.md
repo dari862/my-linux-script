@@ -37,4 +37,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
   fix brighness script
   
   error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
+  
+  fix nitrogen restore
 </details>
