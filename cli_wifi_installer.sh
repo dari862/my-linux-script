@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+[ "$(id -u)" -ne 0 ] && { echo "sudo not installed, so you must run script as root" 1>&2; exit 1; }
+wifi_interface="$(ip link | awk -F: '$0 !~ "^[^0-9]"{print $2;getline}' | awk '/w/{ print $0 }')"
+
 run_wpa_supplicant_now()
 {
 	read -p "ssid:" ssid_var
@@ -39,10 +42,6 @@ fi
 
 main()
 {
-	[ "$(id -u)" -ne 0 ] && { echo "sudo not installed, so you must run script as root" 1>&2; exit 1; }
-
-	wifi_interface="$(ip link | awk -F: '$0 !~ "^[^0-9]"{print $2;getline}' | awk '/w/{ print $0 }')"
-
 	if [ -z "$wifi_interface" ]
 	then
 		echo "no wifi interface"
