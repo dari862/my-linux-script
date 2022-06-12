@@ -16,12 +16,12 @@ contry_name="${XDG_CACHE_HOME:-$HOME/.cache}/contry_name.txt"
 doppler="${XDG_CACHE_HOME:-$HOME/.cache}/doppler.gif"
 
 Weather_OPT_List=(
-"1 Location_Picker"
-"2 Show_Weather_Doppler"
-"3 Show_Weather_Forecast Full"
-"4 Show_Weather_Forecast Today"
-"5 Shows_the_current_moon_phase current"
-"6 Shows_the_current_moon_phase Moon_phase"
+"1 Show_Weather_Doppler"
+"2 Show_Weather_Forecast Full"
+"3 Show_Weather_Forecast Today"
+"4 Shows_the_current_moon_phase current"
+"5 Shows_the_current_moon_phase Moon_phase"
+"6 Location_Picker"
 "7 edit_script"
 )
 
@@ -396,13 +396,14 @@ main(){
 	fi
 	
 	case $Weather_OPT_ in
-		1) Location_Picker ;;
-		2) Show_Weather_Doppler ;;
-		3) Show_Weather_Forecast Full;;
-		4) Show_Weather_Forecast Today;;
-		5) Shows_the_current_moon_phase current ;;
-		6) Shows_the_current_moon_phase Moon_phase ;;
+		1) Show_Weather_Doppler ;;
+		2) Show_Weather_Forecast Full;;
+		3) Show_Weather_Forecast Today;;
+		4) Shows_the_current_moon_phase current ;;
+		5) Shows_the_current_moon_phase Moon_phase ;;
+		6) Location_Picker ;;
 		7) "$TERMINAL" -e "$EDITOR" "$0" ;;
+		"") exit ;;
 		*) main
 	esac
 }
