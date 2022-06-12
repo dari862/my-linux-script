@@ -25,8 +25,6 @@ cp -r $temp_folder_for_shell_config/* $temp_folder_for_skel_tweakterminalfolder
 mv ~/.bash_logout $temp_folder_for_skel_tweakterminalfolder/bash_logout &> /dev/null || touch $temp_folder_for_skel_tweakterminalfolder/bash_logout
 echo 'source $BASHDOTDIR/bash_logout' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
 
-echo "alias oldcat=\"$(command -v cat)\"" >> $temp_folder_for_skel_tweakterminalfolder/aliases
-
 local autojump_sh_location="/usr/share/autojump/autojump.sh"
 
 local autojump_2_source=" if [ -f /usr/share/autojump/autojump.sh ]; then . /usr/share/autojump/autojump.sh else echo \"autojump.sh at ( /usr/share/autojump/autojump.sh ) does not exist.\" ; fi"
