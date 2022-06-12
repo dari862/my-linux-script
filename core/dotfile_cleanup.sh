@@ -202,12 +202,12 @@ EOF
 
 cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
 
-cat << EOF > $temp_folder_for_skel_/.profile
+cat << EOF >> $temp_folder_for_skel_/.profile
 ln -sr ~/$myshell_skel_folder/profile ~/.profile
 source ~/.profile
 EOF
 
-cat << EOF > $temp_folder_for_skel_/.zprofile
+cat << EOF >> $temp_folder_for_skel_/.zprofile
 ln -sr ~/$myshell_skel_folder/zprofile ~/.zprofile
 source ~/.zprofile
 EOF
