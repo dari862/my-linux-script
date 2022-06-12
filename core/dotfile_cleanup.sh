@@ -65,7 +65,8 @@ cat << 'eof' > $temp_folder_for_skel_shell_folder/profile
 # set tty colours.
 
 # Default programs:
-export EDITOR="nano"
+export VISUAL=nano
+export EDITOR=$VISUAL
 export TERMINAL="x-terminal-emulator"
 export BROWSER="firefox"
 
