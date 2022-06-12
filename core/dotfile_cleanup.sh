@@ -187,17 +187,41 @@ rm -rdf ~/.xsessionrc
 ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc
 ln -sr ~/$myshell_skel_folder/bashrc ~/.bashrc
 xdg-user-dirs-update # this command will create ~/.config/user-dirs.dirs and ~/.config/user-dirs.locale
-source ~/.xsessionrc
+
 if [ -d "$HOME/.config/xfce4" ]
 then
 	xfconf-query -c xfwm4 -np /general/theme -t 'string' -s Adwaita
 fi
+
+case $SHELL in
+	*/bash)
+		ln -sr ~/$myshell_skel_folder/profile ~/.profile
+		source ~/.profile
+    ;;
+	*/zsh)
+    	ln -sr ~/$myshell_skel_folder/zprofile ~/.zprofile
+    	source ~/.zprofile
+    *)
+    	ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc
+    	source ~/.xsessionrc
+    ;;
+esac
+
+if [ "$(cat /etc/X11/default-display-manager)" == "/usr/sbin/lightdm" ] 
+then
+	ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc || :
+    source ~/.xsessionrc
+fi
+
 EOF
 
 cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
 
 show_m "skel dotfile clean-up"
-sudo cp -r /etc/skel/ /etc/skel-old/
+if [ ! -d /etc/skel-old ]
+then
+	sudo cp -r /etc/skel/ /etc/skel-old/
+fi
 sudo rm -rdf /etc/skel/
 sudo mkdir -p /etc/skel/
 }
