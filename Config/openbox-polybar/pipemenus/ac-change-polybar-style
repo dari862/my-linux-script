@@ -9,7 +9,7 @@
 WM_common_config="$HOME/.config/WM_common_config"
 P_style_location="${WM_common_config}/Polybar_style"
 PEdir="$HOME/.config/polybar_extra"
-PEscript="$PEdir/polybar_extra.sh"
+PEscript="$HOME/local/bin/polybar_extra/polybar_extra.sh"
 
 # Variables and functions
 MENUS_LIBDIR='/usr/share/archcraft/openbox/menulib'
@@ -32,14 +32,14 @@ gen_menu () {
 	menuSeparator "| Simple |"
 	for style in "${styles[@]}"; do
 		tmp_style=${style##*/}
-		menuItem "${count}. ${tmp_style}" "bash echo 'extra' > $P_style_location && $PEscript $tmp_style"
+		menuItem "${count}. ${tmp_style}" "$PEscript $tmp_style"
 		count=$(($count+1))
 	done
 	if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then
 		menuSeparator "| Bitmap |"
 		for bmap in "${bitmap[@]}"; do
 			tmp_bmap=${bmap##*/}
-			menuItem "${bcount}. ${tmp_bmap}" "bash echo 'extra' > $P_style_location && $PEscript $tmp_bmap"
+			menuItem "${bcount}. ${tmp_bmap}" "$PEscript $tmp_bmap"
 			bcount=$(($bcount+1))
 		done
 	fi
@@ -47,7 +47,7 @@ gen_menu () {
 	for panel in "${panels[@]}"; do
 		tmp_panel_ini=${panel%".ini"}
 		tmp_panel=${tmp_panel_ini##*/}
-		menuItem "${count}. ${tmp_panel}" "bash echo 'extra' > $P_style_location && $PEscript panels/${tmp_panel}"
+		menuItem "${count}. ${tmp_panel}" "$PEscript panels/${tmp_panel}"
 		count=$(($count+1))
 	done
 	menuEnd
