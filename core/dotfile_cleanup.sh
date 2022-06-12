@@ -217,6 +217,8 @@ EOF
 
 cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
 
+rm $temp_folder_for_skel_/.bash_logout $temp_folder_for_skel_/.bashrc
+
 show_m "skel dotfile clean-up"
 if [ ! -d /etc/skel-old ]
 then
