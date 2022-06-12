@@ -193,7 +193,7 @@ then
 	xfconf-query -c xfwm4 -np /general/theme -t 'string' -s Adwaita
 fi
 
-case $SHELL in
+case \$SHELL in
 	*/bash)
 		ln -sr ~/$myshell_skel_folder/profile ~/.profile
 		source ~/.profile
@@ -207,7 +207,7 @@ case $SHELL in
     ;;
 esac
 
-if [ "$(cat /etc/X11/default-display-manager)" == "/usr/sbin/lightdm" ] 
+if [ "\$(cat /etc/X11/default-display-manager)" == "/usr/sbin/lightdm" ] 
 then
 	ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc || :
     source ~/.xsessionrc
