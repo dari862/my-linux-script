@@ -14,7 +14,7 @@ run_wpa_supplicant_now()
 	read -p "pass:" pass_var 
 	wpa_passphrase "$ssid_var" "$pass_var" | tee $tmpfile
 	wpa_supplicant -B -c $tmpfile -i $wifi_interface &
-	echo "sleep 10"
+	echo "you will wait for few sec"
 	sleep 10 
 	dhclient $wifi_interface
 	ping -c4 google.com || (echo "no internet connection" ; exit 1)
