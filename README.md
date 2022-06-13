@@ -22,6 +22,16 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 
 <details>
+<summary><h1>links</h1></summary>
+  
+  https://www.google.com/search?client=firefox-b-e&q=add+script+to+debian+installer+github
+  
+  https://xerolinux.xyz/
+  
+  https://github.com/erikdubois/arcolinux-nemesis
+</details>
+
+<details>
 <summary><h1>to do</h1></summary>
   number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
   
@@ -30,11 +40,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
   dual moniter
   
   hdmi switch
-  
-  https://xerolinux.xyz/
-  
-  https://github.com/erikdubois/arcolinux-nemesis
-</details>
+  </details>
 
 <details>
 <summary><h1>to fix</h1></summary>
