@@ -27,6 +27,10 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
   
   work on bspwm
   
+  dual moniter
+  
+  hdmi switch
+  
   https://xerolinux.xyz/
   
   https://github.com/erikdubois/arcolinux-nemesis
