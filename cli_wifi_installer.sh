@@ -1,14 +1,12 @@
 #!/bin/bash
 set -e
 
-tmpfile="$(mktemp)"
-
 [ "$(id -u)" -ne 0 ] && { echo "you must run script as root" 1>&2; exit 1; }
 wifi_interface="$(ip link | awk -F: '$0 !~ "^[^0-9]"{print $2;getline}' | awk '/w/{ print $0 }')"
-ip link set $wifi_interface up
 
 run_wpa_supplicant_now()
 {
+	tmpfile="$(mktemp)"
 	echo -e "\n These hotspots are available \n"
 	iwlist $wifi_interface scan | grep ESSID | sed 's/ESSID://g;s/"//g;s/^                    //g'
 	read -p "ssid:" ssid_var
@@ -49,13 +47,13 @@ fi
 }
 
 main()
-{
+{	
 	if [ -z "$wifi_interface" ]
 	then
 		echo "no wifi interface"
 		exit 1
 	fi
-
+	
 	ip link set $wifi_interface up
 	
 	if command -v wpa_supplicant &> /dev/null
