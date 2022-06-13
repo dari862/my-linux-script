@@ -71,5 +71,5 @@ install_openbox_extra2=(xdotool ntfs-3g acl evince galternatives mlocate mailuti
 install_openbox_fonts=(fonts-noto fonts-droid-fallback fonts-cantarell fonts-liberation fonts-opensymbol fonts-noto-core fonts-noto-mono fonts-inconsolata)
 
 # ffmpeg for screen recoding , maim for ac-shots
-install_my_openbox=(xmlstarlet geany maim ffmpeg)
+install_open_stuff=(xmlstarlet geany maim ffmpeg)
 install_openbox_obmenu_generator=(obmenu-generator)

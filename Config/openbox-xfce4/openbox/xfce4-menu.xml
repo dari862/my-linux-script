@@ -2,7 +2,7 @@
 <!DOCTYPE menu [
   <!ENTITY icons "/usr/share/icons/openbox-menu">
   <!ENTITY rofibin "~/.local/bin/rofi">
-  <!ENTITY pipes "/usr/share/my_openbox/pipemenus">
+  <!ENTITY pipes "/usr/share/open_stuff/pipemenus">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

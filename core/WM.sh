@@ -62,41 +62,41 @@ configure_PreWM_now
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##################################################################################################################################################
-# my_openbox
+# open_stuff
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##################################################################################################################################################
 
-configure_my_openbox_os_stuffs_now_()
+configure_open_stuff_os_stuffs_now_()
 {
 
-if [ -f "$temp_folder_for_download/my_openbox_files_configured__" ]
+if [ -f "$temp_folder_for_download/open_stuff_files_configured__" ]
 then
 	return 0
 fi
 
 sudo mkdir -p /usr/share/fonts
-sudo mv $temp_folder_for_my_openbox/my_openbox/fonts/* /usr/share/fonts
+sudo mv $temp_folder_for_open_stuff/open_stuff/fonts/* /usr/share/fonts
 sudo chown -R root:root /usr/share/fonts
 
-sudo chown -R root:root $temp_folder_for_my_openbox/my_openbox
-sudo mv $temp_folder_for_my_openbox/my_openbox /usr/share/
+sudo chown -R root:root $temp_folder_for_open_stuff/open_stuff
+sudo mv $temp_folder_for_open_stuff/open_stuff /usr/share/
 
 sudo mkdir -p /usr/share/icons
-sudo chown -R root:root $temp_folder_for_my_openbox/icons
-sudo cp -rf $temp_folder_for_my_openbox/icons/* /usr/share/icons
+sudo chown -R root:root $temp_folder_for_open_stuff/icons
+sudo cp -rf $temp_folder_for_open_stuff/icons/* /usr/share/icons
 
-sudo chown -R root:root $temp_folder_for_my_openbox/themes
+sudo chown -R root:root $temp_folder_for_open_stuff/themes
 
 sudo mkdir -p /usr/share/themes
-for d in $temp_folder_for_my_openbox/themes/* ; do
+for d in $temp_folder_for_open_stuff/themes/* ; do
 	Directory_name=${d##*/}
 	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
 done
 
-sudo mv $temp_folder_for_my_openbox/themes/* /usr/share/themes
+sudo mv $temp_folder_for_open_stuff/themes/* /usr/share/themes
 
-touch $temp_folder_for_download/my_openbox_files_configured__
+touch $temp_folder_for_download/open_stuff_files_configured__
 
 }
 ##################################################################################################################################################
@@ -120,7 +120,7 @@ mkdir -p ${temp_folder_for_polybar}/usr_share_app
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_polybar}/usr_share_app
 
-configure_my_openbox_os_stuffs_now_
+configure_open_stuff_os_stuffs_now_
 }
 
 ##################################################################################################################################################
@@ -134,7 +134,7 @@ configure_my_openbox_os_stuffs_now_
 configure_xfce4_now()
 {
 sed -i "s|/home/dari|$HOME|g" $temp_folder_for_skel_config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-configure_my_openbox_os_stuffs_now_
+configure_open_stuff_os_stuffs_now_
 }
 
 ##################################################################################################################################################
@@ -473,8 +473,8 @@ sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
 sudo chown -R root:root $temp_folder_for_usr_bin_
 sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
 
-sudo chown root:root -R $temp_folder_for_openbox/my_openbox
-sudo mv $temp_folder_for_openbox/my_openbox /usr/share/
+sudo chown root:root -R $temp_folder_for_openbox/open_stuff
+sudo mv $temp_folder_for_openbox/open_stuff /usr/share/
 
 # Create welcome link
 sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"

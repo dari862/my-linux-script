@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE menu [
-  <!ENTITY icons "/usr/share/my_openbox/icons">
-  <!ENTITY icons2 "/usr/share/my_openbox/icons/dunst">
+  <!ENTITY icons "/usr/share/open_stuff/icons">
+  <!ENTITY icons2 "/usr/share/open_stuff/icons/dunst">
   <!ENTITY rofibin "~/.local/bin/rofi">
-  <!ENTITY pipes "/usr/share/my_openbox/pipemenus">
+  <!ENTITY pipes "/usr/share/open_stuff/pipemenus">
 ]>
 <openbox_menu xmlns="http://openbox.org/"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

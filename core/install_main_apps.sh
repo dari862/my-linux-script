@@ -346,15 +346,15 @@ then
 fi
 }
 
-download_my_openbox_stuff_now_()
+download_open_stuff_stuff_now_()
 {
-show_m "download my_openbox stuff "
-if [ ! -f "$temp_folder_for_download/my_openbox_files_downloaded" ]
+show_m "download open_stuff stuff "
+if [ ! -f "$temp_folder_for_download/open_stuff_files_downloaded" ]
 then
-	show_m "download my_openbox stuff "
+	show_m "download open_stuff stuff "
 	git-clone "https://github.com/dari862/have_stuff.git" $temp_folder_for_download/have_stuff 
-	mv $temp_folder_for_download/have_stuff $temp_folder_for_my_openbox	
-	touch $temp_folder_for_download/my_openbox_files_downloaded
+	mv $temp_folder_for_download/have_stuff $temp_folder_for_open_stuff	
+	touch $temp_folder_for_download/open_stuff_files_downloaded
 fi
 }
 
@@ -372,7 +372,7 @@ mkdir -p $temp_folder_for_skel_config
 mkdir -p $temp_folder_for_skel_/.local/bin
 
 get_My_styles_scripts_now_
-download_my_openbox_stuff_now_
+download_open_stuff_stuff_now_
 
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
@@ -413,7 +413,7 @@ download_xfce4_panel_config_now_()
 mkdir -p $temp_folder_for_skel_config
 
 get_My_styles_scripts_now_
-download_my_openbox_stuff_now_
+download_open_stuff_stuff_now_
 
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4_panel/xfce4
@@ -782,7 +782,7 @@ cp -rfv ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
 
-apt_install_whith_error_whitout_exit "${install_my_openbox[@]}"
+apt_install_whith_error_whitout_exit "${install_open_stuff[@]}"
 add_new_source_to_apt_now mod "gpg" repolink "deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /" reponame  "obmenu_generator" keylink "https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key" keyname "obmenu-generator.gpg"
 aptupdate
 apt_install_whith_error_whitout_exit "${install_openbox_obmenu_generator[@]}"
