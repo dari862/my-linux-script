@@ -58,8 +58,7 @@ fi
 
 #### START APPLICATIONS ###############################################################################
 # Set wallpaper
-sleep 0.5
-~/local/bin/setbg &									
+(sleep 0.5; ~/local/bin/setbg) &
 
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &

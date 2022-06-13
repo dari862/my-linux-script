@@ -35,5 +35,5 @@ old_bg_()
 	xwallpaper --zoom "$bgloc"
 }
 
-sleep 1
+sleep 2
 nitrogen --restore &

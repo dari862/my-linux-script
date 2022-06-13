@@ -70,37 +70,33 @@ configure_PreWM_now
 configure_my_openbox_os_stuffs_now_()
 {
 
-if [ "$my_openbox_configured_alrdy" == "true" ]
+if [ -f "$temp_folder_for_download/my_openbox_files_configured__" ]
 then
 	return 0
 fi
 
-sudo mkdir -p /usr/share/my_openbox 
 sudo mkdir -p /usr/share/fonts
-sudo mv $temp_folder_for_polybar/my_openbox/fonts/* /usr/share/fonts
-rm $temp_folder_for_polybar/my_openbox/fonts
+sudo mv $temp_folder_for_my_openbox/my_openbox/fonts/* /usr/share/fonts
 sudo chown -R root:root /usr/share/fonts
 
-mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
+sudo chown -R root:root $temp_folder_for_my_openbox/my_openbox
+sudo mv $temp_folder_for_my_openbox/my_openbox /usr/share/
 
-mv $temp_folder_for_polybar/my_openbox/bin/* $temp_folder_for_usr_bin_
-rm $temp_folder_for_polybar/my_openbox/bin
+sudo mkdir -p /usr/share/icons
+sudo chown -R root:root $temp_folder_for_my_openbox/icons
+sudo cp -rf $temp_folder_for_my_openbox/icons/* /usr/share/icons
 
-sudo chown -R root:root $temp_folder_for_polybar/my_openbox
-sudo mv $temp_folder_for_polybar/my_openbox/* /usr/share/my_openbox
+sudo chown -R root:root $temp_folder_for_my_openbox/themes
 
-
-sudo chown -R root:root $temp_folder_for_polybar/icons/*
-sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
-
-sudo chown -R root:root $temp_folder_for_polybar/themes
-for d in $temp_folder_for_polybar/themes/* ; do
+sudo mkdir -p /usr/share/themes
+for d in $temp_folder_for_my_openbox/themes/* ; do
 	Directory_name=${d##*/}
 	[ -d "/usr/share/themes/$Directory_name" ] && sudo rm -rdf /usr/share/themes/$Directory_name
 done
-sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
 
-declare -g my_openbox_configured_alrdy="true"
+sudo mv $temp_folder_for_my_openbox/themes/* /usr/share/themes
+
+touch $temp_folder_for_download/my_openbox_files_configured__
 
 }
 ##################################################################################################################################################
@@ -348,6 +344,7 @@ copy_awesome_2_skel
 configuring_bspwm_now()
 {
 cp -r $temp_folder_for_bspwm/bspwm_config_files/dotfiles/* $temp_folder_for_skel_config
+mv $temp_folder_for_skel_config/bspwm/bin $temp_folder_for_skel_/.local/bin/bspwm
 }
 
 main_bspwm_now()

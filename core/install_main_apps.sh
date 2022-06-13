@@ -321,44 +321,41 @@ sed -i 's/TopPadding=-11/TopPadding=-12/g' $temp_folder_for_skel_/.local/share/p
 sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2/dock.theme
 }
 
-download_my_openbox_stuffs_now_()
-{
-	if [ "$my_openbox_installed_alrdy" == "true" ]
-	then
-		return 0
-	fi
-	
-	mkdir -p $temp_folder_for_polybar
-	
-	archcraft_os_stuffs()
-	{
-		local url_archcraft_os="$1"
-		local tempvar="$2"
-		
-		git-clone $url_archcraft_os $temp_folder_for_download/polybar_${tempvar}
-		mkdir -p $temp_folder_for_polybar/${tempvar}
-		
-		for d in $temp_folder_for_download/polybar_${tempvar}/* ; do
-			[ -d "$d" ] && mv -f ${d}/files/* $temp_folder_for_polybar/${tempvar}
-		done
-	}
-	
-	archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
-	archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
-	archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
-
-	declare -g my_openbox_installed_alrdy="true"
-}
-
 get_My_styles_scripts_now_()
 {
-	if [ ! -d "$temp_folder_for_skel_config/My_styles" ]
+	if [ ! -d "$temp_folder_for_skel_/.local/bin/My_styles" ]
 	then
 		mkdir -p $temp_folder_for_skel_/.local/bin
 		cd $temp_folder_for_skel_/.local/bin
 		svn-export https://github.com/dari862/my-linux-script/trunk/Config/My_styles
 		find $temp_folder_for_skel_/.local/bin/My_styles -type f -exec sed -i "s|$gnome_wallpaper_folder|$wallpapers_location_now|g" {} \;
 	fi
+}
+
+download_rofi_config_now_()
+{
+show_m "download rofi config "
+if [ ! -f "$temp_folder_for_download/rofi_config_files_downloaded" ]
+then
+	show_m "download rofi config "
+	mkdir -p $temp_folder_for_skel_config
+	cd $temp_folder_for_skel_config
+	svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
+	mv -v $temp_folder_for_skel_config/rofi/rofi_scripts $temp_folder_for_skel_/.local/bin/rofi
+	touch $temp_folder_for_download/rofi_config_files_downloaded
+fi
+}
+
+download_my_openbox_stuff_now_()
+{
+show_m "download my_openbox stuff "
+if [ ! -f "$temp_folder_for_download/my_openbox_files_downloaded" ]
+then
+	show_m "download my_openbox stuff "
+	git-clone "https://github.com/dari862/have_stuff.git" $temp_folder_for_download/have_stuff 
+	mv $temp_folder_for_download/have_stuff $temp_folder_for_my_openbox	
+	touch $temp_folder_for_download/my_openbox_files_downloaded
+fi
 }
 
 install_polybar_app_now_()
@@ -375,6 +372,7 @@ mkdir -p $temp_folder_for_skel_config
 mkdir -p $temp_folder_for_skel_/.local/bin
 
 get_My_styles_scripts_now_
+download_my_openbox_stuff_now_
 
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/polybar
@@ -397,22 +395,9 @@ svn-export $outsidemyrepo_fonts_polybar_themes
 sudo chown -R root:root fonts
 sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
 sudo fc-cache -vf
-download_my_openbox_stuffs_now_
 
 git-clone "$outsidemyrepo_polybar_rofi_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
-}
-
-download_rofi_config_now_()
-{
-show_m "download rofi config "
-if [ ! -f "$temp_folder_for_download/rofi_config_files_downloaded" ]
-then
-	show_m "download rofi config "
-	svn-export https://github.com/dari862/my-linux-script/trunk/Config/rofi
-	touch $temp_folder_for_download/rofi_config_files_downloaded
-	mv -v $temp_folder_for_skel_config/rofi/rofi_scripts $temp_folder_for_skel_/.local/bin/rofi
-fi
 }
 
 install_xfce4_panel_app_now_()
@@ -428,6 +413,7 @@ download_xfce4_panel_config_now_()
 mkdir -p $temp_folder_for_skel_config
 
 get_My_styles_scripts_now_
+download_my_openbox_stuff_now_
 
 cd $temp_folder_for_skel_config
 svn-export https://github.com/dari862/my-linux-script/trunk/Config/xfce4_panel/xfce4
@@ -445,7 +431,6 @@ sudo mv -v "$temp_folder_for_download/clear_xfce-notify-4.0_gtk.css" "/usr/share
 sudo chown root:root /usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css
 #fix xfce4-panel workspace settings error in openbox
 sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
-download_my_openbox_stuffs_now_
 }
 
 ############################################################################
@@ -797,7 +782,7 @@ cp -rfv ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
 
-apt_install_whith_error_whitout_exit "${install_openbox_archcraft[@]}"
+apt_install_whith_error_whitout_exit "${install_my_openbox[@]}"
 add_new_source_to_apt_now mod "gpg" repolink "deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /" reponame  "obmenu_generator" keylink "https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key" keyname "obmenu-generator.gpg"
 aptupdate
 apt_install_whith_error_whitout_exit "${install_openbox_obmenu_generator[@]}"

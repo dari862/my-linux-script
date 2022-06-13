@@ -150,8 +150,7 @@ bspc rule -a stalonetray state=floating manage=off
 
 #### Autostart ###############################################################################
 # Restore wallpaper
-sleep 0.50
-~/local/bin/setbg &
+(sleep 0.50; ~/local/bin/setbg) &
 
 # Lauch xsettingsd daemon
 xsettingsd &
@@ -173,8 +172,7 @@ fi
 sxhkd &
 
 #urxvtc
-sleep 0.50
-urxvtc &
+(sleep 0.50; urxvtc) &
 
 ## Enable power management
 ~/.local/bin/my_power_managers_session &
@@ -232,11 +230,8 @@ fi
 exec picom --config "$HOME/.config/picom.conf" &
 
 # Start bspwm scripts
-bspcolors
 bspfloat &
+export PATH=$PATH:$HOME/.local/bin/bspwm
+
 
 #(sleep 2; start_conky.sh) &
-
-## Welcome-App-Run-Once
-#archcraft-welcome &
-#sed -i -e '/## Welcome-App-Run-Once/Q' "$HOME"/.config/bspwm/bspwmrc

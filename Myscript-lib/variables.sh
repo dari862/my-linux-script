@@ -39,6 +39,7 @@ temp_folder_for_polybar="$temp_folder_for_themes_and_apps/polybar"
 temp_folder_for_awesomewm="$temp_folder_for_themes_and_apps/awesomewm"
 temp_folder_for_bspwm="$temp_folder_for_themes_and_apps/bspwm"
 temp_folder_for_openbox="$temp_folder_for_themes_and_apps/openbox"
+temp_folder_for_my_openbox="$temp_folder_for_themes_and_apps/my_openbox"
 temp_folder_for_gaming="$temp_folder_for_download/gaming"
 
 sub_massage_in_running_function_show_it_in_progress_list=""
