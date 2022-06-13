@@ -1,20 +1,28 @@
 #!/bin/bash
 set -e
 
-[ "$(id -u)" -ne 0 ] && { echo "sudo not installed, so you must run script as root" 1>&2; exit 1; }
+tmpfile="$(mktemp)"
+
+[ "$(id -u)" -ne 0 ] && { echo "you must run script as root" 1>&2; exit 1; }
 wifi_interface="$(ip link | awk -F: '$0 !~ "^[^0-9]"{print $2;getline}' | awk '/w/{ print $0 }')"
+ip link set $wifi_interface up
 
 run_wpa_supplicant_now()
 {
+	echo -e "\n These hotspots are available \n"
+	iwlist $wifi_interface scan | grep ESSID | sed 's/ESSID://g;s/"//g;s/^                    //g'
 	read -p "ssid:" ssid_var
+	(iw $wifi_interface scan | grep 'SSID' | grep "$ssid_var") || (echo "wrong ssid")
 	read -p "pass:" pass_var 
-	wpa_passphrase "$ssid_var" "$pass_var" | tee wpa_passphrase_output
+	wpa_passphrase "$ssid_var" "$pass_var" | tee $tmpfile
 	unset ssid_var
 	unset pass_var
-	wpa_supplicant -c wpa_passphrase_output -i $wifi_interface & || exit 1
+	wpa_supplicant -B -c $tmpfile -i $wifi_interface &
+	echo "sleep 10"
+	sleep 10 
 	dhclient $wifi_interface
 	ping -c4 google.com || (echo "no internet connection" ; exit 1)
-	rm wpa_passphrase_output
+	rm $tmpfile
 	apt-get update
 	apt-get install -y network-manager
 	killall wpa_supplicant
