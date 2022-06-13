@@ -76,8 +76,9 @@ then
 fi
 
 sudo mkdir -p /usr/share/fonts
-sudo mv $temp_folder_for_open_stuff/open_stuff/fonts/* /usr/share/fonts
+sudo mv $temp_folder_for_open_stuff/fonts/* /usr/share/fonts
 sudo chown -R root:root /usr/share/fonts
+sudo fc-cache -vf
 
 sudo chown -R root:root $temp_folder_for_open_stuff/open_stuff
 sudo mv $temp_folder_for_open_stuff/open_stuff /usr/share/
