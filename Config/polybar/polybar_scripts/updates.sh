@@ -6,13 +6,13 @@ Style="$1"
 if [ "$Style" == "beach" ]
 then
     BAR_ICON=""
-    NOTIFY_ICON=/usr/share/archcraft/icons/dunst/updates.png
+    NOTIFY_ICON=/usr/share/my_openbox/icons/dunst/updates.png
 fi
 
 if [ "$Style" == "forest" ]
 then
     BAR_ICON=""
-    NOTIFY_ICON=/usr/share/archcraft/icons/dunst/updates.png
+    NOTIFY_ICON=/usr/share/my_openbox/icons/dunst/updates.png
 fi
 
 if [ "$Style" == "hack" ]

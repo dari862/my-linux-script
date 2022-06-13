@@ -76,7 +76,7 @@ case $chosen in
 		if [[ $ans == "yes" ]] || [[ $ans == "YES" ]] || [[ $ans == "y" ]]; then
 			mpc -q pause
 			amixer set Master mute
-			/usr/share/archcraft/openbox/pipemenus/ac-powermenu --suspent
+			/usr/share/my_openbox/pipemenus/ac-powermenu --suspent
 		elif [[ $ans == "no" ]] || [[ $ans == "NO" ]] || [[ $ans == "n" ]]; then
 			exit
         else

@@ -321,53 +321,33 @@ sed -i 's/TopPadding=-11/TopPadding=-12/g' $temp_folder_for_skel_/.local/share/p
 sed -i 's/BottomPadding=2.5/BottomPadding=2/g' $temp_folder_for_skel_/.local/share/plank/themes/Transparent2/dock.theme
 }
 
-download_archcraft_os_stuffs_now_()
+download_my_openbox_stuffs_now_()
 {
-if [ "$archcraft_installed_alrdy" == "true" ]
-then
-	return 0
-fi
-
-mkdir -p $temp_folder_for_polybar
-
-archcraft_os_stuffs()
-{
-local url_archcraft_os="$1"
-local tempvar="$2"
-
-git-clone $url_archcraft_os $temp_folder_for_download/polybar_${tempvar}
-mkdir -p $temp_folder_for_polybar/${tempvar}
-
-if [ "$tempvar" != "archcraft" ]
-then
-	for d in $temp_folder_for_download/polybar_${tempvar}/* ; do
-		[ -d "$d" ] && mv -f ${d}/files/* $temp_folder_for_polybar/${tempvar}
-	done
-else
-	for d in $temp_folder_for_download/polybar_${tempvar}/* ; do
-		if [ -d "${d}/files" ]
-		then
-			new_name=${d##*/}
-			mv -f ${d}/files $temp_folder_for_polybar/${tempvar}/${new_name//archcraft-/}
-		fi
+	if [ "$my_openbox_installed_alrdy" == "true" ]
+	then
+		return 0
+	fi
+	
+	mkdir -p $temp_folder_for_polybar
+	
+	archcraft_os_stuffs()
+	{
+		local url_archcraft_os="$1"
+		local tempvar="$2"
 		
-		if [ -d "${d}" ] && [ ! -d "${d}/files" ]
-		then
-			new_name=${d##*/}
-			mkdir -p ${d}/files
-			ls ${d} | grep -v files | sed "s|^|${d}/|" | xargs mv -t ${d}/files/
-		fi
-	done
-	mv $temp_folder_for_polybar/${tempvar}/pixmaps $temp_folder_for_polybar/${tempvar}/icons
-fi
-}
+		git-clone $url_archcraft_os $temp_folder_for_download/polybar_${tempvar}
+		mkdir -p $temp_folder_for_polybar/${tempvar}
+		
+		for d in $temp_folder_for_download/polybar_${tempvar}/* ; do
+			[ -d "$d" ] && mv -f ${d}/files/* $temp_folder_for_polybar/${tempvar}
+		done
+	}
+	
+	archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
+	archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
+	archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
 
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_themes" "themes"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_icons" "icons"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_cursors" "cursors"
-archcraft_os_stuffs "$outsidemyrepo_archcraft_os_archcraft" "archcraft"
-
-declare -g archcraft_installed_alrdy="true"
+	declare -g my_openbox_installed_alrdy="true"
 }
 
 get_My_styles_scripts_now_()
@@ -417,9 +397,9 @@ svn-export $outsidemyrepo_fonts_polybar_themes
 sudo chown -R root:root fonts
 sudo mv $temp_folder_for_download/fonts/* /usr/share/fonts &> /dev/null || show_em "falied to move all fonts files"
 sudo fc-cache -vf
-download_archcraft_os_stuffs_now_
+download_my_openbox_stuffs_now_
 
-git-clone "$outsidemyrepo_archcraft_os_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
+git-clone "$outsidemyrepo_polybar_rofi_networkmanager_dmenu" $temp_folder_for_download/networkmanager-dmenu
 
 }
 
@@ -465,7 +445,7 @@ sudo mv -v "$temp_folder_for_download/clear_xfce-notify-4.0_gtk.css" "/usr/share
 sudo chown root:root /usr/share/themes/clear-notify/xfce-notify-4.0/gtk.css
 #fix xfce4-panel workspace settings error in openbox
 sudo ln -s /usr/bin/obconf /usr/bin/xfwm4-workspace-settings
-download_archcraft_os_stuffs_now_
+download_my_openbox_stuffs_now_
 }
 
 ############################################################################
@@ -808,8 +788,6 @@ fi
 if command -v polybar &> /dev/null
 then
 	svn-export https://github.com/dari862/my-linux-script/trunk/Config/openbox-polybar
-	cp -fr $temp_folder_for_download/openbox-polybar/pipemenus $temp_folder_for_download
-	rm -rdf $temp_folder_for_download/openbox-polybar/pipemenus
 	cp -fr $temp_folder_for_download/openbox-polybar/* $temp_folder_for_themes_and_apps/openbox/dot_config_folder
 fi
 
@@ -818,8 +796,6 @@ cd $temp_folder_for_openbox
 cp -rfv ${temp_folder_for_openbox}/user_bin/* $temp_folder_for_usr_bin_
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_ps_mem" 
 newwget -P $temp_folder_for_usr_bin_ "$outsidemyrepo_bashtop"
-
-git-clone "$outsidemyrepo_archcraft_os_archcraft_openbox" $temp_folder_for_download/archcraft-openbox
 
 apt_install_whith_error_whitout_exit "${install_openbox_archcraft[@]}"
 add_new_source_to_apt_now mod "gpg" repolink "deb http://download.opensuse.org/repositories/home:/Head_on_a_Stick:/obmenu-generator/Debian_10/ /" reponame  "obmenu_generator" keylink "https://download.opensuse.org/repositories/home:Head_on_a_Stick:obmenu-generator/Debian_10/Release.key" keyname "obmenu-generator.gpg"

@@ -276,7 +276,7 @@ if [ "$which_panel" == "polybar" ]; then
 
 notify_user() {
 	local style=`basename $0` 
-	dunstify -u normal --replace=699 -i /usr/share/archcraft/icons/dunst/themes.png "Applying Style : ${style%.*}"
+	dunstify -u normal --replace=699 -i /usr/share/my_openbox/icons/dunst/themes.png "Applying Style : ${style%.*}"
 }
 
 else

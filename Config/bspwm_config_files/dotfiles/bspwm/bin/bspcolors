@@ -30,7 +30,7 @@ getcolors () {
 }
 
 bspbar () {
-	cat > $DIR/polybar/archcraft/colors <<- EOF	
+	cat > $DIR/polybar/my_openbox/colors <<- EOF	
 	[color]
 
 	FOREGROUND = ${FOREGROUND}
@@ -55,7 +55,7 @@ bspbar () {
 }
 
 bsprofi () {
-	cat > $DIR/rofi/archcraft/themes/colors.rasi <<- EOF	
+	cat > $DIR/rofi/my_openbox/themes/colors.rasi <<- EOF	
 	* {
 		background:			${BACKGROUND};
 		foreground:			${FOREGROUND};

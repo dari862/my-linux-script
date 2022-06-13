@@ -50,9 +50,12 @@ outsidemyrepo_font_PoiretOne_Regular_ttf="https://raw.githubusercontent.com/goog
 # preWM
 outsidemyrepo_prewm_Nordic_theme="https://github.com/EliverLara/Nordic.git"
 outsidemyrepo_prewm_Layan_cursors="https://github.com/vinceliuice/Layan-cursors"
-outsidemyrepo_fonts_polybar_themes="https://github.com/adi1090x/polybar-themes/trunk/fonts"
 outsidemyrepo_prewm_fonts_FiraCode="https://github.com/ryanoasis/nerd-fonts/releases/download/v1.1.0/FiraCode.zip"
 outsidemyrepo_prewm_fonts_Meslo="https://github.com/ryanoasis/nerd-fonts/releases/download/v1.1.0/Meslo.zip"
+
+# polybar rofi
+outsidemyrepo_fonts_polybar_themes="https://github.com/adi1090x/polybar-themes/trunk/fonts"
+outsidemyrepo_polybar_rofi_networkmanager_dmenu="https://github.com/firecat53/networkmanager-dmenu.git"
 
 # awesomeWM
 # lightdm themes
@@ -69,6 +72,3 @@ outsidemyrepo_Tela_icon_theme="https://github.com/vinceliuice/Tela-icon-theme.gi
 outsidemyrepo_archcraft_os_themes="https://github.com/archcraft-os/archcraft-themes.git"
 outsidemyrepo_archcraft_os_icons="https://github.com/archcraft-os/archcraft-icons.git"
 outsidemyrepo_archcraft_os_cursors="https://github.com/archcraft-os/archcraft-cursors.git"
-outsidemyrepo_archcraft_os_archcraft="https://github.com/archcraft-os/archcraft-packages.git"
-outsidemyrepo_archcraft_os_archcraft_openbox="https://github.com/archcraft-os/archcraft-openbox.git" 
-outsidemyrepo_archcraft_os_networkmanager_dmenu="https://github.com/firecat53/networkmanager-dmenu.git"

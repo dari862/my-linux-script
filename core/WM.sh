@@ -62,34 +62,34 @@ configure_PreWM_now
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##################################################################################################################################################
-# archcraft_os
+# my_openbox
 ##################################################################################################################################################
 ##################################################################################################################################################
 ##################################################################################################################################################
 
-configure_archcraft_os_stuffs_now_()
+configure_my_openbox_os_stuffs_now_()
 {
 
-if [ "$archcraft_configured_alrdy" == "true" ]
+if [ "$my_openbox_configured_alrdy" == "true" ]
 then
 	return 0
 fi
 
-sudo mkdir -p /usr/share/archcraft 
-mv $temp_folder_for_polybar/archcraft/fonts $temp_folder_for_polybar/archcraft/archcraft
+sudo mkdir -p /usr/share/my_openbox 
+sudo mkdir -p /usr/share/fonts
+sudo mv $temp_folder_for_polybar/my_openbox/fonts/* /usr/share/fonts
+rm $temp_folder_for_polybar/my_openbox/fonts
+sudo chown -R root:root /usr/share/fonts
+
 mv $temp_folder_for_polybar/cursors/* $temp_folder_for_polybar/icons/
 
-rm $temp_folder_for_polybar/archcraft/scripts/bin/xflock4
-rm $temp_folder_for_polybar/archcraft/scripts/bin/neofetch
-rm $temp_folder_for_polybar/archcraft/scripts/bin/furminal
-rm $temp_folder_for_polybar/archcraft/scripts/bin/brightness
+mv $temp_folder_for_polybar/my_openbox/bin/* $temp_folder_for_usr_bin_
+rm $temp_folder_for_polybar/my_openbox/bin
 
-mv $temp_folder_for_polybar/archcraft/scripts/bin/* $temp_folder_for_usr_bin_
+sudo chown -R root:root $temp_folder_for_polybar/my_openbox
+sudo mv $temp_folder_for_polybar/my_openbox/* /usr/share/my_openbox
 
-sudo chown -R root:root $temp_folder_for_polybar/archcraft
-sudo mv $temp_folder_for_polybar/archcraft/* /usr/share/archcraft
 
-sudo mv /usr/share/archcraft/archcraft /usr/share/fonts
 sudo chown -R root:root $temp_folder_for_polybar/icons/*
 sudo mv $temp_folder_for_polybar/icons/* /usr/share/icons
 
@@ -100,7 +100,7 @@ for d in $temp_folder_for_polybar/themes/* ; do
 done
 sudo mv $temp_folder_for_polybar/themes/* /usr/share/themes
 
-declare -g archcraft_configured_alrdy="true"
+declare -g my_openbox_configured_alrdy="true"
 
 }
 ##################################################################################################################################################
@@ -124,7 +124,7 @@ mkdir -p ${temp_folder_for_polybar}/usr_share_app
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu $temp_folder_for_usr_bin_
 mv $temp_folder_for_download/networkmanager-dmenu/networkmanager_dmenu.desktop ${temp_folder_for_polybar}/usr_share_app
 
-configure_archcraft_os_stuffs_now_
+configure_my_openbox_os_stuffs_now_
 }
 
 ##################################################################################################################################################
@@ -138,7 +138,7 @@ configure_archcraft_os_stuffs_now_
 configure_xfce4_now()
 {
 sed -i "s|/home/dari|$HOME|g" $temp_folder_for_skel_config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml
-configure_archcraft_os_stuffs_now_
+configure_my_openbox_os_stuffs_now_
 }
 
 ##################################################################################################################################################
@@ -469,39 +469,6 @@ $temp_folder_for_download/Tela-icon-theme/install.sh grey &>> $debug_log
 #sed -i 's/^gtk-xft-hintstyle *= *.*/gtk-xft-hintstyle="'"hintslight"'"/' "$temp_folder_for_skel_/.config/gtk-3.0/settings.ini"
 
 ##################################################################
-# archcraft
-
-sudo mkdir -p /usr/share/archcraft
-mkdir -p $temp_folder_for_openbox/archcraft/openbox
-mv -v $temp_folder_for_download/archcraft-openbox/files/icons $temp_folder_for_openbox/archcraft/openbox/
-mv -v $temp_folder_for_download/archcraft-openbox/files/menulib $temp_folder_for_openbox/archcraft/openbox/
-mv -v $temp_folder_for_download/archcraft-openbox/files/pipemenus $temp_folder_for_openbox/archcraft/openbox/
-mv -v $temp_folder_for_download/pipemenus/* $temp_folder_for_openbox/archcraft/openbox/pipemenus
-sed -i 's/menuEnd/menuItem '\''old'\'' "$0 menu.xml"/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
-sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb
-sed -i -e 's|.config/openbox/scripts|.local/bin/My_styles|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
-sed -i 's/openbox --exit/my_session_manager logout/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
-sed -i 's/betterlockscreen --/my_session_manager /g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
-sed -i 's/systemctl/my_session_manager/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-powermenu
-sed -i '/menuSeparator "| Bitmap |"/i add_beginning_of_bitmap_check_here_plz' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
-sed -i '/menuSeparator "| Effects |"/i add_ending_of_bitmap_check_here_plz' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
-sed -i 's|add_beginning_of_bitmap_check_here_plz|if [ ! -f /etc/fonts/conf.d/70-no-bitmaps.conf ] ; then|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
-sed -i 's/add_ending_of_bitmap_check_here_plz/fi/g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-change-style
-sed -i 's|openbox/polybar|polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr
-
-for change_content in ac-powermenu ac-change-fonts ac-randr
-do
-	sed -i 's|.config/openbox/rofi|.config/rofi|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
-	sed -i 's|.config/openbox/polybar|.config/polybar|g' $temp_folder_for_openbox/archcraft/openbox/pipemenus/$change_content
-done
-
-echo "menuEnd" >> $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-ob-menu
-
-mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-randr_old
-mv $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb $temp_folder_for_openbox/archcraft/openbox/pipemenus/ac-kb_old
-mv $temp_folder_for_themes_and_apps/openbox/pipemenu/* $temp_folder_for_openbox/archcraft/openbox/pipemenus/
-
-##################################################################
 
 show_m "openbox copy temp_folder_for_openbox files."
 sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
@@ -509,8 +476,8 @@ sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
 sudo chown -R root:root $temp_folder_for_usr_bin_
 sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
 
-sudo chown root:root -R $temp_folder_for_openbox/archcraft/openbox
-sudo mv $temp_folder_for_openbox/archcraft/openbox /usr/share/archcraft
+sudo chown root:root -R $temp_folder_for_openbox/my_openbox
+sudo mv $temp_folder_for_openbox/my_openbox /usr/share/
 
 # Create welcome link
 sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"

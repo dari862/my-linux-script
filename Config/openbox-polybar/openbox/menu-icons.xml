@@ -2,8 +2,8 @@
 <!-- Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com> -->
 <!-- Everyone is permitted to copy and distribute copies of this file under GNU-GPL3 -->
 <!DOCTYPE menu [
-  <!ENTITY icons "/usr/share/archcraft/openbox/icons">
-  <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
+  <!ENTITY icons "/usr/share/my_openbox/icons">
+  <!ENTITY pipes "/usr/share/my_openbox/pipemenus">
   <!ENTITY rofibin "~/.local/bin/rofi">
   <!ENTITY openboxconfig "~/.config/openbox">
 ]>

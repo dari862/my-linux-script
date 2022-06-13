@@ -3,8 +3,8 @@
 <!-- Everyone is permitted to copy and distribute copies of this file under GNU-GPL3 -->
 <!DOCTYPE menu [
   <!ENTITY icons "/usr/share/icons/openbox-menu">
-  <!ENTITY icons2 "/usr/share/archcraft/openbox/icons">
-  <!ENTITY pipes "/usr/share/archcraft/openbox/pipemenus">
+  <!ENTITY icons2 "/usr/share/my_openbox/icons">
+  <!ENTITY pipes "/usr/share/my_openbox/pipemenus">
   <!ENTITY openboxconfig "~/.config/openbox">
   <!ENTITY rofibin "~/.local/bin/rofi">
 ]>
