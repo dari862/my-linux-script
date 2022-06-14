@@ -473,9 +473,6 @@ sudo mv ${temp_folder_for_openbox}/usr_share/* /usr/share/
 sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
 sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
 
-sudo chown -R root:root $temp_folder_for_usr_bin_
-sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
-
 # Create welcome link
 sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"
 }
