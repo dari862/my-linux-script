@@ -27,22 +27,28 @@ else
 	chosen="$(echo -e "$options" | $rofi_command -p "Run apps as root" -dmenu -selected-row 0)"
 	case $chosen in
     	$terminal)
-        	app_2_run_as_root='bspterm'
+        	app_2_run_as_root="$(bspterm)"
+		Extra_Arg=""
         	;;
     	$files)
-        	app_2_run_as_root='dbus-run-session x-file-manager'
+        	app_2_run_as_root="$(x-file-manager)"
+		Extra_Arg=""
         	;;
     	$editor)
-        	app_2_run_as_root='geany'
+        	app_2_run_as_root="$(geany)"
+		Extra_Arg=""
         	;;
     	$clifm)
-        	app_2_run_as_root='bspterm -e ranger'
+        	app_2_run_as_root="$(bspterm)"
+		Extra_Arg="-e ranger"
         	;;
     	$lpad)
-        	app_2_run_as_root='x-text-editor'
+        	app_2_run_as_root="$(x-text-editor)"
+		Extra_Arg=""
         	;;
     	$vim)
-        	app_2_run_as_root='bspterm -e vim'
+        	app_2_run_as_root="$(bspterm)"
+		Extra_Arg="-e vim"
         	;;
 	esac
 fi
@@ -51,4 +57,4 @@ fi
 export SUDO_ASKPASS="$SCRIPT_DIR"/askpass
 	
 ## execute the application
-sudo -A "$app_2_run_as_root"
+sudo -A "$app_2_run_as_root" $Extra_Arg
