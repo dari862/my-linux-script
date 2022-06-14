@@ -15,8 +15,11 @@ mv $temp_folder_for_preWM/preWM/usr_bin/update-notification $temp_folder_for_dow
 sudo bash "$temp_folder_for_download/update-notification" -I
 
 mkdir -p $temp_folder_for_skel_/.local/bin
-sudo mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
+
+mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
+# Copy my-locker
+chmod a+x $temp_folder_for_usr_bin_/my-locker
 
 mkdir -p $temp_folder_for_skel_config/gtk-3.0
 mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* $temp_folder_for_skel_config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
@@ -428,8 +431,6 @@ chmod a+x $temp_folder_for_usr_bin_/bt-session
 chmod a+x $temp_folder_for_usr_bin_/welcome
 # Copy autosnap script
 chmod +x $temp_folder_for_usr_bin_/autosnap 
-# Copy my-locker
-chmod a+x $temp_folder_for_usr_bin_/my-locker
 
 # Set as default
 sudo update-alternatives --set x-session-manager /usr/bin/openbox-session

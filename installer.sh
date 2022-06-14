@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+opt_="$1"
+
+#run debug mode
+if [ "$opt_" == "-d" ]
+then
+	Debugging_mode_status="enabled"
+fi
+
 #########################
 # functions
 #########################
@@ -43,42 +51,81 @@ else
 	curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/Myscript-lib/$sourced_file > $temp_folder_4_Remote_source_file/$sourced_file && source $temp_folder_4_Remote_source_file/$sourced_file
 fi
 }
+
+installer__()
+{
 #########################
 
-check_for_SUDO
-clear
-sudo -v || exit 1
-
-#########################
-
-check_before_sourcing_this_file "variables.sh"
-check_before_sourcing_this_file "sourcing_list.sh"
-check_before_sourcing_this_file "functions.sh"
-check_before_sourcing_this_file "menu_creater_.sh"
-check_before_sourcing_this_file "full_installer.sh"
-
-#########################
-
-if [ "$Debugging_mode_status" != "enabled" ]
-then
 	trap if_error_exit_with_this_function_now EXIT # exist with this function if script failed
-fi
 
-keep_Sudo_refresed &
-pre_script_now_now
+	keep_Sudo_refresed &
+	pre_script_now_now
 
-if [ "$Debugging_mode_status" != "enabled" ]
-then
 	show_main_menu_now
-fi
 
 #########################
 
-create_Stages_array_to_show_progress_menu # sourced from menu_and_installer.sh
+	create_Stages_array_to_show_progress_menu # sourced from menu_and_installer.sh
 
 #########################
 
-if [ "$Debugging_mode_status" != "enabled" ]
-then
 	main_installer_now || if_error_exit_with_this_function_now EXIT
-fi
+}
+
+debugger__()
+{
+#########################
+
+	keep_Sudo_refresed &
+	pre_script_now_now
+
+#########################
+
+	create_Stages_array_to_show_progress_menu # sourced from menu_and_installer.sh
+
+#########################
+set_debugging_Sourcing_Remote_Files_now
+show_wm "sourcing remotely source files."
+show_mf "sourcing remotely source files."
+Sourcing_Remote_Files_now
+pre_script_now_now
+run_part_of_script_that_needs_debugging_now || if_error_exit_with_this_function_now
+}
+
+run_part_of_script_that_needs_debugging_now()
+{
+###############################################################################
+
+	pre_show_app_menu_now
+	show_app_menu_now
+
+###############################################################################
+	show_mf "Done3"
+	show_m "Done3"
+}
+
+main
+{
+	check_for_SUDO
+	clear
+	sudo -v || exit 1
+
+#########################
+
+	check_before_sourcing_this_file "variables.sh"
+	check_before_sourcing_this_file "sourcing_list.sh"
+	check_before_sourcing_this_file "functions.sh"
+	check_before_sourcing_this_file "menu_creater_.sh"
+	check_before_sourcing_this_file "full_installer.sh"
+
+#########################
+
+	if [ "$Debugging_mode_status" != "enabled" ]
+	then
+		installer__
+	else
+		debugger__
+	fi
+}
+
+main
