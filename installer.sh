@@ -47,7 +47,7 @@ fi
 
 check_for_SUDO
 clear
-sudo -v
+sudo -v || exit 1
 
 #########################
 
