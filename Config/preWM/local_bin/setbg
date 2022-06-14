@@ -1,13 +1,17 @@
 #!/bin/sh
 
-# This script does the following:
-#	Run by itself, set the wallpaper (at X start).
-#	If given a file, set that as the new wallpaper.
-#	If given a directory, choose random file in it.
-#	If wal is installed, also generates a colorscheme.
+op__="$1"
+op2__="$2"
 
 old_bg_()
 {
+	# This script does the following:
+	#	Run by itself, set the wallpaper (at X start).
+	#	If given a file, set that as the new wallpaper.
+	#	If given a directory, choose random file in it.
+	#	If wal is installed, also generates a colorscheme.
+	
+	
 	# Location of link to wallpaper link.
 	bgloc="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
 	
@@ -35,5 +39,20 @@ old_bg_()
 	xwallpaper --zoom "$bgloc"
 }
 
-sleep 4
-nitrogen --restore &
+main()
+{
+case $op__ in
+	-r)
+		sleep 4
+		nitrogen --restore &
+	;;
+	-o)
+		old_bg_ $op2__
+	;;
+	*)
+		nitrogen
+	;;
+esac
+}
+
+main

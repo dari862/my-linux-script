@@ -58,10 +58,11 @@ fi
 
 #### START APPLICATIONS ###############################################################################
 # Set wallpaper
-(sleep 0.5; ~/local/bin/setbg) &
+(sleep 0.5; ~/.local/bin/setbg -r) &
 
 # Start compositor
 exec picom --config "$HOME/.config/picom.conf" &
+
 # Start Conky
 (sleep 2; conky-session) &
 
@@ -117,11 +118,6 @@ fi
 ## Enable power management
 ~/.local/bin/my_power_managers_session &
 
-if [ -f "~/.config/openbox/welcome" ]
-then
-	# Show Openbox welcome
-	~/.config/openbox/welcome &											
-fi
 ## Notification Daemon
 exec dunst &
 
@@ -139,3 +135,12 @@ if [ ! "$(pidof diodon)" ]; then
 	## clipboard manager
 	exec diodon &
 fi
+
+if [ -L ~/.config/openbox/welcome ]
+then
+	# Show Openbox welcome
+	~/.config/openbox/welcome &											
+fi
+
+# update notifcation
+update-notification -m &

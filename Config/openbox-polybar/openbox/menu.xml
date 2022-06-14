@@ -2,7 +2,7 @@
 <!-- Copyright (C) 2020-2022 Aditya Shakya <adi1090x@gmail.com> -->
 <!-- Everyone is permitted to copy and distribute copies of this file under GNU-GPL3 -->
 <!DOCTYPE menu [
-  <!ENTITY icons "/usr/share/icons/openbox-menu">
+  <!ENTITY icons "/usr/share/open_stuff/icons/openbox-menu">
   <!ENTITY icons2 "/usr/share/open_stuff/icons">
   <!ENTITY pipes "/usr/share/open_stuff/pipemenus">
   <!ENTITY openboxconfig "~/.config/openbox">
@@ -124,31 +124,8 @@
                 </item>
         	</menu>
 
-        	<menu id="compositor" label="Compositor" icon="&icons;/compositor.png">
-	            <item label="Edit Picom Settings" icon="&icons;/text-editor.png">
-        			<action name="Execute">
-	                    <command>
-	                        x-text-editor ~/.config/picom.conf
-	                    </command>
-	                </action>
-	            </item>
-	            <separator/>
-				<item label="Restart" icon="&icons;/restart.png">
-					<action name="Execute">
-						<command>
-							bash -c 'killall picom; picom'
-						</command>
-					</action>
-				</item>						
-	            <item label="Stop" icon="&icons;/stop.png">
-	                <action name="Execute">
-	                    <command>
-	                        killall picom
-	                    </command>
-	                </action>
-               </item>		
-			</menu>			
-
+			<menu id="CompositingPipeMenu" execute="&pipes;/ac-compositor" label="Compositor" icon="&icons;/compositor.png"/>			
+			
         	<menu id="xfce4panel" label="Taskbar" icon="&icons;/tint2.png">
 		<item label="Open Your polybar Folder" icon="&icons;/file-manager.png">
         		<action name="Execute">

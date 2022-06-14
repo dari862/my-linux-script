@@ -114,6 +114,7 @@ function interactive_upgrade() {
 	echo
 	
 	[ "$(id -u)" -eq 0 ] && apt-get -y full-upgrade || sudo apt-get -y full-upgrade
+	
 	if ! [ $? -eq 0 ]; then 
 		read; 
 		exit 1; 
@@ -130,22 +131,22 @@ function interactive_upgrade() {
 # NAME: notifcation system
 # DESCRIPTION: shot text for display in systray
 #===============================================================================
-function tint2_executor_msg {
+function send_notifcation_msg {
 	if [ -s "$updates_file" ]
 	then
 	    get_total_updates
 	    # notify user of updates
 	    if hash notify-send &>/dev/null; then
-		if (( UPDATES > 50 )); then
-		    notify-send -u critical -i $NOTIFY_ICON \
-			"You really need to update!!" "$UPDATES New packages"
-		elif (( UPDATES > 25 )); then
-		    notify-send -u normal -i $NOTIFY_ICON \
-			"You should update soon" "$UPDATES New packages"
-		elif (( UPDATES > 2 )); then
-		    notify-send -u low -i $NOTIFY_ICON \
-			"$UPDATES New packages"
-		fi
+			if (( UPDATES > 50 )); then
+		    	notify-send -u critical -i $NOTIFY_ICON \
+				"You really need to update!!" "$UPDATES New packages"
+			elif (( UPDATES > 25 )); then
+		    	notify-send -u normal -i $NOTIFY_ICON \
+				"You should update soon" "$UPDATES New packages"
+			elif (( UPDATES > 2 )); then
+		    	notify-send -u low -i $NOTIFY_ICON \
+				"$UPDATES New packages"
+			fi
 	    fi		
 	fi
 	exit 0
@@ -199,7 +200,7 @@ function help() {
 Usage: '$(basename $0)' -[huc]
    \e[1m-h\e[0m\tShow command help
    \e[1m-i\e[0m\tStart interactive upgrade
-   \e[1m-m\e[0m\tOutput message for exector tint2
+   \e[1m-m\e[0m\tOutput message for dunst
    \e[1m-u\e[0m\tMake apt update and check for new packages updates
    \e[1m-I\e[0m\tInstall the script (copy and link to cron.$cron_when)
    \e[1m-U\e[0m\tUninstall
@@ -214,7 +215,7 @@ do
 	case $o in
 		h) help ;;
 		i) interactive_upgrade ;;
-		m) tint2_executor_msg ;;
+		m) send_notifcation_msg ;;
 		I) install ;;
 		U) uninstall ;;
 		u) ;; # UPDATE DEFAULT

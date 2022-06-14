@@ -17,6 +17,10 @@ sudo bash "$temp_folder_for_download/update-notification" -I
 mkdir -p $temp_folder_for_skel_/.local/bin
 mv $temp_folder_for_preWM/preWM/local_bin/* $temp_folder_for_skel_/.local/bin
 
+mkdir -p /usr/share/applications/
+sudo chown root:root $temp_folder_for_preWM/preWM/usr_share_app/*
+sudo mv $temp_folder_for_preWM/preWM/usr_share_app/* /usr/share/applications/
+
 mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 # Copy my-locker
 chmod a+x $temp_folder_for_usr_bin_/my-locker
@@ -415,10 +419,6 @@ fi
 show_m "configure Openbox"
 mv -v "$temp_folder_for_openbox"/dot_config_folder/* $temp_folder_for_skel_config/
 sudo tar -xzvf "$temp_folder_for_openbox"/openbox_theme.tgz -C /usr/share/themes/
-sudo cp -rv "$temp_folder_for_openbox/openbox-menu" /usr/share/icons/
-
-# Install help docs
-sudo cp -rv "$temp_folder_for_openbox/help" "/usr/share/doc/openbox/"
 
 # Install system info dependences
 chmod a+x $temp_folder_for_usr_bin_/ps_mem.py

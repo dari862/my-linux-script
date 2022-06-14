@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 # Graphics card
+
+screens="$(xrandr -q | grep -v "HDMI" | grep " connected")"
+
+[ -z "$screen" ] && exit 0
+
 CARD=`ls /sys/class/backlight | head -n 1`
 
 if [[ -z "$CARD" ]]; then

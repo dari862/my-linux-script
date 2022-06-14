@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE menu [
-  <!ENTITY icons "/usr/share/icons/openbox-menu">
+  <!ENTITY icons "/usr/share/open_stuff/icons/openbox-menu">
   <!ENTITY rofibin "~/.local/bin/rofi">
   <!ENTITY pipes "/usr/share/open_stuff/pipemenus">
 ]>
@@ -119,7 +119,7 @@
                 </item>
         	</menu>
 
-        	<menu id="compositor" label="Compositor" icon="&icons;/compositor.png">
+        	<menu id="CompositingPipeMenu" execute="&pipes;/ac-compositor" label="Compositor" icon="&icons;/compositor.png"/>
 	            <item label="Edit Picom Settings" icon="&icons;/text-editor.png">
         			<action name="Execute">
 	                    <command>

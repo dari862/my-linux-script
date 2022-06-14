@@ -150,7 +150,7 @@ bspc rule -a stalonetray state=floating manage=off
 
 #### Autostart ###############################################################################
 # Restore wallpaper
-(sleep 0.50; ~/local/bin/setbg) &
+(sleep 0.50; ~/.local/bin/setbg -r) &
 
 # Lauch xsettingsd daemon
 xsettingsd &
@@ -233,5 +233,8 @@ exec picom --config "$HOME/.config/picom.conf" &
 bspfloat &
 export PATH=$PATH:$HOME/.local/bin/bspwm
 
-
+# Start Conky
 #(sleep 2; start_conky.sh) &
+
+# update notifcation
+update-notification -m &
