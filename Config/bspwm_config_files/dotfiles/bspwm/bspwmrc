@@ -29,7 +29,7 @@ done
 [ -d ~/.screenlayout ] && "$(ls ~/.screenlayout/*.sh | head -1)"	
 
 ## Environtment
-export PATH="${PATH}:$HOME/.config/bspwm/bin"
+export PATH="${PATH}:$HOME/.local/bin/bspwm/"
 
 ## Java Applications
 # wmname LG3D
