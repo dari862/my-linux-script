@@ -80,9 +80,6 @@ sudo mv $temp_folder_for_open_stuff/fonts/* /usr/share/fonts
 sudo chown -R root:root /usr/share/fonts
 sudo fc-cache -vf
 
-sudo chown -R root:root $temp_folder_for_open_stuff/open_stuff
-sudo mv $temp_folder_for_open_stuff/open_stuff /usr/share/
-
 sudo mkdir -p /usr/share/icons
 sudo chown -R root:root $temp_folder_for_open_stuff/icons
 sudo cp -rf $temp_folder_for_open_stuff/icons/* /usr/share/icons
@@ -469,13 +466,14 @@ $temp_folder_for_download/Tela-icon-theme/install.sh grey &>> $debug_log
 ##################################################################
 
 show_m "openbox copy temp_folder_for_openbox files."
+sudo chown root:root -R ${temp_folder_for_openbox}/usr_share/*
+sudo mv ${temp_folder_for_openbox}/usr_share/* /usr/share/
+
 sudo chown root:root ${temp_folder_for_openbox}/usr_share_app/*
 sudo mv ${temp_folder_for_openbox}/usr_share_app/* /usr/share/applications/
+
 sudo chown -R root:root $temp_folder_for_usr_bin_
 sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
-
-sudo chown root:root -R $temp_folder_for_openbox/open_stuff
-sudo mv $temp_folder_for_openbox/open_stuff /usr/share/
 
 # Create welcome link
 sudo ln -s /usr/bin/welcome "$temp_folder_for_skel_/.config/openbox/welcome"

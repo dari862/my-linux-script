@@ -352,8 +352,8 @@ show_m "download open_stuff stuff "
 if [ ! -f "$temp_folder_for_download/open_stuff_files_downloaded" ]
 then
 	show_m "download open_stuff stuff "
-	git-clone "https://github.com/dari862/have_stuff.git" $temp_folder_for_download/have_stuff 
-	mv $temp_folder_for_download/have_stuff $temp_folder_for_open_stuff	
+	git-clone "https://github.com/dari862/heavy_stuff.git" $temp_folder_for_download/heavy_stuff 
+	mv $temp_folder_for_download/heavy_stuff $temp_folder_for_open_stuff	
 	touch $temp_folder_for_download/open_stuff_files_downloaded
 fi
 }
