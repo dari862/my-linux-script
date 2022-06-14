@@ -104,7 +104,7 @@ run_part_of_script_that_needs_debugging_now()
 	show_m "Done3"
 }
 
-main
+main()
 {
 	check_for_SUDO
 	clear
