@@ -196,20 +196,11 @@ if [ ! "$(pidof diodon)" ]; then
 fi
 
 if [ `cat ~/.config/WM_common_config/which_panel | grep "polybar"` ]; then
-        if [ "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
-        then
-			$HOME/.local/bin/My_styles/old.sh
-        fi
 	# Start polybar
         bash ~/.local/bin/polybar/launch.sh & 
 fi
 
 if [ `cat ~/.config/WM_common_config/which_panel | grep "xfce4"` ]; then
-        if [ ! "$(grep ~/.config/openbox/rc.xml -e '<file>xfce4-menu.xml</file>' -e '<file>xfce4-menu-color.xml</file>')" ]
-        then
-			$HOME/.local/bin/My_styles/old.sh
-        fi
-	
 	# Start xfce4-panel
 	xfce4-panel &
 	xfsettingsd &
