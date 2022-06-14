@@ -168,31 +168,34 @@ rm -rdf ~/.zprofile
 rm -rdf ~/.xsessionrc
 ln -sr ~/$myshell_skel_folder/bashrc ~/.bashrc
 xdg-user-dirs-update # this command will create ~/.config/user-dirs.dirs and ~/.config/user-dirs.locale
+EOF
 
+cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
+
+cat << 'EOF' > $foldertempfornow/extra_z_profile
 if [ -d "$HOME/.config/xfce4" ]
 then
 	xfconf-query -c xfwm4 -np /general/theme -t 'string' -s Adwaita
 fi
 
-if [ "\$(cat /etc/X11/default-display-manager)" == "/usr/sbin/lightdm" ] 
+if [ "$(cat /etc/X11/default-display-manager)" == "/usr/sbin/lightdm" ] 
 then
 	ln -sr ~/$myshell_skel_folder/xsessionrc ~/.xsessionrc || :
-    source ~/.xsessionrc
+	source ~/.xsessionrc
 fi
-
 EOF
-
-cp $temp_folder_for_skel_/.profile $temp_folder_for_skel_/.zprofile
 
 cat << EOF >> $temp_folder_for_skel_/.profile
 ln -sr ~/$myshell_skel_folder/profile ~/.profile
 source ~/.profile
 EOF
+cat $foldertempfornow/extra_z_profile >> $temp_folder_for_skel_/.profile
 
 cat << EOF >> $temp_folder_for_skel_/.zprofile
 ln -sr ~/$myshell_skel_folder/zprofile ~/.zprofile
 source ~/.zprofile
 EOF
+cat $foldertempfornow/extra_z_profile >> $temp_folder_for_skel_/.zprofile
 
 rm $temp_folder_for_skel_/.bash_logout $temp_folder_for_skel_/.bashrc
 
