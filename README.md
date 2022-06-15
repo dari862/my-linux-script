@@ -24,6 +24,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 <details>
 <summary><h1>links</h1></summary>
   
+	https://gist.github.com/xvzftube
+	
 	https://github.com/sudorook/debian
  	
 	https://github.com/FancyChaos/debian-2021
