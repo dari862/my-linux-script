@@ -1,5 +1,10 @@
 #!/bin/bash
 
+xset s 0 0
+xset -dpms
+xset s off -dmps
+xset dpms 0 0 0
+
 set_brightness_on_idle()
 {
 if [ "$only_one_display" == "true" ]
@@ -81,27 +86,27 @@ while true; do
   
   if [ "$turnoff_moniter_time" -gt 0 ]
   then
-		[ "$turnoff_moniter_time" -ge "$idleTime" ] && xset dpms force off || ( xset s blank && xset s activate )
+		[ "$turnoff_moniter_time" -ge "$idleTime" ] && my_session_manager moniter_off
   fi
   
   if [ "$logout_time" -gt 0 ]
   then
-		[ "$logout_time" -le "$idleTime" ] && openbox --exit
+		[ "$logout_time" -le "$idleTime" ] && my_session_manager logout
   fi 
   
   if [ "$suspend_time" -gt 0 ]
   then
-		[ "$suspend_time" -le "$idleTime" ] && systemctl suspend
+		[ "$suspend_time" -le "$idleTime" ] && my_session_manager suspend
   fi
   
   if [ "$hibernate_time" -gt 0 ]
   then
-		[ "$hibernate_time" -le "$idleTime" ] && systemctl hibernate
+		[ "$hibernate_time" -le "$idleTime" ] && my_session_manager hibernate
   fi
   
   if [ "$poweroff_time" -gt 0 ]
   then
-		[ "$poweroff_time" -le "$idleTime" ] && systemctl poweroff
+		[ "$poweroff_time" -le "$idleTime" ] && my_session_manager poweroff
   fi
 
   if [ "$idleAfter" -gt 0 ] && [ $idle = false ] && [ $idleTimeMillis -gt $idleAfterMillis ] ; then

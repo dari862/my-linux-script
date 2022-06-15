@@ -82,7 +82,7 @@
 
     ### Misc/Advanced ###
     dmenu = /usr/bin/rofi -dmenu:
-    browser = /usr/bin/linkhandler
+    browser = /usr/bin/firefox-esr
     always_run_script = false
     title = Dunst
     class = Dunst

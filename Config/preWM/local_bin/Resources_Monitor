@@ -13,7 +13,7 @@ HELP_List=(
 )
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$SCRIPT_DIR/Hub_scripts/config/config.ini"
 
 cp2cb() {
   case "$XDG_SESSION_TYPE" in

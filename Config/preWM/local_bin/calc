@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
 # one off calculator
-calc() {
-	echo "scale=3;$@" | bc -l
-}
+
+echo "scale=3;$@" | bc -l
+

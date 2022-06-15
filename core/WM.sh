@@ -24,6 +24,8 @@ sudo mv $temp_folder_for_preWM/preWM/usr_share_app/* /usr/share/applications/
 mv $temp_folder_for_preWM/preWM/usr_bin/* $temp_folder_for_usr_bin_
 # Copy my-locker
 chmod a+x $temp_folder_for_usr_bin_/my-locker
+# Copy welcome
+chmod a+x $temp_folder_for_usr_bin_/welcome
 
 mkdir -p $temp_folder_for_skel_config/gtk-3.0
 mv $temp_folder_for_preWM/preWM/config/gtk-3.0/* $temp_folder_for_skel_config/gtk-3.0 && rm -rdf $temp_folder_for_preWM/preWM/config/gtk-3.0 || echo "falied to move all gtk-3.0 files"
@@ -349,7 +351,7 @@ copy_awesome_2_skel
 configuring_bspwm_now()
 {
 cp -r $temp_folder_for_bspwm/bspwm_config_files/dotfiles/* $temp_folder_for_skel_config
-mv $temp_folder_for_skel_config/bspwm/bin $temp_folder_for_skel_/.local/bin/bspwm
+cp -r $temp_folder_for_bspwm/bspwm_config_files/local_bin/* $temp_folder_for_skel_/.local/bin/bspwm
 }
 
 main_bspwm_now()
@@ -427,8 +429,6 @@ chmod a+x $temp_folder_for_usr_bin_/bashtop
 chmod a+x $temp_folder_for_usr_bin_/cups-session
 # Copy bt-session
 chmod a+x $temp_folder_for_usr_bin_/bt-session
-# Copy welcome
-chmod a+x $temp_folder_for_usr_bin_/welcome
 # Copy autosnap script
 chmod +x $temp_folder_for_usr_bin_/autosnap 
 

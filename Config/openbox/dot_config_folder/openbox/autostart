@@ -36,7 +36,19 @@ done
 #### START SETTINGS  #################################################################################
 
 # Exec first script screenlayout found
-[ -d ~/.screenlayout ] && "$(ls ~/.screenlayout/*.sh | head -1)"	
+if [ "$(ls -A ~/.screenlayout)" ] 
+then
+	"$(ls ~/.screenlayout/*.sh | head -1)"	
+elif [ "$(ls -A ~/.local/screenlayout)" ]
+then
+	case "$(xrandr -q | grep "connected" | awk '/ connected/ {print $1}' | wc -l)" in
+		1) ~/.local/screenlayout/singale.sh ;;
+		2) ~/.local/screenlayout/multi-monitor.sh ;;
+		*) ~/.local/screenlayout/multi-monitor.sh ;;
+	esac
+else
+	~/.local/bin/hub displayselect auto
+fi	
 
 # Set keyboard settings to 250ms delay and 25cps (characters per second)
 xset r rate 250 25	

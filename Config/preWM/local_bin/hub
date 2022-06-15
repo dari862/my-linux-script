@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 ls_bin="/usr/bin/ls"
-opt="${1-h}"
+opt___="${1-h}"
+opt2___="${2-}"
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$SCRIPT_DIR/Hub_scripts/config/config.ini"
 
 #############################################################################
 #############################################################################
@@ -104,13 +105,22 @@ scripts_hub()
 	# Description: a hub that you can execute all the other scripts from
 	# Dependencies: dmenu, executable dmscripts, all the dependancies from dmscripts
 	
-	_script_dir="$HOME/.local/bin"
+	_script_dir="$HOME/.local/bin/Hub_scripts"
 	list_scripts="$($ls_bin -p $_script_dir -I hub | grep -v /)"
-	# Launch Rofi
-	MENU="$(${rofi_command} -p '' <<< "$list_scripts")"
-	if [ ! -z "$MENU" ]
+	check_if_opt_in_list_scripts="$(echo "$list_scripts" | grep "$opt___" || : )"
+	if [ "$opt___" == "s" ]
 	then
-        	$_script_dir/"$MENU"
+		# Launch Rofi
+		MENU="$(${rofi_command} -p '' <<< "$list_scripts")"
+		if [ ! -z "$MENU" ]
+		then
+        		$_script_dir/"$MENU"
+		fi
+	elif [ "$check_if_opt_in_list_scripts" ]
+	then
+			${_script_dir}/${check_if_opt_in_list_scripts} ${opt2___}
+	else
+		help
 	fi
 }
 
@@ -130,8 +140,9 @@ main()
 	case $1 in
 		s) scripts_hub ;;
 		c) config_editer_hub ;;
-		*) help ;;
+		h) help ;;
+		*) scripts_hub ;;
 	esac
 }
 
-main $opt
+main $opt___

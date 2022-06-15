@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Simple script to generate a script file in my scripts directory
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$SCRIPT_DIR/Hub_scripts/config/config.ini"
 
 scripts_folder_="$HOME/.local/bin/temp_script"
 

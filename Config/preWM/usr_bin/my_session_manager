@@ -44,4 +44,7 @@ reboot)
 lock)
 	my-locker
 ;;
+moniter_off)
+	xset dpms force off || ( xset s blank && xset s activate )
+;;
 esac

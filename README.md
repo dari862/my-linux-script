@@ -59,6 +59,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
    
 	xfce whiskermenu config
 	
+	/usr/bin/takeshot: line 16: viewnior: command not found
+	
 	dunst
 	
 	error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))

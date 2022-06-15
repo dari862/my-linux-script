@@ -10,7 +10,7 @@ NBROWSER_DEFAULT_SEARCH=${NBROWSER_DEFAULT_SEARCH:-duckduckgo}
 COPY_TO_CLIPBOARD_OPTION=true
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$SCRIPT_DIR/Hub_scripts/config/config.ini"
 
 declare -A ENGINES
 

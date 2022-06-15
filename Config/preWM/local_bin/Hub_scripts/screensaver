@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$SCRIPT_DIR/Hub_scripts/config/config.ini"
 
-$TERMINAL_fullscreen -e bash -c "sleep 0.5; $SCRIPT_DIR/pipes.sh"
+$TERMINAL_fullscreen -e bash -c "sleep 0.5; $SCRIPT_DIR/config/pipes.sh"
