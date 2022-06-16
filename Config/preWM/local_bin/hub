@@ -111,10 +111,15 @@ scripts_hub()
 	if [ "$opt___" == "s" ]
 	then
 		# Launch Rofi
-		MENU="$(${rofi_command} -p '' <<< "$list_scripts")"
+		MENU="$(echo -e "$list_scripts \ndisplayselect" | ${rofi_command} -p '')"
 		if [ ! -z "$MENU" ]
 		then
+			if [ "$MENU" == "displayselect" ]
+			then
+        		displayselect
+        	else
         		$_script_dir/"$MENU"
+        	fi
 		fi
 	elif [ "$check_if_opt_in_list_scripts" ]
 	then

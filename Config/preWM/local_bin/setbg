@@ -49,6 +49,9 @@ case $op__ in
 	-o)
 		old_bg_ $op2__
 	;;
+	-s)
+	nitrogen --save --set-zoom-fill $op2__
+	;;
 	*)
 		nitrogen
 	;;

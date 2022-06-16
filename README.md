@@ -48,11 +48,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 	number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
   	
 	work on bspwm
-  	
-	dual moniter
-  	
-	hdmi switch
-  
+
 </details>
 
 
@@ -60,8 +56,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 <summary><h1>to fix</h1></summary>
    
 	xfce whiskermenu config
-	
-	dunst
 	
 	error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
 

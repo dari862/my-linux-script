@@ -103,7 +103,7 @@ output=$(yad --form --button=gtk-ok --center --undecorated --fixed --borders=30 
 if [ "$output" = "FALSE" ]; then
 	rm ~/.config/openbox/welcome &>/dev/null
 else
-	ln -s /usr/bin/welcome "$welcome_link" &>/dev/null
+	ln -s /usr/local/bin/welcome "$welcome_link" &>/dev/null
 fi
 
 

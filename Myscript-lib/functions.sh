@@ -37,7 +37,7 @@ show_mf "mv_Temp_skel_folder_to_etc_skel_folder_now."
 if [ -d $temp_folder_for_usr_bin_ ]
 then
 	sudo chown -R root:root $temp_folder_for_usr_bin_
-	sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/bin/"
+	sudo cp -rv $temp_folder_for_usr_bin_/* "/usr/local/bin/"
 fi
 
 sudo cp -r $temp_folder_for_skel_/. /etc/skel/.
