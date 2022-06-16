@@ -33,8 +33,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 	https://github.com/ahmetcancicek/debian-post-install/blob/main/setup.sh
  	
 	https://github.com/hathagat/debian-installer
- 	
-	https://github.com/ahmetcancicek/debian-post-install
   	
 	https://xerolinux.xyz/
   	
