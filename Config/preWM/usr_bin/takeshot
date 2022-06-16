@@ -13,7 +13,7 @@ file="Screenshot_${time}_${geometry}.png"
 # notify and view screenshot
 notify_view () {
 	dunstify -u low --replace=699 -i /usr/share/archcraft/icons/dunst/picture.png "Copied to clipboard."
-	viewnior ${dir}/"$file"
+	sxiv ${dir}/"$file"
 	if [[ -e "$dir/$file" ]]; then
 		dunstify -u low --replace=699 -i /usr/share/archcraft/icons/dunst/picture.png "Screenshot Saved."
 	else
