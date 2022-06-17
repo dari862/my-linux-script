@@ -10,5 +10,5 @@ INTERNAL_STATUS=$(su $USER -c "xrandr --current | grep $INTERNAL | cut -d \  -f 
 EXTERNAL_STATUS=$(su $USER -c "xrandr --current | grep $EXTERNAL | cut -d \  -f 2")
 
 if [[ "$EXTERNAL_STATUS" == "disconnected" ]] && [[ "$INTERNAL_STATUS" == "disconnected" ]]; then
-	
+	su $User_ -c "/usr/local/bin/hotplug_usr.sh"
 fi
