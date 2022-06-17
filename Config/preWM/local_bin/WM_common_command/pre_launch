@@ -6,7 +6,7 @@ then
 	bash ~/.local/bin/fix_missing_file which_panel
 fi
 
-if [ ! -s ~/.config/WM_common_config/Rofi_style ] || ( [ ! -s ~/.config/WM_common_config/Polybar_style ] && [ "$cat ~/.config/WM_common_config/which_panel" == "polybar" ] )
+if [ ! -s ~/.config/WM_common_config/Rofi_style ] || ( [ "$cat ~/.config/WM_common_config/which_panel" == "polybar" ] && [ ! -s ~/.config/WM_common_config/Polybar_style ] )
 then
 	bash ~/.local/bin/fix_missing_file style
 fi
