@@ -43,7 +43,12 @@ main()
 {
 case $op__ in
 	-r)
-		xwallpaper --stretch "$(cat ~/.config/nitrogen/bg-saved.cfg | grep file= | cut -d "=" -f 2)" &
+		if command -v xwallpaper >/dev/null ; then
+			xwallpaper --stretch "$(cat ~/.config/nitrogen/bg-saved.cfg | grep file= | cut -d "=" -f 2)" &
+		else
+			sleep 4
+			nitrogen --restore &
+		fi
 	;;
 	-o)
 		old_bg_ $op2__
