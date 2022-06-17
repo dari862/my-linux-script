@@ -33,8 +33,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 <details>
 <summary><h1>to do</h1></summary>
 
-	xwallpaper --stretch "$(cat ~/.config/nitrogen/bg-saved.cfg | grep file= | cut -d "=" -f 2)" &
-	
 	number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
   	
 	work on bspwm
