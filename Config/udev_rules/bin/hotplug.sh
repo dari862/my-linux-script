@@ -1,17 +1,14 @@
 #!/bin/bash
 
-if [[ "$(xrandr -q | grep "HDMI" | grep -c " connected ")" == 0 ]]; then
-	if [ "$(ls -A ~/.screenlayout)" ] 
-	then
-		"$(ls ~/.screenlayout/*.sh | head -1)"	
-	elif [ "$(ls -A ~/.local/screenlayout)" ]
-	then
-		case "$(xrandr -q | grep "connected" | awk '/ connected/ {print $1}' | wc -l)" in
-			1) ~/.local/screenlayout/singale.sh ;;
-			2) ~/.local/screenlayout/multi-monitor.sh ;;
-			*) ~/.local/screenlayout/multi-monitor.sh ;;
-		esac
-	else
-		~/.local/bin/hub displayselect auto
-	fi
+EXTERNAL="HDMI1"
+export DISPLAY=":0"
+User_=$(who | grep $DISPLAY | head -1 | cut -f 1 -d ' ')
+sleep 1
+INTERNAL=$(su $User_ -c "xrandr --current | head -2 | tail -1 | awk '{print $1}'")
+
+INTERNAL_STATUS=$(su $USER -c "xrandr --current | grep $INTERNAL | cut -d \  -f 2")
+EXTERNAL_STATUS=$(su $USER -c "xrandr --current | grep $EXTERNAL | cut -d \  -f 2")
+
+if [[ "$EXTERNAL_STATUS" == "disconnected" ]] && [[ "$INTERNAL_STATUS" == "disconnected" ]]; then
+	
 fi
