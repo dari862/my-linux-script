@@ -44,8 +44,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 <details>
 <summary><h1>to fix</h1></summary>
-   
-	xfce whiskermenu config
 	
 	hotplug
 	
