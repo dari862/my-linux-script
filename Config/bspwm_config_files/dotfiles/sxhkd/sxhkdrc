@@ -53,6 +53,10 @@ ctrl + alt + l
 
 ##---------- System Keys ----------##
 
+# show shortcut
+F1
+	yad --button=Exit:1 --text-info --title='Bspwm Keybinds' --filename=$HOME/.config/sxhkd/sxhkdrc --width=750 --height=600
+
 # Take a screenshot
 Print
 	takeshot --now
