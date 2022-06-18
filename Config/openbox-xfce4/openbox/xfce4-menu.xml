@@ -119,30 +119,7 @@
                 </item>
         	</menu>
 
-        	<menu id="CompositingPipeMenu" execute="&pipes;/ac-compositor" label="Compositor" icon="&icons;/compositor.png"/>
-	            <item label="Edit Picom Settings" icon="&icons;/text-editor.png">
-        			<action name="Execute">
-	                    <command>
-	                        x-text-editor ~/.config/picom.conf
-	                    </command>
-	                </action>
-	            </item>
-	            <separator/>
-				<item label="Restart" icon="&icons;/restart.png">
-					<action name="Execute">
-						<command>
-							bash -c 'killall picom; picom'
-						</command>
-					</action>
-				</item>						
-	            <item label="Stop" icon="&icons;/stop.png">
-	                <action name="Execute">
-	                    <command>
-	                        killall picom
-	                    </command>
-	                </action>
-               </item>		
-			</menu>			
+        	<menu id="CompositingPipeMenu" execute="&pipes;/ac-compositor" label="Compositor" icon="&icons;/compositor.png"/>		
 
         	<menu id="xfce4panel" label="Taskbar" icon="&icons;/tint2.png">
 	            <item label="GUI Xfce4-Panel Config Tool" icon="&icons;/tint2.png">
