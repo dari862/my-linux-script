@@ -1,96 +1,59 @@
 #! /bin/bash
 # extract range of pages from a PDF
 set -euo pipefail
-source globals
+check_command() {
+  local state=true
+  for package in "${@}"; do
+    if ! command -v "${package}" >/dev/null; then
+      echo "MISSING: ${package} not installed."
+      state=false
+    fi
+  done
+  "${state}" && return 0 || return 1
+}
 
-! check_command pdfinfo pdfseparate && exit 3
+! check_command qpdf && exit 3
 
-OPTIONS=hi:f:l:
-LONGOPTIONS=help,input:,first:,last:
-PARSED=$(getopt -o ${OPTIONS} --long ${LONGOPTIONS} -n "${0}" -- "$@")
-eval set -- "${PARSED}"
+help(){
+	echo "pdfsplit options:"
+	echo "  -i|--input  <PDF input>"
+	echo "  -f|--first  <# of first page to split>"
+	echo "  -l|--last   <# of last page to split>"
+	echo "  -j|--join   <flag to join split PDF pages together (def: false)"
+	exit 0
+}
 
-while [ $# -ge 1 ]; do
-  case "${1}" in
-    -i|--input)
-      IN="${2}"
-      OUT="${2%.*}"
-      PAGES=$(pdfinfo "${2}" | grep "^Pages:" | sed -n "s/^Pages:\s*\([0-9]\+\)/\1/p")
-      shift 2
-      ;;
-    -f|--FIRST)
-      FIRST="${2}"
-      shift 2
-      ;;
-    -l|--LAST)
-      LAST="${2}"
-      shift 2
-      ;;
-    -h|--help)
-      echo "pdfsplit options:"
-      echo "  -i|--input  <PDF input>"
-      echo "  -f|--first  <# of first page to split>"
-      echo "  -l|--last   <# of last page to split>"
-      echo "  -j|--join   <flag to join split PDF pages together (def: false)"
-      exit 0
-      ;;
-    --)
-      shift
-      break
-      ;;
-    *)
-      show_error "ERROR: invalid option."
-      exit 3
-      ;;
-  esac
-done
+if [ $# -eq 0 ]; then
+	help
+fi
 
+IN="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
+OUT="${IN%.*_%d.pdf}"
+range="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
+check_4_pass="$(echo $@ | grep -o -E ' -p | -P | -password ' || :)"
 # Checks
-if ! [[ -v IN ]]; then
-  show_error "ERROR: No input file specified. Exiting."
-  exit 3
+if [[ -z ${IN} ]]; then
+  	echo "ERROR: No input file specified. Exiting."
+  	exit 3
 elif ! [[ -f "${IN}" ]]; then
-  show_error "ERROR: Input ${IN@Q} not found. Exiting."
-  exit 3
+  	echo "ERROR: Input ${IN@Q} not found. Exiting."
+  	exit 3
+fi
+	
+if [[ -z ${range} ]]; then
+  	echo "ERROR: Range is empty. Exiting."
+  	exit 3
 fi
 
-if ! [[ -v FIRST ]]; then
-  FIRST=1
-fi
-
-if ! [[ -v LAST ]]; then
-  LAST=${PAGES}
-fi
-
-if (( LAST > PAGES )); then
-  show_warning "WARNING: ${LAST@Q} exceeds number of pages ${PAGES@Q}."
-  LAST=${PAGES}
-fi
-
-if (( FIRST > PAGES )); then
-  show_error "Starting page doesn't exist. The file only has ${PAGES} pages."
-  exit 3
-fi
-
-if (( FIRST > LAST )); then
-  show_error "What are you playing at?"
-  exit 3
-fi
-
-# Split the PDF out into the individual files. The if statements are needed so
-# that the filenames will get sorted in numerical order. Otherwise, the glob
-# used to join the pages at the end won't work. For example, 02 is sorted
-# before 10, but 2 is placed after.
-if (( FIRST >= 10 )); then
-  pdfseparate -f "${FIRST}" -l "${LAST}" "${IN}" "${OUT}-%d.pdf"
-elif (( LAST >= 10 )); then
-  if (( LAST < 10 )); then
-    pdfseparate -f "${FIRST}" -l "${LAST}" "${IN}" "${OUT}-0%d.pdf"
-  fi
-  if (( LAST >= 10 )); then
-    pdfseparate -f "${FIRST}" -l 9 "${IN}" "${OUT}-0%d.pdf"
-    pdfseparate -f 10 -l "${LAST}" "${IN}" "${OUT}-%d.pdf"
-  fi
+if [ $# -eq 1 ]; then
+	qpdf --split-pages ${IN} ${OUT}
 else
-  pdfseparate -f ${FIRST} "${IN}" "${OUT}-0%d.pdf"
+	if [[ ${check_4_pass} ]]; then
+		pass=
+	fi
+	
+	if [[ ${pass} ]]; then
+		decryption_arg="--password=$pass --decrypt"
+	fi
+	qpdf --empty --pages ${decryption_arg} ${IN} ${range} -- ${OUT}
 fi

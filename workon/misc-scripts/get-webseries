@@ -1,8 +1,19 @@
 #! /bin/bash
 # youtube-dl wrapper to download web series / playlists / etc.
 set -eu
-source globals
+check_command() {
+  local state=true
+  for package in "${@}"; do
+    if ! command -v "${package}" >/dev/null; then
+      echo "MISSING: ${package} not installed."
+      state=false
+    fi
+  done
+  "${state}" && return 0 || return 1
+}
 
+videodir=
+mediadir=
 YTDL=yt-dlp
 
 ! check_command "${YTDL}" && exit 3

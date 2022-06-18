@@ -1,7 +1,16 @@
 #! /bin/bash
 # generate a GIF from part of a video
 set -Eeuo pipefail
-source globals
+check_command() {
+  local state=true
+  for package in "${@}"; do
+    if ! command -v "${package}" >/dev/null; then
+      echo "MISSING: ${package} not installed."
+      state=false
+    fi
+  done
+  "${state}" && return 0 || return 1
+}
 
 ! check_command ffmpeg ffprobe && exit 3
 
@@ -285,7 +294,7 @@ done
 
 # Check if variables are set before running ffmpeg.
 if ! [[ -v IN ]] || ! [[ -v OUT ]]; then
-  show_error "Try again. Usage:"
+  echo "Try again. Usage:"
   print_usage
   exit 3
 fi
@@ -309,7 +318,7 @@ for dim in "${DIMENSIONS[@]}"; do
       make_image_subs "${IN}" "${OUT}" "${dim}"
       ;;
     *)
-      show_error "Try again. Usage:"
+      echo "Try again. Usage:"
       print_usage
       exit 3
       ;;

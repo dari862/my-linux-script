@@ -1,7 +1,16 @@
 #! /bin/bash
 # download song (audio) from URL and set ID3v2 metadata
 set -eu
-source globals
+check_command() {
+  local state=true
+  for package in "${@}"; do
+    if ! command -v "${package}" >/dev/null; then
+      echo "MISSING: ${package} not installed."
+      state=false
+    fi
+  done
+  "${state}" && return 0 || return 1
+}
 
 YTDL=yt-dlp
 
