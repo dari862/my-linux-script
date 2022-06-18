@@ -1,0 +1,959 @@
+#! /bin/bash
+
+show_error() {
+  echo -e $'\033[1;31m'"$*"$'\033[0m' 1>&2
+}
+show_info() {
+  echo -e $'\033[1;32m'"$*"$'\033[0m'
+}
+show_warning() {
+  echo -e $'\033[1;33m'"$*"$'\033[0m'
+}
+show_question() {
+  echo -e $'\033[1;34m'"$*"$'\033[0m'
+}
+ask_question() {
+  read -r -p $'\033[1;34m'"$* "$'\033[0m' var
+  echo "${var}"
+}
+show_success() {
+  echo -e $'\033[1;35m'"$*"$'\033[0m'
+}
+show_header() {
+  echo -e $'\033[1;36m'"$*"$'\033[0m'
+}
+show_listitem() {
+  echo -e $'\033[1;37m'"$*"$'\033[0m'
+}
+
+TIMEZONE="UTC"
+function ask_timezone {
+  local res
+
+  res="$(timedatectl list-timezones | \
+         fzf --layout=reverse \
+             --header="Select time zone ('ESC' for default: ${TIMEZONE})" || true)"
+  clear
+
+  if [ -n "${res}" ]; then
+    TIMEZONE="${res}"
+  else
+    show_info "Using default time zone ${TIMEZONE@Q}."
+  fi
+}
+
+function set_timezone {
+  ln -sfn "/usr/share/zoneinfo/${TIMEZONE}" /etc/localtime
+  hwclock --systohc --utc
+}
+export -f set_timezone
+
+LOCALE="en_US.UTF-8"
+CHARSET="UTF-8"
+function ask_locale {
+  local res
+
+  res="$(sed -n "s,^#\?\ \?\([[:alnum:]\.@_\-]\+\)\ \([[:alnum:]\-]\+\)\ *$,\1 \2,p" /etc/locale.gen | \
+         fzf --layout=reverse \
+             --header="Select locale ('ESC' for default: ${LOCALE})" || true)"
+  clear
+
+  if [ -n "${res}" ]; then
+    LOCALE="$(echo "${res}" | cut -d" " -f1)"
+    CHARSET="$(echo "${res}" | cut -d" " -f2)"
+  else
+    show_info "Using default locale ${LOCALE@Q}."
+    show_info "Using default charset ${CHARSET@Q}."
+  fi
+}
+
+function set_locale {
+  sed -i "/^#\ \?${LOCALE} ${CHARSET}/s/^#\ \?//" /etc/locale.gen
+  locale-gen
+  echo "LANG=${LOCALE}" > /etc/locale.conf
+  echo "KEYMAP=${LOCALE}" > /etc/vconsole.conf
+}
+export -f set_locale
+
+
+function check_fail {
+  local exitstatus=${1:-}
+  if [[ ${exitstatus} -gt 0 ]]; then
+    show_error "Error code received. Returning to main."
+    sleep 3s && main
+  fi
+}
+
+function check_installed {
+  local package
+  while read -r package; do
+    # Check if package is installed already before installing.
+    if dpkg -s "${package}" >/dev/null 2>&1; then
+      show_listitem "${package} package already installed. Skipping."
+    else
+      # First check if the package exists in the repos.
+      if ! (apt-cache showsrc "${package}" 2>&1 | grep -q "W: "); then
+        show_listitem "Installing ${package}."
+        sudo apt-get -y install "${package}"
+      else
+        show_warning "Package ${package} does not exist in the repos. Skipping."
+      fi
+    fi
+  done < "${1}"
+}
+
+function check_uninstalled {
+  local package
+  for package in "${@}"; do
+    if dpkg -s "${package}" >/dev/null 2>&1; then
+      show_listitem "Purging ${package}."
+      sudo apt-get -y purge "${package}"
+      sudo apt-get -y autoremove
+    else
+      show_warning "Package ${package} is not installed. Skipping."
+    fi
+  done
+}
+
+function install_post_dependencies {
+  show_header "Checking post-installation dependencies."
+  local package
+  while read -r package; do
+    if ! dpkg -s "${package}" > /dev/null 2>&1; then
+      show_info "${package} is needed for this script."
+      sudo apt-get -y install "${package}"
+      check_fail $?
+      show_success "${package} now installed."
+    else
+      show_success "${package} is already installed."
+    fi
+  done < "${deps}"
+}
+
+function install_dependencies {
+  show_header "Checking installation dependencies."
+  local state=true
+  local exe
+  while read -r exe; do
+    if ! command -v "${exe}" >/dev/null; then
+      state=false
+    fi
+  done < "${install}"
+  if "${state}"; then return; fi
+
+  local package
+  while read -r package; do
+    if ! dpkg -s "${package}" > /dev/null 2>&1; then
+      show_info "${package} is needed for this script."
+      apt-get -y install "${package}"
+      check_fail $?
+      show_success "${package} now installed."
+    else
+      show_success "${package} is already installed."
+    fi
+  done < "${install}"
+}
+
+function install_sudo {
+  if ! dpkg -s sudo > /dev/null 2>&1; then
+    show_header "sudo is needed for this script."
+    show_info "Installing sudo via root (enter root password):"
+    if [ ${EUID} -eq 0 ]; then
+      apt-get -y install sudo
+      show_success "sudo installed." # will exit after check_user()
+    else
+      su root - sh -c "apt-get -y install sudo && /sbin/adduser $(whoami) sudo"
+      show_success "sudo installed and $(whoami) added to group sudo."
+      show_info "Log out and log back in again."
+      exit
+    fi
+  elif ! [[ $(groups) =~ \ *sudo\ * ]]; then
+    show_error "User $(whoami) not in sudoer group."
+    show_info "If the root user is enabled, run:"
+    show_listitem "su root - sh -c \"/sbin/adduser $(whoami) sudo\""
+    show_info "Then, log out and log back in again."
+    exit
+  fi
+}
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+
+srclist="/etc/apt/sources.list"
+function enable_contrib_repos {
+  local release
+  release=$(lsb_release -sc)
+  if ! grep contrib "${srclist}" >/dev/null 2>&1; then
+    show_info "Enabling contrib repos."
+    sudo sed -i "s,\(.* ${release} main.*\)$,\1 contrib,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 contrib,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 contrib,g" ${srclist}
+    sudo apt-get update
+  else
+    show_info "contrib already enabled."
+  fi
+}
+
+srclist="/etc/apt/sources.list"
+function enable_nonfree_repos {
+  local release
+  release=$(lsb_release -sc)
+  if ! grep non-free "${srclist}" >/dev/null 2>&1; then
+    show_info "Enabling non-free repos."
+    sudo sed -i "s,\(.* ${release} main.*\)$,\1 non-free,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 non-free,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 non-free,g" ${srclist}
+    sudo apt-get update
+  else
+    show_info "non-free already enabled."
+  fi
+}
+
+function enable_sudo_insults {
+  # Customize sudo to insult incorrect password attempts
+  if ! sudo grep "^Defaults\s\+insults" /etc/sudoers >/dev/null 2>&1; then
+    show_info "Enabling sudo insults."
+    sudo sh -c 'cat /etc/sudoers | \
+                sed -e "/^Defaults\tsecure_path/a Defaults\tinsults" | \
+                (EDITOR="tee" visudo >/dev/null)'
+  else
+    show_info "Insults already enabled, you masochist."
+  fi
+}
+
+purge="${dir}/packages/purge.list"
+function purge_packages {
+  show_header "Purging unwanted packaged often installed by default."
+  check_uninstalled "${purge}"
+  check_fail
+  show_success "Base packages installed."
+}
+
+pcspkr_blacklist="/etc/modprobe.d/nobeep.conf"
+gtk2conf="${HOME}/.gtkrc-2.0"
+gtk3conf="${HOME}/.config/gtk-3.0/settings.ini"
+function disable_beep {
+  show_header "Disable PC speaker beep."
+  show_info "Blacklisting pcspkr and snd_pcsp kernel modules."
+  if ! [ "$(ls -A /etc/modprobe.d/)" ]; then
+    sudo sh -c "echo 'blacklist pcspkr' >> ${pcspkr_blacklist}"
+    sudo sh -c "echo 'blacklist snd_pcsp' >> ${pcspkr_blacklist}"
+  else
+    if ! find /etc/modprobe.d/ -type f \
+         -exec grep "blacklist pcspkr" {} + >/dev/null 2>&1; then
+      sudo sh -c "echo 'blacklist pcspkr' >> ${pcspkr_blacklist}"
+    fi
+    if ! find /etc/modprobe.d/ -type f \
+         -exec grep "blacklist snd_pcsp" {} + >/dev/null 2>&1; then
+      sudo sh -c "echo 'blacklist snd_pcsp' >> ${pcspkr_blacklist}"
+    fi
+  fi
+  show_success "Blacklisted in ${pcspkr_blacklist}."
+
+  show_info "Disabling gtk2 and gtk3 error-bell."
+  if [ -f "${gtk2conf}" ]; then
+    if grep "^gtk-error-bell=" "${gtk2conf}" >/dev/null 2>&1; then
+      sed -i "s/^gtk-error-bell=.*$/gtk-error-bell=0/g" "${gtk2conf}"
+    else
+      echo "gtk-error-bell=0" >> "${gtk2conf}"
+    fi
+  else
+    mkdir -p "$(dirname "${gtk2conf}")"
+    echo "gtk-error-bell=0" >> "${gtk2conf}"
+  fi
+  if [ -f "${gtk3conf}" ]; then
+    if grep "^gtk-error-bell=" "${gtk3conf}" >/dev/null 2>&1; then
+      sed -i "s/^gtk-error-bell=.*$/gtk-error-bell=0/g" "${gtk3conf}"
+    elif grep "^[Settings]" "${gtk3conf}" >/dev/null 2>&1; then
+      sed -i "/^[Settings]$/a gtk-error-bell=0" "${gtk3conf}"
+    else
+      echo "[Settings]" >> "${gtk3conf}"
+      echo "gtk-error-bell=0" >> "${gtk3conf}"
+    fi
+  else
+    mkdir -p "$(dirname "${gtk3conf}")"
+    echo "[Settings]" > "${gtk3conf}"
+    echo "gtk-error-bell=0" >> "${gtk3conf}"
+  fi
+}
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+
+function install_timed_backgrounds {
+  show_header "Installing timed backgrounds."
+  git clone --depth 1 https://github.com/sudorook/timed-backgrounds \
+    timed-backgrounds
+  cd timed-backgrounds || exit
+  ./autogen.sh
+  make -j"$(nproc)"
+  sudo make install
+  cd ../
+  rm -rf timed-backgrounds/
+  show_success "Backgrounds installed."
+}
+
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+grubdefault="/etc/default/grub"
+function invert_brightness {
+  if [ -f "${grubdefault}" ]; then
+    local oldline
+    local bootparams
+    oldline=$(grep ^GRUB_CMDLINE_LINUX= "${grubdefault}")
+    bootparams=$(echo "${oldline}" | sed -n "s/^GRUB_CMDLINE_LINUX=\"\(.*\)\"/\1/p")
+    show_header "Inverting display brightness (Intel i915)."
+    if [[ ${bootparams} =~ i915.invert_brightness= ]]; then
+      sudo sed -i "s|i915.invert_brightness=\(on\|off\|1\|0\)|i915.invert_brightness=1|g" ${grubdefault}
+    else
+      if test "${bootparams}"; then
+        sudo sed -i "s|${bootparams}|${bootparams} i915.invert_brightness=1|g" ${grubdefault}
+      else
+        sudo sed -i "s|${oldline}|GRUB_CMDLINE_LINUX=\"i915.invert_brightness=1\"|g" ${grubdefault}
+      fi
+      sudo sed -i "\|^GRUB_CMDLINE_LINUX=| a\#${oldline}" ${grubdefault} # backup
+      show_success "Brightness inverted."
+      sudo update-grub
+    fi
+  fi
+  if [[ "$(sudo bootctl is-installed)" = yes ]]; then
+    local cmdline
+    for entry in "$(bootctl -p)"/loader/entries/*.conf; do
+      cmdline=$(sed -n "s/^options\s\+\(.*\)/\1/p" "${entry}")
+      if [[ ${cmdline} =~ i915.invert_brightness= ]]; then
+        sudo sed -i "s|i915.invert_brightness=\(1\|0\)|i915.invert_brightness=1|g" "${entry}"
+      else
+        if test "${cmdline}"; then
+          sudo sed -i "s|${cmdline}|${cmdline} i915.invert_brightness=1|g" ${grubdefault}
+        else
+          echo "options	i915.invert_brightness=1" | sudo tee -a "${entry}"
+        fi
+      fi
+    done
+  fi
+}
+
+grubdefault="/etc/default/grub"
+grubcfg="/boot/grub/grub.cfg"
+function enable_intel_iommu {
+  local vendor
+  vendor="$(lscpu | sed -n "s,^Vendor ID: \+\([A-Za-z]\+\),\1,p")"
+  if [[ "$vendor" =~ "Intel" ]]; then
+    show_info "Setting Intel IOMMU kernel parameter."
+    if [ -f "${grubdefault}" ]; then
+      local oldline
+      local bootparams
+      oldline=$(grep ^GRUB_CMDLINE_LINUX= "${grubdefault}")
+      bootparams=$(echo "${oldline}" | sed -n "s/^GRUB_CMDLINE_LINUX=\"\(.*\)\"/\1/p")
+      if [[ ${bootparams} =~ intel_iommu= ]]; then
+        sudo sed -i "s|intel_iommu=\(on\|off\|0\|1\)|intel_iommu=on|g" ${grubdefault}
+      else
+        if test "${bootparams}"; then
+          sudo sed -i "s|${bootparams}|${bootparams} intel_iommu=on|g" ${grubdefault}
+        else
+          sudo sed -i "s|${oldline}|GRUB_CMDLINE_LINUX=\"intel_iommu=on\"|g" ${grubdefault}
+        fi
+        sudo sed -i "\|^GRUB_CMDLINE_LINUX=| a\#${oldline}" ${grubdefault} # backup
+        sudo grub-mkconfig -o ${grubcfg}
+      fi
+    fi
+    if [[ "$(sudo bootctl is-installed)" = yes ]]; then
+      local cmdline
+      for entry in "$(bootctl -p)"/loader/entries/*.conf; do
+        cmdline=$(sed -n "s/^options\s\+\(.*\)/\1/p" "${entry}")
+        if [[ ${cmdline} =~ intel_iommu= ]]; then
+          sudo sed -i "s|intel_iommu=\(1\|0\)|intel_iommu=on|g" "${entry}"
+        else
+          if test "${cmdline}"; then
+            sudo sed -i "s|${cmdline}|${cmdline} intel_iommu=on|g" ${grubdefault}
+          else
+            echo "options	intel_iommu=on" | sudo tee -a "${entry}"
+          fi
+        fi
+      done
+    fi
+  else
+    show_warning "Cannot set intel_iommu=on on non-Intel CPU. Skipping."
+  fi
+}
+
+pulseconfig="/etc/pulse/default.pa"
+function disable_pulseaudio_suspend {
+  show_header "Disabling suspend on PulseAudio when sinks/sources idle."
+  if [ -f ${pulseconfig} ]; then
+    sudo sed -i "s/^load-module module-suspend-on-idle$/#load-module module-suspend-on-idle/g" ${pulseconfig}
+  else
+    show_warning "PulseAudio config file missing. Exiting."
+  fi
+}
+
+iwlwificonf="/etc/modprobe.d/iwlwifi.conf"
+function disable_11n {
+  show_header "Disabling 802.11n networking in iwlwifi."
+  if ! [ "$(ls -A /etc/modprobe.d/)" ]; then
+    sudo sh -c "echo 'options iwlwifi 11n_disable=1' >> ${iwlwificonf}"
+  else
+    if ! find /etc/modprobe.d/ -type f \
+         -exec grep "^options iwlwifi .*11n_disable=1.*" {} + >/dev/null 2>&1; then
+      sudo sh -c "echo 'options iwlwifi 11n_disable=1' >> ${iwlwificonf}"
+    else
+      show_info "11n_disable=1 flag is already set."
+    fi
+  fi
+  show_success "802.11n networking disabled in ${iwlwificonf}."
+}
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+
+networking="${dir}/packages/network.list"
+nmconf="/etc/NetworkManager/NetworkManager.conf"
+function install_network {
+  show_header "Setting up networking."
+  check_installed "${networking}"
+  check_fail
+  show_success "Networking applications installed."
+
+  show_info "Setting up MAC address randomization in Network Manager."
+  if ! test "$(grep "mac-address=random" ${nmconf})"; then
+    sudo sh -c "echo "" >> ${nmconf}"
+    sudo sh -c "echo '# Enabling built-in MAC Address randomization' >> ${nmconf}"
+    sudo sh -c "echo '[connection-mac-randomization]' >> ${nmconf}"
+    sudo sh -c "echo 'wifi.cloned-mac-address=random' >> ${nmconf}"
+    sudo sh -c "echo 'ethernet.cloned-mac-address=random' >> ${nmconf}"
+  fi
+
+  show_info "Disabling SSH root login and forcing SSH v2."
+  sudo sed -i \
+    -e "/^#PermitRootLogin prohibit-password$/a PermitRootLogin no" \
+    -e "/^#Port 22$/i Protocol 2" \
+    /etc/ssh/sshd_config
+}
+
+discovery="${dir}/packages/discover.list"
+nsconf="/etc/nsswitch.conf"
+function install_discovery {
+  show_header "Setting up local network discovery."
+  check_installed "${discovery}"
+  check_fail
+  show_success "Discovery applications installed."
+
+  show_info "Enabling local hostname resolution in Avahi."
+  local oldhostsline="hosts: files mymachines myhostname resolve \[!UNAVAIL=return\] dns"
+  local newhostsline="hosts: files mymachines myhostname mdns_minimal \[NOTFOUND=return\] resolve \[!UNAVAIL=return\] dns"
+  sudo sed -i "/^${oldhostsline}/s/^${oldhostsline}/${newhostsline}/g" ${nsconf}
+  sudo systemctl enable avahi-daemon.service
+  sudo systemctl start avahi-daemon.service
+}
+
+tor="${dir}/packages/tor.list"
+function install_tor {
+  show_header "Installing Tor programs."
+  check_installed "${tor}"
+  check_fail
+  show_success "Tor installed."
+
+  show_info "Enabling and starting tor service."
+  sudo systemctl enable tor
+  sudo systemctl start tor
+}
+
+srclist="/etc/apt/sources.list"
+function use_onion_repos {
+  show_header "Tunneling apt over tor for Debian $(lsb_release -sc)."
+
+  local is_contrib
+  grep -q contrib ${srclist}; is_contrib=$?
+  local is_nonfree
+  grep -q non-free ${srclist}; is_nonfree=$?
+
+  local release
+  release=$(lsb_release -sc)
+  sudo cp -f ${srclist} ${srclist}.${RANDOM}.bak
+  sudo cp -f "${dir}/sources/${release}-sources.list" ${srclist}
+
+  [ ${is_contrib} == 0 ] && \
+    sudo sed -i "s,\(.* ${release} main.*\)$,\1 contrib,g" ${srclist} && \
+    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 contrib,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 contrib,g" ${srclist}
+  [ ${is_nonfree} == 0 ] && \
+    sudo sed -i "s,\(.* ${release} main.*\)$,\1 non-free,g" ${srclist} && \
+    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 non-free,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 non-free,g" ${srclist}
+  sudo sed -i "s,https://deb.debian.org,tor+http://vwakviie2ienjx6t.onion,g" ${srclist}
+  sudo sed -i "s,https://security.debian.org/,tor+http://sgvtcaew4bxjd7ln.onion/debian-security/,g" ${srclist}
+
+  sudo apt update
+}
+
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+
+android="${dir}/packages/android.list"
+function install_android {
+  show_header "Installing tools for Android devices."
+  check_installed "${android}"
+  check_fail
+  show_success "Android tools installed."
+}
+
+apps="${dir}/packages/apps.list"
+mpvconfig="${dir}/configs/mpv.conf"
+libaoconf="/etc/libao.conf"
+function install_apps {
+  show_header "Installing desktop applications."
+  check_installed "${apps}"
+  check_fail
+  show_success "Applications installed."
+
+  show_info "Copying mpv config."
+  mkdir -p "${HOME}/.config/mpv"
+  cp -f "${mpvconfig}" "${HOME}/.config/mpv"
+
+  show_info "Updating xdg settings to open HTML files in Firefox."
+  xdg-mime default firefox.desktop text/html
+
+  # Should always pass because gufw is in the app list.
+  if command -v ufw >/dev/null; then
+    show_info "Enabling Syncthing firewall rules."
+    sudo ufw allow syncthing
+    sudo ufw allow syncthing-gui
+  fi
+
+  show_info "Configuring ${libaoconf} to use PulseAudio instead of ALSA."
+  sudo sh -c "echo 'default_driver=pulse' > ${libaoconf}"
+}
+
+codecs="${dir}/packages/codecs.list"
+function install_codecs {
+  show_header "Installing codecs."
+  check_installed "${codecs}"
+  check_fail
+  show_success "Codecs installed."
+}
+
+extra="${dir}/packages/extra.list"
+function install_extra {
+  show_header "Installing extra desktop applications."
+  check_installed "${extra}"
+  check_fail
+  show_success "Extra applications installed."
+}
+
+printer="${dir}/packages/printer.list"
+function install_printing {
+  show_header "Installing CPUS and printer firmware."
+  check_installed "${printer}"
+  check_fail
+  show_success "Printing applications installed."
+}
+
+games="${dir}/packages/games.list"
+function install_games {
+  show_header "Installing game emulators."
+  check_installed "${games}"
+  check_fail
+  show_success "Emulators installed."
+}
+
+torbrowser_path="${HOME}/.local/share/tor-browser"
+local_applications="${HOME}/.local/share/applications"
+function install_torbrowser {
+  show_header "Installing Tor browser."
+
+  local response
+  local install_torbrowser
+  if [ -d "${torbrowser_path}" ]; then
+    show_warning "Tor browser is already installed in ${torbrowser_path}."
+    response=$(ask_question "Replace? (y/N)")
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+      install_torbrowser=true
+    else
+      install_torbrowser=false
+    fi
+  else
+    install_torbrowser=true
+  fi
+
+  if ${install_torbrowser}; then
+    local torbrowser_version
+    local torbrowser_package
+    local torbrowser_url="https://www.torproject.org/dist/torbrowser"
+    local arch
+
+    show_info "Downloading Tor developers' GPG key."
+    gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
+
+    torbrowser_version=$(curl https://www.torproject.org/download/ | \
+                         sed -n 's,^ \+<a class="downloadLink" href="/dist/torbrowser/\([0-9\.]\+\)/tor-browser-linux.*">,\1,p')
+    arch=$(uname -m)
+    if [ "${arch:(-2)}" = "86" ]; then
+      torbrowser_package=tor-browser-linux32-${torbrowser_version}_en-US.tar.xz
+    elif [ "${arch:(-2)}" = "64" ]; then
+      torbrowser_package=tor-browser-linux64-${torbrowser_version}_en-US.tar.xz
+    fi
+
+    show_info "Downloading release tarball."
+    wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}"
+    wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}.asc"
+    show_info "Extracting..."
+    gpg --verify "${torbrowser_package}.asc" "${torbrowser_package}"
+    tar xf "${torbrowser_package}"
+
+    show_info "Putting things into place..."
+    mkdir -p "${local_applications}"
+    rm -rf "${torbrowser_path}"
+    mv tor-browser_en-US "${torbrowser_path}"
+    cp -f "${torbrowser_path}/start-tor-browser.desktop" "${local_applications}/"
+    chmod -x "${local_applications}/start-tor-browser.desktop"
+    sed -i \
+      -e "s,^Name=.*,Name=Tor Browser,g" \
+      -e "s,^Icon=.*,Icon=browser-tor,g" \
+      -e "s,^Exec=.*,Exec=sh -c '\"${torbrowser_path}/Browser/start-tor-browser\" --detach || ([ !  -x \"${torbrowser_path}/Browser/start-tor-browser\" ] \&\& \"\$(dirname \"\$*\")\"/Browser/start-tor-browser --detach)' dummy %k,g" \
+      "${local_applications}/start-tor-browser.desktop"
+    update-desktop-database "${local_applications}"
+
+    show_info "Cleaning up..."
+    rm -f "${torbrowser_package}"
+    rm -f "${torbrowser_package}.asc"
+    show_success "Tor browser installed."
+  else
+    show_info "Skipping..."
+  fi
+}
+
+virtualbox="${dir}/packages/virtualbox.list"
+function install_virtualbox {
+  show_header "Installing VirtualBox."
+  check_installed "${virtualbox}"
+  check_fail
+  show_success "VirtualBox installed."
+
+  if getent group vboxusers; then
+    show_info "Adding $(whoami) to vboxusers group."
+    sudo usermod -aG vboxusers "$(whoami)"
+  fi
+}
+
+virtualboxguest="${dir}/packages/virtualbox-guest.list"
+function install_virtualbox_guest {
+  if grep "^flags.*\ hypervisor" /proc/cpuinfo >/dev/null 2>&1; then
+    show_header "Installing packages for VirtualBox guests."
+    check_installed "${virtualboxguest}"
+    check_fail
+    show_success "VirtualBox guest packages installed."
+  else
+    show_warning "Not running on a virtualized machine. Skipping."
+  fi
+}
+
+wine="${dir}/packages/wine.list"
+function install_wine {
+  show_header "Installing wine."
+  check_installed "${wine}"
+  check_fail
+  show_success "Wine installed."
+}
+
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+
+function android_list(){
+adb
+android-libandroidfw
+android-libcutils
+android-libdex
+android-libetc1
+android-libext4-utils
+android-tools-fsutils
+f2fs-tools
+fastboot
+go-mtpfs
+heimdall-flash
+libmtp9
+mmc-utils
+}
+#######################
+
+function apps_list(){
+bleachbit
+dconf-cli
+dconf-editor
+eog
+evince
+ffmpeg
+firefox-esr
+gnome-disk-utility
+gnome-power-manager
+gnome-screenshot
+gnome-terminal
+gparted
+gufw
+keepassxc
+libreoffice-base
+mpv
+syncthing
+syncthing-gtk
+transmission-gtk
+}
+#######################
+
+function codecs_list(){
+gstreamer1.0-libav
+gstreamer1.0-plugins-bad
+gstreamer1.0-plugins-base
+gstreamer1.0-plugins-good
+gstreamer1.0-plugins-ugly
+}
+#######################
+
+function discover_list(){
+avahi-autoipd
+avahi-daemon
+avahi-discover
+gvfs
+libnss-mdns
+samba
+}
+#######################
+
+function extra_list(){
+baobab
+calibre
+gifsicle
+gimp
+gnome-calculator
+gnome-clocks
+gnome-font-viewer
+gnome-logs
+gnome-system-monitor
+inkscape
+mediainfo
+peek
+python3-mutagen
+recordmydesktop
+subtitleeditor
+v4l-utils
+vlc
+wireshark-gtk
+youtube-dl
+}
+#######################
+
+function firmware_list(){
+amd64-microcode
+bluez-firmware
+firmware-iwlwifi
+firmware-linux
+firmware-linux-free
+firmware-linux-nonfree
+intel-microcode
+}
+#######################
+
+function games_list(){
+desmume
+dolphin-emu
+higan
+mupen64plus
+visualboyadvance-gtk
+}
+#######################
+
+function network_list(){
+iwd
+network-manager-openvpn
+network-manager-openvpn-gnome
+openssh-server
+wireguard-tools
+wireless-tools
+}
+#######################
+
+function printer_list(){
+cups
+cups-pk-helper
+foomatic-db
+foomatic-db-compressed-ppds
+foomatic-db-engine
+foomatic-filters
+gutenprint
+hplip
+hplip-gui
+printer-driver-gutenprint
+system-config-printer
+}
+#######################
+
+function purge_list(){
+aisleriot
+anthy
+aspell
+debian-reference-common
+fcitx
+fcitx-bin
+fcitx-frontend-gtk2
+fcitx-frontend-gtk3
+fcitx-mozc
+five-or-more
+four-in-a-row
+gnome-chess
+gnome-klotski
+gnome-mahjongg
+gnome-mines
+gnome-music
+gnome-nibbles
+gnome-robots
+gnome-sudoku
+gnome-taquin
+gnome-tetravex
+gnote
+goldendict
+hamster-applet
+hdate-applet
+hexchat
+hitori
+iagno
+im-config
+kasumi
+khmerconverter
+lightsoff
+mate-themes
+mlterm
+mlterm-tiny
+mozc-utils-gui
+quadrapassel
+reportbug
+rhythmbox
+scim
+simple-scan
+sound-juicer
+swell-foop
+tali
+uim
+xboard
+xiterm+thai
+xterm
+}
+#######################
+
+function tor_list(){
+apt-transport-tor
+onionshare
+tor
+torsocks
+}
+#######################
+
+function utils_list(){
+acpi
+bc
+cpio
+dmidecode
+dos2unix
+dosfstools
+encfs
+ethtool
+exfat-utils
+gddrescue
+gdisk
+gnupg
+hfsprogs
+libbcprov-java
+libcommons-lang3-java
+libnotify-bin
+lm-sensors
+mtools
+net-tools
+nmap
+ntfs-3g
+nvme-cli
+p7zip
+parallel
+parted
+pdftk
+pigz
+pixz
+pv
+reiserfsprogs
+rkhunter
+rsync
+screen
+signify-openbsd
+squashfs-tools
+s-tui
+time
+tmux
+unhide
+unrar-free
+usbutils
+zip
+zstd
+}
+#######################
+
+function virtualbox-guest_list(){
+virtualbox-guest-dkms
+virtualbox-guest-utils
+}
+#######################
+
+function virtualbox_list(){
+virtualbox
+virtualbox-dkms
+virtualbox-guest-additions-iso
+}
+#######################
+
+function wine_list(){
+fonts-wine
+mpg123
+wine
+wine64
+winetricks
+}

@@ -20,14 +20,6 @@ bash <(wget -q -O - https://raw.githubusercontent.com/dari862/my-linux-script/ma
 bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/debugging.sh)
 ```
 
-
-<details>
-<summary><h1>links</h1></summary>
-  
-	https://github.com/sudorook/debian
-  
-</details>
-
 <details>
 <summary><h1>to do</h1></summary>
 
