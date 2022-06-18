@@ -28,10 +28,6 @@ if [ $# -eq 0 ]; then
 fi
 
 IN="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
-OUT="${IN%.*_%d.pdf}"
-range="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
-check_4_pass="$(echo $@ | grep -o -E ' -p | -P | -password ' || :)"
-# Checks
 if [[ -z ${IN} ]]; then
   	echo "ERROR: No input file specified. Exiting."
   	exit 3
@@ -39,17 +35,24 @@ elif ! [[ -f "${IN}" ]]; then
   	echo "ERROR: Input ${IN@Q} not found. Exiting."
   	exit 3
 fi
-	
+OUT="${IN%.*_%d.pdf}"
+
+range="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
 if [[ -z ${range} ]]; then
   	echo "ERROR: Range is empty. Exiting."
   	exit 3
 fi
 
+check_4_pass="$(echo $@ | grep -o -E ' -p | -P | -password ' || :)"
+	
+
 if [ $# -eq 1 ]; then
 	qpdf --split-pages ${IN} ${OUT}
 else
 	if [[ ${check_4_pass} ]]; then
-		pass=
+		echo -n pass: 
+		read -s pass
+		echo
 	fi
 	
 	if [[ ${pass} ]]; then
