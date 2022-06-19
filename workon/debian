@@ -26,9 +26,9 @@ show_listitem() {
   echo -e $'\033[1;37m'"$*"$'\033[0m'
 }
 
-TIMEZONE="UTC"
-function ask_timezone {
-  local res
+function change_timezone {
+  TIMEZONE="UTC"
+  res=""
 
   res="$(timedatectl list-timezones | \
          fzf --layout=reverse \
@@ -37,22 +37,18 @@ function ask_timezone {
 
   if [ -n "${res}" ]; then
     TIMEZONE="${res}"
+    echo "Using ${TIMEZONE@Q} as time zone."
+    sudo timedatectl set-timezone ${TIMEZONE@Q}
   else
-    show_info "Using default time zone ${TIMEZONE@Q}."
+    echo "Using default time zone ${TIMEZONE@Q}."
   fi
 }
 
-function set_timezone {
-  ln -sfn "/usr/share/zoneinfo/${TIMEZONE}" /etc/localtime
-  hwclock --systohc --utc
-}
-export -f set_timezone
-
-LOCALE="en_US.UTF-8"
-CHARSET="UTF-8"
-function ask_locale {
+function change_locale {
+  local LOCALE="en_US.UTF-8"
+  local CHARSET="UTF-8"
   local res
-
+  
   res="$(sed -n "s,^#\?\ \?\([[:alnum:]\.@_\-]\+\)\ \([[:alnum:]\-]\+\)\ *$,\1 \2,p" /etc/locale.gen | \
          fzf --layout=reverse \
              --header="Select locale ('ESC' for default: ${LOCALE})" || true)"
@@ -61,238 +57,15 @@ function ask_locale {
   if [ -n "${res}" ]; then
     LOCALE="$(echo "${res}" | cut -d" " -f1)"
     CHARSET="$(echo "${res}" | cut -d" " -f2)"
+    sed -i "/^#\ \?${LOCALE} ${CHARSET}/s/^#\ \?//" /etc/locale.gen
+    locale-gen
+    echo "LANG=${LOCALE}" > /etc/locale.conf
+    echo "KEYMAP=${LOCALE}" > /etc/vconsole.conf
   else
     show_info "Using default locale ${LOCALE@Q}."
     show_info "Using default charset ${CHARSET@Q}."
   fi
 }
-
-function set_locale {
-  sed -i "/^#\ \?${LOCALE} ${CHARSET}/s/^#\ \?//" /etc/locale.gen
-  locale-gen
-  echo "LANG=${LOCALE}" > /etc/locale.conf
-  echo "KEYMAP=${LOCALE}" > /etc/vconsole.conf
-}
-export -f set_locale
-
-
-function check_fail {
-  local exitstatus=${1:-}
-  if [[ ${exitstatus} -gt 0 ]]; then
-    show_error "Error code received. Returning to main."
-    sleep 3s && main
-  fi
-}
-
-function check_installed {
-  local package
-  while read -r package; do
-    # Check if package is installed already before installing.
-    if dpkg -s "${package}" >/dev/null 2>&1; then
-      show_listitem "${package} package already installed. Skipping."
-    else
-      # First check if the package exists in the repos.
-      if ! (apt-cache showsrc "${package}" 2>&1 | grep -q "W: "); then
-        show_listitem "Installing ${package}."
-        sudo apt-get -y install "${package}"
-      else
-        show_warning "Package ${package} does not exist in the repos. Skipping."
-      fi
-    fi
-  done < "${1}"
-}
-
-function check_uninstalled {
-  local package
-  for package in "${@}"; do
-    if dpkg -s "${package}" >/dev/null 2>&1; then
-      show_listitem "Purging ${package}."
-      sudo apt-get -y purge "${package}"
-      sudo apt-get -y autoremove
-    else
-      show_warning "Package ${package} is not installed. Skipping."
-    fi
-  done
-}
-
-function install_post_dependencies {
-  show_header "Checking post-installation dependencies."
-  local package
-  while read -r package; do
-    if ! dpkg -s "${package}" > /dev/null 2>&1; then
-      show_info "${package} is needed for this script."
-      sudo apt-get -y install "${package}"
-      check_fail $?
-      show_success "${package} now installed."
-    else
-      show_success "${package} is already installed."
-    fi
-  done < "${deps}"
-}
-
-function install_dependencies {
-  show_header "Checking installation dependencies."
-  local state=true
-  local exe
-  while read -r exe; do
-    if ! command -v "${exe}" >/dev/null; then
-      state=false
-    fi
-  done < "${install}"
-  if "${state}"; then return; fi
-
-  local package
-  while read -r package; do
-    if ! dpkg -s "${package}" > /dev/null 2>&1; then
-      show_info "${package} is needed for this script."
-      apt-get -y install "${package}"
-      check_fail $?
-      show_success "${package} now installed."
-    else
-      show_success "${package} is already installed."
-    fi
-  done < "${install}"
-}
-
-function install_sudo {
-  if ! dpkg -s sudo > /dev/null 2>&1; then
-    show_header "sudo is needed for this script."
-    show_info "Installing sudo via root (enter root password):"
-    if [ ${EUID} -eq 0 ]; then
-      apt-get -y install sudo
-      show_success "sudo installed." # will exit after check_user()
-    else
-      su root - sh -c "apt-get -y install sudo && /sbin/adduser $(whoami) sudo"
-      show_success "sudo installed and $(whoami) added to group sudo."
-      show_info "Log out and log back in again."
-      exit
-    fi
-  elif ! [[ $(groups) =~ \ *sudo\ * ]]; then
-    show_error "User $(whoami) not in sudoer group."
-    show_info "If the root user is enabled, run:"
-    show_listitem "su root - sh -c \"/sbin/adduser $(whoami) sudo\""
-    show_info "Then, log out and log back in again."
-    exit
-  fi
-}
-
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-
-
-srclist="/etc/apt/sources.list"
-function enable_contrib_repos {
-  local release
-  release=$(lsb_release -sc)
-  if ! grep contrib "${srclist}" >/dev/null 2>&1; then
-    show_info "Enabling contrib repos."
-    sudo sed -i "s,\(.* ${release} main.*\)$,\1 contrib,g" ${srclist}
-    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 contrib,g" ${srclist}
-    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 contrib,g" ${srclist}
-    sudo apt-get update
-  else
-    show_info "contrib already enabled."
-  fi
-}
-
-srclist="/etc/apt/sources.list"
-function enable_nonfree_repos {
-  local release
-  release=$(lsb_release -sc)
-  if ! grep non-free "${srclist}" >/dev/null 2>&1; then
-    show_info "Enabling non-free repos."
-    sudo sed -i "s,\(.* ${release} main.*\)$,\1 non-free,g" ${srclist}
-    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 non-free,g" ${srclist}
-    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 non-free,g" ${srclist}
-    sudo apt-get update
-  else
-    show_info "non-free already enabled."
-  fi
-}
-
-function enable_sudo_insults {
-  # Customize sudo to insult incorrect password attempts
-  if ! sudo grep "^Defaults\s\+insults" /etc/sudoers >/dev/null 2>&1; then
-    show_info "Enabling sudo insults."
-    sudo sh -c 'cat /etc/sudoers | \
-                sed -e "/^Defaults\tsecure_path/a Defaults\tinsults" | \
-                (EDITOR="tee" visudo >/dev/null)'
-  else
-    show_info "Insults already enabled, you masochist."
-  fi
-}
-
-purge="${dir}/packages/purge.list"
-function purge_packages {
-  show_header "Purging unwanted packaged often installed by default."
-  check_uninstalled "${purge}"
-  check_fail
-  show_success "Base packages installed."
-}
-
-pcspkr_blacklist="/etc/modprobe.d/nobeep.conf"
-gtk2conf="${HOME}/.gtkrc-2.0"
-gtk3conf="${HOME}/.config/gtk-3.0/settings.ini"
-function disable_beep {
-  show_header "Disable PC speaker beep."
-  show_info "Blacklisting pcspkr and snd_pcsp kernel modules."
-  if ! [ "$(ls -A /etc/modprobe.d/)" ]; then
-    sudo sh -c "echo 'blacklist pcspkr' >> ${pcspkr_blacklist}"
-    sudo sh -c "echo 'blacklist snd_pcsp' >> ${pcspkr_blacklist}"
-  else
-    if ! find /etc/modprobe.d/ -type f \
-         -exec grep "blacklist pcspkr" {} + >/dev/null 2>&1; then
-      sudo sh -c "echo 'blacklist pcspkr' >> ${pcspkr_blacklist}"
-    fi
-    if ! find /etc/modprobe.d/ -type f \
-         -exec grep "blacklist snd_pcsp" {} + >/dev/null 2>&1; then
-      sudo sh -c "echo 'blacklist snd_pcsp' >> ${pcspkr_blacklist}"
-    fi
-  fi
-  show_success "Blacklisted in ${pcspkr_blacklist}."
-
-  show_info "Disabling gtk2 and gtk3 error-bell."
-  if [ -f "${gtk2conf}" ]; then
-    if grep "^gtk-error-bell=" "${gtk2conf}" >/dev/null 2>&1; then
-      sed -i "s/^gtk-error-bell=.*$/gtk-error-bell=0/g" "${gtk2conf}"
-    else
-      echo "gtk-error-bell=0" >> "${gtk2conf}"
-    fi
-  else
-    mkdir -p "$(dirname "${gtk2conf}")"
-    echo "gtk-error-bell=0" >> "${gtk2conf}"
-  fi
-  if [ -f "${gtk3conf}" ]; then
-    if grep "^gtk-error-bell=" "${gtk3conf}" >/dev/null 2>&1; then
-      sed -i "s/^gtk-error-bell=.*$/gtk-error-bell=0/g" "${gtk3conf}"
-    elif grep "^[Settings]" "${gtk3conf}" >/dev/null 2>&1; then
-      sed -i "/^[Settings]$/a gtk-error-bell=0" "${gtk3conf}"
-    else
-      echo "[Settings]" >> "${gtk3conf}"
-      echo "gtk-error-bell=0" >> "${gtk3conf}"
-    fi
-  else
-    mkdir -p "$(dirname "${gtk3conf}")"
-    echo "[Settings]" > "${gtk3conf}"
-    echo "gtk-error-bell=0" >> "${gtk3conf}"
-  fi
-}
-
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-
 
 function install_timed_backgrounds {
   show_header "Installing timed backgrounds."
@@ -306,16 +79,6 @@ function install_timed_backgrounds {
   rm -rf timed-backgrounds/
   show_success "Backgrounds installed."
 }
-
-
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
 
 grubdefault="/etc/default/grub"
 function invert_brightness {
@@ -935,19 +698,7 @@ usbutils
 zip
 zstd
 }
-#######################
 
-function virtualbox-guest_list(){
-virtualbox-guest-dkms
-virtualbox-guest-utils
-}
-#######################
-
-function virtualbox_list(){
-virtualbox
-virtualbox-dkms
-virtualbox-guest-additions-iso
-}
 #######################
 
 function wine_list(){
