@@ -483,29 +483,6 @@ mmc-utils
 }
 #######################
 
-function apps_list(){
-bleachbit
-dconf-cli
-dconf-editor
-eog
-evince
-ffmpeg
-firefox-esr
-gnome-disk-utility
-gnome-power-manager
-gnome-screenshot
-gnome-terminal
-gparted
-gufw
-keepassxc
-libreoffice-base
-mpv
-syncthing
-syncthing-gtk
-transmission-gtk
-}
-#######################
-
 function codecs_list(){
 gstreamer1.0-libav
 gstreamer1.0-plugins-bad
@@ -521,30 +498,15 @@ avahi-daemon
 avahi-discover
 gvfs
 libnss-mdns
-samba
 }
 #######################
 
 function extra_list(){
-baobab
 calibre
 gifsicle
 gimp
-gnome-calculator
-gnome-clocks
-gnome-font-viewer
-gnome-logs
-gnome-system-monitor
-inkscape
-mediainfo
-peek
-python3-mutagen
 recordmydesktop
 subtitleeditor
-v4l-utils
-vlc
-wireshark-gtk
-youtube-dl
 }
 #######################
 
@@ -570,8 +532,6 @@ visualboyadvance-gtk
 
 function network_list(){
 iwd
-network-manager-openvpn
-network-manager-openvpn-gnome
 openssh-server
 wireguard-tools
 wireless-tools
@@ -590,58 +550,6 @@ hplip
 hplip-gui
 printer-driver-gutenprint
 system-config-printer
-}
-#######################
-
-function purge_list(){
-aisleriot
-anthy
-aspell
-debian-reference-common
-fcitx
-fcitx-bin
-fcitx-frontend-gtk2
-fcitx-frontend-gtk3
-fcitx-mozc
-five-or-more
-four-in-a-row
-gnome-chess
-gnome-klotski
-gnome-mahjongg
-gnome-mines
-gnome-music
-gnome-nibbles
-gnome-robots
-gnome-sudoku
-gnome-taquin
-gnome-tetravex
-gnote
-goldendict
-hamster-applet
-hdate-applet
-hexchat
-hitori
-iagno
-im-config
-kasumi
-khmerconverter
-lightsoff
-mate-themes
-mlterm
-mlterm-tiny
-mozc-utils-gui
-quadrapassel
-reportbug
-rhythmbox
-scim
-simple-scan
-sound-juicer
-swell-foop
-tali
-uim
-xboard
-xiterm+thai
-xterm
 }
 #######################
 
@@ -697,14 +605,4 @@ unrar-free
 usbutils
 zip
 zstd
-}
-
-#######################
-
-function wine_list(){
-fonts-wine
-mpg123
-wine
-wine64
-winetricks
 }
