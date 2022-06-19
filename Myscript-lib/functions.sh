@@ -321,7 +321,12 @@ apt_purge_with_error()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  sudo apt-get purge -y "$INDEX" &>> $debug_log || show_em " Failed to purge $INDEX "
+	if dpkg -s "${INDEX}" >/dev/null 2>&1; then
+		show_m "Purging ${INDEX}."
+		sudo apt-get -y purge "$INDEX" &>> $debug_log || show_em " Failed to purge $INDEX "
+	else
+		show_em "Package ${package} is not installed. Skipping."
+	fi
 done
 
 }
@@ -331,7 +336,12 @@ apt_purge_with_error2info()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  sudo apt-get purge -y "$INDEX" &>> $debug_log || show_im " Failed to purge $INDEX "
+	if dpkg -s "${INDEX}" >/dev/null 2>&1; then
+		show_m "Purging ${INDEX}."
+		sudo apt-get -y purge "$INDEX" &>> $debug_log || show_im " Failed to purge $INDEX "
+	else
+		show_em "Package ${package} is not installed. Skipping."
+	fi
 done
 
 }
@@ -344,7 +354,11 @@ apt_install_whith_error2info()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list || show_im " Failed to install $INDEX "
+if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+	$sudoaptinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." || show_im " Failed to install $INDEX "
+else
+	show_im "${INDEX} is already installed."
+fi
 done
 }
 
@@ -353,8 +367,11 @@ apt_if_install_whith_error2info()
 localarray=("$@")
 local fist_app="${localarray[0]}"
 local second_app="${localarray[1]}"
-
-$sudoaptinstall "$fist_app" &>> $debug_log && printf "$fist_app " >> $helper_list || $sudoaptinstall "$second_app" &>> $debug_log && printf "$second_app " >> $helper_list || show_im " Failed to install $fist_app and $second_app . "
+if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+	$sudoaptinstall "$fist_app" &>> $debug_log && printf "$fist_app " >> $helper_list || $sudoaptinstall "$second_app" &>> $debug_log && printf "$second_app " >> $helper_list || show_im " Failed to install $fist_app and $second_app . "
+else
+	show_im "${INDEX} is already installed."
+fi
 }
 
 apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit()
@@ -362,7 +379,11 @@ apt_install_whith_error_whitout_printf_2_helper_list_and_without_exit()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall "$INDEX" &>> $debug_log || show_em " Failed to install $INDEX "
+	if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+		$sudoaptinstall "$INDEX" &>> $debug_log && show_m "${INDEX} now installed." || show_em " Failed to install $INDEX "
+	else
+		show_im "${INDEX} is already installed."
+	fi
 done
 }
 
@@ -371,7 +392,11 @@ apt_install_whith_error_whitout_exit()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list || show_em " Failed to install $INDEX "
+	if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+		$sudoaptinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." || show_em " Failed to install $INDEX "
+	else
+		show_im "${INDEX} is already installed."
+	fi
 done
 }
 
@@ -380,7 +405,11 @@ apt_install_whith_error()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall "$INDEX" && printf "$INDEX " >> $helper_list
+	if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+		$sudoaptinstall "$INDEX" && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." 
+	else
+		show_im "${INDEX} is already installed."
+	fi
 done
 }
 
@@ -389,9 +418,12 @@ apt_install_noninteractive_whith_error2info()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall_noninteractive "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list || show_im " Failed to install $INDEX "
+	if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+		$sudoaptinstall_noninteractive "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." || show_im " Failed to install $INDEX "
+	else
+		show_im "${INDEX} is already installed."
+	fi
 done
-
 }
 
 apt_install_noninteractive_whith_error_whitout_exit()
@@ -399,9 +431,12 @@ apt_install_noninteractive_whith_error_whitout_exit()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list || show_em " Failed to install $INDEX "
+	if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+		$sudoaptinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." || show_em " Failed to install $INDEX "
+	else
+		show_im "${INDEX} is already installed."
+	fi
 done
-
 }
 
 apt_install_noninteractive_whith_error()
@@ -409,7 +444,11 @@ apt_install_noninteractive_whith_error()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-  $sudoaptinstall_noninteractive "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list
+	if ! dpkg -s "${INDEX}" > /dev/null 2>&1; then
+		$sudoaptinstall_noninteractive "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." 
+	else
+		show_im "${INDEX} is already installed."
+	fi
 done
 }
 
@@ -421,7 +460,7 @@ flatpak_install_with_error2info()
 localarray=("$@")
 for INDEX in "${localarray[@]}"
 do
-	  $flatpakinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list || show_em " Failed to flatpak install $INDEX "
+	$flatpakinstall "$INDEX" &>> $debug_log && printf "$INDEX " >> $helper_list && show_m "${INDEX} now installed." || show_em " Failed to flatpak install $INDEX "
 done
 }
 
