@@ -735,7 +735,7 @@ then
 	if [ "$(dpkg-query -W --showformat='${db:Status-Status}' wine 2>&1)" = installed ]; then
 		echo 'Wine is already installed.'
 	else
-		apt_install_whith_error_whitout_exit "wine wine64 wine-binfmt winetricks"
+		apt_install_whith_error_whitout_exit "wine wine64 wine-binfmt winetricks fonts-wine mpg123"
 	fi
 fi
 ###################################
