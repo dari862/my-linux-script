@@ -289,14 +289,6 @@ function use_onion_repos {
 ##################################################################################################
 
 
-android="${dir}/packages/android.list"
-function install_android {
-  show_header "Installing tools for Android devices."
-  check_installed "${android}"
-  check_fail
-  show_success "Android tools installed."
-}
-
 apps="${dir}/packages/apps.list"
 mpvconfig="${dir}/configs/mpv.conf"
 libaoconf="/etc/libao.conf"
@@ -322,38 +314,6 @@ function install_apps {
 
   show_info "Configuring ${libaoconf} to use PulseAudio instead of ALSA."
   sudo sh -c "echo 'default_driver=pulse' > ${libaoconf}"
-}
-
-codecs="${dir}/packages/codecs.list"
-function install_codecs {
-  show_header "Installing codecs."
-  check_installed "${codecs}"
-  check_fail
-  show_success "Codecs installed."
-}
-
-extra="${dir}/packages/extra.list"
-function install_extra {
-  show_header "Installing extra desktop applications."
-  check_installed "${extra}"
-  check_fail
-  show_success "Extra applications installed."
-}
-
-printer="${dir}/packages/printer.list"
-function install_printing {
-  show_header "Installing CPUS and printer firmware."
-  check_installed "${printer}"
-  check_fail
-  show_success "Printing applications installed."
-}
-
-games="${dir}/packages/games.list"
-function install_games {
-  show_header "Installing game emulators."
-  check_installed "${games}"
-  check_fail
-  show_success "Emulators installed."
 }
 
 torbrowser_path="${HOME}/.local/share/tor-browser"
