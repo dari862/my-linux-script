@@ -9,6 +9,10 @@ then
 	Debugging_mode_status="enabled"
 fi
 
+Green_echo_() {
+  echo -e $'\033[1;32m'"$*"$'\033[0m'
+}
+
 #########################
 # functions
 #########################
@@ -17,8 +21,8 @@ check_for_SUDO()
 if ! command -v sudo >/dev/null
 then
 	# Check root
-	[ "$(id -u)" -ne 0 ] && { echo "sudo not installed, so you must run script as root" 1>&2; }
-	echo "Install sudo and add user 1000 to sudo group"
+	[ "$(id -u)" -ne 0 ] && { Green_echo_ "sudo not installed, so you must run script as root" 1>&2; }
+	Green_echo_ "Install sudo and add user 1000 to sudo group"
 	# INFO: SUDO allow users exec commands with root privileges without login as root
 	[ "$(find /var/cache/apt/pkgcache.bin -mtime 0 2>/dev/null)" ] || apt update
 	apt install -y sudo
@@ -34,20 +38,20 @@ if [ "$sourced_file" == "variables.sh" ]
 then
 	if command -v curl &> /dev/null
 	then
-		echo "sourcing $sourced_file it will take few sec"
+		Green_echo_ "sourcing $sourced_file it will take few sec"
 		source <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/Myscript-lib/$sourced_file)
 	else
-		echo "sourcing $sourced_file it will take few sec"
+		Green_echo_ "sourcing $sourced_file it will take few sec"
 		source <(wget -q -O - https://raw.githubusercontent.com/dari862/my-linux-script/main/Myscript-lib/$sourced_file)
-		echo "installing curl please wait"
+		Green_echo_ "installing curl please wait"
 		sudo apt-get update && sudo -v && $sudoaptinstall curl && sudo -v
 	fi
 	mkdir -p $temp_folder_4_Remote_source_file
 elif test -f "$temp_folder_4_Remote_source_file/$sourced_file"
 then
-	echo "sourcing $sourced_file" && source $temp_folder_4_Remote_source_file/$sourced_file;
+	Green_echo_ "sourcing $sourced_file" && source $temp_folder_4_Remote_source_file/$sourced_file;
 else
-	echo "sourcing $sourced_file it will take few sec"
+	Green_echo_ "sourcing $sourced_file it will take few sec"
 	curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/Myscript-lib/$sourced_file > $temp_folder_4_Remote_source_file/$sourced_file && source $temp_folder_4_Remote_source_file/$sourced_file
 fi
 }
