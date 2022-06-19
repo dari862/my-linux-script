@@ -1,13 +1,6 @@
 
-  # B: Internet
-  B3 "Spotify (Snap)" off
-
-  # C: Chat Application
-  C1 "Zoom Meeting Client" off
-  C2 "Discord" off
   C5 "Slack" off
   # D: Development
-  D2 "JAVA" off
   D3 "GO" off
   D4 "Microsoft Visual Studio Code" off
   D5 "IntelliJ IDEA Ultimate" off
@@ -15,8 +8,6 @@
   D7 "Postman" off
   D8 "Docker" off
   D9 "Maven" off
-  D10 "Putty" off
-  D11 "Vim" off
   D12 "PyCharm" off
   D13 "Robo 3T" off
   D14 "DataGrid" off
@@ -24,32 +15,10 @@
   # F: Utility
   F1 "Dropbox" off
   F3 "Virtualbox" off
-  # I: Settings
-  I1  "Bluetooth Visible (off)" off
 )
 
-  B3)
-    curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
-    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-    apt-get update && sudo apt-get install spotify-client
-    ;;
-  B4)
-    snap install opera
-    ;;
-
-  C1)
-    wget https://zoom.us/client/latest/zoom_amd64.deb
-    apt -y install ./zoom_amd64.deb
-    ;;
-  C2)
-    wget -O discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
-    dpkg -i discord.deb
-    ;;
   C5)
     snap install slack --classic
-    ;;
-  D2)
-    apt -y install default-jdk
     ;;
   D3)
     wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
@@ -144,12 +113,6 @@
     echo 'export PATH=${M2_HOME}/bin:${PATH}' >> $HOME/.profile
     source $HOME/.profile
     ;;
-  D10)
-    apt -y install putty
-    ;;
-  D11)
-    apt -y install vim
-    ;;
   D12)
     snap install pycharm-community --classic
     ;;
@@ -181,7 +144,3 @@
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
     apt-get update
     apt-get -y install virtualbox-6.1
-    ;;
-  I1)
-    hiconfig hci0 noscan
-  
