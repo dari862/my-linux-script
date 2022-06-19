@@ -68,16 +68,9 @@ function change_locale {
 }
 
 function install_timed_backgrounds {
-  show_header "Installing timed backgrounds."
-  git clone --depth 1 https://github.com/sudorook/timed-backgrounds \
-    timed-backgrounds
-  cd timed-backgrounds || exit
-  ./autogen.sh
-  make -j"$(nproc)"
-  sudo make install
-  cd ../
-  rm -rf timed-backgrounds/
-  show_success "Backgrounds installed."
+https://github.com/adi1090x/dynamic-wallpaper
+https://github.com/saint-13/Linux_Dynamic_Wallpapers
+
 }
 
 grubdefault="/etc/default/grub"
