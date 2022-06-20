@@ -36,7 +36,13 @@ if [ $# -eq 0 ]; then
 	help
 fi
 
-IN="$(echo $@ | sed 's/.pdf.*/.pdf/' | grep -Eo -e '/[^>]+' || :)"
+pdf_part_of_at="$(echo $@ | sed 's/.pdf.*/.pdf/' || :)"
+if [[ -z ${pdf_part_of_at} ]]; then
+  	echo "ERROR: please add .pdf to end of file. Exiting."
+  	exit 3
+fi
+
+IN="$(echo $pdf_part_of_at | grep -Eo -e '/[^>]+' || echo $pdf_part_of_at | rev | awk '{print $1}' | rev)"
 if [[ -z ${IN} ]]; then
   	echo "ERROR: No input file specified. Exiting."
   	exit 3
