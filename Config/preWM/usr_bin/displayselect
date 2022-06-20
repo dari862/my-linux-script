@@ -105,15 +105,14 @@ onescreen() { # If only one output available or chosen.
 }
 
 postrun() { # Stuff to run to clean up.
-	if [ ! -d "~/.local/screenlayout" ]
+	if [ ! -d "~/.config/autorandr" ]
 	then
-		mkdir -p ~/.local/screenlayout
+		mkdir -p ~/.config/autorandr
 	fi
 	
 	if [ "$chosen" != "manual selection" ]
 	then
-		echo "$_xrandr_command" > ~/.local/screenlayout/$chosen.sh
-		chmod +x ~/.local/screenlayout/$chosen.sh
+		autorandr -s $chosen
 	fi
 	
 	my_session_manager reload # reload current sessions work with openbox bspwm i3-msg qtile and awesomewm
