@@ -29,7 +29,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 	
 	test down on bspwm & openbox
 
-	slow down on zsh
+	spedd up zsh & bash
 	
 </details>
 
