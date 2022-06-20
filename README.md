@@ -22,6 +22,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 <details>
 	<summary><h1>work on</h1></summary>
+		
 		number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
 
 		shortcut on bspwm & openbox
