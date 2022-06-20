@@ -25,13 +25,9 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 	number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
   	
-	shortcut on bspwm
+	shortcut on bspwm & openbox
 	
-	slow down on bspwm
-	
-	shortcut on openbox
-	
-	slow down on openbox
+	test down on bspwm & openbox
 
 	slow down on zsh
 	
