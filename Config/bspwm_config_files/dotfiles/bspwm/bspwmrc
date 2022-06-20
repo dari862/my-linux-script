@@ -128,7 +128,7 @@ bspc rule -a Wrapper-2.0 state=floating border=off focus=on
 
 #### Autostart ###############################################################################
 # Restore wallpaper
-(sleep 0.50; ~/.local/bin/setbg -r) &
+( ~/.local/bin/setbg -r) &
 
 # Lauch xsettingsd daemon
 xsettingsd &

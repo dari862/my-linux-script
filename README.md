@@ -40,9 +40,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 <details>
 <summary><h1>to fix</h1></summary>
-	
-	hotplug
-	
+
 	error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
 
 </details>

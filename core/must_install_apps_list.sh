@@ -36,7 +36,7 @@ install_ca_certificates_=(ca-certificates)
 
 #preWM apps
 install_QT_apps_=(qt5ct qt5-style-kvantum libqt5svg5 qml-module-qtquick-controls)
-install_preWM_apps=(psmisc unzip git xorg pulseaudio dunst libnotify-bin arandr gnome-keyring dbus-x11 featherpad shotwell xprintidle rofi pnmixer pavucontrol diodon xwallpaper sxiv)
+install_preWM_apps=(psmisc unzip git xorg pulseaudio dunst libnotify-bin autorandr arandr gnome-keyring dbus-x11 featherpad shotwell xprintidle rofi pnmixer pavucontrol diodon xwallpaper sxiv)
 install_preWM_themes=(nitrogen picom lxpolkit lxappearance papirus-icon-theme fonts-noto-color-emoji fonts-firacode fonts-font-awesome arc-theme gtk3-nocsd numix-icon-theme paper-icon-theme dmz-cursor-theme)
 install_preWM_if_laptop=(light upower xserver-xorg-input-synaptics)
 install_preWM_Network_apps=(network-manager network-manager-gnome)

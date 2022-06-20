@@ -9,16 +9,6 @@ configure_PreWM_now()
 {
 show_m "install preWM_apps"
 
-if [ "$is_this_laptop_" == "true" ]
-then
-	# when hdmi change status run script this is for if laptop moniter is turned off and hdmi was removed
-	cd $temp_folder_for_download
-	svn-export https://github.com/dari862/my-linux-script/trunk/Config/udev_rules
-	sudo chown -R root:root $temp_folder_for_download/udev_rules
-	sudo mv $temp_folder_for_download/udev_rules/rules/* /etc/udev/rules.d/*
-	sudo mv $temp_folder_for_download/udev_rules/bin/* /usr/local/bin/*
-fi
-
 cd $temp_folder_for_preWM
 
 # update-notification

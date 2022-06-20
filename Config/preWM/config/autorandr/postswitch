@@ -1,0 +1,12 @@
+#!/bin/bash
+
+( ~/.local/bin/setbg -r) &
+
+if [ `cat ~/.config/WM_common_config/which_panel | grep "polybar"` ]; then
+        bash ~/.local/bin/polybar/launch.sh & 
+fi
+
+if [ `cat ~/.config/WM_common_config/which_panel | grep "xfce4"` ]; then
+	xfce4-panel -r &
+fi 
+
