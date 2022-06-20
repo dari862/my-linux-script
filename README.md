@@ -27,9 +27,9 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 		shortcut on bspwm & openbox
 
-		test down on bspwm & openbox
+		test bspwm & openbox
 
-		spedd up zsh & bash
+		speed up zsh & bash
 	
 </details>
 
