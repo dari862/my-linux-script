@@ -46,18 +46,17 @@ elif ! [[ -f "${IN}" ]]; then
 fi
 OUT="${IN%.*_%d.pdf}"
 
-range="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
-if [[ -z ${range} ]]; then
-  	echo "ERROR: Range is empty. Exiting."
-  	exit 3
-fi
-
-check_4_pass="$(echo $@ | grep -o -E ' -p | -P | -password ' || :)"
-	
-
 if [ $# -eq 1 ]; then
 	qpdf --split-pages ${IN} ${OUT}
 else
+	range="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
+	if [[ -z ${range} ]]; then
+		echo "ERROR: Range is empty. Exiting."
+		exit 3
+	fi
+
+	check_4_pass="$(echo $@ | grep -o -E ' -p | -P | -password ' || :)"
+	
 	if [[ ${check_4_pass} ]]; then
 		echo -n pass: 
 		read -s pass
