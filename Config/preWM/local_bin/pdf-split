@@ -36,7 +36,7 @@ if [ $# -eq 0 ]; then
 	help
 fi
 
-IN="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
+IN="$(echo $@ | sed 's/.pdf.*/.pdf/' | grep -Eo -e '/[^>]+' || :)"
 if [[ -z ${IN} ]]; then
   	echo "ERROR: No input file specified. Exiting."
   	exit 3
@@ -49,7 +49,7 @@ OUT="${IN%.*_%d.pdf}"
 if [ $# -eq 1 ]; then
 	qpdf --split-pages ${IN} ${OUT}
 else
-	range="$(echo $@ | grep -o -E '[0-9:-]+' || :)"
+	range="$(echo $@ | grep -Eo '[0-9:-]+' || :)"
 	if [[ -z ${range} ]]; then
 		echo "ERROR: Range is empty. Exiting."
 		exit 3
