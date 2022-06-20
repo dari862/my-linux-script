@@ -31,6 +31,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 		speed up zsh & bash
 	
+		change_keyboard_layout (preWM/local_bin/) (script)
+	
 </details>
 
 
