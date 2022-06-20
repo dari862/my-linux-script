@@ -1,45 +1,3 @@
-#! /bin/bash
-function change_timezone {
-  TIMEZONE="UTC"
-  res=""
-
-  res="$(timedatectl list-timezones | \
-         fzf --layout=reverse \
-             --header="Select time zone ('ESC' for default: ${TIMEZONE})" || true)"
-  clear
-
-  if [ -n "${res}" ]; then
-    TIMEZONE="${res}"
-    echo "Using ${TIMEZONE@Q} as time zone."
-    sudo timedatectl set-timezone ${TIMEZONE@Q}
-  else
-    echo "Using default time zone ${TIMEZONE@Q}."
-  fi
-}
-
-function change_locale {
-  local LOCALE="en_US.UTF-8"
-  local CHARSET="UTF-8"
-  local res
-  
-  res="$(sed -n "s,^#\?\ \?\([[:alnum:]\.@_\-]\+\)\ \([[:alnum:]\-]\+\)\ *$,\1 \2,p" /etc/locale.gen | \
-         fzf --layout=reverse \
-             --header="Select locale ('ESC' for default: ${LOCALE})" || true)"
-  clear
-
-  if [ -n "${res}" ]; then
-    LOCALE="$(echo "${res}" | cut -d" " -f1)"
-    CHARSET="$(echo "${res}" | cut -d" " -f2)"
-    sed -i "/^#\ \?${LOCALE} ${CHARSET}/s/^#\ \?//" /etc/locale.gen
-    locale-gen
-    echo "LANG=${LOCALE}" > /etc/locale.conf
-    echo "KEYMAP=${LOCALE}" > /etc/vconsole.conf
-  else
-    show_info "Using default locale ${LOCALE@Q}."
-    show_info "Using default charset ${CHARSET@Q}."
-  fi
-}
-
 function install_timed_backgrounds {
 https://github.com/adi1090x/dynamic-wallpaper
 https://github.com/saint-13/Linux_Dynamic_Wallpapers
@@ -296,16 +254,6 @@ function install_apps {
   mkdir -p "${HOME}/.config/mpv"
   cp -f "${mpvconfig}" "${HOME}/.config/mpv"
 
-  show_info "Updating xdg settings to open HTML files in Firefox."
-  xdg-mime default firefox.desktop text/html
-
-  # Should always pass because gufw is in the app list.
-  if command -v ufw >/dev/null; then
-    show_info "Enabling Syncthing firewall rules."
-    sudo ufw allow syncthing
-    sudo ufw allow syncthing-gui
-  fi
-
   show_info "Configuring ${libaoconf} to use PulseAudio instead of ALSA."
   sudo sh -c "echo 'default_driver=pulse' > ${libaoconf}"
 }
@@ -375,40 +323,6 @@ function install_torbrowser {
     show_info "Skipping..."
   fi
 }
-
-virtualbox="${dir}/packages/virtualbox.list"
-function install_virtualbox {
-  show_header "Installing VirtualBox."
-  check_installed "${virtualbox}"
-  check_fail
-  show_success "VirtualBox installed."
-
-  if getent group vboxusers; then
-    show_info "Adding $(whoami) to vboxusers group."
-    sudo usermod -aG vboxusers "$(whoami)"
-  fi
-}
-
-virtualboxguest="${dir}/packages/virtualbox-guest.list"
-function install_virtualbox_guest {
-  if grep "^flags.*\ hypervisor" /proc/cpuinfo >/dev/null 2>&1; then
-    show_header "Installing packages for VirtualBox guests."
-    check_installed "${virtualboxguest}"
-    check_fail
-    show_success "VirtualBox guest packages installed."
-  else
-    show_warning "Not running on a virtualized machine. Skipping."
-  fi
-}
-
-wine="${dir}/packages/wine.list"
-function install_wine {
-  show_header "Installing wine."
-  check_installed "${wine}"
-  check_fail
-  show_success "Wine installed."
-}
-
 
 ##################################################################################################
 ##################################################################################################
