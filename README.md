@@ -2,6 +2,13 @@
 
 # my-linux-script
 
+
+https://www.youtube.com/watch?v=5Hv7h7mql5k
+
+
+https://www.youtube.com/watch?v=zPVh6mluyRg
+
+
 ```
 bash <(wget -q -O - https://raw.githubusercontent.com/dari862/my-linux-script/main/installer.sh)
 ```
