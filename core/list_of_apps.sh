@@ -155,6 +155,17 @@ declare -ag office_Array_now_=(
 declare -ag dev_Array_now_=(
 "build-essential" "list of apps to be installed" ON
 "cmake" "list of apps to be installed" ON
+"GO" "install GO" off
+"MVSC" "Microsoft Visual Studio Code" off
+"IntelliJ" "IntelliJ IDEA Ultimate" off
+"GoLand" "install GoLand" off
+"Postman" "install Postman" off
+"Docker" "install Docker" off
+"Maven" "install Maven" off
+"PyCharm" "install PyCharm (snap)" off
+"Robo_3T" "install Robo 3T(snap)" off
+"DataGrid" "install DataGrid" off
+"Mongo_Shell" "install Mongo Shell & MongoDB Database Tools" off
 )
 
 #extra

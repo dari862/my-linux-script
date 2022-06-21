@@ -9,8 +9,7 @@ HELP_List=(
 "3 Todo_list"
 )
 
-SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$HOME/.local/bin/config/config.ini"
 
 notes_and_todo_folder="$HOME/Documents/dono"
 todo_folder="$notes_and_todo_folder/Todo"

@@ -114,9 +114,14 @@ we_are_at_stage=$(expr $we_are_at_stage + 1)
 # from common.sh
 if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]; then
 	system_configration_now
+	if [ "$do_you_want_libaoconf_to_use_PulseAudio" == "true" ]
+	then
+		libaoconf_use_PulseAudio_
+	fi
+	
 	if [ "$do_you_want_to_edit_home_permissions" == "true" ]
 	then
-	Config_users_home_directorie_permissions_to_750_now
+		Config_users_home_directorie_permissions_to_750_now
 	fi
 	
 	if [ "$do_you_want_to_download_extra_wallpaper" == "true" ]
@@ -124,6 +129,21 @@ if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]; then
 		wallpaper_download_Now "extra"
 	else
 		wallpaper_download_Now "main"
+	fi
+	
+	if [ "$do_you_want_to_Disable_disable_11n" == "true" ]
+	then
+		disable_11n_now_
+	fi
+	
+	if [ "$do_you_want_to_Disable_pulseaudio_suspend" == "true" ]
+	then
+		disable_pulseaudio_suspend
+	fi
+	
+	if [ "$do_you_want_to_enable_Intel_iommu" == "true" ]
+	then
+		enable_intel_iommu
 	fi
 fi
 

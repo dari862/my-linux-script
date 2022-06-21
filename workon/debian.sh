@@ -4,125 +4,9 @@ https://github.com/saint-13/Linux_Dynamic_Wallpapers
 
 }
 
-grubdefault="/etc/default/grub"
-function invert_brightness {
-  if [ -f "${grubdefault}" ]; then
-    local oldline
-    local bootparams
-    oldline=$(grep ^GRUB_CMDLINE_LINUX= "${grubdefault}")
-    bootparams=$(echo "${oldline}" | sed -n "s/^GRUB_CMDLINE_LINUX=\"\(.*\)\"/\1/p")
-    show_header "Inverting display brightness (Intel i915)."
-    if [[ ${bootparams} =~ i915.invert_brightness= ]]; then
-      sudo sed -i "s|i915.invert_brightness=\(on\|off\|1\|0\)|i915.invert_brightness=1|g" ${grubdefault}
-    else
-      if test "${bootparams}"; then
-        sudo sed -i "s|${bootparams}|${bootparams} i915.invert_brightness=1|g" ${grubdefault}
-      else
-        sudo sed -i "s|${oldline}|GRUB_CMDLINE_LINUX=\"i915.invert_brightness=1\"|g" ${grubdefault}
-      fi
-      sudo sed -i "\|^GRUB_CMDLINE_LINUX=| a\#${oldline}" ${grubdefault} # backup
-      show_success "Brightness inverted."
-      sudo update-grub
-    fi
-  fi
-  if [[ "$(sudo bootctl is-installed)" = yes ]]; then
-    local cmdline
-    for entry in "$(bootctl -p)"/loader/entries/*.conf; do
-      cmdline=$(sed -n "s/^options\s\+\(.*\)/\1/p" "${entry}")
-      if [[ ${cmdline} =~ i915.invert_brightness= ]]; then
-        sudo sed -i "s|i915.invert_brightness=\(1\|0\)|i915.invert_brightness=1|g" "${entry}"
-      else
-        if test "${cmdline}"; then
-          sudo sed -i "s|${cmdline}|${cmdline} i915.invert_brightness=1|g" ${grubdefault}
-        else
-          echo "options	i915.invert_brightness=1" | sudo tee -a "${entry}"
-        fi
-      fi
-    done
-  fi
-}
-
-grubdefault="/etc/default/grub"
-grubcfg="/boot/grub/grub.cfg"
-function enable_intel_iommu {
-  local vendor
-  vendor="$(lscpu | sed -n "s,^Vendor ID: \+\([A-Za-z]\+\),\1,p")"
-  if [[ "$vendor" =~ "Intel" ]]; then
-    show_info "Setting Intel IOMMU kernel parameter."
-    if [ -f "${grubdefault}" ]; then
-      local oldline
-      local bootparams
-      oldline=$(grep ^GRUB_CMDLINE_LINUX= "${grubdefault}")
-      bootparams=$(echo "${oldline}" | sed -n "s/^GRUB_CMDLINE_LINUX=\"\(.*\)\"/\1/p")
-      if [[ ${bootparams} =~ intel_iommu= ]]; then
-        sudo sed -i "s|intel_iommu=\(on\|off\|0\|1\)|intel_iommu=on|g" ${grubdefault}
-      else
-        if test "${bootparams}"; then
-          sudo sed -i "s|${bootparams}|${bootparams} intel_iommu=on|g" ${grubdefault}
-        else
-          sudo sed -i "s|${oldline}|GRUB_CMDLINE_LINUX=\"intel_iommu=on\"|g" ${grubdefault}
-        fi
-        sudo sed -i "\|^GRUB_CMDLINE_LINUX=| a\#${oldline}" ${grubdefault} # backup
-        sudo grub-mkconfig -o ${grubcfg}
-      fi
-    fi
-    if [[ "$(sudo bootctl is-installed)" = yes ]]; then
-      local cmdline
-      for entry in "$(bootctl -p)"/loader/entries/*.conf; do
-        cmdline=$(sed -n "s/^options\s\+\(.*\)/\1/p" "${entry}")
-        if [[ ${cmdline} =~ intel_iommu= ]]; then
-          sudo sed -i "s|intel_iommu=\(1\|0\)|intel_iommu=on|g" "${entry}"
-        else
-          if test "${cmdline}"; then
-            sudo sed -i "s|${cmdline}|${cmdline} intel_iommu=on|g" ${grubdefault}
-          else
-            echo "options	intel_iommu=on" | sudo tee -a "${entry}"
-          fi
-        fi
-      done
-    fi
-  else
-    show_warning "Cannot set intel_iommu=on on non-Intel CPU. Skipping."
-  fi
-}
-
-pulseconfig="/etc/pulse/default.pa"
-function disable_pulseaudio_suspend {
-  show_header "Disabling suspend on PulseAudio when sinks/sources idle."
-  if [ -f ${pulseconfig} ]; then
-    sudo sed -i "s/^load-module module-suspend-on-idle$/#load-module module-suspend-on-idle/g" ${pulseconfig}
-  else
-    show_warning "PulseAudio config file missing. Exiting."
-  fi
-}
-
-iwlwificonf="/etc/modprobe.d/iwlwifi.conf"
-function disable_11n {
-  show_header "Disabling 802.11n networking in iwlwifi."
-  if ! [ "$(ls -A /etc/modprobe.d/)" ]; then
-    sudo sh -c "echo 'options iwlwifi 11n_disable=1' >> ${iwlwificonf}"
-  else
-    if ! find /etc/modprobe.d/ -type f \
-         -exec grep "^options iwlwifi .*11n_disable=1.*" {} + >/dev/null 2>&1; then
-      sudo sh -c "echo 'options iwlwifi 11n_disable=1' >> ${iwlwificonf}"
-    else
-      show_info "11n_disable=1 flag is already set."
-    fi
-  fi
-  show_success "802.11n networking disabled in ${iwlwificonf}."
-}
-
 ##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-
 # Install fixed libxft library to /usr/lib/
-function install_libxft() {
+install_libxft() {
 cd /tmp/
 git clone https://github.com/uditkarode/libxft-bgra
 cd libxft-bgra/
@@ -139,20 +23,16 @@ sudo ln -s /usr/lib/libXft.so.2.3.3 /usr/lib/x86_64-linux-gnu/libXft.so.2
 sudo ln -s /usr/lib/libXft.so.2.3.3 /usr/lib/x86_64-linux-gnu/libXft.so
 }
 
-function install_librewolf() {
-
+install_librewolf() {
 echo "deb [arch=amd64] http://deb.librewolf.net $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/librewolf.list
-
 sudo wget https://deb.librewolf.net/keyring.gpg -O /etc/apt/trusted.gpg.d/librewolf.gpg
-
 sudo apt update
-
 sudo apt install librewolf -y
  }
-
-networking="${dir}/packages/network.list"
-nmconf="/etc/NetworkManager/NetworkManager.conf"
+ 
 function install_network {
+  networking="${dir}/packages/network.list"
+  nmconf="/etc/NetworkManager/NetworkManager.conf"
   show_header "Setting up networking."
   check_installed "${networking}"
   check_fail
@@ -174,9 +54,9 @@ function install_network {
     /etc/ssh/sshd_config
 }
 
-discovery="${dir}/packages/discover.list"
-nsconf="/etc/nsswitch.conf"
 function install_discovery {
+  discovery="${dir}/packages/discover.list"
+  nsconf="/etc/nsswitch.conf"
   show_header "Setting up local network discovery."
   check_installed "${discovery}"
   check_fail
@@ -190,8 +70,25 @@ function install_discovery {
   sudo systemctl start avahi-daemon.service
 }
 
-tor="${dir}/packages/tor.list"
+
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+##################################################################################################
+
+function tor_list(){
+apt-transport-tor
+onionshare
+tor
+torsocks
+}
+
 function install_tor {
+  tor="${dir}/packages/tor.list"
   show_header "Installing Tor programs."
   check_installed "${tor}"
   check_fail
@@ -202,8 +99,8 @@ function install_tor {
   sudo systemctl start tor
 }
 
-srclist="/etc/apt/sources.list"
 function use_onion_repos {
+  srclist="/etc/apt/sources.list"
   show_header "Tunneling apt over tor for Debian $(lsb_release -sc)."
 
   local is_contrib
@@ -231,97 +128,50 @@ function use_onion_repos {
 }
 
 
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-##################################################################################################
-
-
-apps="${dir}/packages/apps.list"
-mpvconfig="${dir}/configs/mpv.conf"
-libaoconf="/etc/libao.conf"
-function install_apps {
-  show_header "Installing desktop applications."
-  check_installed "${apps}"
-  check_fail
-  show_success "Applications installed."
-
-  show_info "Copying mpv config."
-  mkdir -p "${HOME}/.config/mpv"
-  cp -f "${mpvconfig}" "${HOME}/.config/mpv"
-
-  show_info "Configuring ${libaoconf} to use PulseAudio instead of ALSA."
-  sudo sh -c "echo 'default_driver=pulse' > ${libaoconf}"
-}
-
-torbrowser_path="${HOME}/.local/share/tor-browser"
-local_applications="${HOME}/.local/share/applications"
 function install_torbrowser {
-  show_header "Installing Tor browser."
+  torbrowser_path="${HOME}/.local/share/tor-browser"
+  local_applications="${HOME}/.local/share/applications"
+  show_m "Installing Tor browser."
+  local torbrowser_version
+  local torbrowser_package
+  local torbrowser_url="https://www.torproject.org/dist/torbrowser"
+  local arch
 
-  local response
-  local install_torbrowser
-  if [ -d "${torbrowser_path}" ]; then
-    show_warning "Tor browser is already installed in ${torbrowser_path}."
-    response=$(ask_question "Replace? (y/N)")
-    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
-      install_torbrowser=true
-    else
-      install_torbrowser=false
-    fi
-  else
-    install_torbrowser=true
+  # "Downloading Tor developers' GPG key."
+  gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
+
+  torbrowser_version=$(curl https://www.torproject.org/download/ | \
+                       sed -n 's,^ \+<a class="downloadLink" href="/dist/torbrowser/\([0-9\.]\+\)/tor-browser-linux.*">,\1,p')
+  arch=$(uname -m)
+  if [ "${arch:(-2)}" = "86" ]; then
+    torbrowser_package=tor-browser-linux32-${torbrowser_version}_en-US.tar.xz
+  elif [ "${arch:(-2)}" = "64" ]; then
+    torbrowser_package=tor-browser-linux64-${torbrowser_version}_en-US.tar.xz
   fi
 
-  if ${install_torbrowser}; then
-    local torbrowser_version
-    local torbrowser_package
-    local torbrowser_url="https://www.torproject.org/dist/torbrowser"
-    local arch
+  # "Downloading release tarball."
+  wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}"
+  wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}.asc"
+  # "Extracting..."
+  gpg --verify "${torbrowser_package}.asc" "${torbrowser_package}"
+  tar xf "${torbrowser_package}"
 
-    show_info "Downloading Tor developers' GPG key."
-    gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
-
-    torbrowser_version=$(curl https://www.torproject.org/download/ | \
-                         sed -n 's,^ \+<a class="downloadLink" href="/dist/torbrowser/\([0-9\.]\+\)/tor-browser-linux.*">,\1,p')
-    arch=$(uname -m)
-    if [ "${arch:(-2)}" = "86" ]; then
-      torbrowser_package=tor-browser-linux32-${torbrowser_version}_en-US.tar.xz
-    elif [ "${arch:(-2)}" = "64" ]; then
-      torbrowser_package=tor-browser-linux64-${torbrowser_version}_en-US.tar.xz
-    fi
-
-    show_info "Downloading release tarball."
-    wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}"
-    wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}.asc"
-    show_info "Extracting..."
-    gpg --verify "${torbrowser_package}.asc" "${torbrowser_package}"
-    tar xf "${torbrowser_package}"
-
-    show_info "Putting things into place..."
-    mkdir -p "${local_applications}"
-    rm -rf "${torbrowser_path}"
-    mv tor-browser_en-US "${torbrowser_path}"
-    cp -f "${torbrowser_path}/start-tor-browser.desktop" "${local_applications}/"
-    chmod -x "${local_applications}/start-tor-browser.desktop"
-    sed -i \
-      -e "s,^Name=.*,Name=Tor Browser,g" \
-      -e "s,^Icon=.*,Icon=browser-tor,g" \
-      -e "s,^Exec=.*,Exec=sh -c '\"${torbrowser_path}/Browser/start-tor-browser\" --detach || ([ !  -x \"${torbrowser_path}/Browser/start-tor-browser\" ] \&\& \"\$(dirname \"\$*\")\"/Browser/start-tor-browser --detach)' dummy %k,g" \
+  # "Putting things into place..."
+  mkdir -p "${local_applications}"
+  rm -rf "${torbrowser_path}"
+  mv tor-browser_en-US "${torbrowser_path}"
+  cp -f "${torbrowser_path}/start-tor-browser.desktop" "${local_applications}/"
+  chmod -x "${local_applications}/start-tor-browser.desktop"
+  sed -i \
+    -e "s,^Name=.*,Name=Tor Browser,g" \
+    -e "s,^Icon=.*,Icon=browser-tor,g" \
+    -e "s,^Exec=.*,Exec=sh -c '\"${torbrowser_path}/Browser/start-tor-browser\" --detach || ([ !  -x \"${torbrowser_path}/Browser/start-tor-browser\" ] \&\& \"\$(dirname \"\$*\")\"/Browser/start-tor-browser --detach)' dummy %k,g" \
       "${local_applications}/start-tor-browser.desktop"
-    update-desktop-database "${local_applications}"
+  update-desktop-database "${local_applications}"
 
-    show_info "Cleaning up..."
-    rm -f "${torbrowser_package}"
-    rm -f "${torbrowser_package}.asc"
-    show_success "Tor browser installed."
-  else
-    show_info "Skipping..."
-  fi
+  # "Cleaning up..."
+  rm -f "${torbrowser_package}"
+  rm -f "${torbrowser_package}.asc"
 }
 
 ##################################################################################################
@@ -418,14 +268,6 @@ hplip
 hplip-gui
 printer-driver-gutenprint
 system-config-printer
-}
-#######################
-
-function tor_list(){
-apt-transport-tor
-onionshare
-tor
-torsocks
 }
 #######################
 
@@ -579,140 +421,15 @@ gparted
 
 
   C5 "Slack" off
-  # D: Development
-  D3 "GO" off
-  D4 "Microsoft Visual Studio Code" off
-  D5 "IntelliJ IDEA Ultimate" off
-  D6 "GoLand" off
-  D7 "Postman" off
-  D8 "Docker" off
-  D9 "Maven" off
-  D12 "PyCharm" off
-  D13 "Robo 3T" off
-  D14 "DataGrid" off
-  D15 "Mongo Shell & MongoDB Database Tools" off
+  # D: dev_Array_now_
+
   # F: Utility
   F1 "Dropbox" off
   F3 "Virtualbox" off
-)
-
+  
   C5)
     snap install slack --classic
     ;;
-  D3)
-    wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
-    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
-    echo ' ' >> $HOME/.profile
-    echo '# GoLang configuration ' >> $HOME/.profile
-    echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/.profile
-    echo 'export GOPATH="$HOME/go"' >> $HOME/.profile
-    source $HOME/.profile
-    ;;
-  D4)
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-    sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-    rm -f packages.microsoft.gpg
-    apt install apt-transport-https
-    apt update
-    apt install code # or code-insiders
-    ;;
-  D5)
-    wget https://download.jetbrains.com/idea/ideaIU-2021.3.3.tar.gz
-    tar -xzf ideaIU-2021.3.3.tar.gz -C /opt
-    ln -s /opt/idea-IU-213.7172.25/bin/idea.sh /usr/local/bin/idea
-    echo "[Desktop Entry]
-          Version=1.0
-          Type=Application
-          Name=IntelliJ IDEA Ultimate Edition
-          Icon=/opt/idea-IU-213.7172.25/bin/idea.svg
-          Exec=/opt/idea-IU-213.7172.25/bin/idea.sh %f
-          Comment=Capable and Ergonomic IDE for JVM
-          Categories=Development;IDE;
-          Terminal=false
-          StartupWMClass=jetbrains-idea
-          StartupNotify=true" >> /usr/share/applications/jetbrains-idea.desktop
-    ;;
-  D6)
-    wget https://download.jetbrains.com/go/goland-2022.1.2.tar.gz
-    tar -xzf goland-2022.1.2.tar.gz -C /opt
-    ln -s /opt/GoLand-2022.1.2/bin/goland.sh /usr/local/bin/goland
-    echo "[Desktop Entry]
-          Version=1.0
-          Type=Application
-          Name=GoLand
-          Icon=/opt/GoLand-2022.1.2/bin/goland.png
-          Exec=/opt/GoLand-2022.1.2/bin/goland.sh
-          Terminal=false
-          Categories=Development;IDE;" >> /usr/share/applications/jetbrains-goland.desktop
-    ;;
-  D7)
-    curl https://dl.pstmn.io/download/latest/linux64 --output postman-9.20.3-linux-x64.tar.gz
-    tar -xzf postman-9.20.3-linux-x64.tar.gz -C /opt
-    echo "[Desktop Entry]
-          Encoding=UTF-8
-          Name=Postman
-          Exec=/opt/Postman/app/Postman %U
-          Icon=/opt/Postman/app/resources/app/assets/icon.png
-          Terminal=false
-          Type=Application
-          Categories=Development;" >> /usr/share/applications/Postman.desktop
-    ;;
-  D8)
-    apt-get install \
-        apt-transport-https \
-        ca-certificates \
-        curl \
-        gnupg \
-        lsb-release
-    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-    echo \
-      "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-      $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    apt-get update
-    apt-get -y install docker-ce docker-ce-cli containerd.io
-    docker run hello-world
-
-    groupadd docker
-    usermod -aG docker $USER
-    curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-    ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-    docker-compose --version
-    ;;
-  D9)
-    wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-    tar -zxvf apache-maven-3.6.3-bin.tar.gz
-    mkdir /opt/maven
-    mv ./apache-maven-3.6.3 /opt/maven/
-    echo ' ' >> $HOME/.profile
-    echo '# Maven Configuration' >> $HOME/.profile
-    echo 'JAVA_HOME=/usr/lib/jvm/default-java' >> $HOME/.profile
-    echo 'export M2_HOME=/opt/maven/apache-maven-3.6.3' >> $HOME/.profile
-    echo 'export PATH=${M2_HOME}/bin:${PATH}' >> $HOME/.profile
-    source $HOME/.profile
-    ;;
-  D12)
-    snap install pycharm-community --classic
-    ;;
-  D13)
-    snap install robo3t-snap
-    ;;
-  D14)
-    wget https://download.jetbrains.com/datagrip/datagrip-2022.1.5.tar.gz
-    tar -xzf datagrip-2022.1.5.tar.gz -C /opt
-    ln -s /opt/DataGrip-2022.1.5/bin/datagrip.sh /usr/local/bin/datagrip
-    cd /opt/DataGrip-2022.1.5/bin
-    ./datagrip.sh
-    ;;
-  D15)
-    wget -O mongosh.deb https://downloads.mongodb.com/compass/mongodb-mongosh_1.2.2_amd64.deb
-    dpkg -i ./mongosh.deb
-
-    wget -O mongodb-database-tools.deb https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian92-x86_64-100.5.2.deb
-    dpkg -i ./mongodb-database-tools.deb
-    ;;
-
   F1)
     wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
     apt -y install ./dropbox.deb

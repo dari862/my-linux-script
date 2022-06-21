@@ -3,8 +3,7 @@ set -euo pipefail
 ls_bin="/usr/bin/ls"
 opt___="${1-h}"
 opt2___="${2-}"
-SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/Hub_scripts/config/config.ini"
+source "$HOME/.local/bin/config/config.ini"
 
 #############################################################################
 #############################################################################

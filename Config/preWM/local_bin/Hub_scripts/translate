@@ -8,8 +8,7 @@
 # get hidden bugs that are hard to discover.
 set -euo pipefail
 
-SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$HOME/.local/bin/config/config.ini"
 
 cp2cb() {
   case "$XDG_SESSION_TYPE" in

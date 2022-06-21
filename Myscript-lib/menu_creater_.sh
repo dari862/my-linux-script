@@ -227,9 +227,16 @@ fi
 
 if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]
 then
+	if [[ "$(lscpu | sed -n "s,^Vendor ID: \+\([A-Za-z]\+\),\1,p")" =~ "Intel" ]]; then
+  		Intel_iommu_choose_content=("Intel_iommu" "Enable Intel iommu for better Virtualization." ON)
+	fi
 	declare -a common_CHOICES_Array_now_=(
+	"libaoconf_2_PulseAudio" "Configuring libaoconf to use PulseAudio instead of ALSA." on
 	"home_permissions" "Config users home directories permissions to 750 (for current and future users)." ON
 	"Disable_unnecessary_services" "Disable_some_unnecessary_services." ON
+	"pulseaudio_suspend" "Disabling suspend on PulseAudio when sinks/sources idle." OFF
+	"Disable_disable_11n" "Disabling 802.11n networking in iwlwifi (better wifi performance)." OFF
+	"${Intel_iommu_choose_content[@]}"
 	)
 fi
 
@@ -269,14 +276,26 @@ else
 			"reboot")
 				do_you_want_to_reboot="true"
 			;;
+			"libaoconf_2_PulseAudio")
+				do_you_want_libaoconf_to_use_PulseAudio="true"
+			;;
 			"home_permissions")
 				do_you_want_to_edit_home_permissions="true"
 			;;
 			"Disable_unnecessary_services")
 				do_you_want_to_Disable_unnecessary_services="true"
 			;;
+			"Disable_disable_11n")
+				do_you_want_to_Disable_disable_11n="true"
+			;;
+			"pulseaudio_suspend")
+				do_you_want_to_Disable_pulseaudio_suspend="true"
+			;;
+			"Intel_iommu")
+				do_you_want_to_enable_Intel_iommu="true"
+			;;
 			*)
-				echo "Unsupported item $CHOICE!" >&2
+				show_em "show_sub_menu_now unsupported item $CHOICE!"
 				exit 1
 			;;
 		esac

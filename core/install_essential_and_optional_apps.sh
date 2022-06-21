@@ -388,6 +388,157 @@ if [ ! -z "${dev_Array[*]}" ]
 then
 	show_m "install dev apps."
 	echo_2_helper_list "# dev app"
+	if [[ " ${dev_Array[*]} " =~ " GO " ]]; then
+			delete="GO"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
+    		rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
+    		echo ' ' >> $HOME/.profile
+    		echo '# GoLang configuration ' >> $HOME/.profile
+    		echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/.profile
+    		echo 'export GOPATH="$HOME/go"' >> $HOME/.profile
+    		source $HOME/.profile
+			fi
+			if [[ " ${dev_Array[*]} " =~ " MVSC " ]]; then
+					delete="MVSC"
+					dev_Array=( "${dev_Array[@]/$delete}" )
+					wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    		install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+    		sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+    		rm -f packages.microsoft.gpg
+    		apt install apt-transport-https
+    		apt update
+    		apt install code # or code-insiders
+	fi
+	if [[ " ${dev_Array[*]} " =~ " IntelliJ " ]]; then
+			delete="IntelliJ"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget https://download.jetbrains.com/idea/ideaIU-2021.3.3.tar.gz
+    		tar -xzf ideaIU-2021.3.3.tar.gz -C /opt
+    		ln -s /opt/idea-IU-213.7172.25/bin/idea.sh /usr/local/bin/idea
+    		echo "[Desktop Entry]" > /tmp/jetbrains-idea.desktop
+          	echo "Version=1.0" >> /tmp/jetbrains-idea.desktop
+          	echo "Type=Application" >> /tmp/jetbrains-idea.desktop
+          	echo "Name=IntelliJ IDEA Ultimate Edition" >> /tmp/jetbrains-idea.desktop
+          	echo "Icon=/opt/idea-IU-213.7172.25/bin/idea.svg" >> /tmp/jetbrains-idea.desktop
+          	echo "Exec=/opt/idea-IU-213.7172.25/bin/idea.sh %f" >> /tmp/jetbrains-idea.desktop
+          	echo "Comment=Capable and Ergonomic IDE for JVM" >> /tmp/jetbrains-idea.desktop
+          	echo "Categories=Development;IDE;" >> /tmp/jetbrains-idea.desktop
+          	echo "Terminal=false" >> /tmp/jetbrains-idea.desktop
+          	echo "StartupWMClass=jetbrains-idea" >> /tmp/jetbrains-idea.desktop
+          	echo "StartupNotify=true" >> /tmp/jetbrains-idea.desktop
+          	sudo mv /tmp/jetbrains-idea.desktop /usr/share/applications/jetbrains-idea.desktop
+	fi
+	if [[ " ${dev_Array[*]} " =~ " GoLand " ]]; then
+			delete="GoLand"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget https://download.jetbrains.com/go/goland-2022.1.2.tar.gz
+    		tar -xzf goland-2022.1.2.tar.gz -C /opt
+    		ln -s /opt/GoLand-2022.1.2/bin/goland.sh /usr/local/bin/goland
+    		echo "[Desktop Entry]" >> /tmp/jetbrains-goland.desktop
+          	echo "Version=1.0" >> /tmp/jetbrains-goland.desktop
+          	echo "Type=Application" >> /tmp/jetbrains-goland.desktop
+          	echo "Name=GoLand" >> /tmp/jetbrains-goland.desktop
+          	echo "Icon=/opt/GoLand-2022.1.2/bin/goland.png" >> /tmp/jetbrains-goland.desktop
+          	echo "Exec=/opt/GoLand-2022.1.2/bin/goland.sh" >> /tmp/jetbrains-goland.desktop
+          	echo "Terminal=false" >> /tmp/jetbrains-goland.desktop
+          	echo "Categories=Development;IDE;" >> /tmp/jetbrains-goland.desktop
+          	sudo mv /tmp/jetbrains-goland.desktop /usr/share/applications/jetbrains-goland.desktop
+	fi
+	if [[ " ${dev_Array[*]} " =~ " Postman " ]]; then
+			delete="Postman"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			curl https://dl.pstmn.io/download/latest/linux64 --output postman-9.20.3-linux-x64.tar.gz
+    		tar -xzf postman-9.20.3-linux-x64.tar.gz -C /opt
+    		echo "[Desktop Entry]" >> /tmp/Postman.desktop
+          	echo "Encoding=UTF-8" >> /tmp/Postman.desktop
+          	echo "Name=Postman" >> /tmp/Postman.desktop
+          	echo "Exec=/opt/Postman/app/Postman %U" >> /tmp/Postman.desktop
+          	echo "Icon=/opt/Postman/app/resources/app/assets/icon.png" >> /tmp/Postman.desktop
+          	echo "Terminal=false" >> /tmp/Postman.desktop
+          	echo "Type=Application" >> /tmp/Postman.desktop
+          	echo "Categories=Development;" >> /tmp/Postman.desktop
+          	sudo mv /tmp/Postman.desktop /usr/share/applications/Postman.desktop
+	fi
+	if [[ " ${dev_Array[*]} " =~ " Docker " ]]; then
+			delete="Docker"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			apt-get install \
+        	apt-transport-https \
+        	ca-certificates \
+        	curl \
+        	gnupg \
+        	lsb-release
+    		curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    		echo \
+      		"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+      		$(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+    		apt-get update
+    		apt-get -y install docker-ce docker-ce-cli containerd.io
+    		docker run hello-world
+		
+    		groupadd docker
+    		usermod -aG docker $USER
+    		curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    		chmod +x /usr/local/bin/docker-compose
+    		ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    		docker-compose --version
+	fi
+	if [[ " ${dev_Array[*]} " =~ " Maven " ]]; then
+			delete="Maven"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+    		tar -zxvf apache-maven-3.6.3-bin.tar.gz
+    		mkdir /opt/maven
+    		mv ./apache-maven-3.6.3 /opt/maven/
+    		echo ' ' >> $HOME/.profile
+    		echo '# Maven Configuration' >> $HOME/.profile
+    		echo 'JAVA_HOME=/usr/lib/jvm/default-java' >> $HOME/.profile
+    		echo 'export M2_HOME=/opt/maven/apache-maven-3.6.3' >> $HOME/.profile
+    		echo 'export PATH=${M2_HOME}/bin:${PATH}' >> $HOME/.profile
+    		source $HOME/.profile
+	fi
+	if [[ " ${dev_Array[*]} " =~ " PyCharm " ]]; then
+			delete="PyCharm"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			install_Snap_now
+			show_m "installing PyCharm"
+			if [ -f /snap/bin/pycharm-community ]; then
+				echo 'PyCharm is already installed.'
+			else
+				snap install pycharm-community --classic &>> $debug_log || show_em "failed to install discord"
+			fi
+	fi
+	if [[ " ${dev_Array[*]} " =~ " Robo_3T " ]]; then
+			delete="Robo_3T"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			
+			install_Snap_now
+			show_m "installing robo3t-snap"
+			if [ -f /snap/bin/robo3t-snap ]; then
+				echo 'robo3t-snap is already installed.'
+			else
+				snap install robo3t-snap &>> $debug_log || show_em "failed to install discord"
+			fi
+	fi
+	if [[ " ${dev_Array[*]} " =~ " DataGrid " ]]; then
+			delete="DataGrid"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget https://download.jetbrains.com/datagrip/datagrip-2022.1.5.tar.gz
+    		tar -xzf datagrip-2022.1.5.tar.gz -C /opt
+    		ln -s /opt/DataGrip-2022.1.5/bin/datagrip.sh /usr/local/bin/datagrip
+    		cd /opt/DataGrip-2022.1.5/bin
+    		./datagrip.sh
+	fi
+	if [[ " ${dev_Array[*]} " =~ " Mongo_Shell " ]]; then
+			delete="Mongo_Shell"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget -O mongosh.deb https://downloads.mongodb.com/compass/mongodb-mongosh_1.2.2_amd64.deb
+    		dpkg -i ./mongosh.deb
+		
+    		wget -O mongodb-database-tools.deb https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian92-x86_64-100.5.2.deb
+    		dpkg -i ./mongodb-database-tools.deb
+	fi
 	apt_install_noninteractive_whith_error2info "${dev_Array[@]}"
 	echo_2_helper_list ""
 fi

@@ -6,8 +6,7 @@
 # Contributor: WitherCubes
 
 set -euo pipefail
-SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$HOME/.local/bin/config/config.ini"
 
 main() {
   # TODO: Fix cut line at some point

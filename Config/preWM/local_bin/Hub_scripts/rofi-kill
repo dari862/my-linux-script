@@ -15,8 +15,7 @@ set -euo pipefail
 opt="${1-Default_NOW__}"
 opt2="${2-Default_NOW__}"
 
-SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]:-$0}"; )" &> /dev/null && pwd 2> /dev/null; )";
-source "$SCRIPT_DIR/config/config.ini"
+source "$HOME/.local/bin/config/config.ini"
 
 main() {
     # Running ps to get running processes and display in rofi.

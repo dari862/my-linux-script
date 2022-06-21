@@ -96,3 +96,75 @@ if systemctl status NetworkManager.service &>/dev/null; then
 fi
 
 }
+
+libaoconf_use_PulseAudio_() {
+	libaoconf="/etc/libao.conf"
+	show_m "Configuring ${libaoconf} to use PulseAudio instead of ALSA."
+	sudo cp ${libaoconf} ${libaoconf}_ALSA.backup
+	sudo sh -c "echo 'default_driver=pulse' > ${libaoconf}"
+}
+
+disable_pulseaudio_suspend(){
+  pulseconfig="/etc/pulse/default.pa"
+  show_m "Disabling suspend on PulseAudio when sinks/sources idle."
+  if [ -f ${pulseconfig} ]; then
+    sudo sed -i "s/^load-module module-suspend-on-idle$/#load-module module-suspend-on-idle/g" ${pulseconfig}
+  else
+    show_em "PulseAudio config file missing. Exiting."
+  fi
+}
+
+enable_intel_iommu(){
+	grubdefault="/etc/default/grub"
+	grubcfg="/boot/grub/grub.cfg"
+	show_m "Enabling Intel IOMMU"
+    # "Setting Intel IOMMU kernel parameter."
+    if [ -f "${grubdefault}" ]; then
+      local oldline
+      local bootparams
+      oldline=$(grep ^GRUB_CMDLINE_LINUX= "${grubdefault}")
+      bootparams=$(echo "${oldline}" | sed -n "s/^GRUB_CMDLINE_LINUX=\"\(.*\)\"/\1/p")
+      if [[ ${bootparams} =~ intel_iommu= ]]; then
+        sudo sed -i "s|intel_iommu=\(on\|off\|0\|1\)|intel_iommu=on|g" ${grubdefault}
+      else
+        if test "${bootparams}"; then
+          sudo sed -i "s|${bootparams}|${bootparams} intel_iommu=on|g" ${grubdefault}
+        else
+          sudo sed -i "s|${oldline}|GRUB_CMDLINE_LINUX=\"intel_iommu=on\"|g" ${grubdefault}
+        fi
+        sudo sed -i "\|^GRUB_CMDLINE_LINUX=| a\#${oldline}" ${grubdefault} # backup
+        sudo grub-mkconfig -o ${grubcfg}
+      fi
+    fi
+    if [[ "$(sudo bootctl is-installed)" = yes ]]; then
+      local cmdline
+      for entry in "$(bootctl -p)"/loader/entries/*.conf; do
+        cmdline=$(sed -n "s/^options\s\+\(.*\)/\1/p" "${entry}")
+        if [[ ${cmdline} =~ intel_iommu= ]]; then
+          sudo sed -i "s|intel_iommu=\(1\|0\)|intel_iommu=on|g" "${entry}"
+        else
+          if test "${cmdline}"; then
+            sudo sed -i "s|${cmdline}|${cmdline} intel_iommu=on|g" ${grubdefault}
+          else
+            echo "options	intel_iommu=on" | sudo tee -a "${entry}"
+          fi
+        fi
+      done
+    fi
+}
+
+disable_11n_now_() {
+  iwlwificonf="/etc/modprobe.d/iwlwifi.conf"
+  show_m "Disabling 802.11n networking in iwlwifi."
+  if ! [ "$(ls -A /etc/modprobe.d/)" ]; then
+    sudo sh -c "echo 'options iwlwifi 11n_disable=1' >> ${iwlwificonf}"
+  else
+    if ! find /etc/modprobe.d/ -type f \
+         -exec grep "^options iwlwifi .*11n_disable=1.*" {} + >/dev/null 2>&1; then
+      sudo sh -c "echo 'options iwlwifi 11n_disable=1' >> ${iwlwificonf}"
+    else
+      show_im "11n_disable=1 flag is already set."
+    fi
+  fi
+  echo "802.11n networking disabled in ${iwlwificonf}."
+}
