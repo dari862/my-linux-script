@@ -192,6 +192,7 @@ then
 fi
 
 declare -ag extra_Array_now_=(
+"VirtualBox" "list of apps to be installed" ON
 "atom" "list of apps to be installed" ON
 "sublime-text" "list of apps to be installed" ON
 "${komorebi_choose_content[@]}"
