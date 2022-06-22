@@ -145,6 +145,11 @@ if [ "$do_you_want_to_enable_install_common_stuff" == "true" ]; then
 	then
 		enable_intel_iommu
 	fi
+	
+	if [ "$do_you_want_to_fix_libxft" == "true" ]
+	then
+		fixed_libxft_library_now
+	fi
 fi
 
 ############################
