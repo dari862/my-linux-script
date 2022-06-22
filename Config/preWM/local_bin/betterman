@@ -30,7 +30,7 @@ run_my_tldr_(){
 	cat ${command_2_find_}
 }
 
-help
+help()
 {
 	echo "help"
 }
