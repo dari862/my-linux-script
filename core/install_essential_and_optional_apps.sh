@@ -27,6 +27,13 @@ show_m "Download and install Google Chrome, add to repositories "
 	fi
 fi
 
+if [[ " ${internet_Array[*]} " =~ " librewolf " ]]; then
+	show_m "adding librewolf browser repo"
+	echo "deb [arch=amd64] http://deb.librewolf.net $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/librewolf.list
+	sudo wget https://deb.librewolf.net/keyring.gpg -O /etc/apt/trusted.gpg.d/librewolf.gpg
+	sudo apt update
+fi
+
 if [[ " ${office_Array[*]} " =~ " ttf-mscorefonts-installer " ]]; then
 	show_m "accpet mscorefonts eul"
 	echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
