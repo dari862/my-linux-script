@@ -68,10 +68,17 @@ fi
 
 if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 	show_m "add VirtualBox repo"
+	if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
+		delete="VirtualBox"
+		extra_Array=( "${base_Array[@]/$delete}" )
+		VirtualBox_Array=(linux-headers-$(uname -r) dkms virtualbox-6.1)
+		extra_Array=(${extra_Array[@]} ${VirtualBox_Array[@]})
+	fi
 	curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox_2016.gpg
 	curl -fsSL https://www.virtualbox.org/download/oracle_vbox.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox.gpg
 	echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 	aptupdate
+	
 fi
 
 }
@@ -695,6 +702,10 @@ then
 	echo_2_helper_list ""
 fi
 
+####################################
+# alt_installer_Array
+####################################
+
 if [ ! -z "${alt_installer_Array[*]}" ]
 then
 	show_m "install alt_installer app "
@@ -714,6 +725,10 @@ then
 	apt_install_noninteractive_whith_error2info "${alt_installer_Array[@]}"
 	echo_2_helper_list ""
 fi
+
+####################################
+# gaming_Array
+####################################
 
 if [ ! -z "${gaming_Array[*]}" ]
 then
