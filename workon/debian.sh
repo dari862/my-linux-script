@@ -3,12 +3,10 @@ iwd
 wireguard-tools
 wireless-tools
 }
-
 function discover_list(){
 gvfs
 libnss-mdns
 }
-
 function android_list(){
 adb
 android-libandroidfw
@@ -24,7 +22,6 @@ heimdall-flash
 libmtp9
 mmc-utils
 }
-
 function codecs_list(){
 gstreamer1.0-libav
 gstreamer1.0-plugins-bad
@@ -32,7 +29,6 @@ gstreamer1.0-plugins-base
 gstreamer1.0-plugins-good
 gstreamer1.0-plugins-ugly
 }
-
 function extra_list(){
 calibre
 gifsicle
@@ -40,7 +36,6 @@ gimp
 recordmydesktop
 subtitleeditor
 }
-
 function firmware_list(){
 amd64-microcode
 bluez-firmware
@@ -50,7 +45,6 @@ firmware-linux-free
 firmware-linux-nonfree
 intel-microcode
 }
-
 function games_list(){
 desmume
 dolphin-emu
@@ -58,7 +52,6 @@ higan
 mupen64plus
 visualboyadvance-gtk
 }
-
 function printer_list(){
 cups
 cups-pk-helper
@@ -72,7 +65,6 @@ hplip-gui
 printer-driver-gutenprint
 system-config-printer
 }
-
 function utils_list(){
 acpi
 bc
