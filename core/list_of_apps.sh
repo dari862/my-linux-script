@@ -90,6 +90,7 @@ declare -ag media_Array_now_=(
 declare -ag internet_Array_now_=(
 "wget" "list of apps to be installed" ON
 "curl" "list of apps to be installed" ON
+"Slack" "list of apps to be installed" OFF
 "filezilla" "list of apps to be installed" OFF
 "transmission" "list of apps to be installed" OFF
 "transmission-gtk" "list of apps to be installed" OFF
@@ -98,6 +99,7 @@ declare -ag internet_Array_now_=(
 "brave-browser" "list of apps to be installed" OFF
 "google-chrome-stable" "list of apps to be installed" OFF
 "librewolf" "list of apps to be installed" OFF
+"Dropbox" "list of apps to be installed" OFF
 )
 
 # network
