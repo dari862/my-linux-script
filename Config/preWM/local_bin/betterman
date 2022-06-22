@@ -1,67 +1,56 @@
 #!/bin/sh
+set -euo pipefail
 
 op__="$1"
 op2__="$2"
+tldr_dir="$HOME/.local/share/tldr"
 
-old_bg_()
-{
-	# This script does the following:
-	#	Run by itself, set the wallpaper (at X start).
-	#	If given a file, set that as the new wallpaper.
-	#	If given a directory, choose random file in it.
-	#	If wal is installed, also generates a colorscheme.
+update_tldr_(){
+	cd "${tldr_dir}" &> /dev/null && git pull 2> /dev/null
+}
+
+run_my_tldr_(){
+
+	[ ! -d "${tldr_dir}" ] && git clone https://github.com/tldr-pages/tldr "$HOME/.local/share"
+	[ ! -d "${tldr_dir}/.git" ] && rm -rdf "${tldr_dir}" && git clone https://github.com/tldr-pages/tldr "$HOME/.local/share"
 	
-	
-	# Location of link to wallpaper link.
-	bgloc="${XDG_DATA_HOME:-$HOME/.local/share}/bg"
-	
-	# Configuration files of applications that have their themes changed by pywal.
-	dunstconf="${XDG_CONFIG_HOME:-$HOME/.config}/dunst/dunstrc"
-	zathuraconf="${XDG_CONFIG_HOME:-$HOME/.config}/zathura/zathurarc"
-	
-	trueloc="$(readlink -f "$1")" &&
-	case "$(file --mime-type -b "$trueloc")" in
-		image/* ) ln -sf "$(readlink -f "$1")" "$bgloc" && notify-send -i "$bgloc" "Changing wallpaper..." ;;
-		inode/directory ) ln -sf "$(find "$trueloc" -iregex '.*.\(jpg\|jpeg\|png\|gif\)' -type f | shuf -n 1)" "$bgloc" && notify-send -i "$bgloc" "Random Wallpaper chosen." ;;
-		*) notify-send "Error" "Not a valid image." ; exit 1;;
-	esac
-	
-	# If pywal is installed, use it.
-	if command -v wal >/dev/null 2>&1 ; then
-		wal -i "$(readlink -f $bgloc)" -o "${XDG_CONFIG_HOME:-$HOME/.config}/wal/postrun" >/dev/null 2>&1 &&
-		pidof dwm >/dev/null && xdotool key super+F12
-	# If pywal is removed, return config files to normal.
-	else
-		[ -f "$dunstconf.bak" ] && unlink "$dunstconf" && mv "$dunstconf.bak" "$dunstconf"
-		[ -f "$zathuraconf.bak" ] && unlink "$zathuraconf" && mv "$zathuraconf.bak" "$zathuraconf"
+	if [ "$(stat -c %y "${tldr_dir}/pages" 2>/dev/null | cut -d' ' -f1 | cut -d'-' -f1-2)" != "$(date '+%Y-%m')" ]
+	then
+		update_tldr_
 	fi
 	
-	xwallpaper --zoom "$bgloc"
+	command_2_find_="$(find "${tldr_dir}/pages/" -name ${op2__}.md)"
+	
+	if [ -z "${command_2_find_}" ]
+	then
+		echo "no tldr entry for ${op2__}" 
+		exit 1
+	fi
+	
+	cat ${command_2_find_}
+}
+
+help
+{
+	echo "help"
 }
 
 main()
 {
 case $op__ in
-	-r)
-		if command -v xwallpaper >/dev/null ; then
-			xwallpaper --stretch "$(cat ~/.config/nitrogen/bg-saved.cfg | grep file= | cut -d "=" -f 2)" &
-		else
-			sleep 4
-			nitrogen --restore &
-		fi
+	-c|--cheat)
+		curl -s "cheat.sh/$op2__"
 	;;
-	-o)
-		old_bg_ $op2__
+	-t|--tldr)
+		run_my_tldr_
 	;;
-	-s)
-	nitrogen --save --set-zoom-fill $op2__
+	-tu|--tldr-update)
+		update_tldr_
 	;;
 	*)
-		nitrogen
+		help
 	;;
 esac
 }
 
 main
-# misc stuff
-alias cht='f(){ curl -s "cheat.sh/$(echo -n "$*"|jq -sRr @uri)";};f'
