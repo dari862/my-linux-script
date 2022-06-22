@@ -1,27 +1,11 @@
 function network_list(){
 iwd
-openssh-server
 wireguard-tools
 wireless-tools
 }
 
 function install_network {
-  networking="${dir}/packages/network.list"
-  nmconf="/etc/NetworkManager/NetworkManager.conf"
-  show_header "Setting up networking."
-  check_installed "${networking}"
-  check_fail
-  show_success "Networking applications installed."
-
-  show_info "Setting up MAC address randomization in Network Manager."
-  if ! test "$(grep "mac-address=random" ${nmconf})"; then
-    sudo sh -c "echo "" >> ${nmconf}"
-    sudo sh -c "echo '# Enabling built-in MAC Address randomization' >> ${nmconf}"
-    sudo sh -c "echo '[connection-mac-randomization]' >> ${nmconf}"
-    sudo sh -c "echo 'wifi.cloned-mac-address=random' >> ${nmconf}"
-    sudo sh -c "echo 'ethernet.cloned-mac-address=random' >> ${nmconf}"
-  fi
-
+  sudo apt install -y openssh-server
   show_info "Disabling SSH root login and forcing SSH v2."
   sudo sed -i \
     -e "/^#PermitRootLogin prohibit-password$/a PermitRootLogin no" \
@@ -30,21 +14,12 @@ function install_network {
 }
 
 function discover_list(){
-avahi-autoipd
-avahi-daemon
-avahi-discover
 gvfs
 libnss-mdns
 }
 
 function install_discovery {
-  discovery="${dir}/packages/discover.list"
-  nsconf="/etc/nsswitch.conf"
-  show_header "Setting up local network discovery."
-  check_installed "${discovery}"
-  check_fail
-  show_success "Discovery applications installed."
-
+  sudo apt install -y avahi-autoipd avahi-daemon avahi-discover
   show_info "Enabling local hostname resolution in Avahi."
   local oldhostsline="hosts: files mymachines myhostname resolve \[!UNAVAIL=return\] dns"
   local newhostsline="hosts: files mymachines myhostname mdns_minimal \[NOTFOUND=return\] resolve \[!UNAVAIL=return\] dns"
@@ -58,21 +33,15 @@ function install_discovery {
 
   # F: Utility
   F1 "Dropbox" off
-  F3 "Virtualbox" off
   
   C5)
     snap install slack --classic
     ;;
   F1)
-    wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+    DropBox_latest_ver="$(curl https://linux.dropbox.com/packages/ubuntu/ 2>/dev/null | grep -v nautilus | awk '{print $2}' | grep dropbox | grep -o -P '(?<=">dropbox_).*(?=_amd64.deb)' | tail -1)"
+    wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_${DropBox_latest_ver}_amd64.deb
     apt -y install ./dropbox.deb
     ;;
-  F3)
-    add-apt-repository "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bullseye contrib"
-    wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
-    wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
-    apt-get update
-    apt-get -y install virtualbox-6.1	
 
 ##################################################################################################
 ##################################################################################################
