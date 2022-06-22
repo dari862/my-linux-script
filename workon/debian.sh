@@ -1,21 +1,3 @@
-  C5 "Slack" off
-  # D: dev_Array_now_
-
-  # F: Utility
-  F1 "Dropbox" off
-  
-  C5)
-    snap install slack --classic
-    ;;
-  F1)
-    DropBox_latest_ver="$(curl https://linux.dropbox.com/packages/ubuntu/ 2>/dev/null | grep -v nautilus | awk '{print $2}' | grep dropbox | grep -o -P '(?<=">dropbox_).*(?=_amd64.deb)' | tail -1)"
-    wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_${DropBox_latest_ver}_amd64.deb
-    apt -y install ./dropbox.deb
-    ;;
-
-##################################################################################################
-##################################################################################################
-
 function network_list(){
 iwd
 wireguard-tools
@@ -42,7 +24,6 @@ heimdall-flash
 libmtp9
 mmc-utils
 }
-#######################
 
 function codecs_list(){
 gstreamer1.0-libav
@@ -51,7 +32,6 @@ gstreamer1.0-plugins-base
 gstreamer1.0-plugins-good
 gstreamer1.0-plugins-ugly
 }
-#######################
 
 function extra_list(){
 calibre
@@ -60,7 +40,6 @@ gimp
 recordmydesktop
 subtitleeditor
 }
-#######################
 
 function firmware_list(){
 amd64-microcode
@@ -71,7 +50,6 @@ firmware-linux-free
 firmware-linux-nonfree
 intel-microcode
 }
-#######################
 
 function games_list(){
 desmume
@@ -80,8 +58,6 @@ higan
 mupen64plus
 visualboyadvance-gtk
 }
-
-#######################
 
 function printer_list(){
 cups
@@ -96,7 +72,6 @@ hplip-gui
 printer-driver-gutenprint
 system-config-printer
 }
-#######################
 
 function utils_list(){
 acpi
@@ -138,9 +113,8 @@ unhide
 usbutils
 zstd
 }
-#######################
-
-packages_list="
+##########################################################################################################################################
+function utils_list(){
 firmware-linux-free
 firmware-linux-nonfree
 firmware-iwlwifi
@@ -203,4 +177,4 @@ libxss-dev
 keepassxc
 python3-venv
 tcpdump
-"
+}
