@@ -210,6 +210,95 @@ fi
 
 
 ############################################################################################################################################
+# Tor_Network_Array functions
+############################################################################################################################################
+
+
+
+install_tor_stuffs_(){
+  show_m "installing tor stuffs"
+  tor_stuff_=(apt-transport-tor onionshare tor torsocks)
+  apt_install_noninteractive_whith_error2info "${tor_stuff_[@]}"
+  echo "Enabling and starting tor service."
+  sudo systemctl enable tor
+  sudo systemctl start tor
+}
+
+use_onion_repos_for_apt(){
+  srclist="/etc/apt/sources.list"
+  show_m "Tunneling apt over tor for Debian $(lsb_release -sc)."
+
+  local is_contrib
+  grep -q contrib ${srclist}; is_contrib=$?
+  local is_nonfree
+  grep -q non-free ${srclist}; is_nonfree=$?
+
+  local release
+  release=$(lsb_release -sc)
+  sudo cp -f ${srclist} ${srclist}.${RANDOM}.bak
+  sudo cp -f "${dir}/sources/${release}-sources.list" ${srclist}
+
+  [ ${is_contrib} == 0 ] && \
+    sudo sed -i "s,\(.* ${release} main.*\)$,\1 contrib,g" ${srclist} && \
+    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 contrib,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 contrib,g" ${srclist}
+  [ ${is_nonfree} == 0 ] && \
+    sudo sed -i "s,\(.* ${release} main.*\)$,\1 non-free,g" ${srclist} && \
+    sudo sed -i "s,\(.* ${release}-updates main.*\)$,\1 non-free,g" ${srclist}
+    sudo sed -i "s,\(.* ${release}-backports main.*\)$,\1 non-free,g" ${srclist}
+  sudo sed -i "s,https://deb.debian.org,tor+http://vwakviie2ienjx6t.onion,g" ${srclist}
+  sudo sed -i "s,https://security.debian.org/,tor+http://sgvtcaew4bxjd7ln.onion/debian-security/,g" ${srclist}
+
+  sudo apt update
+}
+
+install_torbrowser_(){
+  torbrowser_path="${HOME}/.local/share/tor-browser"
+  local_applications="${HOME}/.local/share/applications"
+  show_m "Installing Tor browser."
+  local torbrowser_version
+  local torbrowser_package
+  local torbrowser_url="https://www.torproject.org/dist/torbrowser"
+  local arch
+
+  # "Downloading Tor developers' GPG key."
+  gpg --auto-key-locate nodefault,wkd --locate-keys torbrowser@torproject.org
+
+  torbrowser_version=$(curl https://www.torproject.org/download/ | \
+                       sed -n 's,^ \+<a class="downloadLink" href="/dist/torbrowser/\([0-9\.]\+\)/tor-browser-linux.*">,\1,p')
+  arch=$(uname -m)
+  if [ "${arch:(-2)}" = "86" ]; then
+    torbrowser_package=tor-browser-linux32-${torbrowser_version}_en-US.tar.xz
+  elif [ "${arch:(-2)}" = "64" ]; then
+    torbrowser_package=tor-browser-linux64-${torbrowser_version}_en-US.tar.xz
+  fi
+
+  # "Downloading release tarball."
+  wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}"
+  wget "${torbrowser_url}/${torbrowser_version}/${torbrowser_package}.asc"
+  # "Extracting..."
+  gpg --verify "${torbrowser_package}.asc" "${torbrowser_package}"
+  tar xf "${torbrowser_package}"
+
+  # "Putting things into place..."
+  mkdir -p "${local_applications}"
+  rm -rf "${torbrowser_path}"
+  mv tor-browser_en-US "${torbrowser_path}"
+  cp -f "${torbrowser_path}/start-tor-browser.desktop" "${local_applications}/"
+  chmod -x "${local_applications}/start-tor-browser.desktop"
+  sed -i \
+    -e "s,^Name=.*,Name=Tor Browser,g" \
+    -e "s,^Icon=.*,Icon=browser-tor,g" \
+    -e "s,^Exec=.*,Exec=sh -c '\"${torbrowser_path}/Browser/start-tor-browser\" --detach || ([ !  -x \"${torbrowser_path}/Browser/start-tor-browser\" ] \&\& \"\$(dirname \"\$*\")\"/Browser/start-tor-browser --detach)' dummy %k,g" \
+      "${local_applications}/start-tor-browser.desktop"
+  update-desktop-database "${local_applications}"
+
+  # "Cleaning up..."
+  rm -f "${torbrowser_package}"
+  rm -f "${torbrowser_package}.asc"
+}
+
+############################################################################################################################################
 
 install_all_picked_apps_now()
 {
@@ -368,6 +457,25 @@ then
 	echo_2_helper_list ""
 fi
 
+####################################
+# Tor_Network_Array
+####################################
+
+if [ ! -z "${Tor_Network_Array[*]}" ]
+then
+	show_m "install Tor network apps"
+	echo_2_helper_list "# Tor network apps"
+	if [[ " ${Tor_Network_Array[*]} " =~ " install_tor_stuff " ]]; then
+		install_tor_stuffs_
+	fi
+	if [[ " ${Tor_Network_Array[*]} " =~ " use_onion_repos " ]]; then
+		use_onion_repos_for_apt
+	fi
+	if [[ " ${Tor_Network_Array[*]} " =~ " install_torbrowser " ]]; then
+		install_torbrowser_
+	fi
+	echo_2_helper_list ""
+fi
 ####################################
 # desktop_Array
 ####################################
