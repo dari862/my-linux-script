@@ -27,6 +27,7 @@ run_my_tldr_(){
 		exit 1
 	fi
 	
+	command_2_find_="$(echo "${command_2_find_}" | grep -e 'common' -e 'linux')"
 	cat ${command_2_find_}
 }
 
