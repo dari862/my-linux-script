@@ -486,6 +486,29 @@ if [ ! -z "${internet_Array[*]}" ]
 then
 	show_m "install browsers , email client and downloader apps"
 	echo_2_helper_list "# internet apps"
+	if [[ " ${internet_Array[*]} " =~ " Slack " ]]; then
+		delete="Slack"
+		internet_Array=( "${internet_Array[@]/$delete}" )
+		install_Snap_now
+		show_m "installing Slack"
+		if [ -f /snap/bin/Slack ]; then
+			echo 'Slack is already installed.'
+		else
+			snap install Slack --classic &>> $debug_log || show_em "failed to install discord"
+			echo_2_helper_list "Slack"
+		fi
+	fi
+	
+	if [[ " ${internet_Array[*]} " =~ " Dropbox " ]]; then
+		delete="Dropbox"
+		internet_Array=( "${internet_Array[@]/$delete}" )
+		show_m "installing Dropbox"
+		DropBox_latest_ver="$(curl https://linux.dropbox.com/packages/ubuntu/ 2>/dev/null | grep -v nautilus | awk '{print $2}' | grep dropbox | grep -o -P '(?<=">dropbox_).*(?=_amd64.deb)' | tail -1)"
+		wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_${DropBox_latest_ver}_amd64.deb
+    		$sudoaptinstall ./dropbox.deb
+		echo_2_helper_list "Dropbox"
+	fi
+	
 	apt_install_noninteractive_whith_error2info "${internet_Array[@]}"
 	install_firefox_app_now_
 	echo_2_helper_list ""
