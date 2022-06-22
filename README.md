@@ -39,6 +39,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		
 		dev_Array Tor_Array internet_Array Network_Array at install_essential_and_optional_apps.sh
 	
+		lazygit
+	
 </details>
 
 
