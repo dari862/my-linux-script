@@ -106,7 +106,7 @@ usbutils
 zstd
 }
 ##########################################################################################################################################
-function utils_list(){
+function pakage_list(){
 firmware-realtek
 libx11-dev
 libxft-dev
