@@ -28,8 +28,8 @@ run_my_tldr_(){
 		echo "no tldr entry for ${op2__}" 
 		exit 1
 	fi
-	
-	command_2_find_="$(echo "${command_2_find_}" | grep -e 'common' -e 'linux')"
+	grep_this="common|linux"
+	command_2_find_="$(echo "${command_2_find_}" | grep -E "$grep_this")"
 	cat ${command_2_find_}
 }
 
