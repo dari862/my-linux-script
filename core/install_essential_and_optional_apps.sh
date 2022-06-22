@@ -65,6 +65,15 @@ if [[ " ${extra_Array[*]} " =~ " atom " ]]; then
 	add_new_source_to_apt_now mod "gpg" repolink "deb [signed-by=/etc/apt/trusted.gpg.d/AtomEditor_atom-archive-keyring.gpg] https://packagecloud.io/AtomEditor/atom/any/ any main && deb-src [signed-by=/etc/apt/trusted.gpg.d/AtomEditor_atom-archive-keyring.gpg] https://packagecloud.io/AtomEditor/atom/any/ any main" reponame "atom" keylink "https://packagecloud.io/AtomEditor/atom/gpgkey" keyname "AtomEditor_atom-archive-keyring.gpg"
 	aptupdate
 fi
+
+if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
+	show_m "add VirtualBox repo"
+	curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox_2016.gpg
+	curl -fsSL https://www.virtualbox.org/download/oracle_vbox.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox.gpg
+	echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+	aptupdate
+fi
+
 }
 
 ############################################################################################################################################
