@@ -237,6 +237,7 @@ then
 	"pulseaudio_suspend" "Disabling suspend on PulseAudio when sinks/sources idle." OFF
 	"Disable_disable_11n" "Disabling 802.11n networking in iwlwifi (better wifi performance)." OFF
 	"${Intel_iommu_choose_content[@]}"
+	"fixed_libxft" "Install fixed libxft library to /usr/lib/." OFF
 	)
 fi
 
@@ -293,6 +294,9 @@ else
 			;;
 			"Intel_iommu")
 				do_you_want_to_enable_Intel_iommu="true"
+			;;
+			"fixed_libxft")
+				do_you_want_to_fix_libxft="true"
 			;;
 			*)
 				show_em "show_sub_menu_now unsupported item $CHOICE!"
