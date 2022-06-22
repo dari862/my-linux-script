@@ -1,33 +1,3 @@
-function network_list(){
-iwd
-wireguard-tools
-wireless-tools
-}
-
-function install_network {
-  sudo apt install -y openssh-server
-  show_info "Disabling SSH root login and forcing SSH v2."
-  sudo sed -i \
-    -e "/^#PermitRootLogin prohibit-password$/a PermitRootLogin no" \
-    -e "/^#Port 22$/i Protocol 2" \
-    /etc/ssh/sshd_config
-}
-
-function discover_list(){
-gvfs
-libnss-mdns
-}
-
-function install_discovery {
-  sudo apt install -y avahi-autoipd avahi-daemon avahi-discover
-  show_info "Enabling local hostname resolution in Avahi."
-  local oldhostsline="hosts: files mymachines myhostname resolve \[!UNAVAIL=return\] dns"
-  local newhostsline="hosts: files mymachines myhostname mdns_minimal \[NOTFOUND=return\] resolve \[!UNAVAIL=return\] dns"
-  sudo sed -i "/^${oldhostsline}/s/^${oldhostsline}/${newhostsline}/g" ${nsconf}
-  sudo systemctl enable avahi-daemon.service
-  sudo systemctl start avahi-daemon.service
-}
-
   C5 "Slack" off
   # D: dev_Array_now_
 
@@ -46,6 +16,16 @@ function install_discovery {
 ##################################################################################################
 ##################################################################################################
 
+function network_list(){
+iwd
+wireguard-tools
+wireless-tools
+}
+
+function discover_list(){
+gvfs
+libnss-mdns
+}
 
 function android_list(){
 adb
