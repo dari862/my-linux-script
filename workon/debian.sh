@@ -107,9 +107,6 @@ zstd
 }
 ##########################################################################################################################################
 function utils_list(){
-firmware-linux-free
-firmware-linux-nonfree
-firmware-iwlwifi
 firmware-realtek
 libx11-dev
 libxft-dev
@@ -117,7 +114,6 @@ libxinerama1
 libxinerama-dev
 apt-transport-https
 dirmngr
-rsync
 python3
 autoconf
 software-properties-common
@@ -158,7 +154,6 @@ jq
 thunderbird
 ack
 crda
-net-tools
 npm
 xutils-dev
 libx11-xcb-dev
