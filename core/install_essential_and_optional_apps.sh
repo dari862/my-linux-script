@@ -349,10 +349,22 @@ fi
 
 if [ ! -z "${internet_Array[*]}" ]
 then
-	show_m "install network ,browsers , email client and downloader apps"
+	show_m "install browsers , email client and downloader apps"
 	echo_2_helper_list "# internet apps"
 	apt_install_noninteractive_whith_error2info "${internet_Array[@]}"
 	install_firefox_app_now_
+	echo_2_helper_list ""
+fi
+
+####################################
+# Network_Array
+####################################
+
+if [ ! -z "${Network_Array[*]}" ]
+then
+	show_m "install network apps"
+	echo_2_helper_list "# network apps"
+	apt_install_noninteractive_whith_error2info "${Network_Array[@]}"
 	echo_2_helper_list ""
 fi
 
