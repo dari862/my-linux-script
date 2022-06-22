@@ -87,6 +87,4 @@ alias getpass="openssl rand -base64 20"
 alias www="python -m SimpleHTTPServer 8000"
 alias qf="find . |grep"
 
-# misc stuff
-alias cht='f(){ curl -s "cheat.sh/$(echo -n "$*"|jq -sRr @uri)";};f'
 
