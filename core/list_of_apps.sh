@@ -86,16 +86,26 @@ declare -ag media_Array_now_=(
 "mplayer" "list of apps to be installed" OFF
 )
 
-#internet and network
+#internet
 declare -ag internet_Array_now_=(
+"wget" "list of apps to be installed" ON
+"curl" "list of apps to be installed" ON
+"filezilla" "list of apps to be installed" OFF
+"transmission" "list of apps to be installed" OFF
+"transmission-gtk" "list of apps to be installed" OFF
+"chromium" "list of apps to be installed" OFF
+"thunderbird" "list of apps to be installed" OFF
+"brave-browser" "list of apps to be installed" OFF
+"google-chrome-stable" "list of apps to be installed" OFF
+)
+
+# network
+declare -ag Network_Array_now_=(
 "ufw" "list of apps to be installed" ON
 "smbclient" "list of apps to be installed" ON
 "net-tools" "list of apps to be installed" ON
 "network-manager" "list of apps to be installed" ON
-"wget" "list of apps to be installed" ON
-"curl" "list of apps to be installed" ON
 "nmap" "list of apps to be installed" OFF
-"filezilla" "list of apps to be installed" OFF
 "gvfs-backends" "list of apps to be installed" OFF
 "network-manager-openvpn" "list of apps to be installed" OFF
 "samba" "list of apps to be installed" OFF
@@ -103,12 +113,18 @@ declare -ag internet_Array_now_=(
 "samba-libs" "list of apps to be installed" OFF
 "cifs-utils" "list of apps to be installed" OFF
 "wireshark" "list of apps to be installed" OFF
-"transmission" "list of apps to be installed" OFF
-"transmission-gtk" "list of apps to be installed" OFF
-"chromium" "list of apps to be installed" OFF
-"thunderbird" "list of apps to be installed" OFF
-"brave-browser" "list of apps to be installed" OFF
-"google-chrome-stable" "list of apps to be installed" OFF
+)
+
+if command -v apt >/dev/null
+then
+	onion_repos_choose_content=("use_onion_repos" "use onion debian repo." OFF)
+fi
+
+# Tor
+declare -ag Tor_Network_Array_now_=(
+"install_tor_stuff" "list of apps to be installed" OFF
+"install_torbrowser" "list of apps to be installed" OFF
+"${onion_repos_choose_content[@]}"
 )
 
 #desktop
