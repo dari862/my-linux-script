@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-op__="$1"
-op2__="$2"
+op__="${1-}"
+op2__="${2-}"
 tldr_dir="$HOME/.local/share/tldr"
 
 update_tldr_(){
