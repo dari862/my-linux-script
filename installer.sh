@@ -28,6 +28,7 @@ then
 	apt install -y sudo
 	user=$(cat /etc/passwd | cut -f 1,3 -d: | grep :1000$ | cut -f1 -d:)
 	[ "$user" ] && adduser "$user" sudo
+	sudo apt install -f -y
 fi
 }
 
@@ -110,7 +111,8 @@ run_part_of_script_that_needs_debugging_now()
 
 main()
 {
-	check_for_SUDO
+	### Fix broken packages for good measure (why not?)
+	sudo apt install -f -y || check_for_SUDO
 	clear
 	sudo -v || exit 1
 
