@@ -37,7 +37,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 		speed up zsh & bash
 		
-		dev_Array Tor_Array at install_essential_and_optional_apps.sh
+		dev_Array Tor_Array internet_Array at install_essential_and_optional_apps.sh
 	
 </details>
 
