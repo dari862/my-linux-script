@@ -1,35 +1,10 @@
-function install_timed_backgrounds {
-https://github.com/adi1090x/dynamic-wallpaper
-https://github.com/saint-13/Linux_Dynamic_Wallpapers
-
+function network_list(){
+iwd
+openssh-server
+wireguard-tools
+wireless-tools
 }
 
-##################################################################################################
-# Install fixed libxft library to /usr/lib/
-install_libxft() {
-cd /tmp/
-git clone https://github.com/uditkarode/libxft-bgra
-cd libxft-bgra/
-sh autogen.sh --sysconfdir=/etc --prefix=/usr --mandir=/usr/share/man
-sudo make install
-
-# Link fixed files
-sudo rm /usr/lib/x86_64-linux-gnu/libXft.so.2.3.3 || true
-sudo rm /usr/lib/x86_64-linux-gnu/libXft.so.2 || true
-sudo rm /usr/lib/x86_64-linux-gnu/libXft.so || true
-
-sudo ln -s /usr/lib/libXft.so.2.3.3 /usr/lib/x86_64-linux-gnu/libXft.so.2.3.3
-sudo ln -s /usr/lib/libXft.so.2.3.3 /usr/lib/x86_64-linux-gnu/libXft.so.2
-sudo ln -s /usr/lib/libXft.so.2.3.3 /usr/lib/x86_64-linux-gnu/libXft.so
-}
-
-install_librewolf() {
-echo "deb [arch=amd64] http://deb.librewolf.net $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/librewolf.list
-sudo wget https://deb.librewolf.net/keyring.gpg -O /etc/apt/trusted.gpg.d/librewolf.gpg
-sudo apt update
-sudo apt install librewolf -y
- }
- 
 function install_network {
   networking="${dir}/packages/network.list"
   nmconf="/etc/NetworkManager/NetworkManager.conf"
@@ -52,6 +27,14 @@ function install_network {
     -e "/^#PermitRootLogin prohibit-password$/a PermitRootLogin no" \
     -e "/^#Port 22$/i Protocol 2" \
     /etc/ssh/sshd_config
+}
+
+function discover_list(){
+avahi-autoipd
+avahi-daemon
+avahi-discover
+gvfs
+libnss-mdns
 }
 
 function install_discovery {
@@ -106,15 +89,6 @@ gstreamer1.0-plugins-ugly
 }
 #######################
 
-function discover_list(){
-avahi-autoipd
-avahi-daemon
-avahi-discover
-gvfs
-libnss-mdns
-}
-#######################
-
 function extra_list(){
 calibre
 gifsicle
@@ -142,14 +116,7 @@ higan
 mupen64plus
 visualboyadvance-gtk
 }
-#######################
 
-function network_list(){
-iwd
-openssh-server
-wireguard-tools
-wireless-tools
-}
 #######################
 
 function printer_list(){
