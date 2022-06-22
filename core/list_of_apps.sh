@@ -97,6 +97,7 @@ declare -ag internet_Array_now_=(
 "thunderbird" "list of apps to be installed" OFF
 "brave-browser" "list of apps to be installed" OFF
 "google-chrome-stable" "list of apps to be installed" OFF
+"librewolf" "list of apps to be installed" OFF
 )
 
 # network
