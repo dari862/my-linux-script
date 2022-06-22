@@ -306,7 +306,7 @@ Show_Weather_Forecast(){
 	# weather report from wttr.in with the above function.
 	if [ -f "$weatherreport" ]
 	then
-		if [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" = "$(date '+%Y-%m-%d')" ] || [ "$(cat "$weatherreport" | grep "Weather report: " | cut -d" " -f3-)" != "$LOCATION" ]
+		if [ "$(stat -c %y "$weatherreport" 2>/dev/null | cut -d' ' -f1)" != "$(date '+%Y-%m-%d')" ] || [ "$(cat "$weatherreport" | grep "Weather report: " | cut -d" " -f3-)" != "$LOCATION" ]
 		then
 			create_forecast_report
 		fi
