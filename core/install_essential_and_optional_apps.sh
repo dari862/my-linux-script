@@ -71,7 +71,7 @@ if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 	if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 		delete="VirtualBox"
 		extra_Array=( "${base_Array[@]/$delete}" )
-		VirtualBox_Array=(linux-headers-$(uname -r) dkms virtualbox-6.1)
+		VirtualBox_Array=(linux-headers-$(uname -r) dkms virtualbox)
 		extra_Array=(${extra_Array[@]} ${VirtualBox_Array[@]})
 	fi
 	curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox_2016.gpg
