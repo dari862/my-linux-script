@@ -106,6 +106,8 @@ declare -ag Network_Array_now_=(
 "smbclient" "list of apps to be installed" ON
 "net-tools" "list of apps to be installed" ON
 "network-manager" "list of apps to be installed" ON
+"Avahi" "list of apps to be installed" OFF
+"openssh-server" "list of apps to be installed" OFF
 "nmap" "list of apps to be installed" OFF
 "gvfs-backends" "list of apps to be installed" OFF
 "network-manager-openvpn" "list of apps to be installed" OFF
