@@ -258,7 +258,6 @@ thunar
 git
 dbus-x11
 pavucontrol
-tldr
 liblz4-tool
 xclip
 libnotify-dev
@@ -302,27 +301,4 @@ gparted
     wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | apt-key add -
     wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | apt-key add -
     apt-get update
-    apt-get -y install virtualbox-6.1
-
-
-###############################################################################################################
-###############################################################################################################
-###############################################################################################################
-###############################################################################################################
-
-	# Update tldr database
-	tldr -u
-	
-	### Git env
-	git config --global user.email "Felixs.Developer@tutanota.com"
-	git config --global user.name "FancyChaos"
-	
-	# Generate new ssh keys without a password
-	ssh-keygen -q -f $HOME/.ssh/git_key -t ecdsa -b 521 -N ""
-	
-	### Fix broken packages for good measure (why not?)
-	sudo apt install -f -y
-	
-	# Disable tracker (Data indexing for GNOME mostly)
-	systemctl --user mask tracker-store.service tracker-miner-fs.service tracker-miner-rss.service tracker-extract.service tracker-miner-apps.service tracker-writeback.service
-	systemctl --user mask gvfs-udisks2-volume-monitor.service gvfs-metadata.service gvfs-daemon.service
+    apt-get -y install virtualbox-6.1	
