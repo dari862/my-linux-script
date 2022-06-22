@@ -19,6 +19,8 @@ run_my_tldr_(){
 		update_tldr_
 	fi
 	
+	[ ! -z "$(cd "${tldr_dir}" &> /dev/null && git checkout | sed '$ d')" ] && git checkout .
+
 	command_2_find_="$(find "${tldr_dir}/pages/" -name ${op2__}.md)"
 	
 	if [ -z "${command_2_find_}" ]
