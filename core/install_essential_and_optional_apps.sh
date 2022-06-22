@@ -70,7 +70,7 @@ if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 	show_m "add VirtualBox repo"
 	if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 		delete="VirtualBox"
-		extra_Array=( "${base_Array[@]/$delete}" )
+		extra_Array=( "${extra_Array[@]/$delete}" )
 		VirtualBox_Array=(linux-headers-$(uname -r) dkms virtualbox)
 		extra_Array=(${extra_Array[@]} ${VirtualBox_Array[@]})
 	fi
@@ -79,6 +79,29 @@ if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 	echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 	aptupdate
 	
+fi
+
+if [[ " ${Network_Array[*]} " =~ " Avahi " ]]; then
+	if [[ " ${Network_Array[*]} " =~ " Avahi " ]]; then
+		delete="Avahi"
+		Network_Array=( "${Network_Array[@]/$delete}" )
+		VirtualBox_Array=(avahi-autoipd avahi-daemon avahi-discover)
+		Network_Array=(${Network_Array[@]} ${VirtualBox_Array[@]})
+	fi
+	  echo "Enabling local hostname resolution in Avahi."
+	  local oldhostsline="hosts: files mymachines myhostname resolve \[!UNAVAIL=return\] dns"
+	  local newhostsline="hosts: files mymachines myhostname mdns_minimal \[NOTFOUND=return\] resolve \[!UNAVAIL=return\] dns"
+	  sudo sed -i "/^${oldhostsline}/s/^${oldhostsline}/${newhostsline}/g" ${nsconf}
+	  sudo systemctl enable avahi-daemon.service
+	  sudo systemctl start avahi-daemon.service
+fi
+
+if [[ " ${Network_Array[*]} " =~ " openssh-server " ]]; then
+	echo "Disabling SSH root login and forcing SSH v2."
+	sudo sed -i \
+	  -e "/^#PermitRootLogin prohibit-password$/a PermitRootLogin no" \
+	  -e "/^#Port 22$/i Protocol 2" \
+	  /etc/ssh/sshd_config
 fi
 
 }
