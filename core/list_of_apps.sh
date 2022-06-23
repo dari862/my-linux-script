@@ -50,6 +50,7 @@ declare -ag drivers_Array_now_=(
 "firmware-iwlwifi" "list of apps to be installed" OFF
 "firmware-linux" "list of apps to be installed" OFF
 "firmware-linux-free" "list of apps to be installed" OFF
+"firmware-realtek" "list of apps to be installed" OFF
 )
 
 #media and sound
