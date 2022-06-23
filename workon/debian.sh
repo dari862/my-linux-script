@@ -36,15 +36,7 @@ gimp
 recordmydesktop
 subtitleeditor
 }
-function firmware_list(){
-amd64-microcode
-bluez-firmware
-firmware-iwlwifi
-firmware-linux
-firmware-linux-free
-firmware-linux-nonfree
-intel-microcode
-}
+
 function games_list(){
 desmume
 dolphin-emu
@@ -67,7 +59,6 @@ system-config-printer
 }
 function utils_list(){
 acpi
-bc
 cpio
 dmidecode
 dosfstools
@@ -79,7 +70,6 @@ gdisk
 hfsprogs
 libbcprov-java
 libcommons-lang3-java
-libnotify-bin
 lm-sensors
 mtools
 net-tools
@@ -95,48 +85,32 @@ pv
 reiserfsprogs
 rkhunter
 rsync
-screen
 signify-openbsd
 squashfs-tools
-s-tui
-time
-tmux
 unhide
 usbutils
 zstd
 }
 ##########################################################################################################################################
 function pakage_list(){
-firmware-realtek
 libx11-dev
 libxft-dev
 libxinerama1
 libxinerama-dev
-apt-transport-https
 dirmngr
-python3
 autoconf
-software-properties-common
-cmake
-fonts-font-awesome
-fonts-roboto
 devscripts
 file-roller
-build-essential
-gtk2-engines-murrine
-gtk2-engines
 caca-utils
 highlight
 atool
 w3m
 poppler-utils
 mediainfo
-python3-pip
 libcanberra-gtk-module
 libgtk2.0-dev
 libgtk-3-dev
 gnome-devel
-imagemagick
 nnn
 tig
 mesa-utils
@@ -144,8 +118,6 @@ mesa-utils-extra
 xsel
 bluez-cups
 blueman
-gpick
-tree
 ninja-build
 gettext
 libtool-bin
