@@ -67,6 +67,7 @@ cat << 'eof' > $temp_folder_for_skel_shell_folder/profile
 # Default programs:
 export VISUAL=nano
 export EDITOR=$VISUAL
+export SUDO_EDITOR="${VISUAL}"
 export TERMINAL="x-terminal-emulator"
 export BROWSER="firefox"
 
