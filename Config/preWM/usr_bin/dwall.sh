@@ -394,6 +394,9 @@ Download_wallpapers_now(){
 			for d in ${PWD}/*
 			do
 				cd "$d"
+				newName=0
+				fullname="$(\ls | tail -1)"
+				extension="${fullname##*.}"
 				for filename in *; do
 					mv "$filename" "${newName}.${extension}"
 					let newName=newName+1
