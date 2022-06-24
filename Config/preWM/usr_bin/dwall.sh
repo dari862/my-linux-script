@@ -400,7 +400,7 @@ Download_wallpapers_now(){
 			Do_want_to_install_not_installed_apps_are;;
 	esac
 	
-	if [ -d /tmp/Linux_Dynamic_Wallpapers ] && [ -d /tmp/dynamic-wallpaper ]; then
+	if [ ! -d /tmp/Linux_Dynamic_Wallpapers ] && [ ! -d /tmp/dynamic-wallpaper ]; then
 		exit 0
 	fi
 
