@@ -246,9 +246,9 @@ convert_folder_2_Dywall_now() {
 	
 	newName=1
 	for filename in *; do
-		while [ $newName -ne 24 ]
+		while [ $newName -lt 24 ]
 		do
-			if [ ! -f "${newName}.${extension}" ]; then
+			if [ ! -f "${newName}.${extension}" ] || [ $newName -lt 24 ]; then
 				ln -s "$filename" "${newName}.${extension}"
 			else
 				break
@@ -381,7 +381,8 @@ Download_wallpapers_now(){
 			mv 3.${extension} 6.${extension}
 			mv 2.${extension} 5.${extension}
 			mv 1.${extension} 3.${extension}
-					
+			
+			cd /tmp/Linux_Dynamic_Wallpapers
 			extension=""
 			folder_2_convert_2_Dywall=""
 			d=""
