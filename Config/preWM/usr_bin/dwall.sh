@@ -11,6 +11,7 @@
 #[ "$(id -u)" -eq 0 ] && { echo "never run script as root. existing.."; exit 1 ;}
 
 SETTER=""
+folder_2_convert_2_Dywall=""
 
 ## ANSI Colors (FG & BG)
 RED="$(printf '\033[31m')"  GREEN="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
@@ -19,7 +20,7 @@ REDBG="$(printf '\033[41m')"  GREENBG="$(printf '\033[42m')"  ORANGEBG="$(printf
 MAGENTABG="$(printf '\033[45m')"  CYANBG="$(printf '\033[46m')"  WHITEBG="$(printf '\033[47m')" BLACKBG="$(printf '\033[40m')"
 
 ## Wallpaper directory
-#DIR="/usr/share/dynamic-wallpaper/images"
+#DIR="/usr/share/dynamic_wallpaper"
 DIR="`pwd`/images"
 HOUR=`date +%k`
 
@@ -213,7 +214,49 @@ check_style() {
 
 ## Convert choses folder to Dywall
 convert_folder_2_Dywall_now() {
-	echo $convert_folder_2_Dywall
+	number_of_files="$(\ls -1 | wc -l || echo 'no files')"
+	
+	if [ "$number_of_files" == 1 ] || [ "$number_of_files" -gt 23 ]; then
+		echo "there are $number_of_files in this folder: $folder_2_convert_2_Dywall"
+		return 1
+	fi
+	
+	fullname="$(\ls | tail -1)"
+	extension="${fullname##*.}"
+	first_file="$(\ls | head -1)"
+	last_file="${fullname}"
+	
+	mv ${last_file} 0.${extension}
+	mv ${first_file} 5.${extension}
+	
+	if [ "$number_of_files" == 3 ]; then
+		mv `\ls | head -1` 13.${extension}
+	elif [ "$number_of_files" == 4 ]; then
+		mv `\ls | head -2 | tail -1` 17.${extension}
+	elif [ "$number_of_files" == 5 ]; then
+		mv `\ls | head -2 | tail -1` 13.${extension}
+		mv `\ls | head -3 | tail -1` 17.${extension}
+	elif [ "$number_of_files" == 6 ]; then
+		mv `\ls | head -4 | tail -1` 19.${extension}
+	elif [ "$number_of_files" == 7 ]; then
+		mv `\ls | head -5 | tail -1` 21.${extension}
+	elif [ "$number_of_files" == 8 ]; then
+		mv `\ls | head -6 | tail -1` 4.${extension}
+	fi
+	
+	newName=1
+	for filename in *; do
+		while [ $newName -ne 24 ]
+		do
+			if [ ! -f "${newName}.${extension}" ]; then
+				ln -s "$filename" "${newName}.${extension}"
+			else
+				break
+			fi
+			let newName=newName+1
+		done
+		let newName=newName+1
+	done
 }
 
 ## Install script
@@ -255,6 +298,118 @@ install_now_() {
 	## Install
 	mkdir_dw
 	copy_files
+}
+
+Download_wallpapers_now(){
+	check_if_installed git
+	mkdir -p /tmp/dynamic_wallpapers
+	read -p "Do you want to proceed? (yes/no) " yn
+	yn=${yn^^}
+	case $yn in 
+		YES|Y) 
+			echo "Downloading 0-2 urls for wallpapers"
+			git clone https://github.com/adi1090x/dynamic-wallpaper			/tmp/dynamic-wallpaper
+		;;
+		NO|N) echo "skipping Download...";
+		* ) >&2 printf '\033[31;1merror :\033[m %s\n' invalid response;
+			Do_want_to_install_not_installed_apps_are;;
+	esac
+	
+	read -p "Do you want to proceed? (yes/no) " yn
+	yn=${yn^^}
+	case $yn in 
+		YES|Y) 
+			echo "Downloading 1-2 urls for wallpapers"
+			git clone https://github.com/saint-13/Linux_Dynamic_Wallpapers	/tmp/Linux_Dynamic_Wallpapers
+			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers
+			/bin/rm -f * 2>/dev/null
+			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/cyberpunk-01
+			extension="jpg"
+			mv *-10.${extension} cyberpunk-00-0-0.0.${extension}
+			mv *-11.${extension} cyberpunk-00-0-0.1.${extension}
+			mv *-12.${extension} cyberpunk-00-0-0.2.${extension}
+			mv *-13.${extension} cyberpunk-00-0-1.${extension}
+			mv *-14.${extension} cyberpunk-00-0-2.${extension}
+			mv *-15.${extension} cyberpunk-00-0-3.${extension}
+			newName=0
+			for filename in *; do
+				mv "$filename" "${newName}.${extension}"
+				let newName=newName+1
+			done
+			mv 15.${extension} 21.${extension}
+			mv 14.${extension} 19.${extension}
+			mv 13.${extension} 18.${extension}
+			mv 12.${extension} 17.${extension}
+			mv 11.${extension} 15.${extension}
+			mv 10.${extension} 13.${extension}
+			mv 9.${extension} 12.${extension}
+			mv 8.${extension} 11.${extension}
+			mv 7.${extension} 10.${extension}
+			mv 6.${extension} 9.${extension}
+			mv 5.${extension} 8.${extension}
+			mv 4.${extension} 7.${extension}
+			mv 3.${extension} 6.${extension}
+			mv 2.${extension} 5.${extension}
+			mv 1.${extension} 3.${extension}
+			
+			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/Mojave
+			extension="jpeg"
+			mv *_15.${extension} cmojave_dynamic_0_0_0.${extension}
+			mv *_14.${extension} mojave_dynamic_0_0_1.${extension}
+			newName=0
+			for filename in *; do
+				mv "$filename" "${newName}.${extension}"
+				let newName=newName+1
+			done
+			mv 15.${extension} 21.${extension}
+			mv 14.${extension} 19.${extension}
+			mv 13.${extension} 18.${extension}
+			mv 12.${extension} 17.${extension}
+			mv 11.${extension} 16.${extension}
+			mv 10.${extension} 15.${extension}
+			mv 9.${extension} 14.${extension}
+			mv 8.${extension} 13.${extension}
+			mv 7.${extension} 12.${extension}
+			mv 6.${extension} 11.${extension}
+			mv 5.${extension} 9.${extension}
+			mv 4.${extension} 7.${extension}
+			mv 3.${extension} 6.${extension}
+			mv 2.${extension} 5.${extension}
+			mv 1.${extension} 3.${extension}
+					
+			extension=""
+			folder_2_convert_2_Dywall=""
+			d=""
+			for d in ${PWD}/*
+			do
+				cd $d
+				fullname="$(\ls * | tail -1)"
+				extension="${fullname##*.}"
+				newName=0
+				for filename in *; do
+					mv "$filename" "${newName}.${extension}"
+					let newName=newName+1
+				done
+				convert_folder_2_Dywall_now
+			done
+			echo "Downloading 2-2 urls for wallpapers"
+		;;
+		NO|N) echo "skipping Download...";
+		* ) >&2 printf '\033[31;1merror :\033[m %s\n' invalid response;
+			Do_want_to_install_not_installed_apps_are;;
+	esac
+	
+	if [ -d /tmp/Linux_Dynamic_Wallpapers ] && [ -d /tmp/dynamic-wallpaper ]; then
+		exit 0
+	fi
+
+	mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
+	mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
+	sudo chown -R root:root /tmp/dynamic_wallpapers
+	sudo mv /tmp/dynamic_wallpapers $DIR
+	
+	echo "Done"
+	exit 0
 }
 
 ## Uninstall script
@@ -310,7 +465,7 @@ main() {
 }
 
 ## Get Options
-while getopts ":s:c:ohpiu" opt; do
+while getopts ":s:c:ohpiud" opt; do
 	case ${opt} in
 		p)
 			PYWAL=true
@@ -319,7 +474,7 @@ while getopts ":s:c:ohpiu" opt; do
 			STYLE=$OPTARG
 			;;
 		c)
-			convert_folder_2_Dywall=$OPTARG
+			folder_2_convert_2_Dywall=$OPTARG
 			do_you_want_2_convert_folder_2_Dywall=true
 			;;
 		h)
@@ -334,6 +489,9 @@ while getopts ":s:c:ohpiu" opt; do
 		o)
 			create_crontab_=true
 			;;
+		d)
+			Download_wallpapers_=true
+			;;
 		\?)
 			echo -e ${RED}"[!] Unknown option, run ${GREEN}`basename $0` -h"
 			{ reset_color; exit 1; }
@@ -346,6 +504,7 @@ while getopts ":s:c:ohpiu" opt; do
 done
 
 if [[ "$do_you_want_2_convert_folder_2_Dywall" == true ]]; then
+	cd $folder_2_convert_2_Dywall
 	convert_folder_2_Dywall_now
 	exit 0
 fi
@@ -358,6 +517,10 @@ fi
 if [[ "$Set_uninstall_" == true ]]; then
 	uninstall_now_
 	exit 0
+fi
+
+if [[ "$Download_wallpapers_" == true ]]; then
+	Download_wallpapers_now
 fi
 
 ## Run
