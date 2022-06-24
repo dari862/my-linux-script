@@ -246,6 +246,7 @@ convert_folder_2_Dywall_now() {
 		
 		mv 9999 0.${extension}
 		mv 0_0_0 5.${extension}
+		[ ! -f 19.${extension} ] && ln -s 0.${extension} 19.${extension}
 	fi
 	newName=1
 	for filename in *; do
