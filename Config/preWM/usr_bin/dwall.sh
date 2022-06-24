@@ -252,11 +252,7 @@ convert_folder_2_Dywall_now() {
 	for filename in *; do
 		while [ $newName -lt 24 ]
 		do
-			if [ ! -f "${newName}.${extension}" ] || [ $newName -lt 24 ]; then
-				ln -s "$filename" "${newName}.${extension}"
-			else
-				break
-			fi
+			ln -s "$filename" "${newName}.${extension}" 2>/dev/null || break
 			let newName=newName+1
 		done
 		let newName=newName+1
