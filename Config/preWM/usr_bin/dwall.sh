@@ -303,6 +303,8 @@ install_now_() {
 Download_wallpapers_now(){
 	check_if_installed git
 	mkdir -p /tmp/dynamic_wallpapers
+	echo "Download wallpapers for https://github.com/adi1090x/dynamic-wallpaper"
+	echo "size wallpaper is 150 MB"
 	read -p "Do you want to proceed? (yes/no) " yn
 	yn=${yn^^}
 	case $yn in 
@@ -316,6 +318,8 @@ Download_wallpapers_now(){
 			Do_want_to_install_not_installed_apps_are;;
 	esac
 	
+	echo "Download wallpapers for https://github.com/saint-13/Linux_Dynamic_Wallpapers"
+	echo "size 2.5 GB"
 	read -p "Do you want to proceed? (yes/no) " yn
 	yn=${yn^^}
 	case $yn in 
