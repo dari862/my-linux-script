@@ -27,7 +27,7 @@ getcolors() {
 	CYAN=$(xrdb -query | grep 'color6:'| awk '{print $NF}')
 	WHITE=$(xrdb -query | grep 'color7:'| awk '{print $NF}')
 }
-getcolors
+#getcolors
 
 ## Configurations --------------------------------------------#
 workspaces() {
@@ -199,8 +199,8 @@ fi
 exec picom --config "$HOME/.config/picom.conf" &
 
 # Start bspwm scripts
-bspfloat &
 export PATH=$PATH:$HOME/.local/bin/bspwm
+bspfloat &
 
 # Start Conky
 #(sleep 2; start_conky.sh) &
