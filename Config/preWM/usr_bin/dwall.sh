@@ -232,15 +232,29 @@ convert_folder_2_Dywall_now() {
 		if [ "$number_of_files" == 3 ]; then
 			mv `\ls | head -2 | tail -1` 13.${extension}
 		elif [ "$number_of_files" == 4 ]; then
+			mv `\ls | head -2 | tail -1` 13.${extension}
 			mv `\ls | head -3 | tail -1` 17.${extension}
 		elif [ "$number_of_files" == 5 ]; then
+			mv `\ls | head -2 | tail -1` 7.${extension}
 			mv `\ls | head -3 | tail -1` 13.${extension}
 			mv `\ls | head -4 | tail -1` 17.${extension}
 		elif [ "$number_of_files" == 6 ]; then
+			mv `\ls | head -2 | tail -1` 7.${extension}
+			mv `\ls | head -3 | tail -1` 13.${extension}
+			mv `\ls | head -4 | tail -1` 17.${extension}
 			mv `\ls | head -5 | tail -1` 19.${extension}
 		elif [ "$number_of_files" == 7 ]; then
+			mv `\ls | head -2 | tail -1` 7.${extension}
+			mv `\ls | head -3 | tail -1` 13.${extension}
+			mv `\ls | head -4 | tail -1` 17.${extension}
+			mv `\ls | head -5 | tail -1` 19.${extension}
 			mv `\ls | head -6 | tail -1` 21.${extension}
 		elif [ "$number_of_files" == 8 ]; then
+			mv `\ls | head -2 | tail -1` 7.${extension}
+			mv `\ls | head -3 | tail -1` 13.${extension}
+			mv `\ls | head -4 | tail -1` 17.${extension}
+			mv `\ls | head -5 | tail -1` 19.${extension}
+			mv `\ls | head -6 | tail -1` 21.${extension}
 			mv `\ls | head -7 | tail -1` 4.${extension}
 		fi
 		
