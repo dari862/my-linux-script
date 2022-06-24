@@ -25,12 +25,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		
 		number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
 
-		timed_backgrounds {
-		
-		https://github.com/adi1090x/dynamic-wallpaper
-		
-		https://github.com/saint-13/Linux_Dynamic_Wallpapers
-		}
+		fix terminals in bspwm
+	
 		shortcut on bspwm & openbox
 
 		test bspwm & openbox
