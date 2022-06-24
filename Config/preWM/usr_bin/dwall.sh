@@ -311,6 +311,7 @@ Download_wallpapers_now(){
 			git clone https://github.com/adi1090x/dynamic-wallpaper			/tmp/dynamic-wallpaper
 		;;
 		NO|N) echo "skipping Download...";
+		;;
 		* ) >&2 printf '\033[31;1merror :\033[m %s\n' invalid response;
 			Do_want_to_install_not_installed_apps_are;;
 	esac
@@ -395,6 +396,7 @@ Download_wallpapers_now(){
 			echo "Downloading 2-2 urls for wallpapers"
 		;;
 		NO|N) echo "skipping Download...";
+		;;
 		* ) >&2 printf '\033[31;1merror :\033[m %s\n' invalid response;
 			Do_want_to_install_not_installed_apps_are;;
 	esac
