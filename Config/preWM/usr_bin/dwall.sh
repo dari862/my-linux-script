@@ -415,8 +415,8 @@ Download_wallpapers_now(){
 		exit 0
 	fi
 
-	mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
-	mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
+	[ -d /tmp/dynamic-wallpaper ] && mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
+	[ -d /tmp/Linux_Dynamic_Wallpapers ] && mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
 	#sudo chown -R root:root /tmp/dynamic_wallpapers
 	#sudo mv /tmp/dynamic_wallpapers $DIR
 	
