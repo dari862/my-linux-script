@@ -395,6 +395,10 @@ Download_wallpapers_now(){
 			for d in ${PWD}/*
 			do
 				cd "$d"
+				for filename in *; do
+					mv "$filename" "${newName}.${extension}"
+					let newName=newName+1
+				done
 				convert_folder_2_Dywall_now
 			done
 			echo "Downloading 2-2 urls for wallpapers"
