@@ -399,7 +399,7 @@ Download_wallpapers_now(){
 					mv "$filename" "${newName}.${extension}"
 					let newName=newName+1
 				done
-				convert_folder_2_Dywall_now
+				#convert_folder_2_Dywall_now
 			done
 			echo "Downloading 2-2 urls for wallpapers"
 		;;
@@ -415,8 +415,8 @@ Download_wallpapers_now(){
 
 	mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
 	mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
-	sudo chown -R root:root /tmp/dynamic_wallpapers
-	sudo mv /tmp/dynamic_wallpapers $DIR
+	#sudo chown -R root:root /tmp/dynamic_wallpapers
+	#sudo mv /tmp/dynamic_wallpapers $DIR
 	
 	echo "Done"
 	exit 0
