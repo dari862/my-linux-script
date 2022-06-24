@@ -223,27 +223,29 @@ convert_folder_2_Dywall_now() {
 	
 	fullname="$(\ls | tail -1)"
 	extension="${fullname##*.}"
-	first_file="$(\ls | head -1)"
-	last_file="${fullname}"
-	
-	if [ "$number_of_files" -lt 9 ]; then
-		mv ${last_file} 0.${extension}
-		mv ${first_file} 5.${extension}
 		
+	if [ "$number_of_files" -lt 9 ]; then
+		first_file="$(\ls | head -1)"
+		last_file="${fullname}"
+		mv ${last_file} 9999
+		mv ${first_file} 0_0_0
 		if [ "$number_of_files" == 3 ]; then
-			mv `\ls | head -1` 13.${extension}
-		elif [ "$number_of_files" == 4 ]; then
-			mv `\ls | head -2 | tail -1` 17.${extension}
-		elif [ "$number_of_files" == 5 ]; then
 			mv `\ls | head -2 | tail -1` 13.${extension}
+		elif [ "$number_of_files" == 4 ]; then
 			mv `\ls | head -3 | tail -1` 17.${extension}
+		elif [ "$number_of_files" == 5 ]; then
+			mv `\ls | head -3 | tail -1` 13.${extension}
+			mv `\ls | head -4 | tail -1` 17.${extension}
 		elif [ "$number_of_files" == 6 ]; then
-			mv `\ls | head -4 | tail -1` 19.${extension}
+			mv `\ls | head -5 | tail -1` 19.${extension}
 		elif [ "$number_of_files" == 7 ]; then
-			mv `\ls | head -5 | tail -1` 21.${extension}
+			mv `\ls | head -6 | tail -1` 21.${extension}
 		elif [ "$number_of_files" == 8 ]; then
-			mv `\ls | head -6 | tail -1` 4.${extension}
+			mv `\ls | head -7 | tail -1` 4.${extension}
 		fi
+		
+		mv 9999 0.${extension}
+		mv 0_0_0 5.${extension}
 	fi
 	newName=1
 	for filename in *; do
@@ -399,7 +401,7 @@ Download_wallpapers_now(){
 					mv "$filename" "${newName}.${extension}"
 					let newName=newName+1
 				done
-				#convert_folder_2_Dywall_now
+				convert_folder_2_Dywall_now
 			done
 			echo "Downloading 2-2 urls for wallpapers"
 		;;
