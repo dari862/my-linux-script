@@ -382,13 +382,13 @@ Download_wallpapers_now(){
 			mv 2.${extension} 5.${extension}
 			mv 1.${extension} 3.${extension}
 			
-			cd /tmp/Linux_Dynamic_Wallpapers
+			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers
 			extension=""
 			folder_2_convert_2_Dywall=""
 			d=""
 			for d in ${PWD}/*
 			do
-				cd $d
+				cd "$d"
 				fullname="$(\ls * | tail -1)"
 				extension="${fullname##*.}"
 				newName=0
