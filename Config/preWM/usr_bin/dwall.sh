@@ -325,6 +325,7 @@ Download_wallpapers_now(){
 		YES|Y) 
 			echo "Downloading 0-2 urls for wallpapers"
 			git clone https://github.com/adi1090x/dynamic-wallpaper			/tmp/dynamic-wallpaper
+			mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
 		;;
 		NO|N) echo "skipping Download...";
 		;;
@@ -417,6 +418,7 @@ Download_wallpapers_now(){
 				done
 				convert_folder_2_Dywall_now
 			done
+			mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
 			echo "Downloading 2-2 urls for wallpapers"
 		;;
 		NO|N) echo "skipping Download...";
@@ -428,9 +430,7 @@ Download_wallpapers_now(){
 	if [ ! -d /tmp/Linux_Dynamic_Wallpapers ] && [ ! -d /tmp/dynamic-wallpaper ]; then
 		exit 0
 	fi
-
-	[ -d /tmp/dynamic-wallpaper ] && mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
-	[ -d /tmp/Linux_Dynamic_Wallpapers ] && mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
+	
 	#sudo chown -R root:root /tmp/dynamic_wallpapers
 	#sudo mv /tmp/dynamic_wallpapers $DIR
 	
