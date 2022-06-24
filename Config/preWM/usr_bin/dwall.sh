@@ -249,7 +249,7 @@ convert_folder_2_Dywall_now() {
 		[ ! -f 19.${extension} ] && ln -s 0.${extension} 19.${extension}
 	fi
 	newName=1
-	for filename in *; do
+	for filename in `ls`; do
 		while [ $newName -lt 24 ]
 		do
 			ln -s "$filename" "${newName}.${extension}" 2>/dev/null || break
