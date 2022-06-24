@@ -357,6 +357,7 @@ Download_wallpapers_now(){
 			mv 3.${extension} 6.${extension}
 			mv 2.${extension} 5.${extension}
 			mv 1.${extension} 3.${extension}
+			convert_folder_2_Dywall_now
 			
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/Mojave
 			extension="jpeg"
@@ -382,8 +383,12 @@ Download_wallpapers_now(){
 			mv 3.${extension} 6.${extension}
 			mv 2.${extension} 5.${extension}
 			mv 1.${extension} 3.${extension}
+			convert_folder_2_Dywall_now
 			
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers
+			mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/cyberpunk-01 /tmp/dynamic_wallpapers
+			mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/Mojave /tmp/dynamic_wallpapers
+			
 			extension=""
 			folder_2_convert_2_Dywall=""
 			d=""
