@@ -226,24 +226,25 @@ convert_folder_2_Dywall_now() {
 	first_file="$(\ls | head -1)"
 	last_file="${fullname}"
 	
-	mv ${last_file} 0.${extension}
-	mv ${first_file} 5.${extension}
-	
-	if [ "$number_of_files" == 3 ]; then
-		mv `\ls | head -1` 13.${extension}
-	elif [ "$number_of_files" == 4 ]; then
-		mv `\ls | head -2 | tail -1` 17.${extension}
-	elif [ "$number_of_files" == 5 ]; then
-		mv `\ls | head -2 | tail -1` 13.${extension}
-		mv `\ls | head -3 | tail -1` 17.${extension}
-	elif [ "$number_of_files" == 6 ]; then
-		mv `\ls | head -4 | tail -1` 19.${extension}
-	elif [ "$number_of_files" == 7 ]; then
-		mv `\ls | head -5 | tail -1` 21.${extension}
-	elif [ "$number_of_files" == 8 ]; then
-		mv `\ls | head -6 | tail -1` 4.${extension}
+	if [ "$number_of_files" -lt 9 ]; then
+		mv ${last_file} 0.${extension}
+		mv ${first_file} 5.${extension}
+		
+		if [ "$number_of_files" == 3 ]; then
+			mv `\ls | head -1` 13.${extension}
+		elif [ "$number_of_files" == 4 ]; then
+			mv `\ls | head -2 | tail -1` 17.${extension}
+		elif [ "$number_of_files" == 5 ]; then
+			mv `\ls | head -2 | tail -1` 13.${extension}
+			mv `\ls | head -3 | tail -1` 17.${extension}
+		elif [ "$number_of_files" == 6 ]; then
+			mv `\ls | head -4 | tail -1` 19.${extension}
+		elif [ "$number_of_files" == 7 ]; then
+			mv `\ls | head -5 | tail -1` 21.${extension}
+		elif [ "$number_of_files" == 8 ]; then
+			mv `\ls | head -6 | tail -1` 4.${extension}
+		fi
 	fi
-	
 	newName=1
 	for filename in *; do
 		while [ $newName -lt 24 ]
@@ -389,13 +390,6 @@ Download_wallpapers_now(){
 			for d in ${PWD}/*
 			do
 				cd "$d"
-				fullname="$(\ls * | tail -1)"
-				extension="${fullname##*.}"
-				newName=0
-				for filename in *; do
-					mv "$filename" "${newName}.${extension}"
-					let newName=newName+1
-				done
 				convert_folder_2_Dywall_now
 			done
 			echo "Downloading 2-2 urls for wallpapers"
