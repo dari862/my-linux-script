@@ -270,12 +270,16 @@ Create_links_for_folders_now(){
 	folders_2_create_links_for=`\ls | sort -n | tr '\n' ' '`
 	newName=1
 	for filename in $folders_2_create_links_for; do
-		while [ $newName -lt 24 ]
+		break_from_this_loop=false
+		while [ ${break_from_this_loop} != true ]
 		do
-			ln -s "$filename" "${newName}.${extension}" 2>/dev/null || break
+			if [ ! -f "${newName}.${extension}" ]; then
+				ln -s "$filename" "${newName}.${extension}"
+			else
+				break_from_this_loop=true
+			fi
 			let newName=newName+1
 		done
-		let newName=newName+1
 	done
 }
 
@@ -539,6 +543,7 @@ done
 
 if [[ "$do_you_want_2_convert_folder_2_Dywall" == true ]]; then
 	cd $folder_2_convert_2_Dywall
+	Move_files_to_correct_postion_now
 	Create_links_for_folders_now
 	exit 0
 fi
