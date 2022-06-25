@@ -565,7 +565,7 @@ fi
 Prerequisite
 if [[ "$STYLE" ]]; then
 	check_style "$STYLE"
-    main
+	main
 else
 	{ usage; reset_color; exit 1; }
 fi
