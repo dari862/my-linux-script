@@ -267,20 +267,20 @@ Convert_current_folder_2_Dywall_now() {
 }
 
 Create_links_for_folders_now(){
-	fullname="$(\ls | tail -1)"
-	extension="${fullname##*.}"
+	fullname_L="$(\ls | tail -1)"
+	extension_L="${fullname_L##*.}"
 	folders_2_create_links_for=(`\ls | sort -n | tr '\n' ' '`)
-	newName=1
-	for filename in $folders_2_create_links_for; do
-		while [ "$newName" -lt 24 ]
+	newName_L=1
+	for filename_L in $folders_2_create_links_for; do
+		while [ "$newName_L" -lt 24 ]
 		do
-			if [ -f "${newName}.${extension}" ] || [ "$newName" -gt 24 ]; then
+			if [ -f "${newName_L}.${extension_L}" ] || [ "$newName_L" -gt 24 ]; then
 				break
 			fi
-				ln -s "$filename" "${newName}.${extension}"
-				let newName=newName+1
+				ln -s "$filename_L" "${newName_L}.${extension_L}"
+				let newName_L=newName_L+1
 		done
-		let newName=newName+1
+		let newName_L=newName_L+1
 	done
 }
 
