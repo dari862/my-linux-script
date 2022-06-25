@@ -213,7 +213,7 @@ check_style() {
 }
 
 ## Convert choses folder to Dywall
-convert_folder_2_Dywall_now() {
+Move_files_to_correct_postion_now() {
 	number_of_files="$(\ls -1 | wc -l || echo 'no files')"
 	
 	if [ "$number_of_files" == 1 ] || [ "$number_of_files" -gt 23 ]; then
@@ -262,8 +262,14 @@ convert_folder_2_Dywall_now() {
 		mv 0_0_0 5.${extension}
 		[ ! -f 19.${extension} ] && ln -s 0.${extension} 19.${extension}
 	fi
+}
+
+Create_links_for_folders_now(){
+	fullname="$(\ls | tail -1)"
+	extension="${fullname##*.}"
+	folders_2_create_links_for=`\ls | sort -n | tr '\n' ' '`
 	newName=1
-	for filename in `ls`; do
+	for filename in $folders_2_create_links_for; do
 		while [ $newName -lt 24 ]
 		do
 			ln -s "$filename" "${newName}.${extension}" 2>/dev/null || break
@@ -371,7 +377,7 @@ Download_wallpapers_now(){
 			mv 3.${extension} 6.${extension}
 			mv 2.${extension} 5.${extension}
 			mv 1.${extension} 3.${extension}
-			convert_folder_2_Dywall_now
+			Move_files_to_correct_postion_now
 			
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/Mojave
 			extension="jpeg"
@@ -397,7 +403,7 @@ Download_wallpapers_now(){
 			mv 3.${extension} 6.${extension}
 			mv 2.${extension} 5.${extension}
 			mv 1.${extension} 3.${extension}
-			convert_folder_2_Dywall_now
+			Move_files_to_correct_postion_now
 			
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers
 			mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/cyberpunk-01 /tmp/dynamic_wallpapers
@@ -406,7 +412,8 @@ Download_wallpapers_now(){
 			extension=""
 			folder_2_convert_2_Dywall=""
 			d=""
-			for d in ${PWD}/*
+			folders_converts=`\ls /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers | tr '\n' ' '`
+			for d in $folders_converts
 			do
 				cd "$d"
 				newName=0
@@ -416,7 +423,8 @@ Download_wallpapers_now(){
 					mv "$filename" "${newName}.${extension}"
 					let newName=newName+1
 				done
-				convert_folder_2_Dywall_now
+				Move_files_to_correct_postion_now
+				Create_links_for_folders_now
 			done
 			mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
 			echo "Downloading 2-2 urls for wallpapers"
@@ -531,7 +539,7 @@ done
 
 if [[ "$do_you_want_2_convert_folder_2_Dywall" == true ]]; then
 	cd $folder_2_convert_2_Dywall
-	convert_folder_2_Dywall_now
+	Create_links_for_folders_now
 	exit 0
 fi
 
