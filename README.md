@@ -2,6 +2,10 @@
 
 https://github.com/diabeetus01/dynamic-wallpaper-improved#improvements
 
+https://forums.bunsenlabs.org/viewtopic.php?id=3209
+
+https://ihaveabackup.net/2016/03/14/wallpaper-changer-with-systemd/
+
 # my-linux-script
 
 ```
