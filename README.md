@@ -1,5 +1,7 @@
 # experimental
 
+https://github.com/diabeetus01/dynamic-wallpaper-improved#improvements
+
 # my-linux-script
 
 ```
