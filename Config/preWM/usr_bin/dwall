@@ -443,7 +443,9 @@ Download_wallpapers_now(){
 	fi
 	
 	sudo mkdir -p $DIR
-	sudo mv /tmp/dynamic_wallpapers/* $DIR
+	echo $DIR
+	sudo cp -r /tmp/dynamic_wallpapers/* $DIR
+	echo $DIR
 	reset_color
 	echo "Done"
 	exit 0
