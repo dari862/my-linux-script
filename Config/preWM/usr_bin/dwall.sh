@@ -20,7 +20,8 @@ REDBG="$(printf '\033[41m')"  GREENBG="$(printf '\033[42m')"  ORANGEBG="$(printf
 MAGENTABG="$(printf '\033[45m')"  CYANBG="$(printf '\033[46m')"  WHITEBG="$(printf '\033[47m')" BLACKBG="$(printf '\033[40m')"
 
 ## Wallpaper directory
-DIR="/usr/share/Dynamic_wallpapers"
+wallpapers_folder_name="Dynamic_wallpapers"
+DIR="/usr/share/${wallpapers_folder_name}"
 HOUR=`date +%k`
 
 ## Wordsplit in ZSH
@@ -285,42 +286,35 @@ Create_links_for_folders_now(){
 ## Install script
 install_now_() {
 	# Path
-	DIR=`pwd`
-	DES="/usr/share"
+	[ -f /usr/local/bin/dwall ] && echo -e ${GREEN}"[*] Already exsist. Execute 'dwall' to Run."${WHITE} & exit
+	SCRIPT_ABSOLATE_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )/$(basename "${BASH_SOURCE[0]}")"
 
 	## Make dirs
 	mkdir_dw() {
 		echo -e ${ORANGE}"[*] Installing Dynamic Wallpaper..."${WHITE}
-		if [[ -d "$DES"/dynamic-wallpaper ]]; then
+		if [[ -d $DIR ]]; then
 			# delete old directory
-			sudo rm -rf "$DES"/dynamic-wallpaper
+			sudo rm -rf $DIR
 			# create new directory
-			sudo mkdir -p "$DES"/dynamic-wallpaper
+			sudo mkdir -p $DIR
 		else
 			# create new directory
-			sudo mkdir -p "$DES"/dynamic-wallpaper
+			sudo mkdir -p $DIR
 		fi
 	}
 
 	## Copy files
 	copy_files() {
-		# copy images and scripts
-		sudo cp -r "$DIR"/images "$DES"/dynamic-wallpaper && sudo cp -r "$DIR"/dwall.sh "$DES"/dynamic-wallpaper
+		sudo cp "$SCRIPT_ABSOLATE_PATH" /usr/local/bin/dwall
 		# make script executable
-		sudo chmod +x "$DES"/dynamic-wallpaper/dwall.sh
-		# create link in bin directory
-		if [[ -L /usr/bin/dwall ]]; then
-			sudo rm /usr/bin/dwall
-			sudo ln -s "$DES"/dynamic-wallpaper/dwall.sh /usr/bin/dwall
-		else
-			sudo ln -s "$DES"/dynamic-wallpaper/dwall.sh /usr/bin/dwall
-		fi
+		sudo chmod +x /usr/local/bin/dwall
 		echo -e ${GREEN}"[*] Installed Successfully. Execute 'dwall' to Run."${WHITE}
 	}
 
 	## Install
 	mkdir_dw
 	copy_files
+	Download_wallpapers_now
 }
 
 Download_wallpapers_now(){
@@ -443,7 +437,8 @@ Download_wallpapers_now(){
 	fi
 	
 	sudo chown -R root:root /tmp/dynamic_wallpapers
-	sudo mv /tmp/dynamic_wallpapers $DIR
+	sudo mkdir -p $DIR
+	sudo mv /tmp/dynamic_wallpapers/* $DIR
 	
 	echo "Done"
 	exit 0
@@ -451,22 +446,18 @@ Download_wallpapers_now(){
 
 ## Uninstall script
 uninstall_now_() {
-	# Path
-	DES="/usr/share"
-
 	## Delete files
 	rmdir_dw() {
 		echo -e ${ORANGE}"[*] Uninstalling Dynamic Wallpaper..."${WHITE}
-		if [[ -d "$DES"/dynamic-wallpaper ]]; then
+		if [[ -d $DIR ]]; then
 			# delete dwall directory
-			sudo rm -rf "$DES"/dynamic-wallpaper
+			sudo rm -rf $DIR
 		fi
 	}
 
 	del_files() {
-		# remove link in bin directory
-		if [[ -L /usr/bin/dwall ]]; then
-			sudo rm /usr/bin/dwall
+		if [[ -f /usr/local/bin/dwall ]]; then
+			sudo rm /usr/local/bin/dwall
 		fi
 		echo -e ${GREEN}"[*] Uninstalled Successfully."${WHITE}
 	}
