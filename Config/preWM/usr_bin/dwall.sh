@@ -286,7 +286,7 @@ Create_links_for_folders_now(){
 ## Install script
 install_now_() {
 	# Path
-	[ -f /usr/local/bin/dwall ] && echo -e ${GREEN}"[*] Already exsist. Execute 'dwall' to Run."${WHITE} & exit
+	[ -f /usr/local/bin/dwall ] && (echo -e ${GREEN}"[*] Already exsist. Execute 'dwall' to Run."${WHITE} && exit)
 	SCRIPT_ABSOLATE_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )/$(basename "${BASH_SOURCE[0]}")"
 
 	## Make dirs
@@ -327,7 +327,7 @@ Download_wallpapers_now(){
 	case $yn in 
 		YES|Y) 
 			echo "Downloading 1-2 urls for wallpapers"
-			git clone https://github.com/adi1090x/dynamic-wallpaper			/tmp/dynamic-wallpaper
+			git clone https://github.com/adi1090x/dynamic-wallpaper			/tmp/dynamic-wallpaper  2>/dev/null
 			mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
 		;;
 		NO|N) echo "skipping Download...";
@@ -343,7 +343,7 @@ Download_wallpapers_now(){
 	case $yn in 
 		YES|Y) 
 			echo "Downloading 2-2 urls for wallpapers"
-			git clone https://github.com/saint-13/Linux_Dynamic_Wallpapers	/tmp/Linux_Dynamic_Wallpapers
+			git clone https://github.com/saint-13/Linux_Dynamic_Wallpapers	/tmp/Linux_Dynamic_Wallpapers 2>/dev/null
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers
 			/bin/rm -f * 2>/dev/null
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/cyberpunk-01
