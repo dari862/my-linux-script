@@ -476,7 +476,7 @@ uninstall_now_() {
 
 #
 create_crontab_now() {
-	crontab -r
+	crontab -r 2>/dev/null
 	(crontab -l 2>/dev/null; echo "0 * * * * env PATH=$PATH DISPLAY=$DISPLAY DESKTOP_SESSION=$DESKTOP_SESSION DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\" /usr/bin/dwall -s $STYLE") | crontab -
 }
 
