@@ -563,7 +563,7 @@ main() {
 
 WALSCHEME='dark'
 ## Get Options
-while getopts ":oOhpiudDals:c:" opt; do
+while getopts ":oOhpiudDals:c:b:" opt; do
 	case ${opt} in
 		d)
 			DEBUG=true
