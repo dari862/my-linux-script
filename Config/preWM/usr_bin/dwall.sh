@@ -263,6 +263,7 @@ Convert_current_folder_2_Dywall_now() {
 		[ ! -f 19.${extension} ] && ln -s 0.${extension} 19.${extension}
 	fi
 	Create_links_for_folders_now
+	reset_color
 }
 
 Create_links_for_folders_now(){
@@ -286,7 +287,11 @@ Create_links_for_folders_now(){
 ## Install script
 install_now_() {
 	# Path
-	[ -f /usr/local/bin/dwall ] && (echo -e ${GREEN}"[*] Already exsist. Execute 'dwall' to Run."${WHITE} && exit)
+	if [ -f /usr/local/bin/dwall ]; then 
+		echo -e ${GREEN}"[*] Already exsist. Execute 'dwall' to Run."${WHITE} 
+		reset_color
+		exit 0
+	fi
 	SCRIPT_ABSOLATE_PATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )/$(basename "${BASH_SOURCE[0]}")"
 
 	## Make dirs
@@ -314,6 +319,7 @@ install_now_() {
 	## Install
 	mkdir_dw
 	copy_files
+	reset_color
 	Download_wallpapers_now
 }
 
@@ -438,7 +444,7 @@ Download_wallpapers_now(){
 	
 	sudo mkdir -p $DIR
 	sudo mv /tmp/dynamic_wallpapers/* $DIR
-	
+	reset_color
 	echo "Done"
 	exit 0
 }
