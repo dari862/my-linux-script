@@ -270,7 +270,7 @@ Create_links_for_folders_now(){
 	extension_L="${fullname_L##*.}"
 	folders_2_create_links_for=(`\ls | sort -n | tr '\n' ' '`)
 	newName_L=1
-	for filename_L in $folders_2_create_links_for; do
+	for filename_L in ${folders_2_create_links_for[@]}; do
 		while [ "$newName_L" -lt 24 ]
 		do
 			if [ -f "${newName_L}.${extension_L}" ] || [ "$newName_L" -gt 24 ]; then
