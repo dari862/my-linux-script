@@ -436,7 +436,6 @@ Download_wallpapers_now(){
 		exit 0
 	fi
 	
-	sudo chown -R root:root /tmp/dynamic_wallpapers
 	sudo mkdir -p $DIR
 	sudo mv /tmp/dynamic_wallpapers/* $DIR
 	
