@@ -332,7 +332,7 @@ Download_wallpapers_now(){
 	yn=${yn^^}
 	case $yn in 
 		YES|Y) 
-			echo "Downloading 0-2 urls for wallpapers"
+			echo "Downloading 1-2 urls for wallpapers"
 			git clone https://github.com/adi1090x/dynamic-wallpaper			/tmp/dynamic-wallpaper
 			mv /tmp/dynamic-wallpaper/images/* /tmp/dynamic_wallpapers 2>/dev/null
 		;;
@@ -348,7 +348,7 @@ Download_wallpapers_now(){
 	yn=${yn^^}
 	case $yn in 
 		YES|Y) 
-			echo "Downloading 1-2 urls for wallpapers"
+			echo "Downloading 2-2 urls for wallpapers"
 			git clone https://github.com/saint-13/Linux_Dynamic_Wallpapers	/tmp/Linux_Dynamic_Wallpapers
 			cd /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers
 			/bin/rm -f * 2>/dev/null
@@ -430,7 +430,7 @@ Download_wallpapers_now(){
 			done
 			
 			mv /tmp/Linux_Dynamic_Wallpapers/Dynamic_Wallpapers/* /tmp/dynamic_wallpapers 2>/dev/null
-			echo "Downloading 2-2 urls for wallpapers"
+			echo "Downloading complete"
 		;;
 		NO|N) echo "skipping Download...";
 		;;
