@@ -20,8 +20,7 @@ REDBG="$(printf '\033[41m')"  GREENBG="$(printf '\033[42m')"  ORANGEBG="$(printf
 MAGENTABG="$(printf '\033[45m')"  CYANBG="$(printf '\033[46m')"  WHITEBG="$(printf '\033[47m')" BLACKBG="$(printf '\033[40m')"
 
 ## Wallpaper directory
-#DIR="/usr/share/dynamic_wallpaper"
-DIR="`pwd`/images"
+DIR="/usr/share/Dynamic_wallpapers"
 HOUR=`date +%k`
 
 ## Wordsplit in ZSH
@@ -443,8 +442,8 @@ Download_wallpapers_now(){
 		exit 0
 	fi
 	
-	#sudo chown -R root:root /tmp/dynamic_wallpapers
-	#sudo mv /tmp/dynamic_wallpapers $DIR
+	sudo chown -R root:root /tmp/dynamic_wallpapers
+	sudo mv /tmp/dynamic_wallpapers $DIR
 	
 	echo "Done"
 	exit 0
