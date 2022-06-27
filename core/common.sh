@@ -87,7 +87,7 @@ sudo systemctl stop pppd-dns.service &>> $debug_log || show_im "fail to stop ppp
 sudo systemctl disable pppd-dns.service &>> $debug_log || show_im "fail to disable pppd-dns.service"
 
 # Disable tracker (Data indexing for GNOME mostly)
-systemctl --user mask tracker-store.service tracker-miner-fs.service tracker-miner-rss.service tracker-extract.service tracker-miner-apps.service tracker-writeback.service || || show_im "fail to disable tracker services"
+systemctl --user mask tracker-store.service tracker-miner-fs.service tracker-miner-rss.service tracker-extract.service tracker-miner-apps.service tracker-writeback.service || show_im "fail to disable tracker services"
 systemctl --user mask gvfs-udisks2-volume-monitor.service gvfs-metadata.service gvfs-daemon.service || show_im "fail to disable gvfs.service"
 
 if systemctl status NetworkManager.service &>/dev/null; then
