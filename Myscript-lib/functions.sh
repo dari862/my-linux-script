@@ -319,11 +319,11 @@ keep_Sudo_refresed()
 apt_purge_with_error()
 {
 localarray=("$@")
-for INDEX in "${localarray[@]}"
+for package in "${localarray[@]}"
 do
-	if dpkg -s "${INDEX}" >/dev/null 2>&1; then
-		show_m "Purging ${INDEX}."
-		sudo apt-get -y purge "$INDEX" &>> $debug_log || show_em " Failed to purge $INDEX "
+	if dpkg -s "${package}" &>/dev/null; then
+		show_m "Purging ${package}."
+		sudo apt-get -y purge "$package" &>> $debug_log || show_em " Failed to purge $package "
 	else
 		show_em "Package ${package} is not installed. Skipping."
 	fi
@@ -334,13 +334,13 @@ done
 apt_purge_with_error2info()
 {
 localarray=("$@")
-for INDEX in "${localarray[@]}"
+for package in "${localarray[@]}"
 do
-	if dpkg -s "${INDEX}" >/dev/null 2>&1; then
-		show_m "Purging ${INDEX}."
-		sudo apt-get -y purge "$INDEX" &>> $debug_log || show_im " Failed to purge $INDEX "
+	if dpkg -s "${package}" &>/dev/null; then
+		show_m "Purging ${package}."
+		sudo apt-get -y purge "$package" &>> $debug_log || show_im " Failed to purge $package "
 	else
-		show_em "Package ${package} is not installed. Skipping."
+		show_im "Package ${package} is not installed. Skipping."
 	fi
 done
 
