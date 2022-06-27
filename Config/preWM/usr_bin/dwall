@@ -9,9 +9,10 @@
 ## Created to work better with job schedulers (cron)
 
 #[ "$(id -u)" -eq 0 ] && { echo "never run script as root. existing.."; exit 1 ;}
-
+corn_dwall_extra_arg=()
 SETTER=""
 folder_2_convert_2_Dywall=""
+WALSCHEME='dark'
 
 ## ANSI Colors (FG & BG)
 RED="$(printf '\033[31m')"  GREEN="$(printf '\033[32m')"  ORANGE="$(printf '\033[33m')"  BLUE="$(printf '\033[34m')"
@@ -20,6 +21,7 @@ REDBG="$(printf '\033[41m')"  GREENBG="$(printf '\033[42m')"  ORANGEBG="$(printf
 MAGENTABG="$(printf '\033[45m')"  CYANBG="$(printf '\033[46m')"  WHITEBG="$(printf '\033[47m')" BLACKBG="$(printf '\033[40m')"
 
 ## Wallpaper directory
+dwall_installation_Dir="/usr/local/bin/dwall"
 wallpapers_folder_name="Dynamic_wallpapers"
 DIR="/usr/share/${wallpapers_folder_name}"
 HOUR=`date +%k`
@@ -125,7 +127,7 @@ Prerequisite() {
 
 ## Usage
 usage() {
-	clear
+	#clear
     cat <<- EOF
 		${RED}╺┳┓╻ ╻┏┓╻┏━┓┏┳┓╻┏━╸   ${GREEN}╻ ╻┏━┓╻  ╻  ┏━┓┏━┓┏━┓┏━╸┏━┓
 		${RED} ┃┃┗┳┛┃┗┫┣━┫┃┃┃┃┃     ${GREEN}┃╻┃┣━┫┃  ┃  ┣━┛┣━┫┣━┛┣╸ ┣┳┛
@@ -157,9 +159,9 @@ usage() {
 		`basename $0` -s beach                   Set 'beach' style wallpaper
 		`basename $0` -s beach -o ~/.wallpaper   Save 'beach' style wallpaper into file '~/.wallpaper'
 		`basename $0` -p -s sahara               Set 'beach' style wallpaper, and refresh the pywal theme
-		`basename $0` -p -b colorz -s sahara     " with 'colorz' backend
-		`basename $0` -p -b colorz -s sahara -a    " with automatic light/dark mode
-		`basename $0` -p -b colorz -s sahara -l    " with forced light mode															 
+		`basename $0` -b colorz -s sahara     	 Set 'sahara' style wallpaper, and refresh the pywal theme with 'colorz' backend
+		`basename $0` -b colorz -s sahara -a     Set 'sahara' style wallpaper, and refresh the pywal theme with 'colorz' backend with automatic light/dark mode
+		`basename $0` -b colorz -s sahara -l     Set 'sahara' style wallpaper, and refresh the pywal theme with 'colorz' backend with forced light mode															 
 	EOF
 }
 
@@ -355,7 +357,7 @@ Create_links_for_folders_now(){
 ## Install script
 install_now_() {
 	# Path
-	if [ -f /usr/local/bin/dwall ]; then 
+	if [ -f ${dwall_installation_Dir} ]; then 
 		echo -e ${GREEN}"[*] Already exsist. Execute 'dwall' to Run."${WHITE} 
 		reset_color
 		exit 0
@@ -378,9 +380,9 @@ install_now_() {
 
 	## Copy files
 	copy_files() {
-		sudo cp "$SCRIPT_ABSOLATE_PATH" /usr/local/bin/dwall
+		sudo cp "$SCRIPT_ABSOLATE_PATH" ${dwall_installation_Dir}
 		# make script executable
-		sudo chmod +x /usr/local/bin/dwall
+		sudo chmod +x ${dwall_installation_Dir}
 		echo -e ${GREEN}"[*] Installed Successfully. Execute 'dwall' to Run."${WHITE}
 	}
 
@@ -528,8 +530,8 @@ uninstall_now_() {
 	}
 
 	del_files() {
-		if [[ -f /usr/local/bin/dwall ]]; then
-			sudo rm /usr/local/bin/dwall
+		if [[ -f ${dwall_installation_Dir} ]]; then
+			sudo rm ${dwall_installation_Dir}
 		fi
 		echo -e ${GREEN}"[*] Uninstalled Successfully."${WHITE}
 	}
@@ -542,7 +544,7 @@ uninstall_now_() {
 #
 create_crontab_now() {
 	crontab -r 2>/dev/null
-	(crontab -l 2>/dev/null; echo "0 * * * * env PATH=$PATH DISPLAY=$DISPLAY DESKTOP_SESSION=$DESKTOP_SESSION DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\" /usr/bin/dwall -s $STYLE") | crontab -
+	(crontab -l 2>/dev/null; echo "0 * * * * env PATH=$PATH DISPLAY=$DISPLAY DESKTOP_SESSION=$DESKTOP_SESSION DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\" ${dwall_installation_Dir} ${corn_dwall_extra_arg[@]}") | crontab -
 }
 
 ## Main
@@ -567,9 +569,8 @@ main() {
 	exit 0
 }
 
-WALSCHEME='dark'
 ## Get Options
-while getopts ":oOhpiudDals:c:b:" opt; do
+while getopts ":dolachiugs:pb:c:z:" opt; do
 	case ${opt} in
 		d)
 			DEBUG=true
@@ -577,11 +578,12 @@ while getopts ":oOhpiudDals:c:b:" opt; do
 		p)
 			PYWAL=true
 			;;
-		o)
-			OUTPUT=$OPTARG
-			;;
 		b)
 			WALBACKEND=$OPTARG
+			PYWAL=true
+			;;
+		o)
+			OUTPUT=$OPTARG
 			;;
 		s)
 			STYLE=$OPTARG
@@ -597,7 +599,8 @@ while getopts ":oOhpiudDals:c:b:" opt; do
 			do_you_want_2_convert_folder_2_Dywall=true
 			;;
 		h)
-			{ usage; reset_color; exit 0; }
+			usage
+			exit_0
 			;;
 		i)
 			Set_installation_=true
@@ -605,48 +608,73 @@ while getopts ":oOhpiudDals:c:b:" opt; do
 		u)
 			Set_uninstall_=true
 			;;
-		O)
+		z)
 			create_crontab_=true
 			;;
-		D)
+		g)
 			Download_wallpapers_=true
 			;;
 		\?)
 			echo -e ${RED}"[!] Unknown option, run ${GREEN}`basename $0` -h"
-			{ reset_color; exit 1; }
+			exit_1
 			;;
 		:)
 			echo -e ${RED}"[!] Invalid:$G -$OPTARG$R requires an argument."
-			{ reset_color; exit 1; }
+			exit_1
 			;;
 	esac
 done
 
 if [[ "$do_you_want_2_convert_folder_2_Dywall" == true ]]; then
-	cd $folder_2_convert_2_Dywall
-	Convert_current_folder_2_Dywall_now
-	exit 0
+	if [ ! -d $folder_2_convert_2_Dywall ]; then
+		echo "directory does not exsist"
+		exit_1
+	else
+		cd $folder_2_convert_2_Dywall
+		Convert_current_folder_2_Dywall_now
+	fi
+	exit_0
 fi
 
 if [[ "$Set_installation_" == true ]]; then
 	install_now_
-	exit 0
+	exit_0
 fi
 
 if [[ "$Set_uninstall_" == true ]]; then
 	uninstall_now_
-	exit 0
+	exit_0
 fi
 
 if [[ "$Download_wallpapers_" == true ]]; then
 	Download_wallpapers_now
 fi
 
+if [[ "$create_crontab_" == true ]]; then
+	if [[ "$STYLE" ]]; then
+		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-s $STYLE")
+	fi
+	
+	if [[ "$WALBACKEND" ]]; then
+		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-b $WALBACKEND")
+	elif [[ "$PYWAL" == true ]]; then
+		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-p")
+	fi
+	
+	if [[ "$WALSCHEME" == "light" ]]; then
+		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-l")
+	elif [[ "$WALSCHEME" == "auto" ]]; then
+		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-a")
+	fi		
+	exit_1
+fi
+
 ## Run
 Prerequisite
 if [[ "$STYLE" ]]; then
 	check_style "$STYLE"
-	main
+	main	
 else
-	{ usage; reset_color; exit 1; }
+	usage
+	exit_1
 fi
