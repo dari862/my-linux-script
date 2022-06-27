@@ -55,12 +55,13 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		
 		from autojamp
 		
-		# slow zsh
-		
+		# slow zsh	
+	
+		from autojamp		
+	
 		from theme
 		
-		autosuggestion	
-		
-		from autojamp
+		from autosuggestion	
+
 
 </details>
