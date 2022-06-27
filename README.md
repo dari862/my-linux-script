@@ -37,7 +37,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 
 		test bspwm & openbox
 
-		speed up zsh & bash
+		speed up zsh
 		
 		dev_Array Tor_Array internet_Array Network_Array at install_essential_and_optional_apps.sh
 	
@@ -52,5 +52,9 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		# polybar error
 	
 		error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
+		
+		# speed up bash
+		
+		slow from autojamp
 
 </details>
