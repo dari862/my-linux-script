@@ -36,8 +36,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		shortcut on bspwm & openbox
 
 		test bspwm & openbox
-
-		speed up zsh
 		
 		dev_Array Tor_Array internet_Array Network_Array at install_essential_and_optional_apps.sh
 	
@@ -53,8 +51,16 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 	
 		error: tray: Failed to put tray above 0x3800001 in the stack (XCB_MATCH (8))
 		
-		# speed up bash
+		# slow bash
 		
-		slow from autojamp
+		from autojamp
+		
+		# slow zsh
+		
+		from theme
+		
+		autosuggestion	
+		
+		from autojamp
 
 </details>
