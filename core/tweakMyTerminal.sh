@@ -72,7 +72,7 @@ export ADOTDIR="\$zshdotfiles/antigen"
 source /usr/share/zsh-antigen/antigen.zsh
 # sourcing my antigen stuff
 source "\$zshdotfiles/antigen-plugins.zsh"
-# Tell Antigen that you're done.
+# Tell Antigen that you are done.
 antigen apply
 
 #############
