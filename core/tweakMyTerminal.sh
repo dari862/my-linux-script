@@ -27,11 +27,11 @@ echo 'source $BASHDOTDIR/bash_logout' >> $temp_folder_for_skel_tweakterminalfold
 
 local autojump_sh_location="/usr/share/autojump/autojump.sh"
 
-local autojump_2_source='if [ -f /usr/share/autojump/autojump.sh ]; then 
+local autojump_2_source="if [ -f /usr/share/autojump/autojump.sh ]; then 
   . /usr/share/autojump/autojump.sh 
 else 
-  echo "autojump.sh at ( /usr/share/autojump/autojump.sh ) does not exist." 
-fi'
+  echo \"autojump.sh at ( /usr/share/autojump/autojump.sh ) does not exist.\" 
+fi"
 
 show_m "adding autojump and thefuck  to $bashrcfilename"
 cat <<EOF_bashrc >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
