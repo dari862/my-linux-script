@@ -4,8 +4,8 @@ ZSH_THEME="headline"
 
 # ------------------------------- ZSH PLUGINS ---------------------------------
 
-zplugins=(zsh-syntax-highlighting.zsh
-zsh-autosuggestions.zsh
+zplugins=(zsh-syntax-highlighting
+zsh-autosuggestions
 command-not-found)
 
 # -----------------------------------------------------------------------------
