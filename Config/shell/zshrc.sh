@@ -118,6 +118,8 @@ source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
 for zplugin ($zplugins); do
 	if builtin test -f $zshdotfiles/zplugins/${zplugin}.plugin.zsh; then
   		source $zshdotfiles/zplugins/${zplugin}.plugin.zsh
+	elif builtin test -f $zshdotfiles/zplugins/${zplugin}.zsh; then
+  		source $zshdotfiles/zplugins/${zplugin}.zsh
   	elif builtin test -f /usr/share/${zplugin}/${zplugin}.zsh; then
   		source /usr/share/${zplugin}/${zplugin}.zsh
   	else
