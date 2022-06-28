@@ -95,7 +95,7 @@ xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
 esac
 
 # -------------------------------   Prompt    ---------------------------------
-source $zshdotfiles/zthemes/$ZSH_THEME.zsh-theme
+source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
 
 # ------------------------------- ZSH PLUGINS ---------------------------------
 # ZSH Syntax Highlighting
