@@ -62,6 +62,8 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		from theme
 		
 		from autosuggestion	
+		
+		from zsh-syntax-highlighting
 
 
 </details>
