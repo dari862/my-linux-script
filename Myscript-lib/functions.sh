@@ -699,21 +699,21 @@ for i in ${!remove_this_Array[*]}; do
 done
 
 declare -a StringArray=(subversion xterm)
-apt_purge_with_error "${StringArray[@]}"
+apt_purge_with_error2info "${StringArray[@]}"
 
 declare -a StringArray=(
 sassc
 libsass1
 libxml2-utils
 )
-apt_purge_with_error "${StringArray[@]}"
+apt_purge_with_error2info "${StringArray[@]}"
 
 if [ "$DISTRO" != "Pop" ]
 then
 declare -a StringArray=(
 make
 )
-apt_purge_with_error "${StringArray[@]}"
+apt_purge_with_error2info "${StringArray[@]}"
 fi
 
 if [ "$DISTRO" != "Pop" ] && [ -z "$(command -v networkmanager_dmenu)" ]
@@ -721,7 +721,7 @@ then
 declare -a StringArray=(
 libglib2.0-dev-bin
 )
-apt_purge_with_error "${StringArray[@]}"
+apt_purge_with_error2info "${StringArray[@]}"
 fi
 
 sudo apt-get autoremove -y
