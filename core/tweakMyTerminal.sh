@@ -25,67 +25,37 @@ cp -r $temp_folder_for_shell_config/* $temp_folder_for_skel_tweakterminalfolder
 mv ~/.bash_logout $temp_folder_for_skel_tweakterminalfolder/bash_logout &> /dev/null || touch $temp_folder_for_skel_tweakterminalfolder/bash_logout
 echo 'source $BASHDOTDIR/bash_logout' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
 
-local autojump_sh_location="/usr/share/autojump/autojump.sh"
-
-local autojump_2_source="if [ -f /usr/share/autojump/autojump.sh ]; then 
+local autojump_2_source='if [ -f /usr/share/autojump/autojump.sh ]; then 
   . /usr/share/autojump/autojump.sh 
 else 
-  echo \"autojump.sh at ( /usr/share/autojump/autojump.sh ) does not exist.\" 
-fi"
+  echo "autojump.sh at ( /usr/share/autojump/autojump.sh ) does not exist." 
+fi'
 
+# Bash
 show_m "adding autojump and thefuck  to $bashrcfilename"
-cat <<EOF_bashrc >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
+mkdir -p $temp_folder_for_skel_tweakterminalfolder/bplugins
+echo "$autojump_2_source" > $temp_folder_for_skel_tweakterminalfolder/bplugins/autojump.plugin.bash
+echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/bplugins/thefuck.plugin.bash
+echo 'source <(kitty + complete setup bash)' > $temp_folder_for_skel_tweakterminalfolder/bplugins/kitty_auto_complete.plugin.bash
 
-#############
-# autojump 
-#############
-$autojump_2_source
-
-#############
-# thefuck 
-#############
-eval \$(thefuck --alias f)
-
-#############
-# Completion for kitty 
-#############
-source <(kitty + complete setup bash)
-
-EOF_bashrc
-
-mkdir -p $temp_folder_for_skel_tweakterminalfolder/antigen
+# ZSH
 show_m "adding autojump , thefuck and antigen to $zshrcfilename"
-cat <<EOF_zshrc >> $temp_folder_for_skel_tweakterminalfolder/$zshrcfilename
-
-#############
-# autojump 
-#############
-$autojump_2_source
-
-#############
-# thefuck 
-#############
-eval \$(thefuck --alias f)
-
-###################### 
-# antigen
-###################### 
+mkdir -p $temp_folder_for_skel_tweakterminalfolder/antigen
+mkdir -p $temp_folder_for_skel_tweakterminalfolder/zplugins
+echo "$autojump_2_source" > $temp_folder_for_skel_tweakterminalfolder/zplugins/autojump.plugin.zsh
+echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/zplugins/thefuck.plugin.zsh
+echo 'kitty + complete setup zsh | source /dev/stdin' > $temp_folder_for_skel_tweakterminalfolder/zplugins/kitty_auto_complete.plugin.zsh
+local antigen_2_source='
 # change default antigen folder
-export ADOTDIR="\$zshdotfiles/antigen"
+export ADOTDIR="$zshdotfiles/antigen"
 # sourcing antigen
 source /usr/share/zsh-antigen/antigen.zsh
 # sourcing my antigen stuff
-source "\$zshdotfiles/antigen-plugins.zsh"
+source "$zshdotfiles/antigen-plugins.zsh"
 # Tell Antigen that you are done.
 antigen apply
-
-#############
-# Completion for kitty 
-#############
-kitty + complete setup zsh | source /dev/stdin 
-
-EOF_zshrc
-
+'
+echo "$antigen_2_source" > $temp_folder_for_skel_tweakterminalfolder/zplugins/antigen.plugin.zsh
 cat <<EOF > $temp_folder_for_skel_tweakterminalfolder/antigen-plugins.zsh
 EOF
 
