@@ -4,15 +4,16 @@ ZSH_THEME="headline"
 
 # ------------------------------- ZSH PLUGINS ---------------------------------
 
-zplugins=(zsh-syntax-highlighting
-zsh-autosuggestions
+zplugins=(zsh-syntax-highlighting zsh-autosuggestions autojump)
+
+zplugins=(you-should-use $zplugins)
+
+zplugins=($zplugins
 command-not-found
-autojump
 thefuck
 kitty_auto_complete
 antigen
 auto-notify
-you-should-use
 zsh-history-substring-search
 )
 
