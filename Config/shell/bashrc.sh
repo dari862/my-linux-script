@@ -2,8 +2,19 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# -------------------------------   Prompt  -----------------------------------
 BASH_THEME="amazing"
 
+# ----------------------------   BASH  PLUGINS ---------------------------------
+zplugins=(zsh-syntax-highlighting
+zsh-autosuggestions
+command-not-found
+autojump
+thefuck
+kitty_auto_complete
+)
+
+# ------------------------------------------------------------------------------
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -64,12 +75,7 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# -------------------------------   Prompt    ---------------------------------
-
-source $BASHDOTDIR/bashthemes/${BASH_THEME}.bash-prompt-theme
-
 # ---------------------------------  source  ----------------------------------
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -81,5 +87,19 @@ if [ -f $BASHDOTDIR/aliases ]; then
 fi
 source $BASHDOTDIR/misc
 source $BASHDOTDIR/functions
+
+# -------------------------------   Prompt    ---------------------------------
+source $BASHDOTDIR/bashthemes/${BASH_THEME}.bash-prompt-theme
+
+# ------------------------------- BASH PLUGINS Applyer --------------------------
+# Add all defined plugins to fpath. This must be done
+# before running compinit.
+for bashplugin ($bashplugins); do
+	if builtin test -f $BASHDOTDIR/bplugins/${bashplugin}.plugin.bash; then
+  		source $BASHDOTDIR/bashplugin/${bashplugin}.plugin.bash
+  	else
+    		echo "plugin '$zplugin' not found"
+  	fi
+done
 
 # ------------------------------------------------------------------------------
