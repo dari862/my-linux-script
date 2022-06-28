@@ -115,7 +115,6 @@ fi
 
 # bash var
 export BASHDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/myshell"
-export BASH_THEME="amazing"
 
 # Set environment path
 export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin:/usr/games:/usr/local/games
