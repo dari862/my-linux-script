@@ -6,7 +6,12 @@ ZSH_THEME="headline"
 
 zplugins=(zsh-syntax-highlighting
 zsh-autosuggestions
-command-not-found)
+command-not-found
+autojump
+thefuck
+kitty_auto_complete
+antigen
+)
 
 # -----------------------------------------------------------------------------
 
@@ -104,15 +109,6 @@ esac
 source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
 
 # ------------------------------- ZSH PLUGINS Applyer --------------------------
-# ZSH Syntax Highlighting
-source /usr/share/zsh-syntax-highlighting/
-
-# ZSH Autosuggestions
-source /usr/share/zsh-autosuggestions/
-
-# command-not-found
-source $zshdotfiles/zplugins/.plugin.zsh
-
 # Add all defined plugins to fpath. This must be done
 # before running compinit.
 for zplugin ($zplugins); do
