@@ -1,3 +1,9 @@
+# ---------------------------------  Theme  -----------------------------------
+
+ZSH_THEME="headline"
+
+# -----------------------------------------------------------------------------
+
 # If ZSH is not defined, use the current script's directory.
 [[ -z "$zshdotfiles" ]] && export zshdotfiles="${${(%):-%x}:a:h}"
 
