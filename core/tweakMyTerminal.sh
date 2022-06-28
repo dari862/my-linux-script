@@ -11,7 +11,6 @@ echo "source \$zshdotfiles/$zshrcfilename" >> $temp_folder_for_skel_tweaktermina
 cat << 'eof' > $foldertempfornow/profile_extra
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/myshell"
 export zshdotfiles="${XDG_CONFIG_HOME:-$HOME/.config}/myshell"
-export ZSH_THEME="headline"
 eof
 
 cat $foldertempfornow/profile_extra >> $temp_folder_for_skel_tweakterminalfolder/profile
