@@ -50,14 +50,14 @@ fi
 
 show_m "creating temp skel dotfile"
 mkdir -p $temp_folder_for_oldskel_file_shell_folder
+mkdir -p $temp_folder_for_skel_shell_folder/bash
+mkdir -p $temp_folder_for_skel_shell_folder/zsh
 
 mkdir -p $temp_folder_for_skel_config/wget
 echo 'hsts-file=~/.cache/wget-hsts' > $temp_folder_for_skel_config/wget/wgetrc
 
 cp /etc/skel/.bashrc $temp_folder_for_skel_shell_folder/$bashrcfilename
 cat /etc/skel/.profile > $temp_folder_for_oldskel_file_shell_folder/profile
-
-mkdir -p $temp_folder_for_skel_shell_folder/bash
 
 echo "source \$BASHDOTDIR/$bashrcfilename" > $temp_folder_for_skel_shell_folder/bash/bashrc
 
@@ -124,8 +124,8 @@ eof
 
 cat /etc/skel/.profile >> $temp_folder_for_skel_shell_folder/bash/profile || cat /etc/skel-old/.profile >> $temp_folder_for_skel_shell_folder/bash/profile
 
-cp $temp_folder_for_skel_shell_folder/profile $temp_folder_for_skel_shell_folder/zsh/zprofile
-
+cp $temp_folder_for_skel_shell_folder/bash/profile $temp_folder_for_skel_shell_folder/zsh/zprofile
+echo '' >> $temp_folder_for_skel_shell_folder/zsh/zshrc
 ln -sr $temp_folder_for_skel_shell_folder/zsh/zshrc $temp_folder_for_skel_shell_folder/zsh/.zshrc
 
 cat << 'eof' > $temp_folder_for_skel_shell_folder/xsessionrc
