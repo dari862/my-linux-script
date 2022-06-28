@@ -886,7 +886,10 @@ show_m "download zsh plugins "
 mkdir -p $temp_folder_for_shell_config/zplugins
 declare -a StringArray=(
 https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/zplugins/zsh-autosuggestions_and_zsh-syntax-highlighting.zsh
-$outsidemyrepo_ommand_not_found_plugin_zsh
+$outsidemyrepo_command_not_found_plugin_zsh
+$outsidemyrepo_auto_notify
+$outsidemyrepo_you_should_use
+$outsidemyrepo_zsh_history_substring_search
 )
 for i in ${!StringArray[*]}; do
   newwget -P $temp_folder_for_shell_config/zplugins ${StringArray[$i]} ;
