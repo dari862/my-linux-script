@@ -877,7 +877,7 @@ fi
 
 show_m "download zsh and bash themes. "
 
-mkdir -p $temp_folder_for_shell_config/zthemes
+mkdir -p $temp_folder_for_shell_config/zsh/zthemes
 declare -a StringArray=(
 https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/zthemes/amazing.zsh-theme
 $outsidemyrepo_headline_zsh_theme
@@ -887,7 +887,7 @@ for i in ${!StringArray[*]}; do
 newwget -P $temp_folder_for_shell_config/zsh/zthemes ${StringArray[$i]} ;
 done
 
-mkdir -p $temp_folder_for_shell_config/bashthemes
+mkdir -p $temp_folder_for_shell_config/bash/bashthemes
 declare -a StringArray=(
 https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/bashthemes/amazing.bash-prompt-theme
 )
@@ -896,7 +896,7 @@ newwget -P $temp_folder_for_shell_config/bash/bashthemes ${StringArray[$i]} ;
 done
 
 show_m "download zsh plugins "
-mkdir -p $temp_folder_for_shell_config/zplugins
+mkdir -p $temp_folder_for_shell_config/zsh/zplugins
 declare -a StringArray=(
 https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/zplugins/zsh-autosuggestions_and_zsh-syntax-highlighting.zsh
 $outsidemyrepo_command_not_found_plugin_zsh
