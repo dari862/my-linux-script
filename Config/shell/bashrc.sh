@@ -80,11 +80,11 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f $BASHDOTDIR/aliases ]; then
-    . $BASHDOTDIR/aliases
+    . $My_shell_DIR/aliases
     . $BASHDOTDIR/bash_only_aliases
 fi
-source $BASHDOTDIR/misc
-source $BASHDOTDIR/functions
+source $My_shell_DIR/misc
+source $My_shell_DIR/functions
 
 # -------------------------------   Prompt    ---------------------------------
 

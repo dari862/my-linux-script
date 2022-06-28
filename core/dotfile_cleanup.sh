@@ -57,9 +57,11 @@ echo 'hsts-file=~/.cache/wget-hsts' > $temp_folder_for_skel_config/wget/wgetrc
 cp /etc/skel/.bashrc $temp_folder_for_skel_shell_folder/$bashrcfilename
 cat /etc/skel/.profile > $temp_folder_for_oldskel_file_shell_folder/profile
 
-echo "source \$BASHDOTDIR/$bashrcfilename" > $temp_folder_for_skel_shell_folder/bashrc
+mkdir -p $temp_folder_for_skel_shell_folder/bash
 
-cat << 'eof' > $temp_folder_for_skel_shell_folder/profile
+echo "source \$BASHDOTDIR/$bashrcfilename" > $temp_folder_for_skel_shell_folder/bash/bashrc
+
+cat << 'eof' > $temp_folder_for_skel_shell_folder/bash/profile
 # profile file. Runs on login. Environmental variables are set here.
 
 # set tty colours.
@@ -120,11 +122,11 @@ export BASHDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/myshell"
 export PATH=$PATH:/usr/local/sbin:/usr/sbin:/sbin:/usr/games:/usr/local/games
 eof
 
-cat /etc/skel/.profile >> $temp_folder_for_skel_shell_folder/profile || cat /etc/skel-old/.profile >> $temp_folder_for_skel_shell_folder/profile
+cat /etc/skel/.profile >> $temp_folder_for_skel_shell_folder/bash/profile || cat /etc/skel-old/.profile >> $temp_folder_for_skel_shell_folder/bash/profile
 
-cp $temp_folder_for_skel_shell_folder/profile $temp_folder_for_skel_shell_folder/zprofile
+cp $temp_folder_for_skel_shell_folder/profile $temp_folder_for_skel_shell_folder/zsh/zprofile
 
-ln -sr $temp_folder_for_skel_shell_folder/zshrc $temp_folder_for_skel_shell_folder/.zshrc
+ln -sr $temp_folder_for_skel_shell_folder/zsh/zshrc $temp_folder_for_skel_shell_folder/zsh/.zshrc
 
 cat << 'eof' > $temp_folder_for_skel_shell_folder/xsessionrc
 #! /bin/sh
@@ -132,11 +134,11 @@ cat << 'eof' > $temp_folder_for_skel_shell_folder/xsessionrc
 case $SHELL in
   */bash)
     [ -z "$BASH" ] && exec $SHELL $0 "$@"
-	. ${HOME}/.config/myshell/profile
+	. ${HOME}/\${myshell_skel_folder}/bash/profile
     ;;
 */zsh)
     [ -z "$ZSH_NAME" ] && exec $SHELL $0 "$@"
-    . ${HOME}/.config/myshell/zprofile
+    . ${HOME}/\${myshell_skel_folder}/zsh/zprofile
     ;;
   */csh|*/tcsh)
     # [t]cshrc is always sourced automatically.
@@ -147,14 +149,14 @@ case $SHELL in
     rm -f $xsess_tmp
     ;;
   */fish)
-    . ${HOME}/.config/myshell/profile
+    . ${HOME}/\${myshell_skel_folder}/bash/profile
     xsess_tmp=`mktemp /tmp/xsess-env-XXXXXX`
     $SHELL --login -c "/bin/sh -c 'export -p' > $xsess_tmp"
     . $xsess_tmp
     rm -f $xsess_tmp
     ;;
   *) # Plain sh, ksh, and anything we do not know.
-    . ${HOME}/.config/myshell/profile
+    . ${HOME}/\${myshell_skel_folder}/bash/profile
     ;;
 esac
 
@@ -166,7 +168,7 @@ rm -rdf ~/.profile
 rm -rdf ~/.zshrc
 rm -rdf ~/.zprofile
 rm -rdf ~/.xsessionrc
-ln -sr ~/$myshell_skel_folder/bashrc ~/.bashrc
+ln -sr ~/${myshell_skel_folder}/bash/bashrc ~/.bashrc
 xdg-user-dirs-update # this command will create ~/.config/user-dirs.dirs and ~/.config/user-dirs.locale
 EOF
 
@@ -186,13 +188,13 @@ fi
 EOF
 
 cat << EOF >> $temp_folder_for_skel_/.profile
-ln -sr ~/$myshell_skel_folder/profile ~/.profile
+ln -sr ~/${myshell_skel_folder}/bash/profile ~/.profile
 source ~/.profile
 EOF
 cat $foldertempfornow/extra_z_profile >> $temp_folder_for_skel_/.profile
 
 cat << EOF >> $temp_folder_for_skel_/.zprofile
-ln -sr ~/$myshell_skel_folder/zprofile ~/.zprofile
+ln -sr ~/${myshell_skel_folder}/zsh/zprofile ~/.zprofile
 source ~/.zprofile
 EOF
 cat $foldertempfornow/extra_z_profile >> $temp_folder_for_skel_/.zprofile

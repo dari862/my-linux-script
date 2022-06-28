@@ -836,30 +836,43 @@ install_terminal_apps_now
 install_zsh_now
 
 show_m "download new zsh and bash configure "
-mkdir -p $temp_folder_for_shell_config
+mkdir -p $temp_folder_for_shell_config/bash
+mkdir -p $temp_folder_for_shell_config/zsh
 
 declare -a Remote_source_Array=(
 Flat-Remix.json.tilix
 aliases
-bashrc.sh
 functions
 misc
-zshrc.sh
-zsh_only_aliases
-bash_only_aliases
 )
 for i in ${!Remote_source_Array[*]}; do
   newwget -P $temp_folder_for_shell_config https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/${Remote_source_Array[$i]} ;
 done
 
+declare -a Remote_source_Array=(
+bashrc.sh
+bash_only_aliases
+)
+for i in ${!Remote_source_Array[*]}; do
+  newwget -P $temp_folder_for_shell_config/bash https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/${Remote_source_Array[$i]} ;
+done
+
+declare -a Remote_source_Array=(
+zshrc.sh
+zsh_only_aliases
+)
+for i in ${!Remote_source_Array[*]}; do
+  newwget -P $temp_folder_for_shell_config/zsh https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/${Remote_source_Array[$i]} ;
+done
+
 if [ "$bashrcfilename" != "bashrc.sh" ]
 then
-mv $temp_folder_for_shell_config/bashrc.sh $temp_folder_for_shell_config/$bashrcfilename
+mv $temp_folder_for_shell_config/bash/bashrc.sh $temp_folder_for_shell_config/bash/$bashrcfilename
 fi
 
 if [ "$zshrcfilename" != "zshrc.sh" ]
 then
-mv $temp_folder_for_shell_config/zshrc.sh $temp_folder_for_shell_config/$zshrcfilename
+mv $temp_folder_for_shell_config/zsh/zshrc.sh $temp_folder_for_shell_config/zsh/$zshrcfilename
 fi
 
 show_m "download zsh and bash themes. "
@@ -871,7 +884,7 @@ $outsidemyrepo_headline_zsh_theme
 https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/zthemes/SSH.zsh-theme
 )
 for i in ${!StringArray[*]}; do
-newwget -P $temp_folder_for_shell_config/zthemes ${StringArray[$i]} ;
+newwget -P $temp_folder_for_shell_config/zsh/zthemes ${StringArray[$i]} ;
 done
 
 mkdir -p $temp_folder_for_shell_config/bashthemes
@@ -879,7 +892,7 @@ declare -a StringArray=(
 https://raw.githubusercontent.com/dari862/my-linux-script/main/Config/shell/bashthemes/amazing.bash-prompt-theme
 )
 for i in ${!StringArray[*]}; do
-newwget -P $temp_folder_for_shell_config/bashthemes ${StringArray[$i]} ;
+newwget -P $temp_folder_for_shell_config/bash/bashthemes ${StringArray[$i]} ;
 done
 
 show_m "download zsh plugins "
@@ -892,7 +905,7 @@ $outsidemyrepo_you_should_use
 $outsidemyrepo_zsh_history_substring_search
 )
 for i in ${!StringArray[*]}; do
-  newwget -P $temp_folder_for_shell_config/zplugins ${StringArray[$i]} ;
+  newwget -P $temp_folder_for_shell_config/zsh/zplugins ${StringArray[$i]} ;
 done
 
 mkdir -p $temp_folder_for_shell_config/z

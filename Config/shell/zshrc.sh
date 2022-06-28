@@ -20,7 +20,7 @@ zsh-history-substring-search
 # -----------------------------------------------------------------------------
 
 # If ZSH is not defined, use the current script's directory.
-[[ -z "$zshdotfiles" ]] && export zshdotfiles="${${(%):-%x}:a:h}"
+[[ -z "$ZDOTDIR" ]] && export ZDOTDIR="${${(%):-%x}:a:h}"
 
 # Configure color-scheme
 COLOR_SCHEME=dark # dark/light
@@ -110,18 +110,18 @@ xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
 esac
 
 # -------------------------------  theme Applyer -------------------------------
-if builtin test -f $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme; then
-	source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
+if builtin test -f $ZDOTDIR/zthemes/${ZSH_THEME}.zsh-theme; then
+	source $ZDOTDIR/zthemes/${ZSH_THEME}.zsh-theme
 else
 	echo "plugin '$zplugin' not found"
 fi
 
 # ------------------------------- ZSH PLUGINS Applyer --------------------------
 for zplugin ($zplugins); do
-	if builtin test -f $zshdotfiles/zplugins/${zplugin}.plugin.zsh; then
-  		source $zshdotfiles/zplugins/${zplugin}.plugin.zsh
-	elif builtin test -f $zshdotfiles/zplugins/${zplugin}.zsh; then
-  		source $zshdotfiles/zplugins/${zplugin}.zsh
+	if builtin test -f $ZDOTDIR/zplugins/${zplugin}.plugin.zsh; then
+  		source $ZDOTDIR/zplugins/${zplugin}.plugin.zsh
+	elif builtin test -f $ZDOTDIR/zplugins/${zplugin}.zsh; then
+  		source $ZDOTDIR/zplugins/${zplugin}.zsh
   	elif builtin test -f /usr/share/${zplugin}/${zplugin}.zsh; then
   		source /usr/share/${zplugin}/${zplugin}.zsh
   	else
@@ -130,9 +130,9 @@ for zplugin ($zplugins); do
 done
 
 # ------------------------------- source files ---------------------------------
-source $zshdotfiles/aliases
-source $zshdotfiles/zsh_only_aliases
-source $zshdotfiles/misc
-source $zshdotfiles/functions
+source $ZDOTDIR/zsh_only_aliases
+source $My_shell_DIR/aliases
+source $My_shell_DIR/misc
+source $My_shell_DIR/functions
 
 # ------------------------------------------------------------------------------
