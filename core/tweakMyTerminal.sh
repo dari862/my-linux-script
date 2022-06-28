@@ -25,17 +25,20 @@ mv ~/.bash_logout $temp_folder_for_skel_tweakterminalfolder/bash_logout &> /dev/
 echo 'source $BASHDOTDIR/bash_logout' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
 
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/z
-local source_z_='if [ -f ~/$myshell_skel_folder/z/z.sh ]; then 
+
+cat > $temp_folder_for_skel_tweakterminalfolder/z.plugin.bash <<- EOM
+if [ -f ~/$myshell_skel_folder/z/z.sh ]; then 
   
   source ~/$myshell_skel_folder/z.sh
 else 
-  echo "z.sh does not exist wget it from (https://raw.githubusercontent.com/rupa/z/master/z.sh)." 
-fi'
+  echo 'z.sh does not exist wget it from (https://raw.githubusercontent.com/rupa/z/master/z.sh).'
+fi
+EOM
 
 # Bash
 show_m "adding z and thefuck  to $bashrcfilename"
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/bplugins
-echo "$source_z_" > $temp_folder_for_skel_tweakterminalfolder/bplugins/z.plugin.bash
+mv $temp_folder_for_skel_tweakterminalfolder/z.plugin.bash $temp_folder_for_skel_tweakterminalfolder/bplugins/z.plugin.bash
 echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/bplugins/thefuck.plugin.bash
 echo 'source <(kitty + complete setup bash)' > $temp_folder_for_skel_tweakterminalfolder/bplugins/kitty_auto_complete.plugin.bash
 
@@ -43,7 +46,7 @@ echo 'source <(kitty + complete setup bash)' > $temp_folder_for_skel_tweaktermin
 show_m "adding z , thefuck and antigen to $zshrcfilename"
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/antigen
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/zplugins
-echo "$source_z_" > $temp_folder_for_skel_tweakterminalfolder/zplugins/z.plugin.zsh
+cp $temp_folder_for_skel_tweakterminalfolder/bplugins/z.plugin.bash $temp_folder_for_skel_tweakterminalfolder/zplugins/z.plugin.zsh
 echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/zplugins/thefuck.plugin.zsh
 echo 'kitty + complete setup zsh | source /dev/stdin' > $temp_folder_for_skel_tweakterminalfolder/zplugins/kitty_auto_complete.plugin.zsh
 local antigen_2_source='
