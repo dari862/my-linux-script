@@ -1115,8 +1115,8 @@ alias nowconky-start="conky-session&"
 alias nowconky-removeautostart="rm ~/.config/autostart/conky-session.desktop" 
 alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/conky-session.desktop ~/.config/autostart/"
 EOF
-echo 'source $zshdotfiles/conky-aliases' >> $temp_folder_for_skel_tweakterminalfolder/$zshrcfilename
-echo 'source $BASHDOTDIR/conky-aliases' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
+echo 'source $zshdotfiles/conky-aliases' >> $temp_folder_for_skel_tweakterminalfolder/zsh/$zshrcfilename
+echo 'source $BASHDOTDIR/conky-aliases' >> $temp_folder_for_skel_tweakterminalfolder/bash/$bashrcfilename
 elif [ -d "$temp_folder_for_skel_shell_folder" ] || [ -d "/etc/skel/$myshell_skel_folder" ]
 then 
 cat <<EOF >> $temp_folder_for_skel_shell_folder/conky-aliases
@@ -1124,8 +1124,8 @@ alias nowconky-start="conky-session &"
 alias nowconky-removeautostart="rm ~/.config/autostart/conky-session.desktop" 
 alias nowconky-autostart="cp ~/$conky_Stuff_folder_now/conky/conky-session.desktop ~/.config/autostart/"
 EOF
-echo 'source $zshdotfiles/conky-aliases' >> $temp_folder_for_skel_shell_folder/$zshrcfilename
-echo 'source $BASHDOTDIR/conky-aliases' >> $temp_folder_for_skel_shell_folder/$bashrcfilename
+echo 'source $zshdotfiles/conky-aliases' >> $temp_folder_for_skel_shell_folder/zsh/$zshrcfilename
+echo 'source $BASHDOTDIR/conky-aliases' >> $temp_folder_for_skel_shell_folder/bash/$bashrcfilename
 else
 cat <<EOF >> $temp_folder_for_skel_/.bash_aliases
 alias nowconky-start="conky-session &"
