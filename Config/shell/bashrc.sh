@@ -87,7 +87,12 @@ source $BASHDOTDIR/misc
 source $BASHDOTDIR/functions
 
 # -------------------------------   Prompt    ---------------------------------
-source $BASHDOTDIR/bashthemes/${BASH_THEME}.bash-prompt-theme
+
+if builtin test -f $BASHDOTDIR/bashthemes/${BASH_THEME}.bash-prompt-theme; then
+  		source $BASHDOTDIR/bashthemes/${BASH_THEME}.bash-prompt-theme
+else
+    		echo "BASH theme '$BASH_THEME' not found"
+fi
 
 # ------------------------------- BASH PLUGINS Applyer --------------------------
 # Add all defined plugins to fpath. This must be done
