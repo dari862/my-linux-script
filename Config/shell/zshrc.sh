@@ -3,7 +3,6 @@
 ZSH_THEME="headline"
 
 # ------------------------------- ZSH PLUGINS ---------------------------------
-
 zplugins=(zsh-syntax-highlighting zsh-autosuggestions autojump)
 
 zplugins=(you-should-use $zplugins)
@@ -110,12 +109,12 @@ xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
 esac
 
 # -------------------------------  theme Applyer -------------------------------
-
 if builtin test -f $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme; then
 	source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
 else
 	echo "plugin '$zplugin' not found"
 fi
+
 # ------------------------------- ZSH PLUGINS Applyer --------------------------
 for zplugin ($zplugins); do
 	if builtin test -f $zshdotfiles/zplugins/${zplugin}.plugin.zsh; then
