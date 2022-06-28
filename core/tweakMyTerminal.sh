@@ -6,7 +6,10 @@ show_m "configure ~/.zprofile "
 mkdir -p $temp_folder_for_skel_tweakterminalfolder && cd "$_"
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/$oldshell_folder_name
 
-echo "source \$zshdotfiles/$zshrcfilename" >> $temp_folder_for_skel_tweakterminalfolder/zsh/zshrc
+mkdir -p $temp_folder_for_skel_tweakterminalfolder/zsh
+mkdir -p $temp_folder_for_skel_tweakterminalfolder/bash
+
+echo "source \$ZDOTDIR/$zshrcfilename" >> $temp_folder_for_skel_tweakterminalfolder/zsh/zshrc
 
 cat << 'eof' > $foldertempfornow/profile_extra
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/myshell/zsh"
