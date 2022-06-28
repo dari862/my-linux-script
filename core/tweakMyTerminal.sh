@@ -71,12 +71,12 @@ install -d ~/.config/tilix/schemes
 mv $temp_folder_for_skel_tweakterminalfolder/Flat-Remix.json.tilix ~/.config/tilix/schemes/Flat-Remix.json
 
 # add komorebi
-test_if_bashrc_contain_komorebi=$(grep $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename -e "komorebi-aliases")
+test_if_bashrc_contain_komorebi=$(grep $temp_folder_for_skel_tweakterminalfolder/bash/$bashrcfilename -e "komorebi-aliases")
 if [ -f /System/Applications/komorebi ] && [ ! -z "$test_if_bashrc_contain_komorebi" ]
 then
-  echo '' >> $temp_folder_for_skel_tweakterminalfolder/$zshrcfilename
+  echo '' >> $temp_folder_for_skel_tweakterminalfolder/zsh/$zshrcfilename
   echo 'source ~/.config/komorebi/komorebi-aliases' >> $temp_folder_for_skel_tweakterminalfolder/zsh/$zshrcfilename
-  echo '' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
+  echo '' >> $temp_folder_for_skel_tweakterminalfolder/bash/$bashrcfilename
   echo 'source ~/.config/komorebi/komorebi-aliases' >> $temp_folder_for_skel_tweakterminalfolder/bash/$bashrcfilename
 fi
 
