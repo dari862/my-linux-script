@@ -895,6 +895,9 @@ for i in ${!StringArray[*]}; do
   newwget -P $temp_folder_for_shell_config/zplugins ${StringArray[$i]} ;
 done
 
+mkdir -p $temp_folder_for_shell_config/z
+newwget -P $temp_folder_for_shell_config/z $outsidemyrepo_z_sh
+
 }
 
 
