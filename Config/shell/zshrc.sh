@@ -110,11 +110,13 @@ xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
 esac
 
 # -------------------------------  theme Applyer -------------------------------
-source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
 
+if builtin test -f $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme; then
+	source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
+else
+	echo "plugin '$zplugin' not found"
+fi
 # ------------------------------- ZSH PLUGINS Applyer --------------------------
-# Add all defined plugins to fpath. This must be done
-# before running compinit.
 for zplugin ($zplugins); do
 	if builtin test -f $zshdotfiles/zplugins/${zplugin}.plugin.zsh; then
   		source $zshdotfiles/zplugins/${zplugin}.plugin.zsh
