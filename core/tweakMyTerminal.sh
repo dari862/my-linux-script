@@ -24,24 +24,26 @@ cp -r $temp_folder_for_shell_config/* $temp_folder_for_skel_tweakterminalfolder
 mv ~/.bash_logout $temp_folder_for_skel_tweakterminalfolder/bash_logout &> /dev/null || touch $temp_folder_for_skel_tweakterminalfolder/bash_logout
 echo 'source $BASHDOTDIR/bash_logout' >> $temp_folder_for_skel_tweakterminalfolder/$bashrcfilename
 
-local autojump_2_source='if [ -f /usr/share/autojump/autojump.sh ]; then 
-  . /usr/share/autojump/autojump.sh 
+mkdir -p $temp_folder_for_skel_tweakterminalfolder/z
+local source_z_='if [ -f ~/$myshell_skel_folder/z/z.sh ]; then 
+  
+  source ~/$myshell_skel_folder/z.sh
 else 
-  echo "autojump.sh at ( /usr/share/autojump/autojump.sh ) does not exist." 
+  echo "z.sh does not exist wget it from (https://raw.githubusercontent.com/rupa/z/master/z.sh)." 
 fi'
 
 # Bash
-show_m "adding autojump and thefuck  to $bashrcfilename"
+show_m "adding z and thefuck  to $bashrcfilename"
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/bplugins
-echo "$autojump_2_source" > $temp_folder_for_skel_tweakterminalfolder/bplugins/autojump.plugin.bash
+echo "$source_z_" > $temp_folder_for_skel_tweakterminalfolder/bplugins/z.plugin.bash
 echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/bplugins/thefuck.plugin.bash
 echo 'source <(kitty + complete setup bash)' > $temp_folder_for_skel_tweakterminalfolder/bplugins/kitty_auto_complete.plugin.bash
 
 # ZSH
-show_m "adding autojump , thefuck and antigen to $zshrcfilename"
+show_m "adding z , thefuck and antigen to $zshrcfilename"
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/antigen
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/zplugins
-echo "$autojump_2_source" > $temp_folder_for_skel_tweakterminalfolder/zplugins/autojump.plugin.zsh
+echo "$source_z_" > $temp_folder_for_skel_tweakterminalfolder/zplugins/z.plugin.zsh
 echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/zplugins/thefuck.plugin.zsh
 echo 'kitty + complete setup zsh | source /dev/stdin' > $temp_folder_for_skel_tweakterminalfolder/zplugins/kitty_auto_complete.plugin.zsh
 local antigen_2_source='
