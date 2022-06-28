@@ -11,6 +11,9 @@ autojump
 thefuck
 kitty_auto_complete
 antigen
+auto-notify
+you-should-use
+zsh-history-substring-search
 )
 
 # -----------------------------------------------------------------------------
