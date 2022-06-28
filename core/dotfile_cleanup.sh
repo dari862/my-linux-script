@@ -9,8 +9,8 @@ fi
 show_mf "dotfile clean-up"
 show_m "Home dotfile clean-up"
 
-if [ -f "$soursepimpmyterminalfolder_fullpath/$bashrcfilename" ]; then
-	cat "$soursepimpmyterminalfolder_fullpath/$bashrcfilename" > "$HOME/bashrc_111111111"
+if [ -f "$soursepimpmyterminalfolder_fullpath/bash/$bashrcfilename" ]; then
+	cat "$soursepimpmyterminalfolder_fullpath/bash/$bashrcfilename" > "$HOME/bashrc_111111111"
 	rm "$HOME/.bashrc"
 	mv "$HOME/bashrc_111111111" "$HOME/.bashrc"
 	mkdir -p $backup_old_config_file_to_
@@ -56,7 +56,7 @@ mkdir -p $temp_folder_for_skel_shell_folder/zsh
 mkdir -p $temp_folder_for_skel_config/wget
 echo 'hsts-file=~/.cache/wget-hsts' > $temp_folder_for_skel_config/wget/wgetrc
 
-cp /etc/skel/.bashrc $temp_folder_for_skel_shell_folder/$bashrcfilename
+cp /etc/skel/.bashrc $temp_folder_for_skel_shell_folder/bash/$bashrcfilename
 cat /etc/skel/.profile > $temp_folder_for_oldskel_file_shell_folder/profile
 
 echo "source \$BASHDOTDIR/$bashrcfilename" > $temp_folder_for_skel_shell_folder/bash/bashrc
