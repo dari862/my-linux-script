@@ -27,11 +27,12 @@ echo 'source $BASHDOTDIR/bash_logout' >> $temp_folder_for_skel_tweakterminalfold
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/z
 
 cat > $temp_folder_for_skel_tweakterminalfolder/z.plugin.bash <<- EOM
-if [ -f ~/$myshell_skel_folder/z/z.sh ]; then 
-  
-  source ~/$myshell_skel_folder/z.sh
+if [ -f ~/$myshell_skel_folder/z/${outsidemyrepo_z_sh##*/} ]; then 
+  _Z_CMD=j
+  _Z_DATA=~/$myshell_skel_folder/z/z_database
+  source ~/$myshell_skel_folder/z/${outsidemyrepo_z_sh##*/}
 else 
-  echo 'z.sh does not exist wget it from (https://raw.githubusercontent.com/rupa/z/master/z.sh).'
+  echo "${outsidemyrepo_z_sh##*/} does not exist wget it from (${outsidemyrepo_z_sh})."
 fi
 EOM
 
