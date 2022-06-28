@@ -2,6 +2,12 @@
 
 ZSH_THEME="headline"
 
+# ------------------------------- ZSH PLUGINS ---------------------------------
+
+zplugins=(zsh-syntax-highlighting.zsh
+zsh-autosuggestions.zsh
+command-not-found)
+
 # -----------------------------------------------------------------------------
 
 # If ZSH is not defined, use the current script's directory.
@@ -94,18 +100,30 @@ xterm*|rxvt*|Eterm|aterm|kterm|gnome*|alacritty)
 	;;
 esac
 
-# -------------------------------   Prompt    ---------------------------------
+# -------------------------------  theme Applyer -------------------------------
 source $zshdotfiles/zthemes/${ZSH_THEME}.zsh-theme
 
-# ------------------------------- ZSH PLUGINS ---------------------------------
+# ------------------------------- ZSH PLUGINS Applyer --------------------------
 # ZSH Syntax Highlighting
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/
 
 # ZSH Autosuggestions
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/
 
 # command-not-found
-source $zshdotfiles/zplugins/command-not-found.plugin.zsh
+source $zshdotfiles/zplugins/.plugin.zsh
+
+# Add all defined plugins to fpath. This must be done
+# before running compinit.
+for zplugin ($zplugins); do
+	if builtin test -f $zshdotfiles/zplugins/${zplugin}.plugin.zsh; then
+  		source $zshdotfiles/zplugins/${zplugin}.plugin.zsh
+  	elif builtin test -f /usr/share/${zplugin}/${zplugin}.zsh; then
+  		source /usr/share/${zplugin}/${zplugin}.zsh
+  	else
+    		echo "plugin '$zplugin' not found"
+  	fi
+done
 
 # ------------------------------- source files ---------------------------------
 source $zshdotfiles/aliases
