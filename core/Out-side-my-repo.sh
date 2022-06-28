@@ -8,7 +8,7 @@ outsidemyrepo_command_not_found_plugin_zsh="https://raw.githubusercontent.com/oh
 outsidemyrepo_auto_notify="https://raw.githubusercontent.com/MichaelAquilina/zsh-auto-notify/master/auto-notify.plugin.zsh"
 outsidemyrepo_you_should_use="https://raw.githubusercontent.com/MichaelAquilina/zsh-you-should-use/master/you-should-use.plugin.zsh"
 outsidemyrepo_zsh_history_substring_search="https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh"
-
+outsidemyrepo_z_sh="https://raw.githubusercontent.com/rupa/z/master/z.sh"
 # gnome
 # themes
 outsidemyrepo_Nordic_darker_v40="https://github.com/EliverLara/Nordic/releases/download/v2.1.0/Nordic-darker-v40.tar.xz"
