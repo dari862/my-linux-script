@@ -897,7 +897,7 @@ done
 
 mkdir -p $temp_folder_for_shell_config/z
 newwget -P $temp_folder_for_shell_config/z $outsidemyrepo_z_sh
-
+chmod +x $temp_folder_for_shell_config/z/${outsidemyrepo_z_sh##*/}
 }
 
 
