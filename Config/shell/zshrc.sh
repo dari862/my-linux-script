@@ -3,11 +3,12 @@
 ZSH_THEME="headline"
 
 # ------------------------------- ZSH PLUGINS ---------------------------------
-zplugins=(zsh-syntax-highlighting zsh-autosuggestions autojump)
+zplugins=(zsh-syntax-highlighting zsh-autosuggestions)
 
 zplugins=(you-should-use $zplugins)
 
 zplugins=($zplugins
+z
 command-not-found
 thefuck
 kitty_auto_complete
