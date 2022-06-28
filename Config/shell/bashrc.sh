@@ -7,7 +7,7 @@ BASH_THEME="amazing"
 
 # ----------------------------   BASH  PLUGINS ---------------------------------
 bashplugins=(
-autojump
+z
 thefuck
 kitty_auto_complete
 )
