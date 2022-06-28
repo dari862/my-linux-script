@@ -5,6 +5,9 @@ outsidemyrepo_komorebi="https://github.com/cheesecakeufo/komorebi/releases/downl
 outsidemyrepo_antigen="https://raw.githubusercontent.com/zsh-users/antigen/develop/bin/antigen.zsh"
 outsidemyrepo_headline_zsh_theme="https://raw.githubusercontent.com/Moarram/headline/main/headline.zsh-theme"
 outsidemyrepo_ommand_not_found_plugin_zsh="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/command-not-found/command-not-found.plugin.zsh"
+outsidemyrepo_auto_notify="https://raw.githubusercontent.com/MichaelAquilina/zsh-auto-notify/master/auto-notify.plugin.zsh"
+outsidemyrepo_you_should_use="https://raw.githubusercontent.com/MichaelAquilina/zsh-you-should-use/master/you-should-use.plugin.zsh"
+outsidemyrepo_zsh_history_substring_search="https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh"
 
 # gnome
 # themes
