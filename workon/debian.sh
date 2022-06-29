@@ -1,26 +1,12 @@
-function pakage_list(){
 libx11-dev
 libxft-dev
 libxinerama-dev
 libcanberra-gtk-module
 libgtk2.0-dev
 libgtk-3-dev
-gnome-devel
-nnn
-tig
-mesa-utils-extra
-blueman
-ninja-build
-gettext
 libtool-bin
-jq
-ack
-npm
 xutils-dev
 libx11-xcb-dev
 libxcb-res0-dev
 libnotify-dev
 libxss-dev
-keepassxc
-tcpdump
-}
