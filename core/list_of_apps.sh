@@ -132,6 +132,8 @@ declare -ag Network_Array_now_=(
 "wireless-tools" "list of apps to be installed" OFF
 "libnss-mdns" "list of apps to be installed" OFF
 "wireguard-tools" "list of apps to be installed" OFF
+"blueman" "list of apps to be installed" OFF
+"tcpdump" "list of apps to be installed" OFF
 )
 
 if command -v apt >/dev/null
@@ -194,6 +196,9 @@ declare -ag office_Array_now_=(
 declare -ag dev_Array_now_=(
 "build-essential" "list of apps to be installed" ON
 "cmake" "list of apps to be installed" ON
+"npm" "list of apps to be installed" off
+"jq" "list of apps to be installed" off
+"ninja-build" "list of apps to be installed" off
 "android_stuff" "install android" off
 "GO" "install GO" off
 "MVSC" "Microsoft Visual Studio Code" off
@@ -222,6 +227,8 @@ declare -ag extra_Array_now_=(
 "gimp" "list of apps to be installed" ON
 "recordmydesktop" "list of apps to be installed" ON
 "${komorebi_choose_content[@]}"
+"gettext" "list of apps to be installed" ON
+"keepassxc" "list of apps to be installed" ON
 )
 
 if [ "$is_flatpak_installed" != "true" ]
