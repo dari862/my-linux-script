@@ -25,7 +25,6 @@ declare -ag base_Array_now_=(
 "exfat-utils" "list of apps to be installed" ON
 )
 
-
 if [ "$(lspci | grep -i nvidia | grep VGA -c)" != "0" ] ; then
 	Nvidia_choose_content=("Nvidia" "list of apps to be installed" ON)
 fi
