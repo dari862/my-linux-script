@@ -1,21 +1,13 @@
 #!/usr/bin/env bash
 
-'
-workonthis
-### Git env
-	git config --global user.email "Felixs.Developer@tutanota.com"
-	git config --global user.name "FancyChaos"
-	
-	# Generate new ssh keys without a password
-	ssh-keygen -q -f $HOME/.ssh/git_key -t ecdsa -b 521 -N ""
-'
-
 USAGE="
 lazygit [OPTION]... <msg>
 
     GIT but lazy
 
     Options:
+    	-c, --gconfig   	create git config file
+    	-k, --sshkey        	generate sshkey
         --fixup <commit>        runs 'git commit --fixup <commit> [...]'
         --amend                 runs 'git commit --amend --no-edit [...]' modify the most recent commit
         -f, --force             runs 'git push --force-with-lease [...]' --force-with-lease is a safer option than --force it will not overwrite any work on the remote branch if there is another comment.
@@ -26,6 +18,30 @@ lazygit [OPTION]... <msg>
 	-rl, --recentlog	show recent logs
         -h, --help              show this help text
 "
+
+function _gconfig {
+	echo -e " Going to create git config."
+	echo -e " Enter user email (leave blank to abort)."
+	echo -n -e " [msg]: "
+	read msg
+	echo -e " Enter user name (leave blank to abort)."
+	echo -n -e " [msg]: "
+	read msg_2
+
+	if [ -z "$msg" ] || [ -z "$msg_2" ]
+		then
+			echo -e " Aborted."
+			echo
+			exit
+	fi
+	git config --global user.email "$msg"
+	git config --global user.name "$msg_2"
+}
+
+function _sshkey {
+	echo  "Generating new ssh keys without a password"
+	ssh-keygen -q -f $HOME/.ssh/git_key -t ecdsa -b 521 -N ""
+}
 
 function _glog {
 	setterm -linewrap off 2> /dev/null
@@ -124,6 +140,14 @@ function _send {
 		key="$1"
 
 		case $key in
+			-k|--sshkey)
+				_sshkey
+				EXIT=true
+				;;
+			-c|--gconfig)
+				_gconfig
+				EXIT=true
+				;;	
 			-st|--status)
 				_status
 				EXIT=true
