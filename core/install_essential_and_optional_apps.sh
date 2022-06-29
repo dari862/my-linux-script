@@ -479,6 +479,18 @@ then
 fi
 
 ####################################
+# codecs_list_Array
+####################################
+
+if [ ! -z "${codecs_list_Array[*]}" ]
+then
+	show_m "install codecs app "
+	echo_2_helper_list "# codecs app"
+	apt_install_noninteractive_whith_error2info "${codecs_list_Array[@]}"
+	echo_2_helper_list ""
+fi
+
+####################################
 # internet_Array
 ####################################
 
@@ -1177,6 +1189,17 @@ fi
 echo_2_helper_list ""
 }
 
+####################################
+# emulators_Array
+####################################
+
+if [ ! -z "${emulators_Array[*]}" ]
+then
+	show_m "install emulators app "
+	echo_2_helper_list "# emulators app"
+	apt_install_noninteractive_whith_error2info "${emulators_Array[@]}"
+	echo_2_helper_list ""
+fi
 
 ############################################################################################################################################
 ############################################################################################################################################
