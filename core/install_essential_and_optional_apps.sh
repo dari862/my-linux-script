@@ -728,6 +728,12 @@ then
     		wget -O mongodb-database-tools.deb https://fastdl.mongodb.org/tools/db/mongodb-database-tools-debian92-x86_64-100.5.2.deb
     		dpkg -i ./mongodb-database-tools.deb
 	fi
+	
+	if [[ " ${dev_Array[*]} " =~ " Mongo_Shell " ]]; then
+			delete="android_stuff"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			dev_Array=(${dev_Array[@]} adb android-libandroidfw android-libcutils android-libdex android-libetc1 android-libext4-utils android-tools-fsutils f2fs-tools fastboot go-mtpfs heimdall-flash libmtp9 mmc-utils)
+	fi
 	apt_install_noninteractive_whith_error2info "${dev_Array[@]}"
 	echo_2_helper_list ""
 fi
