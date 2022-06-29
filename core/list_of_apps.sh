@@ -275,12 +275,11 @@ declare -ag gaming_Array_now_=(
 "The_xanmod_kernel" "install The xanmod kernel." ON
 )
 
-
 # emulators
 declare -ag emulators_Array_now_=(
-"GameHub" "list of apps to be installed." ON
-"GameHub" "list of apps to be installed." ON
-"GameHub" "list of apps to be installed." ON
-"GameHub" "list of apps to be installed." ON
-"GameHub" "list of apps to be installed." ON
+"desmume" "list of apps to be installed." ON
+"dolphin-emu" "list of apps to be installed." ON
+"higan" "list of apps to be installed." ON
+"mupen64plus" "list of apps to be installed." ON
+"visualboyadvance-gtk" "list of apps to be installed." ON
 )
