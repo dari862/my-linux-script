@@ -9,7 +9,7 @@
 ## Created to work better with job schedulers (cron)
 
 #[ "$(id -u)" -eq 0 ] && { echo "never run script as root. existing.."; exit 1 ;}
-corn_dwall_extra_arg=()
+cron_dwall_extra_arg=()
 SETTER=""
 folder_2_convert_2_Dywall=""
 WALSCHEME='dark'
@@ -544,7 +544,7 @@ uninstall_now_() {
 #
 create_crontab_now() {
 	crontab -r 2>/dev/null
-	(crontab -l 2>/dev/null; echo "0 * * * * env PATH=$PATH DISPLAY=$DISPLAY DESKTOP_SESSION=$DESKTOP_SESSION DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\" ${dwall_installation_Dir} ${corn_dwall_extra_arg[@]}") | crontab -
+	(crontab -l 2>/dev/null; echo "0 * * * * env PATH=$PATH DISPLAY=$DISPLAY DESKTOP_SESSION=$DESKTOP_SESSION DBUS_SESSION_BUS_ADDRESS=\"$DBUS_SESSION_BUS_ADDRESS\" ${dwall_installation_Dir} ${cron_dwall_extra_arg[@]}") | crontab -
 }
 
 ## Main
@@ -570,7 +570,7 @@ main() {
 }
 
 ## Get Options
-while getopts ":dolachiugs:pb:c:z:" opt; do
+while getopts ":dolachiugys:pb:c:z:" opt; do
 	case ${opt} in
 		d)
 			DEBUG=true
@@ -607,6 +607,11 @@ while getopts ":dolachiugs:pb:c:z:" opt; do
 			;;
 		u)
 			Set_uninstall_=true
+			;;
+		y)
+			crontab -r 
+			echo -e ${GREEN}"[*] Crontab task remove Successfully."${WHITE}
+			exit_o
 			;;
 		z)
 			create_crontab_=true
@@ -652,19 +657,19 @@ fi
 
 if [[ "$create_crontab_" == true ]]; then
 	if [[ "$STYLE" ]]; then
-		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-s $STYLE")
+		cron_dwall_extra_arg=(${cron_dwall_extra_arg[@]} "-s $STYLE")
 	fi
 	
 	if [[ "$WALBACKEND" ]]; then
-		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-b $WALBACKEND")
+		cron_dwall_extra_arg=(${cron_dwall_extra_arg[@]} "-b $WALBACKEND")
 	elif [[ "$PYWAL" == true ]]; then
-		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-p")
+		cron_dwall_extra_arg=(${cron_dwall_extra_arg[@]} "-p")
 	fi
 	
 	if [[ "$WALSCHEME" == "light" ]]; then
-		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-l")
+		cron_dwall_extra_arg=(${cron_dwall_extra_arg[@]} "-l")
 	elif [[ "$WALSCHEME" == "auto" ]]; then
-		corn_dwall_extra_arg=(${corn_dwall_extra_arg[@]} "-a")
+		cron_dwall_extra_arg=(${cron_dwall_extra_arg[@]} "-a")
 	fi		
 	exit_1
 fi
