@@ -87,6 +87,15 @@ declare -ag media_Array_now_=(
 "mplayer" "list of apps to be installed" OFF
 )
 
+#codecs_list
+declare -ag codecs_list_Array_now_=(
+"gstreamer1.0-libav" "list of apps to be installed" OFF
+"gstreamer1.0-plugins-bad" "list of apps to be installed" OFF
+"gstreamer1.0-plugins-base" "list of apps to be installed" OFF
+"gstreamer1.0-plugins-good" "list of apps to be installed" OFF
+"gstreamer1.0-plugins-ugly" "list of apps to be installed" OFF
+)
+
 #internet
 declare -ag internet_Array_now_=(
 "wget" "list of apps to be installed" ON
@@ -113,12 +122,17 @@ declare -ag Network_Array_now_=(
 "openssh-server" "list of apps to be installed" OFF
 "nmap" "list of apps to be installed" OFF
 "gvfs-backends" "list of apps to be installed" OFF
+"gvfs" "list of apps to be installed" OFF
 "network-manager-openvpn" "list of apps to be installed" OFF
 "samba" "list of apps to be installed" OFF
 "samba-common" "list of apps to be installed" OFF
 "samba-libs" "list of apps to be installed" OFF
 "cifs-utils" "list of apps to be installed" OFF
 "wireshark" "list of apps to be installed" OFF
+"iwd" "list of apps to be installed" OFF
+"wireless-tools" "list of apps to be installed" OFF
+"libnss-mdns" "list of apps to be installed" OFF
+"wireguard-tools" "list of apps to be installed" OFF
 )
 
 if command -v apt >/dev/null
@@ -177,6 +191,7 @@ declare -ag office_Array_now_=(
 declare -ag dev_Array_now_=(
 "build-essential" "list of apps to be installed" ON
 "cmake" "list of apps to be installed" ON
+"android_stuff" "install android" off
 "GO" "install GO" off
 "MVSC" "Microsoft Visual Studio Code" off
 "IntelliJ" "IntelliJ IDEA Ultimate" off
@@ -251,4 +266,14 @@ declare -ag gaming_Array_now_=(
 "stella" "install Wine." ON
 "${lowlatency_kernal_install[@]}"
 "The_xanmod_kernel" "install The xanmod kernel." ON
+)
+
+
+# emulators
+declare -ag emulators_Array_now_=(
+"GameHub" "list of apps to be installed." ON
+"GameHub" "list of apps to be installed." ON
+"GameHub" "list of apps to be installed." ON
+"GameHub" "list of apps to be installed." ON
+"GameHub" "list of apps to be installed." ON
 )
