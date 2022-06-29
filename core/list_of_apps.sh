@@ -185,6 +185,10 @@ declare -ag office_Array_now_=(
 "cups-pdf" "list of apps to be installed" OFF
 "libreoffice" "list of apps to be installed" OFF
 "ttf-mscorefonts-installer" "list of apps to be installed" OFF
+"hplip" "list of apps to be installed" OFF
+"hplip-gui" "list of apps to be installed" OFF
+"gutenprint" "list of apps to be installed" OFF
+"printer-driver-gutenprint" "list of apps to be installed" OFF
 )
 
 #dev
