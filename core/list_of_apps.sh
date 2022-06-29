@@ -219,6 +219,9 @@ declare -ag extra_Array_now_=(
 "VirtualBox" "list of apps to be installed" ON
 "atom" "list of apps to be installed" ON
 "sublime-text" "list of apps to be installed" ON
+"calibre" "list of apps to be installed" ON
+"gimp" "list of apps to be installed" ON
+"recordmydesktop" "list of apps to be installed" ON
 "${komorebi_choose_content[@]}"
 )
 
