@@ -206,7 +206,7 @@ declare -ag dev_Array_now_=(
 "GoLand" "install GoLand" off
 "Postman" "install Postman" off
 "Docker" "install Docker" off
-"Maven" "install Maven" off
+"maven" "install Maven" off
 "PyCharm" "install PyCharm (snap)" off
 "Robo_3T" "install Robo 3T(snap)" off
 "DataGrid" "install DataGrid" off

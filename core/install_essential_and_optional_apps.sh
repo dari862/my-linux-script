@@ -73,9 +73,7 @@ if [[ " ${extra_Array[*]} " =~ " VirtualBox " ]]; then
 		VirtualBox_Array=(linux-headers-$(uname -r) dkms virtualbox)
 		extra_Array=(${extra_Array[@]} ${VirtualBox_Array[@]})
 	fi
-	curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox_2016.gpg
-	curl -fsSL https://www.virtualbox.org/download/oracle_vbox.asc|sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/oracle_vbox.gpg
-	echo "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+	add_new_source_to_apt_now mod "gpg" repolink "deb [arch=amd64] http://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" reponame "virtualbox" keylink "https://www.virtualbox.org/download/oracle_vbox_2016.asc && https://www.virtualbox.org/download/oracle_vbox.asc" keyname "oracle_vbox.gpg"
 	aptupdate
 	
 fi
@@ -101,6 +99,30 @@ if [[ " ${Network_Array[*]} " =~ " openssh-server " ]]; then
 	  -e "/^#PermitRootLogin prohibit-password$/a PermitRootLogin no" \
 	  -e "/^#Port 22$/i Protocol 2" \
 	  /etc/ssh/sshd_config
+fi
+
+
+if [[ " ${dev_Array[*]} " =~ " MVSC " ]]; then
+	delete="MVSC"
+	dev_Array=( "${dev_Array[@]/$delete}" )
+	add_new_source_to_apt_now mod "gpg" repolink "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" reponame "vscode" keylink "https://packages.microsoft.com/keys/microsoft.asc" keyname "packages.microsoft.gpg"
+	aptupdate
+	dev_Array=(${dev_Array[@]} "code")
+fi
+if [[ " ${dev_Array[*]} " =~ " Docker " ]]; then
+	delete="Docker"
+	dev_Array=( "${dev_Array[@]/$delete}" )
+	show_m "installing Dropbox"
+	if [ "$DISTRO" == "Debian" ]; then
+		DISTRO_NAME_4_Dropbox="debian"
+	elif [ "$DISTRO" == "Fedora" ]; then
+		DISTRO_NAME_4_Dropbox="fedora"
+	else
+		DISTRO_NAME_4_Dropbox="Ubuntu"
+	fi
+	add_new_source_to_apt_now mod "gpg" repolink "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/${DISTRO_NAME_4_Dropbox} $(lsb_release -cs) stable" reponame "docker" keylink "https://download.docker.com/linux/debian/gpg" keyname "docker-archive-keyring.gpg"
+    aptupdate
+    dev_Array=(${dev_Array[@]} docker-ce docker-ce-cli containerd.io)
 fi
 
 }
@@ -597,113 +619,57 @@ then
 	if [[ " ${dev_Array[*]} " =~ " GO " ]]; then
 			delete="GO"
 			dev_Array=( "${dev_Array[@]/$delete}" )
-			wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
-    		rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
-    		echo ' ' >> $HOME/.profile
-    		echo '# GoLang configuration ' >> $HOME/.profile
-    		echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/.profile
-    		echo 'export GOPATH="$HOME/go"' >> $HOME/.profile
-    		source $HOME/.profile
-			fi
-	if [[ " ${dev_Array[*]} " =~ " MVSC " ]]; then
-			delete="MVSC"
-			dev_Array=( "${dev_Array[@]/$delete}" )
-			wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    		install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
-    		sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-    		rm -f packages.microsoft.gpg
-    		apt install apt-transport-https
-    		apt update
-    		apt install code # or code-insiders
+			go_latest_ver="$(curl https://go.dev/dl/ 2>/dev/null | grep .linux-amd64.tar.gz | awk '{print $4}' | grep -o -P '(?<=">go).*(?=.linux-amd64.tar.gz)' | head -1)"
+			wget https://go.dev/dl/go${go_latest_ver}.linux-amd64.tar.gz
+    		rm -rf /usr/local/go && tar -C /usr/local -xzf go${go_latest_ver}.linux-amd64.tar.gz
+    		local profile_name_=""
+    		if [ -f "$HOME/.profile" ]; then
+    		profile_name_=".profile"
+    		elif [ -f "$HOME/.zprofile" ]; then
+    		profile_name_=".zprofile"
+    		fi
+    		
+    		echo ' ' >> $HOME/$profile_name_
+    		echo '# GoLang configuration ' >> $HOME/$profile_name_
+    		echo 'export PATH="$PATH:/usr/local/go/bin"' >> $HOME/$profile_name_
+    		echo 'export GOPATH="$HOME/go"' >> $HOME/$profile_name_
+    		source $HOME/$profile_name_
 	fi
+
 	if [[ " ${dev_Array[*]} " =~ " IntelliJ " ]]; then
 			delete="IntelliJ"
 			dev_Array=( "${dev_Array[@]/$delete}" )
-			wget https://download.jetbrains.com/idea/ideaIU-2021.3.3.tar.gz
-    		tar -xzf ideaIU-2021.3.3.tar.gz -C /opt
-    		ln -s /opt/idea-IU-213.7172.25/bin/idea.sh /usr/local/bin/idea
-    		echo "[Desktop Entry]" > /tmp/jetbrains-idea.desktop
-          	echo "Version=1.0" >> /tmp/jetbrains-idea.desktop
-          	echo "Type=Application" >> /tmp/jetbrains-idea.desktop
-          	echo "Name=IntelliJ IDEA Ultimate Edition" >> /tmp/jetbrains-idea.desktop
-          	echo "Icon=/opt/idea-IU-213.7172.25/bin/idea.svg" >> /tmp/jetbrains-idea.desktop
-          	echo "Exec=/opt/idea-IU-213.7172.25/bin/idea.sh %f" >> /tmp/jetbrains-idea.desktop
-          	echo "Comment=Capable and Ergonomic IDE for JVM" >> /tmp/jetbrains-idea.desktop
-          	echo "Categories=Development;IDE;" >> /tmp/jetbrains-idea.desktop
-          	echo "Terminal=false" >> /tmp/jetbrains-idea.desktop
-          	echo "StartupWMClass=jetbrains-idea" >> /tmp/jetbrains-idea.desktop
-          	echo "StartupNotify=true" >> /tmp/jetbrains-idea.desktop
-          	sudo mv /tmp/jetbrains-idea.desktop /usr/share/applications/jetbrains-idea.desktop
+			install_Snap_now
+			show_m "installing intellij-idea-community"
+			if [ -f /snap/bin/intellij-idea-community ]; then
+				echo 'intellij-idea-community is already installed.'
+			else
+				snap install intellij-idea-community --classic &>> $debug_log || show_em "failed to install discord"
+			fi
 	fi
 	if [[ " ${dev_Array[*]} " =~ " GoLand " ]]; then
 			delete="GoLand"
 			dev_Array=( "${dev_Array[@]/$delete}" )
-			wget https://download.jetbrains.com/go/goland-2022.1.2.tar.gz
-    		tar -xzf goland-2022.1.2.tar.gz -C /opt
-    		ln -s /opt/GoLand-2022.1.2/bin/goland.sh /usr/local/bin/goland
-    		echo "[Desktop Entry]" >> /tmp/jetbrains-goland.desktop
-          	echo "Version=1.0" >> /tmp/jetbrains-goland.desktop
-          	echo "Type=Application" >> /tmp/jetbrains-goland.desktop
-          	echo "Name=GoLand" >> /tmp/jetbrains-goland.desktop
-          	echo "Icon=/opt/GoLand-2022.1.2/bin/goland.png" >> /tmp/jetbrains-goland.desktop
-          	echo "Exec=/opt/GoLand-2022.1.2/bin/goland.sh" >> /tmp/jetbrains-goland.desktop
-          	echo "Terminal=false" >> /tmp/jetbrains-goland.desktop
-          	echo "Categories=Development;IDE;" >> /tmp/jetbrains-goland.desktop
-          	sudo mv /tmp/jetbrains-goland.desktop /usr/share/applications/jetbrains-goland.desktop
+			install_Snap_now
+			show_m "installing GoLand"
+			if [ -f /snap/bin/goland ]; then
+				echo 'GoLand is already installed.'
+			else
+				snap install goland --classic &>> $debug_log || show_em "failed to install discord"
+			fi
 	fi
 	if [[ " ${dev_Array[*]} " =~ " Postman " ]]; then
 			delete="Postman"
 			dev_Array=( "${dev_Array[@]/$delete}" )
-			curl https://dl.pstmn.io/download/latest/linux64 --output postman-9.20.3-linux-x64.tar.gz
-    		tar -xzf postman-9.20.3-linux-x64.tar.gz -C /opt
-    		echo "[Desktop Entry]" >> /tmp/Postman.desktop
-          	echo "Encoding=UTF-8" >> /tmp/Postman.desktop
-          	echo "Name=Postman" >> /tmp/Postman.desktop
-          	echo "Exec=/opt/Postman/app/Postman %U" >> /tmp/Postman.desktop
-          	echo "Icon=/opt/Postman/app/resources/app/assets/icon.png" >> /tmp/Postman.desktop
-          	echo "Terminal=false" >> /tmp/Postman.desktop
-          	echo "Type=Application" >> /tmp/Postman.desktop
-          	echo "Categories=Development;" >> /tmp/Postman.desktop
-          	sudo mv /tmp/Postman.desktop /usr/share/applications/Postman.desktop
+			install_Snap_now
+			show_m "installing Postman"
+			if [ -f /snap/bin/postman ]; then
+				echo 'Postman is already installed.'
+			else
+				snap install postman &>> $debug_log || show_em "failed to install discord"
+			fi
 	fi
-	if [[ " ${dev_Array[*]} " =~ " Docker " ]]; then
-			delete="Docker"
-			dev_Array=( "${dev_Array[@]/$delete}" )
-			apt-get install \
-        	apt-transport-https \
-        	ca-certificates \
-        	curl \
-        	gnupg \
-        	lsb-release
-    		curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-    		echo \
-      		"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-      		$(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-    		apt-get update
-    		apt-get -y install docker-ce docker-ce-cli containerd.io
-    		docker run hello-world
-		
-    		groupadd docker
-    		usermod -aG docker $USER
-    		curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    		chmod +x /usr/local/bin/docker-compose
-    		ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-    		docker-compose --version
-	fi
-	if [[ " ${dev_Array[*]} " =~ " Maven " ]]; then
-			delete="Maven"
-			dev_Array=( "${dev_Array[@]/$delete}" )
-			wget https://dlcdn.apache.org/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-    		tar -zxvf apache-maven-3.6.3-bin.tar.gz
-    		mkdir /opt/maven
-    		mv ./apache-maven-3.6.3 /opt/maven/
-    		echo ' ' >> $HOME/.profile
-    		echo '# Maven Configuration' >> $HOME/.profile
-    		echo 'JAVA_HOME=/usr/lib/jvm/default-java' >> $HOME/.profile
-    		echo 'export M2_HOME=/opt/maven/apache-maven-3.6.3' >> $HOME/.profile
-    		echo 'export PATH=${M2_HOME}/bin:${PATH}' >> $HOME/.profile
-    		source $HOME/.profile
-	fi
+	
 	if [[ " ${dev_Array[*]} " =~ " PyCharm " ]]; then
 			delete="PyCharm"
 			dev_Array=( "${dev_Array[@]/$delete}" )
@@ -730,11 +696,13 @@ then
 	if [[ " ${dev_Array[*]} " =~ " DataGrid " ]]; then
 			delete="DataGrid"
 			dev_Array=( "${dev_Array[@]/$delete}" )
-			wget https://download.jetbrains.com/datagrip/datagrip-2022.1.5.tar.gz
-    		tar -xzf datagrip-2022.1.5.tar.gz -C /opt
-    		ln -s /opt/DataGrip-2022.1.5/bin/datagrip.sh /usr/local/bin/datagrip
-    		cd /opt/DataGrip-2022.1.5/bin
-    		./datagrip.sh
+			install_Snap_now
+			show_m "installing DataGrid"
+			if [ -f /snap/bin/datagrip ]; then
+				echo 'DataGrid is already installed.'
+			else
+				snap install datagrip --classic &>> $debug_log || show_em "failed to install discord"
+			fi
 	fi
 	if [[ " ${dev_Array[*]} " =~ " Mongo_Shell " ]]; then
 			delete="Mongo_Shell"
@@ -746,12 +714,21 @@ then
     		dpkg -i ./mongodb-database-tools.deb
 	fi
 	
-	if [[ " ${dev_Array[*]} " =~ " Mongo_Shell " ]]; then
+	if [[ " ${dev_Array[*]} " =~ " android_stuff " ]]; then
 			delete="android_stuff"
 			dev_Array=( "${dev_Array[@]/$delete}" )
 			dev_Array=(${dev_Array[@]} adb android-libandroidfw android-libcutils android-libdex android-libetc1 android-libext4-utils android-tools-fsutils f2fs-tools fastboot go-mtpfs heimdall-flash libmtp9 mmc-utils)
 	fi
 	apt_install_noninteractive_whith_error2info "${dev_Array[@]}"
+	if command -v docker &>/dev/null; then
+		docker run hello-world
+    	sudo groupadd docker
+    	sudo usermod -aG docker $USER
+    	sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    	sudo chmod +x /usr/local/bin/docker-compose
+    	sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    	docker-compose --version
+	fi
 	echo_2_helper_list ""
 fi
 

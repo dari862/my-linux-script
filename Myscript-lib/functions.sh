@@ -152,7 +152,19 @@ if [ "$2" == "gpg" ]; then
 	if [ -z "$(command -v gpg)" ]; then
 		install_gpg_now
 	fi
-	curl -fsSL "$8" | gpg --dearmor > /tmp/${10} && sudo chown root:root /tmp/${10} && sudo mv /tmp/${10} /etc/apt/trusted.gpg.d
+	
+	local gpg_keylink="$4"
+	if [[ "$gpg_keylink" == *"&&"* ]]; then
+    	local link1=${gpg_keylink%&&*}
+    	local limk2=${gpg_keylink#*&&}
+    	echo $link1 | sudo tee /etc/apt/sources.list.d/$6.list &>> $debug_log || show_im "failed to install $link1"
+    	keyname1=${link1##*/}
+    	curl -fsSL "$link1" | gpg --dearmor > /tmp/${keyname1} && sudo chown root:root /tmp/${keyname1} && sudo mv /tmp/${keyname1} /etc/apt/trusted.gpg.d || show_im "failed to install $link1"
+    	keyname2=${limk2##*/}
+    	curl -fsSL "$limk2" | gpg --dearmor > /tmp/${keyname2} && sudo chown root:root /tmp/${keyname2} && sudo mv /tmp/${keyname2} /etc/apt/trusted.gpg.d || show_im "failed to install $limk2"
+	else
+		curl -fsSL "$8" | gpg --dearmor > /tmp/${10} && sudo chown root:root /tmp/${10} && sudo mv /tmp/${10} /etc/apt/trusted.gpg.d
+	fi
 fi
 
 if [ "$2" == "asc" ]; then

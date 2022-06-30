@@ -13,7 +13,6 @@ echo "source \$ZDOTDIR/$zshrcfilename" >> $temp_folder_for_skel_tweakterminalfol
 
 cat << 'eof' > $foldertempfornow/profile_extra
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/myshell/zsh"
-export My_shell_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/myshell"
 eof
 
 cat $foldertempfornow/profile_extra >> $temp_folder_for_skel_tweakterminalfolder/bash/profile
@@ -44,7 +43,11 @@ show_m "adding z and thefuck  to $bashrcfilename"
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/bash/bplugins
 mv $temp_folder_for_skel_tweakterminalfolder/z.plugin.bash $temp_folder_for_skel_tweakterminalfolder/bash/bplugins/z.plugin.bash
 echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/bash/bplugins/thefuck.plugin.bash
-echo 'source <(kitty + complete setup bash)' > $temp_folder_for_skel_tweakterminalfolder/bash/bplugins/kitty_auto_complete.plugin.bash
+cat > $temp_folder_for_skel_tweakterminalfolder/bash/bplugins/kitty_auto_complete.plugin.bash <<- EOF
+if command -v kitty >/dev/null; then 
+  source <(kitty + complete setup bash)
+fi
+EOF
 
 # ZSH
 show_m "adding z , thefuck and antigen to $zshrcfilename"
@@ -52,7 +55,11 @@ mkdir -p $temp_folder_for_skel_tweakterminalfolder/zsh/antigen
 mkdir -p $temp_folder_for_skel_tweakterminalfolder/zsh/zplugins
 cp $temp_folder_for_skel_tweakterminalfolder/bash/bplugins/z.plugin.bash $temp_folder_for_skel_tweakterminalfolder/zsh/zplugins/z.plugin.zsh
 echo 'eval $(thefuck --alias f)' > $temp_folder_for_skel_tweakterminalfolder/zsh/zplugins/thefuck.plugin.zsh
-echo 'kitty + complete setup zsh | source /dev/stdin' > $temp_folder_for_skel_tweakterminalfolder/zsh/zplugins/kitty_auto_complete.plugin.zsh
+cat > $temp_folder_for_skel_tweakterminalfolder/zsh/zplugins/kitty_auto_complete.plugin.zsh <<- EOF
+if command -v kitty >/dev/null; then 
+	kitty + complete setup zsh | source /dev/stdin
+fi
+EOF
 local antigen_2_source='
 # change default antigen folder
 export ADOTDIR="$ZDOTDIR/antigen"
