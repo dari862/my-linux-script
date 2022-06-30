@@ -32,8 +32,6 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		number of installed appes : echo $(( $(dpkg-query -l | wc -l) - 5 ))
 		
 		common
-
-		fix kitty
 	
 		shortcut on bspwm & openbox
 
@@ -59,5 +57,7 @@ bash <(curl -s https://raw.githubusercontent.com/dari862/my-linux-script/main/de
 		
 		from zsh-syntax-highlighting
 
-
+		# terminal	
+	
+		fix kitty
 </details>
