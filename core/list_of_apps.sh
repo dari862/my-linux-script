@@ -136,7 +136,7 @@ declare -ag Network_Array_now_=(
 "tcpdump" "list of apps to be installed" OFF
 )
 
-if command -v apt >/dev/null
+if [ "$DISTRO" == "Debian" ]
 then
 	onion_repos_choose_content=("use_onion_repos" "use onion debian repo." OFF)
 fi

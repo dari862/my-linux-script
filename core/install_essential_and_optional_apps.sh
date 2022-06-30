@@ -29,9 +29,8 @@ fi
 
 if [[ " ${internet_Array[*]} " =~ " librewolf " ]]; then
 	show_m "adding librewolf browser repo"
-	echo "deb [arch=amd64] http://deb.librewolf.net $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/librewolf.list
-	sudo wget https://deb.librewolf.net/keyring.gpg -O /etc/apt/trusted.gpg.d/librewolf.gpg
-	sudo apt update
+	add_new_source_to_apt_now mod "gpg" repolink "deb [arch=amd64] http://deb.librewolf.net $(lsb_release -sc) main" reponame "librewolf" keylink "https://deb.librewolf.net/keyring.gpg" keyname "librewolf.gpg"
+	aptupdate
 fi
 
 if [[ " ${office_Array[*]} " =~ " ttf-mscorefonts-installer " ]]; then
@@ -259,8 +258,6 @@ fi
 # Tor_Network_Array functions
 ############################################################################################################################################
 
-
-
 install_tor_stuffs_(){
   show_m "installing tor stuffs"
   tor_stuff_=(apt-transport-tor onionshare tor torsocks)
@@ -295,7 +292,7 @@ use_onion_repos_for_apt(){
   sudo sed -i "s,https://deb.debian.org,tor+http://vwakviie2ienjx6t.onion,g" ${srclist}
   sudo sed -i "s,https://security.debian.org/,tor+http://sgvtcaew4bxjd7ln.onion/debian-security/,g" ${srclist}
 
-  sudo apt update
+  aptupdate
 }
 
 install_torbrowser_(){
@@ -512,11 +509,19 @@ then
 	fi
 	
 	if [[ " ${internet_Array[*]} " =~ " Dropbox " ]]; then
+		local DISTRO_NAME_4_Dropbox=""
 		delete="Dropbox"
 		internet_Array=( "${internet_Array[@]/$delete}" )
 		show_m "installing Dropbox"
+		if [ "$DISTRO" == "Debian" ]; then
+			DISTRO_NAME_4_Dropbox="debian"
+		elif [ "$DISTRO" == "Fedora" ]; then
+			DISTRO_NAME_4_Dropbox="fedora"
+		else
+			DISTRO_NAME_4_Dropbox="Ubuntu"
+		fi
 		DropBox_latest_ver="$(curl https://linux.dropbox.com/packages/ubuntu/ 2>/dev/null | grep -v nautilus | awk '{print $2}' | grep dropbox | grep -o -P '(?<=">dropbox_).*(?=_amd64.deb)' | tail -1)"
-		wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_${DropBox_latest_ver}_amd64.deb
+		wget -O dropbox.deb https://www.dropbox.com/download?dl=packages/${DISTRO_NAME_4_Dropbox}/dropbox_${DropBox_latest_ver}_amd64.deb
     		$sudoaptinstall ./dropbox.deb
 		echo_2_helper_list "Dropbox"
 	fi
@@ -600,10 +605,10 @@ then
     		echo 'export GOPATH="$HOME/go"' >> $HOME/.profile
     		source $HOME/.profile
 			fi
-			if [[ " ${dev_Array[*]} " =~ " MVSC " ]]; then
-					delete="MVSC"
-					dev_Array=( "${dev_Array[@]/$delete}" )
-					wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+	if [[ " ${dev_Array[*]} " =~ " MVSC " ]]; then
+			delete="MVSC"
+			dev_Array=( "${dev_Array[@]/$delete}" )
+			wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     		install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
     		sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
     		rm -f packages.microsoft.gpg
